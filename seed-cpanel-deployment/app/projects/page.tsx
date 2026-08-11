@@ -63,7 +63,13 @@ function ProjectModal({ proj, onClose }: { proj: Project; onClose: () => void })
 
         {/* Hero Gallery */}
         <div className="p-4 sm:p-6 pb-0">
-          <ProjectGallery images={images} title={proj.title} aspectRatio="aspect-[16/9]" />
+          <ProjectGallery
+            images={images}
+            title={proj.title}
+            aspectRatio="aspect-[16/9]"
+            objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
+            containImages={['/projects/mandarin-wasl-2.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
+          />
         </div>
 
         {/* Content */}
@@ -236,7 +242,14 @@ function ProjectsContent() {
                       src={proj.image}
                       alt={proj.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      style={
+                        proj.slug === 'saas-st-regis'
+                          ? { objectPosition: 'center 20%' }
+                          : proj.slug === 'uptown-mercer-house'
+                          ? { objectPosition: 'center 40%' }
+                          : undefined
+                      }
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>

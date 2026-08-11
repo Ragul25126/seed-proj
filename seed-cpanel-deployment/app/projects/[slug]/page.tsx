@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { portfolio, featuredProjects } from '@/lib/data';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { ProjectGallery } from '@/components/projects/ProjectGallery';
+import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
 
 // Combine all projects from portfolio and featuredProjects for lookup
 function getAllProjects() {
@@ -14,7 +16,7 @@ function getAllProjects() {
   });
   
   // Add featured projects if missing
-  featuredProjects.forEach((fp) => {
+  featuredProjects.forEach((fp: any) => {
     if (fp.slug && !map.has(fp.slug.toLowerCase())) {
       map.set(fp.slug.toLowerCase(), {
         title: fp.title,
@@ -29,6 +31,7 @@ function getAllProjects() {
         services: fp.scope || 'MEP Design & Supervision',
         area: fp.projectScale,
         image: fp.image,
+        images: fp.images,
         description: typeof fp.challenge === 'string' ? fp.challenge : 'Engineering design & supervision for complex multi-disciplinary development.',
       });
     }
@@ -125,6 +128,8 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
     proj.location && { label: 'LOCATION', value: proj.location.split('**')[0].trim() },
   ].filter(Boolean) as { label: string; value: string }[];
 
+  const images = proj.images && proj.images.length > 0 ? proj.images : [proj.image];
+
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19] pb-32">
       {/* HERO SECTION */}
@@ -175,19 +180,17 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
             </div>
           </Reveal>
 
-          {/* Featured Image */}
+          {/* Featured Image & Gallery */}
           <Reveal delay={0.15}>
-            <div className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden rounded-sm border border-white/10 shadow-2xl bg-[#0a1020]">
-              <Image
-                src={proj.image}
-                alt={proj.title}
-                fill
-                priority
-                className="object-cover"
-                sizes="100vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-60" />
-            </div>
+            <ProjectGallery
+              images={images}
+              title={proj.title}
+              aspectRatio="aspect-[16/9] md:aspect-[21/9]"
+              objectFit="cover"
+              containImages={['/projects/mandarin-wasl-tower.webp', '/projects/mandarin-wasl-2.jpg', '/projects/ellington-hq.png']}
+              containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
+              currentSlug={proj.slug}
+            />
           </Reveal>
         </div>
       </section>
@@ -241,6 +244,41 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
         </div>
       </section>
 
+      {/* VISUAL SHOWCASE GRID */}
+      {images.length > 1 && (
+        <section className="py-20 bg-[#0b0f19] border-b border-white/5">
+          <div className="container mx-auto px-6 lg:px-12">
+            <Reveal>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-2 block">
+                VISUAL SHOWCASE
+              </span>
+              <h2 className="font-serif text-3xl font-bold text-white mb-8">Project Renders & Architecture</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {images.map((img: string, idx: number) => (
+                  <div key={idx} className="relative aspect-[16/10] bg-[#0a1020] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
+                    <Image
+                      src={img}
+                      alt={`${proj.title} Render ${idx + 1}`}
+                      fill
+                      className={`${(proj.slug === 'saas-st-regis' || img === '/projects/mandarin-wasl-2.jpg' || img === '/projects/ellington-hq.png' || img.includes('uptown-mercer-house')) ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-700`}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex items-end">
+                      <div>
+                        <span className="text-gold text-[10px] font-mono tracking-widest uppercase block mb-1">
+                          IMAGE {idx + 1} OF {images.length}
+                        </span>
+                        <p className="text-white text-sm font-medium">{proj.title} — Architectural View</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* RELATED WORK */}
       {relatedProjects.length > 0 && (
         <section className="py-20 bg-[#0b0f19]">
@@ -265,30 +303,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
             <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedProjects.map((rp, idx) => (
                 <StaggerItem key={idx}>
-                  <Link href={`/projects/${rp.slug}`} className="group block bg-[#0f172a] border border-white/5 hover:border-gold/40 transition-all rounded-sm overflow-hidden h-full flex flex-col">
-                    <div className="relative aspect-[4/3] w-full bg-[#0a1020] overflow-hidden">
-                      <Image
-                        src={rp.image}
-                        alt={rp.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-6 flex-grow flex flex-col justify-between">
-                      <div>
-                        <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
-                          {rp.sector || rp.clientSector}
-                        </span>
-                        <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
-                          {rp.title}
-                        </h3>
-                        <p className="text-slate-400 text-[12px]">{rp.location.split('**')[0].trim()}</p>
-                      </div>
-                      <span className="text-gold text-[10px] font-bold tracking-[0.1em] uppercase mt-4 block">
-                        View Project →
-                      </span>
-                    </div>
-                  </Link>
+                  <SimilarProjectCard project={rp} />
                 </StaggerItem>
               ))}
             </Stagger>

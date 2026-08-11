@@ -31,7 +31,14 @@ export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
             src={activeImage}
             alt={`${project.title} render ${activeIdx + 1}`}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            style={
+              project.slug === 'saas-st-regis'
+                ? { objectPosition: 'center 20%' }
+                : project.slug === 'uptown-mercer-house'
+                ? { objectPosition: 'center 40%' }
+                : undefined
+            }
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </Link>

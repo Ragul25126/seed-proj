@@ -18,10 +18,10 @@ const CONTACT_CARDS = [
   },
   {
     title: 'Business Hours',
-    subtitle: 'Headquarters & Regional Offices',
+    subtitle: 'Headquarters',
     icon: '⏰',
     details: [
-      { label: 'Monday – Friday', value: '8:00 AM – 6:00 PM (GST)' },
+      { label: 'Monday – Friday', value: '8:00 AM – 6:00 PM' },
       { label: 'Saturday & Sunday', value: 'Closed' },
       { label: 'Response Time', value: 'Within 24 Business Hours' },
     ],
@@ -120,7 +120,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
-      
+
       {/* SECTION 01 – HERO BANNER */}
       <section className="relative pt-40 pb-28 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
@@ -169,7 +169,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="font-serif text-xl font-bold text-white mb-1 group-hover:text-gold transition-colors">{card.title}</h3>
                     <p className="text-gold/70 text-[11px] font-semibold tracking-wider uppercase mb-6">{card.subtitle}</p>
-                    
+
                     <div className="space-y-4 border-t border-white/5 pt-4">
                       {card.details.map((d, j) => (
                         <div key={j}>
@@ -190,7 +190,7 @@ export default function ContactPage() {
       <section id="contact-form" className="py-24 bg-[#0b0f19] scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            
+
             {/* Left Content Column */}
             <div className="lg:col-span-5">
               <Reveal>

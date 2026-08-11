@@ -3,57 +3,27 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { Reveal } from '@/components/ui/Reveal';
 
 const VACANCIES_DUBAI = [
   { ref: 'SEED-DXB-AD-E-01', title: 'Associate Director – Electrical', dept: 'Engineering', exp: '25+ Years', qual: 'Graduate Engineer with 25+ Years Industry Experience' },
   { ref: 'SEED-DXB-AD-M-02', title: 'Associate Director – Mechanical', dept: 'Engineering', exp: '25+ Years', qual: 'Graduate Engineer with 25+ Years Industry Experience' },
-  { ref: 'SEED-DXB-SA-M-03', title: 'Senior Associate – Mechanical', dept: 'Engineering', exp: '20+ Years', qual: '20+ Years’ Experience in MEP Design' },
-  { ref: 'SEED-DXB-SA-E-04', title: 'Senior Associate – Electrical', dept: 'Engineering', exp: '20+ Years', qual: '20+ Years’ Experience in Electrical Systems' },
-  { ref: 'SEED-DXB-A-E-05', title: 'Associate – Electrical', dept: 'Engineering', exp: '15+ Years', qual: '15+ Years’ Industry Experience in Electrical Design' },
-  { ref: 'SEED-DXB-A-M-06', title: 'Associate – Mechanical', dept: 'Engineering', exp: '15+ Years', qual: '15+ Years’ Experience (Plus) in HVAC Systems' },
+  { ref: 'SEED-DXB-SA-M-03', title: 'Senior Associate – Mechanical', dept: 'Engineering', exp: '20+ Years', qual: 'Experience in MEP Design' },
+  { ref: 'SEED-DXB-SA-E-04', title: 'Senior Associate – Electrical', dept: 'Engineering', exp: '20+ Years', qual: 'Experience in Electrical Systems' },
+  { ref: 'SEED-DXB-A-E-05', title: 'Associate – Electrical', dept: 'Engineering', exp: '15+ Years', qual: 'Industry Experience in Electrical Design' },
+  { ref: 'SEED-DXB-A-M-06', title: 'Associate – Mechanical', dept: 'Engineering', exp: '15+ Years', qual: 'Experience in HVAC Systems' },
   { ref: 'SEED-DXB-ELV-07', title: 'Sr. ELV Engineer', dept: 'Engineering', exp: '8–12 Years', qual: 'Experienced in ELV/ICT & Security Design · Degree' },
   { ref: 'SEED-DXB-HR-08', title: 'Senior HR Manager', dept: 'Corporate', exp: '15+ Years', qual: 'Preferably Lady Candidate · Local Emirati, British, Australian, American or Arab National' },
   { ref: 'SEED-DXB-FC-09', title: 'Financial Controller', dept: 'Corporate', exp: '15+ Years', qual: 'Chartered Accountants from India, US CPA, or ICAI from UK' },
 ];
 
 const VACANCIES_INDIA = [
-  { ref: 'SEED-IND-SME-01', title: 'Sr. Mechanical Engineer', dept: 'Engineering', exp: '8–12 Years', qual: '8–12 Years’ Experience supporting Dubai Design Office' },
-  { ref: 'SEED-IND-SEE-02', title: 'Sr. Electrical Engineer', dept: 'Engineering', exp: '8–12 Years', qual: '8–12 Years’ Experience supporting Dubai Design Office' },
-  { ref: 'SEED-IND-IME-03', title: 'Intermediate Mechanical Engineer', dept: 'Engineering', exp: '4–6 Years', qual: '4–6 Years’ Experience supporting Dubai Design Office' },
-  { ref: 'SEED-IND-IEE-04', title: 'Intermediate Electrical Engineer', dept: 'Engineering', exp: '4–6 Years', qual: '4–6 Years’ Experience supporting Dubai Design Office' },
-  { ref: 'SEED-IND-BIM-05', title: 'BIM Engineer / Technician', dept: 'Digital Engineering', exp: '3–5 Years', qual: '3–5 Years’ Experience supporting Dubai Design Office' },
+  { ref: 'SEED-IND-SME-01', title: 'Sr. Mechanical Engineer', dept: 'Engineering', exp: '8–12 Years', qual: 'Experience supporting Dubai Design Office' },
+  { ref: 'SEED-IND-SEE-02', title: 'Sr. Electrical Engineer', dept: 'Engineering', exp: '8–12 Years', qual: 'Experience supporting Dubai Design Office' },
+  { ref: 'SEED-IND-IME-03', title: 'Intermediate Mechanical Engineer', dept: 'Engineering', exp: '4–6 Years', qual: 'Experience supporting Dubai Design Office' },
+  { ref: 'SEED-IND-IEE-04', title: 'Intermediate Electrical Engineer', dept: 'Engineering', exp: '4–6 Years', qual: 'Experience supporting Dubai Design Office' },
+  { ref: 'SEED-IND-BIM-05', title: 'BIM Engineer / Technician', dept: 'Digital Engineering', exp: '3–5 Years', qual: 'Experience supporting Dubai Design Office' },
   { ref: 'SEED-IND-ELV-06', title: 'Sr. ELV Engineer', dept: 'Engineering', exp: '8–12 Years', qual: 'Experienced in ELV/ICT and Security Design · Degree' },
-];
-
-const WHY_JOIN = [
-  {
-    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-    title: 'Meaningful Projects',
-    desc: 'Work on iconic developments across hospitality, residential, commercial, healthcare and mixed-use sectors.',
-  },
-  {
-    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
-    title: 'Professional Growth',
-    desc: 'Continuous learning, technical development and opportunities to take on greater responsibilities.',
-  },
-  {
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-    title: 'Collaborative Culture',
-    desc: 'Work alongside experienced engineers, designers and multidisciplinary teams in a supportive environment.',
-  },
-  {
-    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-    title: 'Innovation & Digital Delivery',
-    desc: 'Use BIM, advanced engineering tools and emerging technologies to deliver smarter engineering solutions.',
-  },
-];
-
-const LIFE_GALLERY = [
-  { image: '/projects/ellington-hq.webp', caption: 'Technical Workshops & Leadership Mentorship' },
-  { image: '/projects/tbc-bank-headquarters-image-1.webp', caption: 'Modern Studio Offices & BIM Hubs' },
-  { image: '/projects/City Walk Mixed Use Development.webp', caption: 'On-Site Field Supervision & Engineering Inspections' },
-  { image: '/projects/brass-monkey.webp', caption: 'Team Celebrations & Milestone Events' },
 ];
 
 const HIRING_STEPS = [
@@ -108,68 +78,6 @@ export default function CareersPage() {
               </button>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* SECTION 02 – WHY JOIN SEED */}
-      <section className="py-24 bg-[#0f172a] border-b border-white/5">
-        <div className="container mx-auto px-6 lg:px-12">
-          <Reveal>
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">CAREERS</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Why SEED?</h2>
-              <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                At SEED, we believe great engineering starts with great people. We foster a collaborative, inclusive and high-performance culture where individuals are encouraged to grow, innovate and contribute to projects that shape the built environment.
-              </p>
-            </div>
-          </Reveal>
-
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {WHY_JOIN.map((card, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/8 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
-                  <div>
-                    <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold mb-6 group-hover:bg-gold group-hover:text-[#0b0f19] transition-colors">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d={card.icon} />
-                      </svg>
-                    </div>
-                    <h3 className="font-serif text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors">{card.title}</h3>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed">{card.desc}</p>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-      {/* SECTION 03 – LIFE AT SEED */}
-      <section className="py-24 bg-[#0b0f19]">
-        <div className="container mx-auto px-6 lg:px-12">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">STUDIO LIFE</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Life at SEED</h2>
-              <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                Our people are at the heart of everything we do. We celebrate teamwork, encourage innovation and create an environment where every individual can thrive professionally and personally.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Life at SEED Photo Gallery */}
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {LIFE_GALLERY.map((item, idx) => (
-              <StaggerItem key={idx}>
-                <div className="group relative aspect-[4/3] rounded-sm overflow-hidden bg-[#0f172a] border border-white/10 hover:border-gold/40 transition-colors">
-                  <Image src={item.image} alt={item.caption} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
-                    <p className="text-white text-xs font-medium group-hover:text-gold transition-colors">{item.caption}</p>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
         </div>
       </section>
 

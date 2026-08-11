@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
       href={`/projects/${project.slug}`}
       className="group flex flex-col h-full bg-ink text-white border border-white/5 hover:border-gold/50 transition-colors"
     >
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative overflow-hidden aspect-[4/3] bg-[#0a1020]">
         {project.image ? (
           <Image
             src={project.image}
@@ -35,6 +35,13 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700"
+            style={
+              project.slug === 'saas-st-regis'
+                ? { objectPosition: 'center 20%' }
+                : project.slug === 'uptown-mercer-house'
+                ? { objectPosition: 'center 40%' }
+                : undefined
+            }
           />
         ) : (
           <Placeholder label="PROJECT PHOTO" aspect="4/3" className="!border-0 absolute inset-0" />

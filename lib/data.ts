@@ -48,7 +48,7 @@ export const featuredProjects = [
     clientSector: 'Residential · Luxury',
     location: 'Abu Dhabi, UAE',
     projectScale: 'BUA: 36,700 sqm · G+5P+32 · MEP Design & Supervision',
-    image: '/projects/SAAS - St.Regis.webp',
+    image: '/projects/saas-st-regis-1.jpg',
     challenge:
       'A 38-storey luxury residential tower on Al Maryah Island maximizing waterfront views and minimizing solar heat gain, with comprehensive MEP systems for premium living.',
     scope: 'MEP Design & Supervision',
@@ -82,11 +82,7 @@ export const portfolio: {
         image: "/projects/mandarin-wasl-tower.webp",
         images: [
           "/projects/mandarin-wasl-tower.webp",
-          "/projects/mandarin-wasl-1.jpg",
-          "/projects/mandarin-wasl-2.jpg",
-          "/projects/mandarin-wasl-3.jpg",
-          "/projects/mandarin-wasl-4.png",
-          "/projects/wasl-tower.webp"
+          "/projects/mandarin-wasl-2.jpg"
         ],
         description: "Mixed used 302m, tall building consisting Of 2B+G+64 floors of offices, Mandarin Hotel and high-end residential apartments on Sh. Zayed Road, Dubai."
     },
@@ -102,12 +98,12 @@ export const portfolio: {
         architect: "BSBG / Squire & Partners",
         services: "MEP Design",
         area: "70,000 sqm",
-        image: "/projects/SAAS - St.Regis.webp",
+        image: "/projects/saas-st-regis-1.jpg",
         images: [
-          "/projects/SAAS - St.Regis.webp",
-          "/projects/saas---st-regis-pic-1.webp",
-          "/projects/st-regis-residence.webp",
-          "/projects/stregis sector image.avif"
+          "/projects/saas-st-regis-1.jpg",
+          "/projects/saas-st-regis-2.jpg",
+          "/projects/saas-st-regis-3.jpg",
+          "/projects/saas-st-regis-4.png"
         ],
         description: "The proposed 4B+G+5P+32F+R+UR Residential Building at Al Maryah Island, Abu Dhabi, UAE."
     },
@@ -126,14 +122,13 @@ export const portfolio: {
         image: "/projects/Ellington Sands 1 & 2.webp",
         images: [
           "/projects/Ellington Sands 1 & 2.webp",
-          "/projects/ellington-sands-1---2-aurelie-dubai-islands---plot-b---vision---rev02.webp",
-          "/projects/ellington-sands.webp",
-          "/projects/ellington-hq.webp"
+          "/projects/ellington-sands-waterfront.png",
+          "/projects/ellington-sands-aerial.png"
         ],
         description: "Aurelie Dubai Islands is a contemporary waterfront residential development located within the prestigious Dubai Islands masterplan, emerging as one of Dubai's most sought-after coastal destinations. The project comprises two residential buildings designed as a unified development, creating a cohesive community that integrates modern urban living with a premium lifestyle environment.\nSpanning a combined built-up area of over 1.16 million sqm, the development offers a diverse range of residential units, from studios to three-bedroom apartments. The project is designed to cater to modern living standards, with a strong focus on space optimisation, functionality and high-quality finishes, delivering a comfortable and efficient residential experience.\nThe development is planned as multi-storey residential towers supported by podium levels, providing parking, services and lifestyle amenities. A wide range of facilities including swimming\npools, fitness centers, spa areas, club lounges, kids' play areas and landscaped outdoor spaces are integrated to enhance community interaction and overall quality of life.\nThe project incorporates comprehensive MEP, ICT, AV, security and home automation systems, ensuring high levels of operational efficiency, safety and occupant comfort. Advanced engineering solutions including HVAC, electrical, plumbing, fire protection, chilled water, ventilation, LPG and building management systems are designed to deliver a high-performance and future-ready development.\nIn addition, the development features advanced ELV and smart home technologies, including structured cabling, CCTV, access control, intercom systems and home automation solutions, enhancing connectivity, security and user convenience across the development."
     },
     {
-        title: "Uptown Mercer House,",
+        title: "Uptown Mercer House",
         slug: "uptown-mercer-house",
         division: "mep",
         clientSector: "Residential",
@@ -144,10 +139,13 @@ export const portfolio: {
         architect: "BSBG",
         services: "MEP Design",
         area: "84,000 sqm",
-        image: "/projects/uptown-mercer-house.webp",
+        image: "/projects/uptown-mercer-house-skyline.jpg",
         images: [
-          "/projects/uptown-mercer-house.webp",
-          "/projects/uptown-mercer-house--mercer-house---ground-floor-retail.webp"
+          "/projects/uptown-mercer-house-skyline.jpg",
+          "/projects/uptown-mercer-house-lobby.jpg",
+          "/projects/uptown-mercer-house-pool.jpg",
+          "/projects/uptown-mercer-house-retail.jpg",
+          "/projects/uptown-mercer-house-balcony.jpg"
         ],
         description: "Proposed B+G+4P+Tower-6 with 34 Floors + Roof and Tower-7 with 41 Floors + Roof [ Both the towers will have combined floor plate for Basement, Ground floor till last Podium level] Residential Building at DMCC, Uptown Dubai, UAE."
     },
@@ -165,8 +163,14 @@ export const portfolio: {
         image: "/projects/Soto Grande.webp",
         images: [
           "/projects/Soto Grande.webp",
-          "/projects/soto-grande-01.webp",
-          "/projects/soto-grande.webp"
+          "/projects/soto-grande.webp",
+          "/projects/soto-grande-02.jpg",
+          "/projects/soto-grande-03.jpg",
+          "/projects/soto-grande-04.jpg",
+          "/projects/soto-grande-05.jpg",
+          "/projects/soto-grande-06.jpg",
+          "/projects/soto-grande-07.jpg",
+          "/projects/soto-grande-08.jpg"
         ],
         description: "Soto Grande at Al Hamra, Ras Al Khaimah, is a modern residential development comprising 630 units across a mix of studio to four-bedroom penthouse apartments within approximately 61,000 sqm of gross floor area, integrating smart home technologies, comprehensive building systems and contemporary amenities to deliver a comfortable, efficient and connected living environment."
     },
@@ -201,11 +205,9 @@ export const portfolio: {
         architect: "Pininfarina",
         services: "MEP Design",
         area: "50,947 sqm",
-        image: "/projects/iconic-tower-full.jpg",
+        image: "/projects/iconic-tower-new.jpg",
         images: [
-          "/projects/iconic-tower-full.jpg",
-          "/projects/iconic-tower-dic.webp",
-          "/projects/iconic-tower-iconic-tower-9qdgw-xl--1-.webp"
+          "/projects/iconic-tower-new.jpg"
         ],
         description: ""
     },
@@ -224,7 +226,10 @@ export const portfolio: {
         image: "/projects/JW Marriott Residences.webp",
         images: [
           "/projects/JW Marriott Residences.webp",
-          "/projects/jw-marriott-residences.webp"
+          "/projects/jw-marriott-residences.webp",
+          "/projects/jw-marriott-new-01.jpg",
+          "/projects/jw-marriott-new-02.jpg",
+          "/projects/jw-marriott-new-03.jpg"
         ],
         description: ""
     },
@@ -261,8 +266,17 @@ export const portfolio: {
         image: "/projects/Portside Square.webp",
         images: [
           "/projects/Portside Square.webp",
-          "/projects/portside-square-01.webp",
-          "/projects/portside-square.webp"
+          "/projects/portside-square-02.jpg",
+          "/projects/portside-square-03.jpg",
+          "/projects/portside-square-04.jpg",
+          "/projects/portside-square-05.jpg",
+          "/projects/portside-square-06.jpg",
+          "/projects/portside-square.webp",
+          "/projects/portside-square-07.jpg",
+          "/projects/portside-square-08.jpg",
+          "/projects/portside-square-09.jpg",
+          "/projects/portside-square-10.jpg",
+          "/projects/portside-square-11.png"
         ],
         description: ""
     },

@@ -16,19 +16,19 @@ interface ArticleItem {
 
 const MEDIA_COVERAGES: ArticleItem[] = [
   {
-    slug: 'east-africa-improves-ease-of-doing-business-2022',
-    headline: '2022 Review: East Africa improves ease of doing business',
+    slug: 'sanu-mathew-executive-of-the-year',
+    headline: 'Sanu Mathew | Honourable Achievement for Executive of the Year',
     category: 'Media Coverage',
-    date: '15 Dec 2022',
-    desc: 'Investment opportunities in East Africa are paving financial growth.',
-    image: '/projects/east-africa-business-review-2022.png',
+    date: '9 Dec 2025',
+    desc: 'A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.',
+    image: '/projects/news-sanu-mathew-award.webp',
   },
   {
     slug: 'seed-engineering-latest-news',
-    headline: 'SEED Engineering Latest Media Coverage',
-    category: 'Media Coverage',
+    headline: 'SEED Engineering Featured in the Top MEP Consultants Powerlist 2026',
+    category: 'MEDIA COVERAGE',
     date: '15 Jun 2026',
-    desc: 'Read the latest updates and media coverage featuring SEED Engineering.',
+    desc: 'SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering industry.',
     image: '/projects/news-seed-media-profile.webp',
   },
   {
@@ -47,7 +47,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'Sanu Mathew | Honourable Achievement for Executive of the Year',
     category: 'Media Coverage',
     date: '9 Dec 2025',
-    desc: 'A proud milestone for SEED Engineering last week. Our Managing Director, Sanu Mathew, has been recognised with the Honourable Achievement for Executive of the Year.',
+    desc: 'A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.',
     image: '/projects/news-sanu-mathew-award.webp',
   },
   {
@@ -73,7 +73,7 @@ export default function InsightsPage() {
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
-      
+
       {/* SECTION 01 – HERO BANNER */}
       <section className="relative pt-40 pb-24 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
@@ -115,16 +115,16 @@ export default function InsightsPage() {
 
             {MEDIA_COVERAGES.map((news, idx) => (
               <StaggerItem key={idx}>
-                <div 
+                <div
                   className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
                     <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
-                      <Image 
-                        src={news.image} 
-                        alt={news.headline} 
-                        fill 
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105" 
+                      <Image
+                        src={news.image}
+                        alt={news.headline}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
                     <div className="flex items-center justify-end mb-3">
@@ -137,8 +137,8 @@ export default function InsightsPage() {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <Link 
-                      href={`/blog/${news.slug}`} 
+                    <Link
+                      href={`/blog/${news.slug}`}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
                       Read Full Article →
@@ -170,16 +170,16 @@ export default function InsightsPage() {
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {AWARDS_RECOGNITION.map((news, idx) => (
               <StaggerItem key={idx}>
-                <div 
+                <div
                   className="bg-[#0f172a] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
                     <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
-                      <Image 
-                        src={news.image} 
-                        alt={news.headline} 
-                        fill 
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105" 
+                      <Image
+                        src={news.image}
+                        alt={news.headline}
+                        fill
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
                     <div className="flex items-center justify-end mb-3">
@@ -192,8 +192,8 @@ export default function InsightsPage() {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <Link 
-                      href={`/blog/${news.slug}`} 
+                    <Link
+                      href={`/blog/${news.slug}`}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
                       View Award →
@@ -214,11 +214,11 @@ export default function InsightsPage() {
 
       {/* ARTICLE / IMAGE PREVIEW MODAL */}
       {activeModal && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8"
           onClick={() => setActiveModal(null)}
         >
-          <div 
+          <div
             className="bg-[#0f172a] border border-white/15 max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-sm p-6 md:p-10 relative text-slate-300 shadow-2xl"
             onClick={e => e.stopPropagation()}
           >
@@ -231,11 +231,11 @@ export default function InsightsPage() {
             <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{activeModal.date}</span>
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-6">{activeModal.headline}</h2>
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] mb-6 rounded-sm overflow-hidden bg-[#060e25] border border-white/10">
-              <Image 
-                src={activeModal.image} 
-                alt={activeModal.headline} 
-                fill 
-                className="object-contain" 
+              <Image
+                src={activeModal.image}
+                alt={activeModal.headline}
+                fill
+                className="object-contain"
               />
             </div>
             <p className="text-slate-300 font-light leading-relaxed text-base md:text-lg mb-6">

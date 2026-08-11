@@ -15,3 +15,6 @@ sources/SEED Brand Elements (1).pdf
 seed-website-cpanel.zip
 test-basepath.mjs
 seed-proj/
+
+# Dev build output
+.next-dev/

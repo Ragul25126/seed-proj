@@ -6,8 +6,12 @@ import Image from 'next/image';
 interface ProjectGalleryProps {
   images: string[];
   title: string;
-  aspectRatio?: string; // e.g. "aspect-[16/9]" or "aspect-[16/7]"
+  aspectRatio?: string;
   showThumbnails?: boolean;
+  objectFit?: 'cover' | 'contain';
+  containImages?: string[]; // specific image src paths that should use contain
+  containSlugs?: string[];  // slugs where ALL images should use contain
+  currentSlug?: string;
 }
 
 export function ProjectGallery({
@@ -15,10 +19,29 @@ export function ProjectGallery({
   title,
   aspectRatio = 'aspect-[16/9]',
   showThumbnails = true,
+  objectFit = 'cover',
+  containImages = [],
+  containSlugs = [],
+  currentSlug = '',
 }: ProjectGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (!images || images.length === 0) return null;
+
+  // If current slug is in containSlugs, force all images to contain
+  const forceContain = containSlugs.includes(currentSlug);
+
+  const getFit = (img: string): 'object-contain' | 'object-cover' => {
+    if (forceContain || objectFit === 'contain' || containImages.includes(img)) {
+      return 'object-contain';
+    }
+    return 'object-cover';
+  };
+
+  const getStyle = (img: string): React.CSSProperties | undefined => {
+    if (img === '/projects/mandarin-wasl-tower.webp') return { transform: 'scale(0.93)' };
+    return undefined;
+  };
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -41,7 +64,8 @@ export function ProjectGallery({
           alt={`${title} - Image ${activeIndex + 1}`}
           fill
           priority={activeIndex === 0}
-          className="object-cover transition-all duration-500"
+          className={`${getFit(currentImage)} transition-all duration-500`}
+          style={getStyle(currentImage)}
           sizes="(max-width: 1200px) 100vw, 1200px"
         />
 
@@ -101,7 +125,8 @@ export function ProjectGallery({
                 src={img}
                 alt={`${title} thumbnail ${idx + 1}`}
                 fill
-                className="object-cover"
+                className={`${getFit(img)} transition-all duration-300`}
+                style={getStyle(img)}
                 sizes="96px"
               />
             </button>

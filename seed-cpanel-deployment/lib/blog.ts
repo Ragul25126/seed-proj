@@ -26,12 +26,12 @@ Wasl is one of the largest developers in the region and has positively added val
   {
     _id: 'b1',
     slug: 'seed-engineering-latest-news',
-    title: 'SEED Engineering Latest Media Coverage',
-    category: 'Media Coverage',
+    title: 'SEED Engineering Featured in the Top MEP Consultants Powerlist 2026',
+    category: 'MEDIA COVERAGE',
     excerpt: 'Read the latest updates and media coverage featuring SEED Engineering.',
-    publishedAt: '2026-06-15T09:00:00Z',
+    publishedAt: '2026-08-06T09:00:00Z',
     image: '/projects/news-seed-media-profile.webp',
-    content: 'SEED Engineering Consultants is a boutique engineering consultancy specialising in fully integrated MEP, ELV, IT, AV, Security, Pools, Water Features and Spa design. Established in 2005 and headquartered in Dubai, SEED has built a strong reputation for delivering high-performance, coordinated engineering solutions across the Middle East, East Africa and India.'
+    content: 'SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering industry.'
   },
   {
     _id: 'b2',
@@ -74,10 +74,10 @@ This award highlights our commitment to delivering technically robust, efficient
     slug: 'sanu-mathew-executive-of-the-year',
     title: 'Sanu Mathew | Honourable Achievement for Executive of the Year',
     category: 'Awards & Recognition',
-    excerpt: 'A proud milestone for SEED Engineering last week. Our Managing Director, Sanu Mathew, has been recognised with the Honourable Achievement for Executive of the Year.',
+    excerpt: 'A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.',
     publishedAt: '2025-12-09T09:00:00Z',
     image: '/projects/news-sanu-mathew-award.webp',
-    content: `A proud milestone for SEED Engineering last week. Our Managing Director, Sanu Mathew, has been recognised with the Honourable Achievement for Executive of the Year - Male at the Middle East Consultant Awards 2025.
+    content: `A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.
 
 For over two decades, Sanu has led SEED with focus and intent - guiding our growth across the Gulf, India and East Africa, and building a consultancy grounded in technical rigour, sustainable thinking and long-term value.
 
