@@ -82,7 +82,7 @@ export const portfolio: {
         image: "/projects/mandarin-wasl-tower.webp",
         images: [
           "/projects/mandarin-wasl-tower.webp",
-          "/projects/mandarin-wasl-2.jpg"
+          "/projects/mandarin-wasl-2-new.jpg"
         ],
         description: "Mixed used 302m, tall building consisting Of 2B+G+64 floors of offices, Mandarin Hotel and high-end residential apartments on Sh. Zayed Road, Dubai."
     },
@@ -150,29 +150,26 @@ export const portfolio: {
         description: "Proposed B+G+4P+Tower-6 with 34 Floors + Roof and Tower-7 with 41 Floors + Roof [ Both the towers will have combined floor plate for Basement, Ground floor till last Podium level] Residential Building at DMCC, Uptown Dubai, UAE."
     },
     {
-        title: "Soto Grande",
-        slug: "soto-grande",
+        title: "Eltiera Heights",
+        slug: "eltiera-heights",
         division: "mep",
         clientSector: "Residential",
         sector: "Residential",
-        location: "Ras Al Khaimah, UAE",
-        projectScale: "MEP Design",
+        location: "Dubai, UAE",
+        projectScale: "MEP/AV ICT/Security/Home Automation Design",
         client: "Ellington",
-        architect: "XYZ Designers",
-        services: "MEP Design",
-        image: "/projects/Soto Grande.webp",
+        architect: "BSBG",
+        services: "MEP/AV/ICT/Security/Home Automation Design",
+        area: "44,875 sqm",
+        image: "/projects/eltiera-heights-new-01.jpg",
         images: [
-          "/projects/Soto Grande.webp",
-          "/projects/soto-grande.webp",
-          "/projects/soto-grande-02.jpg",
-          "/projects/soto-grande-03.jpg",
-          "/projects/soto-grande-04.jpg",
-          "/projects/soto-grande-05.jpg",
-          "/projects/soto-grande-06.jpg",
-          "/projects/soto-grande-07.jpg",
-          "/projects/soto-grande-08.jpg"
+          "/projects/eltiera-heights-new-01.jpg",
+          "/projects/eltiera-heights-new-02.jpg",
+          "/projects/eltiera-heights-new-03.png",
+          "/projects/eltiera-heights-new-04.png",
+          "/projects/eltiera-heights-new-05.jpg"
         ],
-        description: "Soto Grande at Al Hamra, Ras Al Khaimah, is a modern residential development comprising 630 units across a mix of studio to four-bedroom penthouse apartments within approximately 61,000 sqm of gross floor area, integrating smart home technologies, comprehensive building systems and contemporary amenities to deliver a comfortable, efficient and connected living environment."
+        description: "EN1730 - Residential Building is a contemporary residential development located on the west side of Jumeirah Heights, Dubai. The project is designed to create a modern and integrated living environment, combining residential spaces with a supporting retail component to enhance convenience and lifestyle for residents.\nThe development spans a total gross floor area of approximately 44,875 square metres, comprising predominantly residential units with a small retail component. The project is planned to accommodate approximately 355 apartment units, offering a diverse residential community within a well-connected urban setting.\nThe project integrates a comprehensive range of MEP, ICT, AV, security and home automation systems, ensuring efficient building performance, safety and occupant comfort. The design includes HVAC, electrical, plumbing, fire protection, fire alarm, chilled water, ventilation, LPG and building management systems, all developed in accordance with international standards and local authority requirements.\nIn addition, advanced ICT and ELV systems are incorporated, including structured cabling, CCTV, access control, intercom, audio-visual systems and smart home automation solutions. These systems are designed to enhance connectivity, security and user convenience, providing a modern, technology-driven living environment.\nThe project adopts an integrated multidisciplinary design approach, ensuring seamless coordination between all engineering disciplines, optimised space utilisation and efficient system performance. Emphasis is placed on sustainable design practices, energy efficiency and long-term operational reliability.\nEN1730 represents a well-planned residential development that combines modern design, advanced engineering and smart technologies, contributing to the evolving urban landscape of Jumeirah Heights."
     },
     {
         title: "Eltiera Views",
@@ -294,8 +291,7 @@ export const portfolio: {
         area: "96,486 sqm",
         image: "/projects/Residential at Peninsula Plot B.webp",
         images: [
-          "/projects/Residential at Peninsula Plot B.webp",
-          "/projects/residential-plot-z.webp"
+          "/projects/Residential at Peninsula Plot B.webp"
         ],
         description: ""
     },
@@ -314,8 +310,7 @@ export const portfolio: {
         image: "/projects/Select BB Towers Plot Z.webp",
         images: [
           "/projects/Select BB Towers Plot Z.webp",
-          "/projects/select-bb-towers-plot-z-kll-plotz--008-architecture-10-c2b-cc2-recovered-gigapixel-art-scale-4-00x.webp",
-          "/projects/residential-plot-z.webp"
+          "/projects/select-bb-towers-new.jpg"
         ],
         description: ""
     },
@@ -373,7 +368,20 @@ export const portfolio: {
         images: [
           "/projects/The Meriva Collection.webp",
           "/projects/meriva-collection.webp",
-          "/projects/the-meriva-collection-01.webp"
+          "/projects/the-meriva-collection-01.webp",
+          "/projects/meriva-collection-02.jpg",
+          "/projects/meriva-collection-03.jpg",
+          "/projects/meriva-collection-04.png",
+          "/projects/meriva-collection-05.jpg",
+          "/projects/meriva-collection-06.jpg",
+          "/projects/meriva-collection-07.jpg",
+          "/projects/meriva-collection-08.jpg",
+          "/projects/meriva-collection-09.jpg",
+          "/projects/meriva-collection-10.jpg",
+          "/projects/meriva-collection-11.jpg",
+          "/projects/meriva-collection-12.jpg",
+          "/projects/meriva-collection-13.jpg",
+          "/projects/meriva-collection-14.jpg"
         ],
         description: "The Dubai Islands Mixed-Use Development (Plot DIB-MU-0005) is a large-scale integrated development located within the rapidly evolving Dubai Islands masterplan, offering a prime waterfront destination with a focus on luxury living, hospitality and retail experiences.\nSpanning a substantial plot area of approximately 107,290 square metres, the project has a total gross floor area of around 1.48 million sqm. The development comprises a balanced mix of residential, hospitality and retail components, including approximately 1,261,347 sqm of residential space, 148,393 sqm dedicated to hotel use and 74,196 sqm allocated for retail.\nThe residential component is designed to offer a diverse range of unit typologies, including 1-bedroom, 2-bedroom, 3-bedroom and penthouse units, catering to a wide spectrum of residents. The development is planned to accommodate approximately 1,105 residential units, ensuring a vibrant and dynamic community environment.\nThe project is configured as a multi-storey development with a basement, ground level and 22 floors, designed to optimise space utilisation and provide a seamless integration of residential, hospitality and retail functions. The hotel component is envisioned to offer premium serviced apartments and hospitality facilities, enhancing the overall lifestyle offering of the development.\nThe project integrates a comprehensive scope of engineering services including MEP, ICT, AV, home automation and security systems. The design encompasses HVAC, electrical, plumbing, fire protection, fire alarm, chilled water, ventilation, LPG, building management systems and advanced ELV solutions, ensuring efficient performance, safety and user comfort.\nAll systems are designed in accordance with international standards and local authority requirements, with a strong focus on sustainability, energy efficiency and coordinated multidisciplinary design. The project adopts an integrated design approach to ensure optimised performance, seamless coordination and long-term operational reliability.\nThe Dubai Islands Mixed-Use Development represents a modern urban destination that combines residential living, hospitality excellence and retail vibrancy within a single integrated development, contributing to the transformation of Dubai Islands into a premier waterfront community."
     },
@@ -389,10 +397,18 @@ export const portfolio: {
         architect: "Carlos OTT / VX Studio",
         services: "MEP Design Services",
         area: "850,000 sqft",
-        image: "/projects/Waldorf Astoria.webp",
+        image: "/projects/waldorf-astoria-new-01.jpg",
         images: [
-          "/projects/Waldorf Astoria.webp",
-          "/projects/waldorf-astoria-bbaywa-01.webp"
+          "/projects/waldorf-astoria-new-01.jpg",
+          "/projects/waldorf-astoria-bbaywa-01.webp",
+          "/projects/waldorf-astoria-02.jpg",
+          "/projects/waldorf-astoria-03.jpg",
+          "/projects/waldorf-astoria-04.jpg",
+          "/projects/waldorf-astoria-05.jpg",
+          "/projects/waldorf-astoria-06.jpg",
+          "/projects/waldorf-astoria-07.jpg",
+          "/projects/waldorf-astoria-08.jpg",
+          "/projects/waldorf-astoria-09.jpg"
         ],
         description: ""
     },
@@ -412,8 +428,7 @@ export const portfolio: {
         images: [
           "/projects/Wedyan - The canal.webp",
           "/projects/wedyan---the-canal-2.0-architecture-kengo-kuma-and-associates...webp",
-          "/projects/wedyan-canal.webp",
-          "/projects/dubai-water-canal.webp"
+          "/projects/weydam-canal-03.jpg"
         ],
         description: ""
     },
@@ -432,8 +447,7 @@ export const portfolio: {
         image: "/projects/Preatoni.webp",
         images: [
           "/projects/Preatoni.webp",
-          "/projects/preatoni-tower.webp",
-          "/projects/preatoni-aerial-shot---01.webp"
+          "/projects/preatoni-tower-03.jpg"
         ],
         description: "Proposed B+G+3P+ 39 Floors +Roof Residential Building Preatoni Tower, Dubai, UAE."
     },
@@ -453,7 +467,10 @@ export const portfolio: {
         images: [
           "/projects/Radisson Blu.webp",
           "/projects/radisson-blu-image-1.webp",
-          "/projects/radisson-blu.webp"
+          "/projects/radisson-blu.webp",
+          "/projects/radisson-blu-02.jpg",
+          "/projects/radisson-blu-03.jpg",
+          "/projects/radisson-blu-04.jpg"
         ],
         description: "Radisson Blu Hotel Ajman offers 148 stylish rooms, modern recreational facilities, 25m temperature-controlled pool, and 6 restaurants & bars, offering delectable international cuisines."
     },
@@ -469,10 +486,26 @@ export const portfolio: {
         architect: "DAR",
         services: "MEP Design & Supervision",
         area: "45,000 sqm · 256 Rooms",
-        image: "/projects/Mandarin Jumeirah Beach Resort.webp",
+        image: "/projects/mandarin-jumeirah-new-01.jpg",
         images: [
+          "/projects/mandarin-jumeirah-new-01.jpg",
+          "/projects/mandarin-jumeirah-new-02.jpg",
           "/projects/Mandarin Jumeirah Beach Resort.webp",
-          "/projects/mandarin-jumeirah.webp"
+          "/projects/mandarin-jumeirah.webp",
+          "/projects/mandarin-jumeirah-03.png",
+          "/projects/mandarin-jumeirah-04.png",
+          "/projects/mandarin-jumeirah-05.png",
+          "/projects/mandarin-jumeirah-06.jpg",
+          "/projects/mandarin-jumeirah-07.jpg",
+          "/projects/mandarin-jumeirah-08.png",
+          "/projects/mandarin-jumeirah-09.png",
+          "/projects/mandarin-jumeirah-10.png",
+          "/projects/mandarin-jumeirah-11.png",
+          "/projects/mandarin-jumeirah-12.png",
+          "/projects/mandarin-jumeirah-new-03.jpg",
+          "/projects/mandarin-jumeirah-new-04.jpg",
+          "/projects/mandarin-jumeirah-new-05.jpg",
+          "/projects/mandarin-jumeirah-new-06.jpg"
         ],
         description: ""
     },
@@ -490,7 +523,9 @@ export const portfolio: {
         area: "45,000+ seating",
         image: "/projects/dammam stadium.webp",
         images: [
-          "/projects/dammam stadium.webp"
+          "/projects/dammam stadium.webp",
+          "/projects/dammam-aramco-stadium-01.png",
+          "/projects/dammam-aramco-stadium-02.jpg"
         ],
         description: "Dammam Aramco Stadium is an iconic, fully airconditioned stadium including bowl cooling having 45000+ seating currently being constructed in Saudi Arabia to host the 2027 Asian Football Cup and 2034 FIFA World Cup. The Stadium is the core of the Dammam Aramco Stadium Masterplan offering comprehensive range of amenities and facilities designed to provide an unparalleled sports and entertainment experience"
     },
@@ -508,8 +543,7 @@ export const portfolio: {
         area: "14,150 sqm",
         image: "/projects/Al Ajlan KSR HQ Tower.webp",
         images: [
-          "/projects/Al Ajlan KSR HQ Tower.webp",
-          "/projects/al-ajlan-ksr-hq-tower-240704-alajlan-hq-tower.webp"
+          "/projects/Al Ajlan KSR HQ Tower.webp"
         ],
         description: "HQ & Commercial Development Tower located in Riyadh, KSA."
     },
@@ -528,7 +562,12 @@ export const portfolio: {
         image: "/projects/Al AjlanTower 2.webp",
         images: [
           "/projects/Al AjlanTower 2.webp",
-          "/projects/al-ajlantower-2-enscape-2024-06-21-10-47-59-perspective-1-straight-view.webp"
+          "/projects/al-ajlantower-2-enscape-2024-06-21-10-47-59-perspective-1-straight-view.webp",
+          "/projects/al-ajlantower-2-new-01.png",
+          "/projects/al-ajlantower-2-new-02.jpg",
+          "/projects/al-ajlantower-2-new-03.jpg",
+          "/projects/al-ajlantower-2-new-04.png",
+          "/projects/al-ajlantower-2-new-05.png"
         ],
         description: "Commercial Development Tower in Riyadh, KSA."
     },
@@ -547,7 +586,11 @@ export const portfolio: {
         image: "/projects/Al AjlanTower 3.webp",
         images: [
           "/projects/Al AjlanTower 3.webp",
-          "/projects/al-ajlantower-3-enscape-2024-07-02-16-04-35-view-1.webp"
+          "/projects/al-ajlantower-3-new-01.jpg",
+          "/projects/al-ajlantower-3-new-02.png",
+          "/projects/al-ajlantower-3-new-03.jpg",
+          "/projects/al-ajlantower-3-new-04.jpg",
+          "/projects/al-ajlantower-3-new-05.png"
         ],
         description: "Commercial Development Tower in Riyadh, KSA."
     },
@@ -565,7 +608,10 @@ export const portfolio: {
         area: "25,452 sqm",
         image: "/projects/City Walk Mixed Use Development.webp",
         images: [
-          "/projects/City Walk Mixed Use Development.webp"
+          "/projects/City Walk Mixed Use Development.webp",
+          "/projects/city-walk-new-01.jpg",
+          "/projects/city-walk-new-02.jpg",
+          "/projects/city-walk-new-03.png"
         ],
         description: "Mid-rise (B+G+5+R) Mixed Use Building — Residential and Retail. Sits within a gated residential park community masterplan."
     },
@@ -584,7 +630,8 @@ export const portfolio: {
         image: "/projects/Commerz 3.webp",
         images: [
           "/projects/Commerz 3.webp",
-          "/projects/commerz-3-tower.webp"
+          "/projects/commerz-3-tower.webp",
+          "/projects/commerz-3-new-01.png"
         ],
         description: "Brand new high-end commercial tower in Goregaon (East), Mumbai. 50-level tower adjacent to the existing Commerz 2 Tower."
     },
@@ -602,7 +649,8 @@ export const portfolio: {
         area: "120,000 sqm · 700 Beds",
         image: "/projects/DM Wayanad.webp",
         images: [
-          "/projects/DM Wayanad.webp"
+          "/projects/DM Wayanad.webp",
+          "/projects/dm-wayanad-new-01.png"
         ],
         description: "First medical college & hospital in this hill station of Kerala. 700 beds, 1.2 million sq. ft. Designed in hilly terrain with a constrained budget."
     },
@@ -646,24 +694,29 @@ export const portfolio: {
         description: "Millennium Al Barsha — a 4-star property located within walking distance from Mall of the Emirates. Offers 299 rooms and suites plus 109 serviced apartments with all modern amenities."
     },
     {
-        title: "Eltiera Heights",
-        slug: "eltiera-heights",
+        title: "Soto Grande",
+        slug: "soto-grande",
         division: "mep",
         clientSector: "Residential",
         sector: "Residential",
-        location: "Dubai, UAE",
-        projectScale: "MEP/AV ICT/Security/Home Automation Design",
+        location: "Ras Al Khaimah, UAE",
+        projectScale: "MEP Design",
         client: "Ellington",
-        architect: "BSBG",
-        services: "MEP/AV/ICT/Security/Home Automation Design",
-        area: "44,875 sqm",
-        image: "/projects/eltiera-heights.webp",
+        architect: "XYZ Designers",
+        services: "MEP Design",
+        image: "/projects/Soto Grande.webp",
         images: [
-          "/projects/Eltiera Heights.webp",
-          "/projects/eltiera-heights-new.webp",
-          "/projects/eltiera hieghts.webp"
+          "/projects/Soto Grande.webp",
+          "/projects/soto-grande.webp",
+          "/projects/soto-grande-02.jpg",
+          "/projects/soto-grande-03.jpg",
+          "/projects/soto-grande-04.jpg",
+          "/projects/soto-grande-05.jpg",
+          "/projects/soto-grande-06.jpg",
+          "/projects/soto-grande-07.jpg",
+          "/projects/soto-grande-08.jpg"
         ],
-        description: "EN1730 - Residential Building is a contemporary residential development located on the west side of Jumeirah Heights, Dubai. The project is designed to create a modern and integrated living environment, combining residential spaces with a supporting retail component to enhance convenience and lifestyle for residents.\nThe development spans a total gross floor area of approximately 44,875 square metres, comprising predominantly residential units with a small retail component. The project is planned to accommodate approximately 355 apartment units, offering a diverse residential community within a well-connected urban setting.\nThe project integrates a comprehensive range of MEP, ICT, AV, security and home automation systems, ensuring efficient building performance, safety and occupant comfort. The design includes HVAC, electrical, plumbing, fire protection, fire alarm, chilled water, ventilation, LPG and building management systems, all developed in accordance with international standards and local authority requirements.\nIn addition, advanced ICT and ELV systems are incorporated, including structured cabling, CCTV, access control, intercom, audio-visual systems and smart home automation solutions. These systems are designed to enhance connectivity, security and user convenience, providing a modern, technology-driven living environment.\nThe project adopts an integrated multidisciplinary design approach, ensuring seamless coordination between all engineering disciplines, optimised space utilisation and efficient system performance. Emphasis is placed on sustainable design practices, energy efficiency and long-term operational reliability.\nEN1730 represents a well-planned residential development that combines modern design, advanced engineering and smart technologies, contributing to the evolving urban landscape of Jumeirah Heights."
+        description: "Soto Grande at Al Hamra, Ras Al Khaimah, is a modern residential development comprising 630 units across a mix of studio to four-bedroom penthouse apartments within approximately 61,000 sqm of gross floor area, integrating smart home technologies, comprehensive building systems and contemporary amenities to deliver a comfortable, efficient and connected living environment."
     },
     {
         title: "Gargash Hospital",

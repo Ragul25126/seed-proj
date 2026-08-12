@@ -67,7 +67,7 @@ function ProjectModal({ proj, onClose }: { proj: Project; onClose: () => void })
             title={proj.title}
             aspectRatio="aspect-[16/9]"
             objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
-            containImages={['/projects/mandarin-wasl-2.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
+            containImages={['/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
           />
         </div>
 

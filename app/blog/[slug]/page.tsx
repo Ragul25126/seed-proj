@@ -2,8 +2,15 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fallbackPosts } from '@/lib/blog';
-import { formatDate } from '@/lib/utils';
-import { Section } from '@/components/ui/Section';
+
+function formatDate(iso?: string) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+}
 
 export function generateStaticParams() {
   return fallbackPosts.map((post) => ({
@@ -57,7 +64,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         )}
 
         {/* Article Body Content */}
-        <Section className="pt-0">
+        <section className="pt-0">
           <div className="max-w-3xl mx-auto text-slate-300 font-light leading-relaxed text-base md:text-lg space-y-6">
             {post.content ? (
               <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n\n/g, '<br/><br/>') }} />
@@ -65,7 +72,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               <p className="text-slate-400 italic">Full article content is not available yet.</p>
             )}
           </div>
-        </Section>
+        </section>
 
         {/* Footer Navigation */}
         <div className="max-w-3xl mx-auto pt-12 border-t border-white/10 mt-16 text-center">

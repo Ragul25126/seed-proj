@@ -16,18 +16,10 @@ interface ArticleItem {
 
 const MEDIA_COVERAGES: ArticleItem[] = [
   {
-    slug: 'sanu-mathew-executive-of-the-year',
-    headline: 'Sanu Mathew | Honourable Achievement for Executive of the Year',
-    category: 'Media Coverage',
-    date: '9 Dec 2025',
-    desc: 'A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.',
-    image: '/projects/news-sanu-mathew-award.webp',
-  },
-  {
     slug: 'seed-engineering-latest-news',
     headline: 'SEED Engineering Featured in the Top MEP Consultants Powerlist 2026',
     category: 'MEDIA COVERAGE',
-    date: '15 Jun 2026',
+    date: '6 Aug 2026',
     desc: 'SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering industry.',
     image: '/projects/news-seed-media-profile.webp',
   },
@@ -35,9 +27,17 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     slug: 'sustainable-mep-solutions-wasl-tower',
     headline: 'SEED Engineering Consultants Sustainable MEP Solutions for Wasl Tower',
     category: 'Media Coverage',
-    date: '12 Jun 2026',
+    date: '24 Jul 2022',
     desc: 'Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering services firm in operation for almost two decades...',
-    image: '/projects/news-wasl-tower-article.webp',
+    image: '/blog/wasl-tower-article.png',
+  },
+  {
+    slug: 'east-africa-improves-ease-of-doing-business-2022',
+    headline: '2022 Review: East Africa improves ease of doing business',
+    category: 'Media Coverage',
+    date: '15 Dec 2022',
+    desc: 'Investment opportunities in East Africa are paving financial growth.',
+    image: '/blog/east-africa-wind.png',
   },
 ];
 
@@ -55,7 +55,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'St. Regis Branded Residences | Honourable Achievement',
     category: 'Media Coverage',
     date: '11 Feb 2026',
-    desc: 'At the 16th Big Project Middle East Awards last night, we are delighted to share that The St. Regis Branded Residences has received an Honourable Achievement.',
+    desc: 'At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential category.',
     image: '/projects/news-st-regis-award.webp',
   },
   {
@@ -63,7 +63,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'Wasl Tower | MEP Project of the Year',
     category: 'Media Coverage',
     date: '11 Feb 2026',
-    desc: 'At the 16th Big Project Middle East Awards last night, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.',
+    desc: 'At the 16th Big Project Middle East Awards 2026, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.',
     image: '/projects/news-wasl-tower-award.webp',
   },
 ];

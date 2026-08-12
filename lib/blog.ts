@@ -6,8 +6,8 @@ export const fallbackPosts = [
     category: 'Media Coverage',
     excerpt: 'Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering services firm in operation for almost two decades...',
     publishedAt: '2022-07-24T09:00:00Z',
-    image: '/projects/news-wasl-tower-article.webp',
-    content: `Shaping landmark skylines, the company stands for building energy-efficient projects SEED is a global engineering services firm in operation for almost two decades. It is a boutique MEP (Mechanical, Electrical and Plumbing) consultancy company providing sustainable design solutions and supervision of landmark projects in the Middle East, Central Asia, Africa and the Indian subcontinent. Wasl Tower, a mixed-use 302 metres tall building consisting of two basements, a ground level and 64 floors of offices, a Mandarin Hotel and high-end residential apartments on Sheikh Zayed Road, Dubai, is a significant addition to the project portfolio of SEED, which has provided the complete MEP design and supervision for it.
+    image: '/blog/wasl-tower-article.png',
+    content: `Shaping landmark skylines, the company stands for building energy-efficient projects SEED is a global engineering services firm in operation for almost two decades. It is a boutique MEP (Mechanical, Electrical and Plumbing) consultancy company providing sustainable design solutions and supervision of landmark projects in the Middle East, Central Asia, Africa and the Indian subcontinent. Wasl Tower, a mixed-use 302 metres tall building consisting of two basements, a ground level and 64 floors of offices, a Mandarin Hotel and high-end residential apartments on Sheikh Zayed Road, Dubai, is a significant addition to the project portfolio of SEED, which has provided the complete MEP design and supervision for it, recognising one of the region's most technically ambitious and award-winning developments.
 
 "We have been involved in the MEP design and supervision from Day 1 of the Wasl Tower project with 7 engineers engaged in constant supervision. We were first appointed for this by Werner Sobek the lead engineering consultant and UN Studio, the lead architectural design consultant of the Wasl Tower. They chose SEED after coming to know of us through a couple of high-rise building projects that we had done especially a super high-rise 89 storied building in India. We are now doing a couple of other projects also with Werner Sobek and UN Studio. We have all worked to make the top-notch Wasl Tower the most energy-efficient building of its magnitude," informs Sanu Mathew, Founder & Managing Director of SEED. 
 
@@ -38,10 +38,10 @@ Wasl is one of the largest developers in the region and has positively added val
     slug: 'wasl-tower-mep-project-of-the-year',
     title: 'Wasl Tower | MEP Project of the Year',
     category: 'Awards & Recognition',
-    excerpt: 'At the 16th Big Project Middle East Awards last night, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.',
+    excerpt: 'At the 16th Big Project Middle East Awards 2026, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.',
     publishedAt: '2026-02-11T09:00:00Z',
     image: '/projects/news-wasl-tower-award.webp',
-    content: `At the 16th Big Project Middle East Awards last night, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower, recognising one of the region’s most technically ambitious and award-winning developments.
+    content: `At the 16th Big Project Middle East Awards 2026, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.
 
 At 302m, Wasl Tower is one of Dubai’s most complex mixed-use developments, integrating offices, residences and a 5-star Mandarin Oriental hotel within a highly intricate architectural form.
 
@@ -58,10 +58,10 @@ This award reinforces our commitment to delivering innovative, high-performance 
     slug: 'st-regis-branded-residences-honourable-achievement',
     title: 'St. Regis Branded Residences | Honourable Achievement',
     category: 'Awards & Recognition',
-    excerpt: 'At the 16th Big Project Middle East Awards last night, we are delighted to share that The St. Regis Branded Residences has received an Honourable Achievement.',
+    excerpt: 'At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential category.',
     publishedAt: '2026-02-11T09:00:00Z',
     image: '/projects/news-st-regis-award.webp',
-    content: `At the 16th Big Project Middle East Awards last night, we are delighted to share that The St. Regis Branded Residences has received an Honourable Achievement – Project of the Year (Residential).
+    content: `At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential category.
 
 This recognition reflects the project’s excellence in delivering premium residential living through a balanced integration of architectural design and high-performance MEP systems.
 
@@ -92,7 +92,7 @@ We extend our sincere thanks to our clients, partners and the entire SEED team f
     category: 'Media Coverage',
     excerpt: 'Investment opportunities in East Africa are paving financial growth.',
     publishedAt: '2022-12-15T09:00:00Z',
-    image: '/projects/east-africa-business-review-2022.png',
+    image: '/blog/east-africa-wind.png',
     content: `Investment opportunities in East Africa are paving financial growth. As regional markets mature and infrastructure development accelerates, East Africa continues to strengthen its economic framework and ease of doing business.
 
 SEED Engineering Consultants has been actively engaged across key East African markets including Tanzania, Zanzibar, Uganda, and Ethiopia, delivering sustainable MEP design and high-performance engineering solutions for commercial, hospitality, and residential developments.
