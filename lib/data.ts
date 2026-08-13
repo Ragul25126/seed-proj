@@ -223,10 +223,9 @@ export const portfolio: {
         image: "/projects/JW Marriott Residences.webp",
         images: [
           "/projects/JW Marriott Residences.webp",
-          "/projects/jw-marriott-residences.webp",
-          "/projects/jw-marriott-new-01.jpg",
           "/projects/jw-marriott-new-02.jpg",
-          "/projects/jw-marriott-new-03.jpg"
+          "/projects/jw-marriott-new-03.jpg",
+          "/projects/jw-marriott-new-01.jpg"
         ],
         description: ""
     },
