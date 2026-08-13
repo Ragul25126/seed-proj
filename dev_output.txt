@@ -143,3 +143,5 @@ motion() is deprecated. Use motion.create() instead.
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\server-development\1.pack.gz_' -> 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\server-development\1.pack.gz'
  ✓ Compiled in 8.7s (1292 modules)
  ✓ Compiled in 2.2s (650 modules)
+ ✓ Compiled in 4.5s (1292 modules)
+ ✓ Compiled in 2.4s (1278 modules)
