@@ -367,8 +367,6 @@ export const portfolio: {
         image: "/projects/The Meriva Collection.webp",
         images: [
           "/projects/The Meriva Collection.webp",
-          "/projects/meriva-collection.webp",
-          "/projects/the-meriva-collection-01.webp",
           "/projects/meriva-collection-02.jpg",
           "/projects/meriva-collection-03.jpg",
           "/projects/meriva-collection-04.png",
