@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -79,6 +79,69 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  useEffect(() => {
+    const updateCount = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+    updateCount();
+    window.addEventListener('resize', updateCount);
+    return () => window.removeEventListener('resize', updateCount);
+  }, []);
+
+  const totalItems = MEDIA_COVERAGES.length;
+  const numDots = Math.max(1, totalItems - visibleCount + 1);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const card = container.querySelector('.carousel-card');
+      if (card) {
+        const cardWidth = card.getBoundingClientRect().width;
+        const gap = 32;
+        const step = cardWidth + gap;
+        const index = Math.round(container.scrollLeft / step);
+        setActiveIndex(index);
+      }
+    }
+  };
+
+  const scrollToIdx = (index: number) => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const card = container.querySelector('.carousel-card');
+      if (card) {
+        const cardWidth = card.getBoundingClientRect().width;
+        const gap = 32;
+        const step = cardWidth + gap;
+        container.scrollTo({
+          left: index * step,
+          behavior: 'smooth',
+        });
+        setActiveIndex(index);
+      }
+    }
+  };
+
+  const handlePrev = () => {
+    const targetIndex = Math.max(0, activeIndex - 1);
+    scrollToIdx(targetIndex);
+  };
+
+  const handleNext = () => {
+    const targetIndex = Math.min(numDots - 1, activeIndex + 1);
+    scrollToIdx(targetIndex);
+  };
+
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
 
@@ -110,7 +173,12 @@ export default function InsightsPage() {
       </section>
 
       {/* SECTION 02 – MEDIA & COVERAGES */}
-      <section className="py-24 bg-[#0f172a] border-t border-white/5">
+      <section className="py-24 bg-[#0f172a] border-t border-white/5 relative">
+        <style>{`
+          .scrollbar-none::-webkit-scrollbar {
+            display: none !important;
+          }
+        `}</style>
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
@@ -119,49 +187,112 @@ export default function InsightsPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Carousel Wrapper */}
+          <div className="relative group/carousel px-4 md:px-12 -mx-4 md:-mx-12">
+            
+            {/* Left Arrow Button */}
+            <button
+              onClick={handlePrev}
+              disabled={activeIndex === 0}
+              className={`absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#0b0f19] border border-white/10 text-white flex items-center justify-center transition-all duration-300 shadow-2xl focus:outline-none ${
+                activeIndex === 0 
+                  ? 'opacity-30 cursor-not-allowed' 
+                  : 'opacity-80 hover:opacity-100 hover:border-gold/50 hover:text-gold'
+              }`}
+              aria-label="Previous slide"
+            >
+              <span className="text-lg font-bold">←</span>
+            </button>
 
-            {MEDIA_COVERAGES.map((news, idx) => (
-              <StaggerItem key={idx}>
+            {/* Carousel Container */}
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              style={{
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
+              }}
+              className="scrollbar-none flex gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth px-2 py-4"
+            >
+              {MEDIA_COVERAGES.map((news, idx) => (
                 <div
-                  className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
+                  key={idx}
+                  className="carousel-card min-w-[calc(100%-8px)] md:min-w-[calc((100%-32px)/2)] lg:min-w-[calc((100%-64px)/3)] snap-start flex-shrink-0"
                 >
-                  <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
-                      <Image
-                        src={news.image}
-                        alt={news.headline}
-                        fill
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </Link>
-                    <div className="flex items-center justify-end mb-3">
-                      <span className="text-slate-500 text-[11px]">{news.date}</span>
+                  <div
+                    className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
+                  >
+                    <div>
+                      <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                        <Image
+                          src={news.image}
+                          alt={news.headline}
+                          fill
+                          className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </Link>
+                      <div className="flex items-center justify-end mb-3">
+                        <span className="text-slate-500 text-[11px]">{news.date}</span>
+                      </div>
+                      <Link href={`/blog/${news.slug}`}>
+                        <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors line-clamp-2">{news.headline}</h3>
+                      </Link>
+                      <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6 line-clamp-3">{news.desc}</p>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
-                    </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
-                  </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <Link
-                      href={`/blog/${news.slug}`}
-                      className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
-                    >
-                      Read Full Article →
-                    </Link>
-                    <button
-                      onClick={() => setActiveModal(news)}
-                      className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
-                    >
-                      🔍 Preview Image
-                    </button>
+                    <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                      <Link
+                        href={`/blog/${news.slug}`}
+                        className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
+                      >
+                        Read Full Article →
+                      </Link>
+                      <button
+                        onClick={() => setActiveModal(news)}
+                        className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
+                      >
+                        🔍 Preview Image
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+              ))}
+            </div>
+
+            {/* Right Arrow Button */}
+            <button
+              onClick={handleNext}
+              disabled={activeIndex >= numDots - 1}
+              className={`absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#0b0f19] border border-white/10 text-white flex items-center justify-center transition-all duration-300 shadow-2xl focus:outline-none ${
+                activeIndex >= numDots - 1
+                  ? 'opacity-30 cursor-not-allowed' 
+                  : 'opacity-80 hover:opacity-100 hover:border-gold/50 hover:text-gold'
+              }`}
+              aria-label="Next slide"
+            >
+              <span className="text-lg font-bold">→</span>
+            </button>
+
+          </div>
+
+          {/* Carousel Pagination Dots */}
+          {numDots > 1 && (
+            <div className="flex justify-center gap-3 mt-8">
+              {Array.from({ length: numDots }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollToIdx(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
+                    activeIndex === i 
+                      ? 'bg-gold w-6' 
+                      : 'bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
         </div>
       </section>
 
