@@ -139,7 +139,7 @@ export const portfolio: {
         architect: "BSBG",
         services: "MEP Design",
         area: "84,000 sqm",
-        image: "/projects/uptown-mercer-house-skyline.jpg",
+        image: "/projects/uptown-mercer-house-balcony.jpg",
         images: [
           "/projects/uptown-mercer-house-balcony.jpg",
           "/projects/uptown-mercer-house-retail.jpg",
@@ -335,7 +335,7 @@ export const portfolio: {
         architect: "DAR Consult",
         services: "MEP Design",
         area: "17,187 sqm",
-        image: "/projects/the-gate-buildings-the-gate-buildings-dubai.webp",
+        image: "/projects/The Gate Buildings.webp",
         images: [
           "/projects/The Gate Buildings.webp",
           "/projects/the-gate-buildings-the-gate-buildings-dubai.webp"
@@ -379,12 +379,8 @@ export const portfolio: {
         image: "/projects/waldorf-astoria-new-01.jpg",
         images: [
           "/projects/waldorf-astoria-new-01.jpg",
-          "/projects/waldorf-astoria-bbaywa-01.webp",
-          "/projects/waldorf-astoria-02.jpg",
-          "/projects/waldorf-astoria-03.jpg",
           "/projects/waldorf-astoria-04.jpg",
           "/projects/waldorf-astoria-05.jpg",
-          "/projects/waldorf-astoria-06.jpg",
           "/projects/waldorf-astoria-07.jpg",
           "/projects/waldorf-astoria-08.jpg",
           "/projects/waldorf-astoria-09.jpg"
@@ -403,11 +399,10 @@ export const portfolio: {
         architect: "BSBG / KKAA",
         services: "MEP Design",
         area: "117,350 sqm",
-        image: "/projects/Wedyan - The canal.webp",
+        image: "/projects/weydam-canal-03.jpg",
         images: [
-          "/projects/Wedyan - The canal.webp",
-          "/projects/wedyan---the-canal-2.0-architecture-kengo-kuma-and-associates...webp",
-          "/projects/weydam-canal-03.jpg"
+          "/projects/weydam-canal-03.jpg",
+          "/projects/Wedyan - The canal.webp"
         ],
         description: ""
     },
