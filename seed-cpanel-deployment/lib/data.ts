@@ -562,9 +562,9 @@ export const portfolio: {
         image: "/projects/City Walk Mixed Use Development.webp",
         images: [
           "/projects/City Walk Mixed Use Development.webp",
-          "/projects/city-walk-new-01.jpg",
+          "/projects/city-walk-new-03.png",
           "/projects/city-walk-new-02.jpg",
-          "/projects/city-walk-new-03.png"
+          "/projects/city-walk-new-01.jpg"
         ],
         description: "Mid-rise (B+G+5+R) Mixed Use Building — Residential and Retail. Sits within a gated residential park community masterplan."
     },
