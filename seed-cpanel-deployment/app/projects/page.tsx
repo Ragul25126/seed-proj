@@ -242,6 +242,7 @@ function ProjectsContent() {
                       src={proj.image}
                       alt={proj.title}
                       fill
+                      unoptimized
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       style={
                         proj.slug === 'saas-st-regis'

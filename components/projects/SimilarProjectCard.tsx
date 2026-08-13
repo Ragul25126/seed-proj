@@ -31,6 +31,7 @@ export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
             src={activeImage}
             alt={`${project.title} render ${activeIdx + 1}`}
             fill
+            unoptimized
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             style={
               project.slug === 'saas-st-regis'
@@ -72,7 +73,7 @@ export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
               }`}
               title={`View render ${idx + 1}`}
             >
-              <Image src={img} alt={`thumbnail ${idx + 1}`} fill className="object-cover" sizes="48px" />
+              <Image src={img} alt={`thumbnail ${idx + 1}`} fill unoptimized className="object-cover" sizes="48px" />
             </button>
           ))}
           {images.length > 5 && (

@@ -737,7 +737,8 @@ export const portfolio: {
         image: "/projects/Gargash Hospital.webp",
         images: [
           "/projects/Gargash Hospital.webp",
-          "/projects/gargash-hospital-2.webp"
+          "/projects/gargash-hospital-2.webp",
+          "/projects/gargash-hospital-new-01.png"
         ],
         description: ""
     },
@@ -755,8 +756,7 @@ export const portfolio: {
         area: "40,000 sqm · 100 Beds",
         image: "/projects/German General Hospital.webp",
         images: [
-          "/projects/German General Hospital.webp",
-          "/projects/german-general-hospital-ad-1135-german-hospital-1.webp"
+          "/projects/German General Hospital.webp"
         ],
         description: ""
     },
@@ -775,7 +775,8 @@ export const portfolio: {
         image: "/projects/Hilton Awassa.webp",
         images: [
           "/projects/Hilton Awassa.webp",
-          "/projects/hilton-awassa-image-1.webp"
+          "/projects/hilton-awassa-image-1.webp",
+          "/projects/hilton-awassa-new-01.jpg"
         ],
         description: ""
     },

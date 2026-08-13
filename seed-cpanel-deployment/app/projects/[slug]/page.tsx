@@ -260,6 +260,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
                       src={img}
                       alt={`${proj.title} Render ${idx + 1}`}
                       fill
+                      unoptimized
                       className={`${(proj.slug === 'saas-st-regis' || img === '/projects/mandarin-wasl-2-new.jpg' || img === '/projects/ellington-hq.png' || img.includes('uptown-mercer-house')) ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-700`}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />

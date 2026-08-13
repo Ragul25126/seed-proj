@@ -63,6 +63,7 @@ export function ProjectGallery({
           src={currentImage}
           alt={`${title} - Image ${activeIndex + 1}`}
           fill
+          unoptimized
           priority={activeIndex === 0}
           className={`${getFit(currentImage)} transition-all duration-500`}
           style={getStyle(currentImage)}
@@ -125,6 +126,7 @@ export function ProjectGallery({
                 src={img}
                 alt={`${title} thumbnail ${idx + 1}`}
                 fill
+                unoptimized
                 className={`${getFit(img)} transition-all duration-300`}
                 style={getStyle(img)}
                 sizes="96px"
