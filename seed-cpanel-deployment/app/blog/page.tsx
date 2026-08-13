@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -78,6 +78,42 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
 
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      setIsAtStart(container.scrollLeft <= 10);
+      setIsAtEnd(container.scrollLeft + container.clientWidth >= container.scrollWidth - 10);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const card = container.querySelector('.carousel-card');
+      if (card) {
+        const cardWidth = card.getBoundingClientRect().width;
+        const gap = 32;
+        const step = cardWidth + gap;
+        const targetScroll = container.scrollLeft + (direction === 'left' ? -step : step);
+        container.scrollTo({
+          left: targetScroll,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      setIsAtStart(container.scrollLeft <= 10);
+      setIsAtEnd(container.scrollLeft + container.clientWidth >= container.scrollWidth - 10);
+    }
+  }, []);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
@@ -119,49 +155,99 @@ export default function InsightsPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="relative w-full">
+            {/* Custom scrollbar hiding style */}
+            <style dangerouslySetInnerHTML={{__html: `
+              .scrollbar-none::-webkit-scrollbar {
+                display: none !important;
+              }
+              .scrollbar-none {
+                -ms-overflow-style: none !important;
+                scrollbar-width: none !important;
+              }
+            `}} />
 
-            {MEDIA_COVERAGES.map((news, idx) => (
-              <StaggerItem key={idx}>
-                <div
-                  className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
-                >
-                  <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
-                      <Image
-                        src={news.image}
-                        alt={news.headline}
-                        fill
-                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </Link>
-                    <div className="flex items-center justify-end mb-3">
-                      <span className="text-slate-500 text-[11px]">{news.date}</span>
+            {/* Left navigation arrow */}
+            <button
+              onClick={() => scroll('left')}
+              disabled={isAtStart}
+              className={`absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 shadow-2xl focus:outline-none ${
+                isAtStart
+                  ? 'bg-slate-800/10 border-slate-700/20 text-slate-600 cursor-not-allowed opacity-30'
+                  : 'bg-[#0b0f19]/80 backdrop-blur-sm border border-white/10 text-white hover:text-gold hover:border-gold/50 hover:bg-[#0b0f19] active:scale-95'
+              }`}
+              aria-label="Previous articles"
+            >
+              <span className="text-xl">←</span>
+            </button>
+
+            {/* Right navigation arrow */}
+            <button
+              onClick={() => scroll('right')}
+              disabled={isAtEnd}
+              className={`absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 shadow-2xl focus:outline-none ${
+                isAtEnd
+                  ? 'bg-slate-800/10 border-slate-700/20 text-slate-600 cursor-not-allowed opacity-30'
+                  : 'bg-[#0b0f19]/80 backdrop-blur-sm border border-white/10 text-white hover:text-gold hover:border-gold/50 hover:bg-[#0b0f19] active:scale-95'
+              }`}
+              aria-label="Next articles"
+            >
+              <span className="text-xl">→</span>
+            </button>
+
+            {/* Carousel track wrapper container */}
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="scrollbar-none flex flex-row flex-nowrap gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth py-4"
+            >
+              <Stagger className="flex flex-row flex-nowrap gap-8 w-full">
+                {MEDIA_COVERAGES.map((news, idx) => (
+                  <StaggerItem
+                    key={idx}
+                    className="carousel-card min-w-full md:min-w-[calc((100%-32px)/2)] lg:min-w-[calc((100%-64px)/3)] flex-shrink-0 snap-start"
+                  >
+                    <div
+                      className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
+                    >
+                      <div>
+                        <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                          <Image
+                            src={news.image}
+                            alt={news.headline}
+                            fill
+                            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </Link>
+                        <div className="flex items-center justify-end mb-3">
+                          <span className="text-slate-500 text-[11px]">{news.date}</span>
+                        </div>
+                        <Link href={`/blog/${news.slug}`}>
+                          <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
+                        </Link>
+                        <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                        <Link
+                          href={`/blog/${news.slug}`}
+                          className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
+                        >
+                          Read Full Article →
+                        </Link>
+                        <button
+                          onClick={() => setActiveModal(news)}
+                          className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
+                        >
+                          🔍 Preview Image
+                        </button>
+                      </div>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
-                    </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <Link
-                      href={`/blog/${news.slug}`}
-                      className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
-                    >
-                      Read Full Article →
-                    </Link>
-                    <button
-                      onClick={() => setActiveModal(news)}
-                      className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
-                    >
-                      🔍 Preview Image
-                    </button>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </div>
         </div>
       </section>
 
