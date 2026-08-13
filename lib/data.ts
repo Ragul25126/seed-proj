@@ -724,8 +724,8 @@ export const portfolio: {
         image: "/projects/Hilton Awassa.webp",
         images: [
           "/projects/Hilton Awassa.webp",
-          "/projects/hilton-awassa-image-1.webp",
-          "/projects/hilton-awassa-new-01.jpg"
+          "/projects/hilton-awassa-new-01.jpg",
+          "/projects/hilton-awassa-image-1.webp"
         ],
         description: ""
     },
