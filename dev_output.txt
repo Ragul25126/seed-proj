@@ -155,3 +155,11 @@ motion() is deprecated. Use motion.create() instead.
  ✓ Compiled in 3.9s (1278 modules)
 <w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\0.pack.gz'
  ✓ Compiled in 7.7s (1278 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\1.pack.gz_' -> 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\1.pack.gz'
+ ✓ Compiled in 16.5s (1292 modules)
+ ✓ Compiled in 8.7s (1292 modules)
+ ✓ Compiled in 4.6s (1292 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\1.pack.gz_' -> 'C:\Users\Ragul\seed-proj\.next-dev\cache\webpack\client-development\1.pack.gz'
+ ✓ Compiled in 1589ms (650 modules)
+ ✓ Compiled in 3s (650 modules)
+ ✓ Compiled in 1413ms (650 modules)

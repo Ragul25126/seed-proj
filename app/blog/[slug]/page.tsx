@@ -17,13 +17,16 @@ export function generateStaticParams() {
     slug: post.slug,
   }));
 }
-
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = fallbackPosts.find((p) => p.slug === params.slug);
 
   if (!post) {
     notFound();
   }
+
+  const sameCategoryPosts = fallbackPosts.filter((p) => p.slug !== params.slug && p.category?.toLowerCase() === post.category?.toLowerCase());
+  const otherCategoryPosts = fallbackPosts.filter((p) => p.slug !== params.slug && p.category?.toLowerCase() !== post.category?.toLowerCase());
+  const relatedPosts = [...sameCategoryPosts, ...otherCategoryPosts].slice(0, 3);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-white pt-40 pb-24">
@@ -35,7 +38,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             href="/blog" 
             className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
           >
-            ← Back to Insights
+            {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
           </Link>
         </div>
 
@@ -73,6 +76,50 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             )}
           </div>
         </section>
+
+        {/* More Like This Section */}
+        {relatedPosts.length > 0 && (
+          <div className="max-w-5xl mx-auto pt-16 border-t border-white/10 mt-16">
+            <div className="mb-12">
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">RELATED CONTENT</span>
+              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">More Like This</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {relatedPosts.map((news, idx) => (
+                <div
+                  key={idx}
+                  className="bg-[#0f172a] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
+                >
+                  <div>
+                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="object-cover w-full h-full object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </Link>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-gold text-[10px] font-semibold tracking-[0.1em] uppercase">{news.category}</span>
+                      <span className="text-slate-500 text-[11px]">{formatDate(news.publishedAt)}</span>
+                    </div>
+                    <Link href={`/blog/${news.slug}`}>
+                      <h3 className="font-serif text-base font-bold text-white mb-2 group-hover:text-gold transition-colors line-clamp-2">{news.title}</h3>
+                    </Link>
+                    <p className="text-slate-400 text-[12px] font-light leading-relaxed mb-4 line-clamp-3">{news.excerpt}</p>
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/5 mt-auto">
+                    <Link
+                      href={`/blog/${news.slug}`}
+                      className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
+                    >
+                      Read Full Article →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Footer Navigation */}
         <div className="max-w-3xl mx-auto pt-12 border-t border-white/10 mt-16 text-center">

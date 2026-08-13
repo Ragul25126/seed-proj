@@ -39,6 +39,14 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     desc: 'Investment opportunities in East Africa are paving financial growth.',
     image: '/blog/east-africa-wind.png',
   },
+  {
+    slug: 'delivering-efficiency-in-conversation-with-sanu-mathew',
+    headline: 'Delivering Efficiency: In conversation with Sanu Mathew',
+    category: 'MEDIA COVERAGE',
+    date: '24 Jul 2022',
+    desc: 'Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building Services Industry.',
+    image: '/blog/sanu-mathew-media-coverage.png',
+  },
 ];
 
 const AWARDS_RECOGNITION: ArticleItem[] = [
