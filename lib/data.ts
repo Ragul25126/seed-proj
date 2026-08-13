@@ -464,8 +464,6 @@ export const portfolio: {
         image: "/projects/Radisson Blu.webp",
         images: [
           "/projects/Radisson Blu.webp",
-          "/projects/radisson-blu-image-1.webp",
-          "/projects/radisson-blu.webp",
           "/projects/radisson-blu-02.jpg",
           "/projects/radisson-blu-03.jpg",
           "/projects/radisson-blu-04.jpg"
