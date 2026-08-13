@@ -141,11 +141,11 @@ export const portfolio: {
         area: "84,000 sqm",
         image: "/projects/uptown-mercer-house-skyline.jpg",
         images: [
-          "/projects/uptown-mercer-house-skyline.jpg",
-          "/projects/uptown-mercer-house-lobby.jpg",
-          "/projects/uptown-mercer-house-pool.jpg",
+          "/projects/uptown-mercer-house-balcony.jpg",
           "/projects/uptown-mercer-house-retail.jpg",
-          "/projects/uptown-mercer-house-balcony.jpg"
+          "/projects/uptown-mercer-house-skyline.jpg",
+          "/projects/uptown-mercer-house-pool.jpg",
+          "/projects/uptown-mercer-house-lobby.jpg"
         ],
         description: "Proposed B+G+4P+Tower-6 with 34 Floors + Roof and Tower-7 with 41 Floors + Roof [ Both the towers will have combined floor plate for Basement, Ground floor till last Podium level] Residential Building at DMCC, Uptown Dubai, UAE."
     },
@@ -813,9 +813,7 @@ export const portfolio: {
         area: "15,000 sqm",
         image: "/projects/Hub Zero.webp",
         images: [
-          "/projects/Hub Zero.webp",
-          "/projects/hub-zero-140117-pel0012-pov-id90-00-exteriorfacade-night.webp",
-          "/projects/hub-zero.webp"
+          "/projects/Hub Zero.webp"
         ],
         description: ""
     },
@@ -833,7 +831,8 @@ export const portfolio: {
         area: "150,000 sqm",
         image: "/projects/IMG.webp",
         images: [
-          "/projects/IMG.webp"
+          "/projects/IMG.webp",
+          "/projects/img-new-01.png"
         ],
         description: ""
     },
