@@ -103,3 +103,8 @@ motion() is deprecated. Use motion.create() instead.
  ✓ Compiled in 22.3s (1292 modules)
  ✓ Compiled in 11.1s (1278 modules)
  ✓ Compiled in 8s (1278 modules)
+ ✓ Compiled in 17.5s (1292 modules)
+ ✓ Compiled in 3.9s (650 modules)
+ ✓ Compiled in 7.3s (1292 modules)
+ ✓ Compiled in 6.4s (1278 modules)
+ ✓ Compiled in 4.7s (650 modules)

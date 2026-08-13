@@ -689,8 +689,11 @@ export const portfolio: {
         image: "/projects/Deyaar Millenium Hotel.webp",
         images: [
           "/projects/Deyaar Millenium Hotel.webp",
-          "/projects/deyaar-millenium-hotel-image-1.webp",
-          "/projects/Gran Melia Hotel.jpg"
+          "/projects/millennium-deyaar-new-01.png",
+          "/projects/millennium-deyaar-new-02.jpg",
+          "/projects/millennium-deyaar-new-03.png",
+          "/projects/millennium-deyaar-new-04.png",
+          "/projects/millennium-deyaar-new-05.jpg"
         ],
         description: "Millennium Al Barsha — a 4-star property located within walking distance from Mall of the Emirates. Offers 299 rooms and suites plus 109 serviced apartments with all modern amenities."
     },
