@@ -617,7 +617,7 @@ export const portfolio: {
         projectScale: "MEP Design & Site Supervision",
         client: "Deyaar",
         architect: "U+A",
-        services: "MEP Design Changes & Site Supervision",
+        services: "MEP Supervision",
         area: "369,602 sqm · 12 Residential Buildings",
         image: "/projects/Deyaar Midtown.webp",
         images: [
