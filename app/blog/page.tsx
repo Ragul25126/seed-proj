@@ -47,7 +47,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'Sanu Mathew | Honourable Achievement for Executive of the Year',
     category: 'Media Coverage',
     date: '9 Dec 2025',
-    desc: 'A proud milestone for SEED Engineering last week. Our Managing Director, Sanu Mathew, has been recognised with the Honourable Achievement for Executive of the Year.',
+    desc: 'A proud milestone for SEED Engineering. Our Managing Director, Sanu Mathew, was recognised with the Honourable Achievement for Executive of the Year – Male at the Middle East Consultant Awards 2025.',
     image: '/projects/news-sanu-mathew-award.webp',
   },
   {
