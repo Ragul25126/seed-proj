@@ -664,14 +664,10 @@ export const portfolio: {
         image: "/projects/Soto Grande.webp",
         images: [
           "/projects/Soto Grande.webp",
-          "/projects/soto-grande.webp",
-          "/projects/soto-grande-02.jpg",
           "/projects/soto-grande-03.jpg",
-          "/projects/soto-grande-04.jpg",
           "/projects/soto-grande-05.jpg",
           "/projects/soto-grande-06.jpg",
-          "/projects/soto-grande-07.jpg",
-          "/projects/soto-grande-08.jpg"
+          "/projects/soto-grande-07.jpg"
         ],
         description: "Soto Grande at Al Hamra, Ras Al Khaimah, is a modern residential development comprising 630 units across a mix of studio to four-bedroom penthouse apartments within approximately 61,000 sqm of gross floor area, integrating smart home technologies, comprehensive building systems and contemporary amenities to deliver a comfortable, efficient and connected living environment."
     },
