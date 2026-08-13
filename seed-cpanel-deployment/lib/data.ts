@@ -462,22 +462,11 @@ export const portfolio: {
         images: [
           "/projects/mandarin-jumeirah-new-01.jpg",
           "/projects/mandarin-jumeirah-new-02.jpg",
-          "/projects/Mandarin Jumeirah Beach Resort.webp",
-          "/projects/mandarin-jumeirah.webp",
-          "/projects/mandarin-jumeirah-03.png",
-          "/projects/mandarin-jumeirah-04.png",
-          "/projects/mandarin-jumeirah-05.png",
           "/projects/mandarin-jumeirah-06.jpg",
-          "/projects/mandarin-jumeirah-07.jpg",
-          "/projects/mandarin-jumeirah-08.png",
-          "/projects/mandarin-jumeirah-09.png",
-          "/projects/mandarin-jumeirah-10.png",
           "/projects/mandarin-jumeirah-11.png",
-          "/projects/mandarin-jumeirah-12.png",
           "/projects/mandarin-jumeirah-new-03.jpg",
           "/projects/mandarin-jumeirah-new-04.jpg",
-          "/projects/mandarin-jumeirah-new-05.jpg",
-          "/projects/mandarin-jumeirah-new-06.jpg"
+          "/projects/mandarin-jumeirah-new-05.jpg"
         ],
         description: ""
     },
@@ -553,11 +542,8 @@ export const portfolio: {
         image: "/projects/Al AjlanTower 3.webp",
         images: [
           "/projects/Al AjlanTower 3.webp",
-          "/projects/al-ajlantower-3-new-01.jpg",
           "/projects/al-ajlantower-3-new-02.png",
-          "/projects/al-ajlantower-3-new-03.jpg",
-          "/projects/al-ajlantower-3-new-04.jpg",
-          "/projects/al-ajlantower-3-new-05.png"
+          "/projects/al-ajlantower-3-new-03.jpg"
         ],
         description: "Commercial Development Tower in Riyadh, KSA."
     },
