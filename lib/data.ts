@@ -243,8 +243,7 @@ export const portfolio: {
         area: "98,296 sqm",
         image: "/projects/playa-del-sol-new.png",
         images: [
-          "/projects/playa-del-sol-new.png",
-          "/projects/playa-del-sol-ellington-playa-del-sol.webp"
+          "/projects/playa-del-sol-new.png"
         ],
         description: "Playa Del Sol is a contemporary residential development located on the prestigious Al Marjan Island in Ras Al Khaimah, one of the UAE's most prominent waterfront destinations. The project is designed to deliver a premium residential experience, combining modern living with a resort-style coastal environment.\nThe development spans a plot area of approximately 167,447 sqm, with a total built-up area of around 533,000 sqm. The project comprises mid-rise residential buildings configured with ground floor, podium levels accommodating parking and amenities, and multiple residential floors, creating a well-integrated and efficient urban development.\nThe development accommodates approximately 420 residential units, offering a diverse mix of apartment types ranging from studios to four-bedroom penthouses. Designed to cater to the mid to upper-income market, the project emphasizes efficient layouts, high-quality finishes and optimised space utilisation, delivering a comfortable and contemporary living environment.\nThe project incorporates a comprehensive range of MEP systems, including HVAC, electrical, plumbing, fire protection, fire alarm, chilled water, ventilation and LPG systems. All systems are designed in accordance with international standards and local authority regulations, ensuring high levels of safety, efficiency and operational performance."
     },
@@ -264,15 +263,7 @@ export const portfolio: {
           "/projects/Portside Square.webp",
           "/projects/portside-square-02.jpg",
           "/projects/portside-square-03.jpg",
-          "/projects/portside-square-04.jpg",
-          "/projects/portside-square-05.jpg",
-          "/projects/portside-square-06.jpg",
-          "/projects/portside-square.webp",
-          "/projects/portside-square-07.jpg",
-          "/projects/portside-square-08.jpg",
-          "/projects/portside-square-09.jpg",
-          "/projects/portside-square-10.jpg",
-          "/projects/portside-square-11.png"
+          "/projects/portside-square-04.jpg"
         ],
         description: ""
     },
@@ -346,8 +337,8 @@ export const portfolio: {
         area: "17,187 sqm",
         image: "/projects/the-gate-buildings-the-gate-buildings-dubai.webp",
         images: [
-          "/projects/the-gate-buildings-the-gate-buildings-dubai.webp",
-          "/projects/The Gate Buildings.webp"
+          "/projects/The Gate Buildings.webp",
+          "/projects/the-gate-buildings-the-gate-buildings-dubai.webp"
         ],
         description: ""
     },
@@ -369,16 +360,7 @@ export const portfolio: {
           "/projects/meriva-collection-02.jpg",
           "/projects/meriva-collection-03.jpg",
           "/projects/meriva-collection-04.png",
-          "/projects/meriva-collection-05.jpg",
-          "/projects/meriva-collection-06.jpg",
-          "/projects/meriva-collection-07.jpg",
-          "/projects/meriva-collection-08.jpg",
-          "/projects/meriva-collection-09.jpg",
-          "/projects/meriva-collection-10.jpg",
-          "/projects/meriva-collection-11.jpg",
-          "/projects/meriva-collection-12.jpg",
-          "/projects/meriva-collection-13.jpg",
-          "/projects/meriva-collection-14.jpg"
+          "/projects/meriva-collection-05.jpg"
         ],
         description: "The Dubai Islands Mixed-Use Development (Plot DIB-MU-0005) is a large-scale integrated development located within the rapidly evolving Dubai Islands masterplan, offering a prime waterfront destination with a focus on luxury living, hospitality and retail experiences.\nSpanning a substantial plot area of approximately 107,290 square metres, the project has a total gross floor area of around 1.48 million sqm. The development comprises a balanced mix of residential, hospitality and retail components, including approximately 1,261,347 sqm of residential space, 148,393 sqm dedicated to hotel use and 74,196 sqm allocated for retail.\nThe residential component is designed to offer a diverse range of unit typologies, including 1-bedroom, 2-bedroom, 3-bedroom and penthouse units, catering to a wide spectrum of residents. The development is planned to accommodate approximately 1,105 residential units, ensuring a vibrant and dynamic community environment.\nThe project is configured as a multi-storey development with a basement, ground level and 22 floors, designed to optimise space utilisation and provide a seamless integration of residential, hospitality and retail functions. The hotel component is envisioned to offer premium serviced apartments and hospitality facilities, enhancing the overall lifestyle offering of the development.\nThe project integrates a comprehensive scope of engineering services including MEP, ICT, AV, home automation and security systems. The design encompasses HVAC, electrical, plumbing, fire protection, fire alarm, chilled water, ventilation, LPG, building management systems and advanced ELV solutions, ensuring efficient performance, safety and user comfort.\nAll systems are designed in accordance with international standards and local authority requirements, with a strong focus on sustainability, energy efficiency and coordinated multidisciplinary design. The project adopts an integrated design approach to ensure optimised performance, seamless coordination and long-term operational reliability.\nThe Dubai Islands Mixed-Use Development represents a modern urban destination that combines residential living, hospitality excellence and retail vibrancy within a single integrated development, contributing to the transformation of Dubai Islands into a premier waterfront community."
     },
