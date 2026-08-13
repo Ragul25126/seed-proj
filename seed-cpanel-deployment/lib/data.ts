@@ -542,11 +542,8 @@ export const portfolio: {
         image: "/projects/Al AjlanTower 3.webp",
         images: [
           "/projects/Al AjlanTower 3.webp",
-          "/projects/al-ajlantower-3-new-01.jpg",
           "/projects/al-ajlantower-3-new-02.png",
-          "/projects/al-ajlantower-3-new-03.jpg",
-          "/projects/al-ajlantower-3-new-04.jpg",
-          "/projects/al-ajlantower-3-new-05.png"
+          "/projects/al-ajlantower-3-new-03.jpg"
         ],
         description: "Commercial Development Tower in Riyadh, KSA."
     },
