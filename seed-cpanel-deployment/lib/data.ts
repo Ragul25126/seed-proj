@@ -665,7 +665,12 @@ export const portfolio: {
         image: "/projects/Deyaar Midtown.webp",
         images: [
           "/projects/Deyaar Midtown.webp",
-          "/projects/deyaar-midtown-image-1.webp"
+          "/projects/deyaar-midtown-image-1.webp",
+          "/projects/deyaar-midtown-new-01.jpg",
+          "/projects/deyaar-midtown-new-02.jpg",
+          "/projects/deyaar-midtown-new-03.jpg",
+          "/projects/deyaar-midtown-new-04.jpg",
+          "/projects/deyaar-midtown-new-05.jpg"
         ],
         description: "12 residential buildings forming the Deyaar Midtown development in Dubai."
     },
