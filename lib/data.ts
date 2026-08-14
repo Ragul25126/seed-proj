@@ -1002,7 +1002,9 @@ export const portfolio: {
         area: "88,909 sqm · 380 Keys",
         image: "/projects/Gran Melia Hotel.jpg",
         images: [
-          "/projects/Gran Melia Hotel.jpg"
+          "/projects/Gran Melia Hotel.jpg",
+          "/projects/gran-melia-view-1.png",
+          "/projects/gran-melia-view-2.png"
         ],
         description: ""
     },
