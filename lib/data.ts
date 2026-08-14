@@ -860,7 +860,8 @@ export const portfolio: {
         images: [
           "/projects/Mirdiff Hills.webp",
           "/projects/mirdiff-hills-image-1.webp",
-          "/projects/mirdif-hills.webp"
+          "/projects/mirdiff-hills-new-view-2.png",
+          "/projects/mirdiff-hills-new-view-3.png"
         ],
         description: ""
     },
