@@ -188,7 +188,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
               aspectRatio="aspect-[16/9] md:aspect-[21/9]"
               objectFit="cover"
               containImages={['/projects/mandarin-wasl-tower.webp', '/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png']}
-              containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
+              containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2', 'namaste-tower']}
               currentSlug={proj.slug}
             />
           </Reveal>
@@ -261,7 +261,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
                       alt={`${proj.title} Render ${idx + 1}`}
                       fill
                       unoptimized
-                      className={`${(proj.slug === 'saas-st-regis' || img === '/projects/mandarin-wasl-2-new.jpg' || img === '/projects/ellington-hq.png' || img.includes('uptown-mercer-house')) ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-700`}
+                      className={`${(proj.slug === 'saas-st-regis' || proj.slug === 'namaste-tower' || img === '/projects/mandarin-wasl-2-new.jpg' || img === '/projects/ellington-hq.png' || img.includes('uptown-mercer-house')) ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-700`}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex items-end">
