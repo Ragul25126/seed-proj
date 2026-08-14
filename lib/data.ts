@@ -820,7 +820,8 @@ export const portfolio: {
         image: "/projects/Kings College.webp",
         images: [
           "/projects/Kings College.webp",
-          "/projects/kings-college-kings-college---1.webp"
+          "/projects/kings-college-kings-college---1.webp",
+          "/projects/kings-college-new-view.png"
         ],
         description: ""
     },
