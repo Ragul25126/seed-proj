@@ -800,6 +800,7 @@ export const portfolio: {
         image: "/projects/jumeirah-living-peninsula.webp",
         images: [
           "/projects/jumeirah-living-peninsula.webp",
+          "/projects/Jumeirah Living 5 Star Hotel Apartments at Peninsula Plot F  Dubai, UAE.webp",
           "/projects/jumeirah-living-5-star-hotel-apartments-at-peninsula-plot-f--dubai--uae-pu21148b-plot-f.webp"
         ],
         description: ""
