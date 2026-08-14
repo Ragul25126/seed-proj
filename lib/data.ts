@@ -1046,7 +1046,7 @@ export const portfolio: {
           "/projects/Rove hotel.webp",
           "/projects/rove-hotel.webp",
           "/projects/rove-hotel-1.webp",
-          "/projects/rove-hotel-view-1.webp"
+          "/projects/rove-hotel-view-1.png"
         ],
         description: ""
     },
