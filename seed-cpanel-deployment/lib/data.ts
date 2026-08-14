@@ -961,8 +961,7 @@ export const portfolio: {
         images: [
           "/projects/Oberoi International School.webp",
           "/projects/oberoi-international-school-1.webp",
-          "/projects/oberoi-international-school-2.webp",
-          "/projects/oberoi-international-school-3.webp"
+          "/projects/oberoi-international-school-2.webp"
         ],
         description: ""
     },
