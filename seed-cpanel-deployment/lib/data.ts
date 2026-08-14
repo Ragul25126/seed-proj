@@ -880,8 +880,7 @@ export const portfolio: {
         image: "/projects/NMC Hospital.webp",
         images: [
           "/projects/NMC Hospital.webp",
-          "/projects/nmc-hospital-20130305-165604.webp",
-          "/projects/nmc-hospital.webp"
+          "/projects/nmc-hospital-20130305-165604.webp"
         ],
         description: ""
     },
