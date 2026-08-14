@@ -982,7 +982,9 @@ export const portfolio: {
         images: [
           "/projects/Park Hyatt Zanzibar.webp",
           "/projects/park-hyatt-zanzibar-image-1.webp",
-          "/projects/park-hyatt-zanzibar.webp"
+          "/projects/park-hyatt-zanzibar-view-1.png",
+          "/projects/park-hyatt-zanzibar-view-2.png",
+          "/projects/park-hyatt-zanzibar-view-3.png"
         ],
         description: ""
     },
