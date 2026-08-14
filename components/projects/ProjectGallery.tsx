@@ -40,6 +40,9 @@ export function ProjectGallery({
 
   const getStyle = (img: string): React.CSSProperties | undefined => {
     if (img === '/projects/mandarin-wasl-tower.webp') return { transform: 'scale(0.93)' };
+    if (img === '/projects/namaste-tower-view-1.png' || img === '/projects/namaste-tower-view-2.png') {
+      return { transform: 'scale(0.9)' };
+    }
     return undefined;
   };
 
