@@ -1026,7 +1026,6 @@ export const portfolio: {
           "/projects/rajiv-gandhi-stadium-1.webp",
           "/projects/rajiv-gandhi-stadium-2.webp",
           "/projects/rajiv-gandhi-stadium-3.webp",
-          "/projects/rajiv-gandhi-stadium-4.webp",
           "/projects/rajiv-gandhi-stadium-5.webp"
         ],
         description: ""
