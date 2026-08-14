@@ -919,7 +919,9 @@ export const portfolio: {
         image: "/projects/National Games Stadium , Trivandrum India.webp",
         images: [
           "/projects/National Games Stadium , Trivandrum India.webp",
-          "/projects/national-games-stadium---trivandrum-india-1.webp"
+          "/projects/national-games-stadium---trivandrum-india-1.webp",
+          "/projects/national-games-stadium-view-1.png",
+          "/projects/national-games-stadium-view-2.png"
         ],
         description: ""
     },
