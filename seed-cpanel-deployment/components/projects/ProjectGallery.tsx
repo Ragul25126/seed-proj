@@ -40,9 +40,6 @@ export function ProjectGallery({
 
   const getStyle = (img: string): React.CSSProperties | undefined => {
     if (img === '/projects/mandarin-wasl-tower.webp') return { transform: 'scale(0.93)' };
-    if (img === '/projects/namaste-tower-view-1.png' || img === '/projects/namaste-tower-view-2.png') {
-      return { transform: 'scale(0.9)' };
-    }
     return undefined;
   };
 
@@ -69,7 +66,10 @@ export function ProjectGallery({
           unoptimized
           priority={activeIndex === 0}
           className={`${getFit(currentImage)} transition-all duration-500`}
-          style={getStyle(currentImage)}
+          style={{
+            ...getStyle(currentImage),
+            objectFit: getFit(currentImage) === 'object-contain' ? 'contain' : 'cover'
+          }}
           sizes="(max-width: 1200px) 100vw, 1200px"
         />
 
@@ -131,7 +131,10 @@ export function ProjectGallery({
                 fill
                 unoptimized
                 className={`${getFit(img)} transition-all duration-300`}
-                style={getStyle(img)}
+                style={{
+                  ...getStyle(img),
+                  objectFit: getFit(img) === 'object-contain' ? 'contain' : 'cover'
+                }}
                 sizes="96px"
               />
               {idx === activeIndex && (
