@@ -940,7 +940,8 @@ export const portfolio: {
         image: "/projects/Novotel Al Barsha.webp",
         images: [
           "/projects/Novotel Al Barsha.webp",
-          "/projects/novotel-al-barsha-image-1.webp"
+          "/projects/novotel-al-barsha-image-1.webp",
+          "/projects/novotel-al-barsha-view-3.png"
         ],
         description: ""
     },
