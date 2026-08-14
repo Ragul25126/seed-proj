@@ -743,8 +743,7 @@ export const portfolio: {
         area: "60,000 sqm · Twin Towers",
         image: "/projects/Holiday Inn & residences.webp",
         images: [
-          "/projects/Holiday Inn & residences.webp",
-          "/projects/holiday-inn-hilton.webp"
+          "/projects/Holiday Inn & residences.webp"
         ],
         description: ""
     },
@@ -778,10 +777,11 @@ export const portfolio: {
         architect: "FTHUSA",
         services: "MEP Design & Supervision",
         area: "150,000 sqm",
-        image: "/projects/IMG.webp",
+        image: "/projects/img-new-01.png",
         images: [
+          "/projects/img-new-01.png",
           "/projects/IMG.webp",
-          "/projects/img-new-01.png"
+          "/projects/img-new-02.png"
         ],
         description: ""
     },
@@ -1084,7 +1084,8 @@ export const portfolio: {
         image: "/projects/Sobha Hartland.webp",
         images: [
           "/projects/Sobha Hartland.webp",
-          "/projects/sobha-hartland-image-1.webp"
+          "/projects/sobha-hartland-image-1.webp",
+          "/projects/board poeple pictures/image copy 15.png"
         ],
         description: ""
     },
@@ -1100,10 +1101,12 @@ export const portfolio: {
         architect: "Perkins+Will & Rice Perry Ellis",
         services: "MEP Design",
         area: "65,000 sqm",
-        image: "/projects/Sunrise Bay Tower.webp",
+        image: "/projects/board poeple pictures/image copy 16.png",
         images: [
-          "/projects/Sunrise Bay Tower.webp",
-          "/projects/sunrise-bay-tower-dhd-zone2-plotb18-living-dining-kitchen-day-view-scaled.webp"
+          "/projects/board poeple pictures/image copy 16.png",
+          "/projects/board poeple pictures/image copy 17.png",
+          "/projects/sunrise-bay-tower-dhd-zone2-plotb18-living-dining-kitchen-day-view-scaled.webp",
+          "/projects/board poeple pictures/image copy 18.png"
         ],
         description: ""
     },
@@ -1122,7 +1125,10 @@ export const portfolio: {
         image: "/projects/TBC Bank Headquarters.webp",
         images: [
           "/projects/TBC Bank Headquarters.webp",
-          "/projects/tbc-bank-headquarters-image-1.webp"
+          "/projects/image copy 19.png",
+          "/projects/image copy 20.png",
+          "/projects/image copy 21.png",
+          "/projects/image copy 22.png"
         ],
         description: ""
     },
@@ -1141,7 +1147,10 @@ export const portfolio: {
         image: "/projects/W Hotel.webp",
         images: [
           "/projects/W Hotel.webp",
-          "/projects/w-hotel-picture1.webp"
+          "/projects/image copy 23.png",
+          "/projects/image copy 24.png",
+          "/projects/image copy 25.png",
+          "/projects/image copy 26.png"
         ],
         description: ""
     },
@@ -1175,10 +1184,9 @@ export const portfolio: {
         architect: "Kohn Pedersen Fox (KPF)",
         services: "MEP Design Services",
         area: "390,000 sqm (combined)",
-        image: "/projects/Worli 360 west.webp",
+        image: "/projects/board poeple pictures/image copy 28.png",
         images: [
-          "/projects/Worli 360 west.webp",
-          "/projects/worli-ritz-carlton.webp"
+          "/projects/board poeple pictures/image copy 28.png"
         ],
         description: ""
     },
@@ -1197,7 +1205,7 @@ export const portfolio: {
         image: "/projects/Akoya Carson Tower.webp",
         images: [
           "/projects/Akoya Carson Tower.webp",
-          "/projects/akoya-carson-tower-all-4-towers-number2new-a-3.webp"
+          "/projects/board poeple pictures/image copy 29.png"
         ],
         description: "Consists of 3 residential towers each comprising 33 floors located at Umm Suqeim Road, Dubailand, Akoya, Dubai. With its supreme location overlooking the Trump International Golf Club Dubai, there's a staggering choice of outdoor facilities within easy reach."
     },
@@ -1215,9 +1223,7 @@ export const portfolio: {
         area: "1,554.93 sqm",
         image: "/projects/g-1-beach-villa-dubai,-uae.jpg",
         images: [
-          "/projects/g-1-beach-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/g-1-beach-villa-dubai,-uae.jpg"
         ],
         description: "G+1 Storey Beach Villa, Plot No. 245"
     },
@@ -1235,8 +1241,7 @@ export const portfolio: {
         area: "1,987.39 sqm",
         image: "/projects/b-g-1-private-villa-dubai,-uae.jpg",
         images: [
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/b-g-1-private-villa-dubai,-uae.jpg"
         ],
         description: "B+G+1 Private Villa on Plot No. 2811328"
     },
@@ -1255,8 +1260,8 @@ export const portfolio: {
         image: "/projects/b-g-1-residential-villa-dubai,-uae.jpg",
         images: [
           "/projects/b-g-1-residential-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/g-1-basement-private-residential-villa-dubai,-uae.jpg"
+          "/projects/b-g-1-residential-villa-emirates-hills-01.jpg",
+          "/projects/b-g-1-residential-villa-emirates-hills-02.jpg"
         ],
         description: "B+G+1 Residential Villa on Plot No. 394530, Emirates Hills Phase 1"
     },
@@ -1275,7 +1280,8 @@ export const portfolio: {
         image: "/projects/g-1-basement-private-residential-villa-dubai,-uae.jpg",
         images: [
           "/projects/g-1-basement-private-residential-villa-dubai,-uae.jpg",
-          "/projects/g-1-beach-villa-dubai,-uae.jpg"
+          "/projects/g-1-basement-private-residential-villa-01.jpg",
+          "/projects/g-1-basement-private-residential-villa-02.jpg"
         ],
         description: "G+1 + Basement Private Residential Villa on Plot No. 2822658, Khawaneej 2nd"
     },
@@ -1293,9 +1299,7 @@ export const portfolio: {
         area: "",
         image: "/projects/g-1-residential-villa-dubai,-uae.png",
         images: [
-          "/projects/g-1-residential-villa-dubai,-uae.png",
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/g-1-residential-villa-dubai,-uae.png"
         ],
         description: "G+1 Residential Villa on Plot No. PJFRN084, Palm Jumeirah"
     },
@@ -1314,7 +1318,8 @@ export const portfolio: {
         image: "/projects/g-1-residential-villa-nad-al-sheba-fourth-dubai,-uae.jpg",
         images: [
           "/projects/g-1-residential-villa-nad-al-sheba-fourth-dubai,-uae.jpg",
-          "/projects/g-1-residential-villa-dubai,-uae.png"
+          "/projects/g-1-residential-villa-nad-al-sheba-01.jpg",
+          "/projects/g-1-residential-villa-nad-al-sheba-02.jpg"
         ],
         description: "G+1 Residential Villa on Plot No. 6173720, Nad Al Sheba Fourth"
     },
@@ -1332,8 +1337,7 @@ export const portfolio: {
         area: "1,393.55 sqm",
         image: "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.jpg",
         images: [
-          "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.jpg",
-          "/projects/g-2-private-residential-villa-dubai,-uae.png"
+          "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.jpg"
         ],
         description: "G+1 Villa on Plot No. 3620352, Umm Suqeim 2"
     },
@@ -1351,8 +1355,7 @@ export const portfolio: {
         area: "1,393.55 sqm",
         image: "/projects/g-1-villa-al-barsha-dubai,-uae-.png",
         images: [
-          "/projects/g-1-villa-al-barsha-dubai,-uae-.png",
-          "/projects/al-barsha-south.webp"
+          "/projects/g-1-villa-al-barsha-dubai,-uae-.png"
         ],
         description: "G+1 Villa on Plot No. 3760449, Al Barsha"
     },
@@ -1371,8 +1374,11 @@ export const portfolio: {
         image: "/projects/g-2-private-residential-villa-dubai,-uae.png",
         images: [
           "/projects/g-2-private-residential-villa-dubai,-uae.png",
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/g-2-private-residential-villa-palm-jumeirah-01.png",
+          "/projects/g-2-private-residential-villa-palm-jumeirah-02.png",
+          "/projects/g-2-private-residential-villa-palm-jumeirah-03.png",
+          "/projects/g-2-private-residential-villa-palm-jumeirah-04.png",
+          "/projects/g-2-private-residential-villa-palm-jumeirah-05.png"
         ],
         description: "G+2 Private Residential Villa, Palm Jumeirah Frond J, Plot 15"
     },
@@ -1390,9 +1396,7 @@ export const portfolio: {
         area: "506.97 sqm",
         image: "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.jpg",
         images: [
-          "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.jpg",
-          "/projects/b-g-1-private-villa-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.jpg"
         ],
         description: "Modern Private G+1 Residential Villa on Plot No. PJFRN023, Palm Jumeirah"
     },
@@ -1411,7 +1415,7 @@ export const portfolio: {
         image: "/projects/nadd-al-shiba-villa-dubai,-uae.jpg",
         images: [
           "/projects/nadd-al-shiba-villa-dubai,-uae.jpg",
-          "/projects/g-1-residential-villa-nad-al-sheba-fourth-dubai,-uae.jpg"
+          "/projects/nadd-al-shiba-villa-01.jpg"
         ],
         description: "Nadd Al Shiba Villa"
     },
@@ -1430,7 +1434,10 @@ export const portfolio: {
         image: "/projects/residential-villa-villa-ali-al-salim-dubai,-uae.jpg",
         images: [
           "/projects/residential-villa-villa-ali-al-salim-dubai,-uae.jpg",
-          "/projects/b-g-1-residential-villa-dubai,-uae.jpg"
+          "/projects/residential-villa-villa-ali-al-salim-01.png",
+          "/projects/residential-villa-villa-ali-al-salim-02.png",
+          "/projects/residential-villa-villa-ali-al-salim-03.png",
+          "/projects/residential-villa-villa-ali-al-salim-04.png"
         ],
         description: "G+1 Residential Villa on Plot No. 6150136, Nad Al Sheba Second"
     }

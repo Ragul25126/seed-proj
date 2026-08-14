@@ -118,7 +118,7 @@ export function ProjectGallery({
               onClick={() => setActiveIndex(idx)}
               className={`relative flex-shrink-0 w-20 h-14 sm:w-24 sm:h-16 rounded-sm overflow-hidden border transition-all duration-300 ${
                 idx === activeIndex
-                  ? 'border-gold ring-2 ring-gold/40 scale-105 opacity-100'
+                  ? 'border-transparent scale-105 opacity-100'
                   : 'border-white/10 opacity-50 hover:opacity-100 hover:border-white/40'
               }`}
             >
@@ -131,6 +131,9 @@ export function ProjectGallery({
                 style={getStyle(img)}
                 sizes="96px"
               />
+              {idx === activeIndex && (
+                <div className="absolute inset-0 border-2 border-gold rounded-sm pointer-events-none z-10" />
+              )}
             </button>
           ))}
         </div>
