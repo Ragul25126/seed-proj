@@ -897,10 +897,11 @@ export const portfolio: {
         architect: "Killa Architectural Consultants",
         services: "MEP Design",
         area: "120,000 sqm · 363 Keys",
-        image: "/projects/Namaste Tower.webp",
+        image: "/projects/namaste-tower-view-1.png",
         images: [
-          "/projects/Namaste Tower.webp",
-          "/projects/namastetower-bird-eye1.webp"
+          "/projects/namaste-tower-view-1.png",
+          "/projects/namaste-tower-view-2.png",
+          "/projects/namaste-tower-view-3.png"
         ],
         description: ""
     },
