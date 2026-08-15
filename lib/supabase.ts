@@ -7,7 +7,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase environment variables NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY are not defined in .env.local');
 }
 
+const formattedUrl = supabaseUrl && supabaseUrl.startsWith('http')
+  ? supabaseUrl
+  : (supabaseUrl ? `https://${supabaseUrl}.supabase.co` : 'https://placeholder-url.supabase.co');
+
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder-url.supabase.co',
+  formattedUrl,
   supabaseAnonKey || 'placeholder-anon-key'
 );
