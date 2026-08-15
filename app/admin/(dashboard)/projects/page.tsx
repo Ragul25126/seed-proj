@@ -2,6 +2,8 @@ import React from 'react';
 import { createClient } from '../../../../lib/supabase/server';
 import ProjectsClient from './ProjectsClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminProjectsPage() {
   const supabase = createClient();
 

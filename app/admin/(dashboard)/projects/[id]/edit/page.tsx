@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { createClient } from '../../../../../../lib/supabase/server';
 import EditProjectClient from './EditProjectClient';
 
+export const dynamic = 'force-dynamic';
+
 interface EditProjectPageProps {
   params: {
     id: string;

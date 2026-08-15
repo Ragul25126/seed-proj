@@ -3,7 +3,6 @@ import { Section, SectionLabel } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import InquiryForm from '@/components/forms/InquiryForm';
 import { ProjectCard, type ProjectCardData } from '@/components/projects/ProjectCard';
-import { portfolio } from '@/lib/data';
 
 export type ServicePageProps = {
   eyebrow: string;
@@ -31,10 +30,9 @@ function italicLastWord(title: string) {
 }
 
 export function ServicePageTemplate(props: ServicePageProps) {
-  const projects =
-    props.relatedProjects && props.relatedProjects.length
-      ? props.relatedProjects
-      : (portfolio.filter((p) => p.division === (props.division || 'mep')) as any).slice(0, 3);
+  // Only render related projects if explicitly provided by the server component caller.
+  // We do NOT fall back to the hardcoded lib/data.ts portfolio here.
+  const projects = props.relatedProjects ?? [];
 
   return (
     <>
@@ -99,7 +97,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
           </div>
           <div className="lg:col-span-5">
             <p className="text-navy/60 leading-relaxed">
-              Each case study is told as a complete story — the brief, the challenge, the
+              Each case study is told as a complete story ΓÇö the brief, the challenge, the
               engineering answer.
             </p>
           </div>
@@ -121,7 +119,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
             </h2>
             <p className="mt-6 text-white/70 leading-relaxed max-w-md">
               Share what you are working on. A senior member of the studio will reply within one
-              working day — not a sales script, an engineer.
+              working day ΓÇö not a sales script, an engineer.
             </p>
           </div>
           <div className="lg:col-span-7">

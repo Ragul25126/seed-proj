@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export async function updateSession(request: NextRequest) {
@@ -66,7 +67,12 @@ export async function updateSession(request: NextRequest) {
     }
 
     // Verify admin role against admin_users table in the public schema
-    const { data: adminUser, error: adminCheckErr } = await supabase
+    // USE ADMIN CLIENT TO BYPASS RLS
+    const adminClient = createSupabaseClient(formattedUrl, process.env.SUPABASE_SECRET_KEY!, {
+      auth: { persistSession: false },
+    });
+    
+    const { data: adminUser, error: adminCheckErr } = await adminClient
       .from('admin_users')
       .select('id')
       .eq('id', user.id)

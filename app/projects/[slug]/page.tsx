@@ -1,78 +1,46 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { portfolio, featuredProjects } from '@/lib/data';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
+import { getAllProjects, getProjectBySlug } from '@/lib/projects';
 
-// Combine all projects from portfolio and featuredProjects for lookup
-function getAllProjects() {
-  const map = new Map<string, any>();
-  
-  // Add portfolio projects
-  portfolio.forEach((p) => {
-    if (p.slug) map.set(p.slug.toLowerCase(), p);
-  });
-  
-  // Add featured projects if missing
-  featuredProjects.forEach((fp: any) => {
-    if (fp.slug && !map.has(fp.slug.toLowerCase())) {
-      map.set(fp.slug.toLowerCase(), {
-        title: fp.title,
-        slug: fp.slug,
-        division: fp.division || 'mep',
-        clientSector: fp.clientSector,
-        sector: fp.clientSector?.split('·')[0].trim() || 'Engineering',
-        location: fp.location,
-        projectScale: fp.projectScale,
-        client: 'Confidential Developer',
-        architect: 'International Lead Architect',
-        services: fp.scope || 'MEP Design & Supervision',
-        area: fp.projectScale,
-        image: fp.image,
-        images: fp.images,
-        description: typeof fp.challenge === 'string' ? fp.challenge : 'Engineering design & supervision for complex multi-disciplinary development.',
-      });
-    }
-  });
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-  return Array.from(map.values());
-}
-
-function findProjectBySlug(slugParam: string) {
-  const all = getAllProjects();
+async function findProjectBySlug(slugParam: string) {
   const normalized = slugParam.toLowerCase().trim();
   
-  // Exact match
-  let proj = all.find((p) => p.slug.toLowerCase() === normalized);
+  // Try exact match first via database function
+  const proj = await getProjectBySlug(normalized);
   if (proj) return proj;
 
-  // Fuzzy slug match (replacing underscores/spaces/hyphens)
+  // Otherwise fallback to fetching all and doing fuzzy/partial matching locally
+  const all = await getAllProjects();
   const cleanParam = normalized.replace(/[-_ ]+/g, '');
-  proj = all.find((p) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
-  if (proj) return proj;
+  let matchedProj = all.find((p) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
+  if (matchedProj) return matchedProj;
 
-  // Partial match by title or slug
-  proj = all.find(
+  matchedProj = all.find(
     (p) =>
       p.slug.toLowerCase().includes(normalized) ||
       normalized.includes(p.slug.toLowerCase()) ||
       p.title.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanParam)
   );
 
-  return proj || null;
+  return matchedProj || null;
 }
 
 export async function generateStaticParams() {
-  const all = getAllProjects();
+  const all = await getAllProjects();
   return all.map((p) => ({
     slug: p.slug,
   }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const proj = findProjectBySlug(params.slug);
+  const proj = await findProjectBySlug(params.slug);
   if (!proj) {
     return { title: 'Project Not Found | SEED Engineering' };
   }
@@ -82,8 +50,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function SingleProjectPage({ params }: { params: { slug: string } }) {
-  const proj = findProjectBySlug(params.slug);
+export default async function SingleProjectPage({ params }: { params: { slug: string } }) {
+  const proj = await findProjectBySlug(params.slug);
 
   if (!proj) {
     // Render an elegant inline fallback instead of a generic 404 page
@@ -114,7 +82,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
     );
   }
 
-  const allProjects = getAllProjects();
+  const allProjects = await getAllProjects();
   const relatedProjects = allProjects
     .filter((p) => p.slug !== proj.slug && (p.sector === proj.sector || p.division === proj.division))
     .slice(0, 3);

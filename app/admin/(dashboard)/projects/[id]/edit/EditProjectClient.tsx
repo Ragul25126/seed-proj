@@ -97,15 +97,17 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
 
     let successCount = 0;
     let failMsg = '';
+    const uploadedImages: any[] = [];
 
     for (let idx = 0; idx < files.length; idx++) {
       const file = files[idx];
       const formData = new FormData();
       formData.append('file', file);
 
-      const result = await uploadImageAction(project.id, formData);
-      if (result.success) {
+      const result = await uploadImageAction(project.id, formData) as any;
+      if (result.success && result.image) {
         successCount++;
+        uploadedImages.push(result.image);
       } else {
         failMsg = result.error || 'Upload error';
       }
@@ -115,15 +117,13 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
     if (fileInputRef.current) fileInputRef.current.value = '';
 
     if (successCount > 0) {
+      setImages(prev => [...prev, ...uploadedImages]);
       setNotification({
         type: 'success',
         message: `Successfully uploaded ${successCount} image(s).`
       });
-      // Fetch updated images
+      // Fetch updated images server-side too
       router.refresh();
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
     } else if (failMsg) {
       setNotification({ type: 'error', message: `Upload failed: ${failMsg}` });
     }

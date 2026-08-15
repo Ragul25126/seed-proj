@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { CountUp } from '@/components/ui/CountUp';
-import { portfolio } from '@/lib/data';
 import { HeroSlider } from '@/components/sections/HeroSlider';
 
 export const metadata = {

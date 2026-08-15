@@ -3,12 +3,25 @@ import { Section, SectionLabel } from '@/components/ui/Section';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { Stagger, StaggerItem } from '@/components/ui/Reveal';
 import InquiryForm from '@/components/forms/InquiryForm';
-import { portfolio } from '@/lib/data';
+import { getAllProjects } from '@/lib/projects';
 
-export const metadata = { title: 'Pool Projects', description: 'Selected pool projects from Seed Engineering.' };
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default function Page() {
-  const projects = portfolio.filter((p) => p.division === 'pool');
+export const metadata = {
+  title: 'Pool Projects',
+  description: 'Selected pool projects from Seed Engineering.',
+};
+
+/**
+ * /pool/projects — Server Component
+ *
+ * Fetches pool projects from Supabase ordered by display_order ASC.
+ * Images come from public.project_images — NOT from the hardcoded lib/data.ts portfolio.
+ */
+export default async function Page() {
+  const allProjects = await getAllProjects();
+  const projects = allProjects.filter((p: any) => p.division === 'pool');
 
   return (
     <>
@@ -21,7 +34,7 @@ export default function Page() {
         <SectionLabel>Case Studies</SectionLabel>
         <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p: any) => (
-            <StaggerItem key={p._id || p.slug}>
+            <StaggerItem key={p.id || p.slug}>
               <div id={p.slug}>
                 <ProjectCard project={p} />
               </div>
