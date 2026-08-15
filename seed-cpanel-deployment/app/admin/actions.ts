@@ -3,22 +3,71 @@
 import { cookies } from 'next/headers';
 import { createClient as createServerClient } from '../../lib/supabase/server';
 import { createAdminClient } from '../../lib/supabase/admin';
+import dns from 'dns';
+
+// Force Node.js to prefer IPv4 DNS resolution to avoid NAT64/IPv6 timeout hangs
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch (e) {}
+
+// Helper to retry flaky Supabase network calls
+async function retrySupabase<T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> {
+  let lastResult: any;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const result = await fn();
+      lastResult = result;
+      if (result && typeof result === 'object' && 'error' in result) {
+        const errorVal = (result as any).error;
+        if (errorVal && (
+          errorVal.message === 'TypeError: fetch failed' ||
+          errorVal.message?.includes('fetch failed') ||
+          errorVal.message?.includes('FetchError') ||
+          errorVal.message?.includes('timeout')
+        )) {
+          if (attempt < retries) {
+            await new Promise(r => setTimeout(r, delay));
+            continue;
+          }
+        }
+      }
+      return result;
+    } catch (err: any) {
+      lastResult = { error: err };
+      if (
+        err.message === 'TypeError: fetch failed' ||
+        err.message?.includes('fetch failed') ||
+        err.message?.includes('FetchError') ||
+        err.message?.includes('timeout')
+      ) {
+        if (attempt < retries) {
+          await new Promise(r => setTimeout(r, delay));
+          continue;
+        }
+      }
+      throw err;
+    }
+  }
+  return lastResult;
+}
 
 // Helper to authenticate actions and check admin privileges
 async function verifyAdmin() {
   const supabase = createServerClient();
-  const { data: { user }, error: authErr } = await supabase.auth.getUser();
+  const { data: { user }, error: authErr } = (await retrySupabase(async () => await supabase.auth.getUser())) as any;
   
   if (authErr || !user) {
     throw new Error('Unauthorized: Session expired or invalid');
   }
 
   // Verify against public.admin_users
-  const { data: adminUser, error: checkErr } = await supabase
-    .from('admin_users')
-    .select('id')
-    .eq('id', user.id)
-    .maybeSingle();
+  const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
+    await supabase
+      .from('admin_users')
+      .select('id')
+      .eq('id', user.id)
+      .maybeSingle()
+  )) as any;
 
   if (checkErr || !adminUser) {
     throw new Error('Unauthorized: Administrative access restricted');
@@ -37,10 +86,12 @@ export async function loginAction(formData: FormData) {
   }
 
   const supabase = createServerClient();
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const { data, error } = (await retrySupabase(async () =>
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+  )) as any;
 
   if (error) {
     return { error: error.message };
@@ -48,11 +99,13 @@ export async function loginAction(formData: FormData) {
 
   if (data.user) {
     // Verify admin_users membership
-    const { data: adminUser, error: checkErr } = await supabase
-      .from('admin_users')
-      .select('id')
-      .eq('id', data.user.id)
-      .maybeSingle();
+    const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
+      await supabase
+        .from('admin_users')
+        .select('id')
+        .eq('id', data.user.id)
+        .maybeSingle()
+    )) as any;
 
     if (checkErr || !adminUser) {
       await supabase.auth.signOut();

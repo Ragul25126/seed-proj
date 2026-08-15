@@ -1,5 +1,13 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import dns from 'dns';
+
+// Force Node.js to prefer IPv4 DNS resolution to avoid NAT64/IPv6 timeout hangs
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch (e) {
+  // Ignore fallback issues
+}
 
 export function createClient() {
   const cookieStore = cookies();
