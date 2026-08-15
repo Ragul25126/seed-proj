@@ -43,11 +43,26 @@ export async function updateSession(request: NextRequest) {
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
   const isLoginRoute = request.nextUrl.pathname.startsWith('/admin/login');
 
+  const redirectResponse = (url: URL | string) => {
+    const redirectRes = NextResponse.redirect(url);
+    supabaseResponse.cookies.getAll().forEach(cookie => {
+      redirectRes.cookies.set(cookie.name, cookie.value, {
+        path: cookie.path,
+        domain: cookie.domain,
+        maxAge: cookie.maxAge,
+        secure: cookie.secure,
+        sameSite: cookie.sameSite,
+        expires: cookie.expires,
+      });
+    });
+    return redirectRes;
+  };
+
   if (isAdminRoute && !isLoginRoute) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
-      return NextResponse.redirect(url);
+      return redirectResponse(url);
     }
 
     // Verify admin role against admin_users table in the public schema
@@ -63,7 +78,7 @@ export async function updateSession(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
       url.searchParams.set('error', 'unauthorized');
-      return NextResponse.redirect(url);
+      return redirectResponse(url);
     }
   }
 
@@ -79,7 +94,7 @@ export async function updateSession(request: NextRequest) {
     if (adminUser) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin';
-      return NextResponse.redirect(url);
+      return redirectResponse(url);
     }
   }
 
