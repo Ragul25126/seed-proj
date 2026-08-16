@@ -12,7 +12,11 @@ try {
 
 export function createClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+  // Support both our local key name and the Vercel Supabase integration standard name
+  const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  )!;
   
   const formattedUrl = supabaseUrl.startsWith('http')
     ? supabaseUrl

@@ -1,11 +1,13 @@
 import { createServerClient } from '@supabase/ssr';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
+import { getSupabaseSecretKey } from './admin';
 
 // Helper to sign a message using HMAC SHA-256 for fast edge-native session caching
 async function getAdminToken(userId: string) {
   const encoder = new TextEncoder();
-  const secretKey = encoder.encode(process.env.SUPABASE_SECRET_KEY || 'default_secret');
+  // Use the actual service-role key as the HMAC secret so tokens are env-specific
+  const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
   const data = encoder.encode(userId);
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
@@ -21,7 +23,7 @@ async function getAdminToken(userId: string) {
 async function verifyAdminToken(userId: string, token: string) {
   try {
     const encoder = new TextEncoder();
-    const secretKey = encoder.encode(process.env.SUPABASE_SECRET_KEY || 'default_secret');
+    const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
     const data = encoder.encode(userId);
     const cryptoKey = await crypto.subtle.importKey(
       'raw',
@@ -52,7 +54,19 @@ export async function updateSession(request: NextRequest) {
   });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+  // Support both our custom key name and the Vercel Supabase integration standard name
+  const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  )!;
+
+  if (!supabaseAnonKey) {
+    console.error(
+      '[SEED Middleware] FATAL: Neither NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY nor ' +
+      'NEXT_PUBLIC_SUPABASE_ANON_KEY is set. Auth will not work in production. ' +
+      'Add one of these to your Vercel environment variables.'
+    );
+  }
   
   const formattedUrl = supabaseUrl.startsWith('http')
     ? supabaseUrl
@@ -130,11 +144,25 @@ export async function updateSession(request: NextRequest) {
 
     if (!isVerifiedAdmin) {
       // Verify admin role against admin_users table in the public schema
-      // USE ADMIN CLIENT TO BYPASS RLS
-      const adminClient = createSupabaseClient(formattedUrl, process.env.SUPABASE_SECRET_KEY!, {
+      // USE SERVICE-ROLE CLIENT TO BYPASS RLS (supports both key naming conventions)
+      const secretKey = getSupabaseSecretKey();
+
+      if (!secretKey) {
+        console.error(
+          '[SEED Middleware] Cannot verify admin: service-role key is missing. ' +
+          'Set SUPABASE_SECRET_KEY or SUPABASE_SERVICE_ROLE_KEY in Vercel env vars.'
+        );
+        // Fail open with a redirect to login to avoid locking out (no sign-out, key is broken)
+        const url = request.nextUrl.clone();
+        url.pathname = '/admin/login';
+        url.searchParams.set('error', 'config');
+        return redirectResponse(url);
+      }
+
+      const adminClient = createSupabaseClient(formattedUrl, secretKey, {
         auth: { persistSession: false },
       });
-      
+
       const { data: adminUser, error: adminCheckErr } = await adminClient
         .from('admin_users')
         .select('id')
@@ -142,6 +170,11 @@ export async function updateSession(request: NextRequest) {
         .maybeSingle();
 
       if (adminCheckErr || !adminUser) {
+        console.error(
+          '[SEED Middleware] Admin check failed for user:', user.id,
+          '| DB error:', adminCheckErr?.message || 'none',
+          '| adminUser found:', !!adminUser
+        );
         // Sign out unauthorized user session and redirect to login
         await supabase.auth.signOut();
         const url = request.nextUrl.clone();
