@@ -35,7 +35,8 @@ export default function Navbar() {
     <>
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-40 transition-colors duration-300',
+        pathname.startsWith('/admin') ? 'sticky' : 'fixed',
+        'top-0 left-0 right-0 z-40 transition-colors duration-300',
         (scrolled || pathname !== '/') && !open ? 'bg-[#0b0f19] shadow-md border-b border-white/5' : 'bg-transparent'
       )}
     >

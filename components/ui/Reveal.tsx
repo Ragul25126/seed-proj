@@ -1,6 +1,6 @@
 'use client';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 export function Reveal({
   children,
@@ -14,7 +14,7 @@ export function Reveal({
   as?: any;
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = motion(As as any);
+  const MotionTag = useMemo(() => motion(As as any), [As]);
   return (
     <MotionTag
       className={className}

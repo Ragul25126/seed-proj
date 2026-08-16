@@ -25,6 +25,7 @@ export default function InquiryForm({
 }) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [form, setForm] = useState({
     fullName: '',
@@ -58,13 +59,21 @@ export default function InquiryForm({
     ev.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
+    setError(null);
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (res.ok) setDone(true);
+      if (res.ok) {
+        setDone(true);
+      } else {
+        const errData = await res.json();
+        setError(errData.error || 'Failed to submit inquiry.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -89,6 +98,11 @@ export default function InquiryForm({
 
   return (
     <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {error && (
+        <div className="md:col-span-2 bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm">
+          {error}
+        </div>
+      )}
       <div>
         <label className={labelCls}>Full Name</label>
         <input

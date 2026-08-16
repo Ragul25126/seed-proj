@@ -25,13 +25,13 @@ function LoginForm() {
         setError(result.error);
       } else {
         router.refresh();
-        router.push('/admin');
+        router.push('/admin/dashboard');
       }
     });
   };
 
   return (
-    <main className="min-h-screen bg-[#070b13] flex items-center justify-center px-4 relative overflow-hidden">
+    <main className="min-h-[calc(100vh-80px)] bg-[#070b13] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background Decorative Gradients */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold/5 rounded-full filter blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-[100px] pointer-events-none" />

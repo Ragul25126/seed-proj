@@ -110,16 +110,7 @@ async function verifyAdmin() {
  * DOES NOT modify any project ordering.
  */
 async function getImageUrl(adminClient: ReturnType<typeof createAdminClient>, storagePath: string): Promise<string> {
-  // Try public URL first (works when bucket policy is public)
-  const { data: publicData } = adminClient.storage
-    .from('project-images')
-    .getPublicUrl(storagePath);
-
-  if (publicData?.publicUrl) {
-    return publicData.publicUrl;
-  }
-
-  // Fall back to a long-lived signed URL (10 years)
+  // Always use a long-lived signed URL (10 years) because the storage bucket is private
   const tenYears = 10 * 365 * 24 * 60 * 60;
   const { data: signedData, error: signedErr } = await retrySupabase(async () =>
     adminClient.storage.from('project-images').createSignedUrl(storagePath, tenYears)

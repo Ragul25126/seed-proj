@@ -45,13 +45,19 @@ export const metadata: Metadata = {
   },
 };
 
+import { headers } from 'next/headers';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = headers();
+  const pathname = headersList.get('x-pathname') || '';
+  const isAdmin = pathname.startsWith('/admin');
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${dmMono.variable}`}>
       <body className="font-sans bg-bone text-body antialiased">
         <Navbar />
         <main>{children}</main>
-        <Footer />
+        {!isAdmin && <Footer />}
       </body>
     </html>
   );

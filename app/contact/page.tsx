@@ -97,6 +97,8 @@ const SECTOR_OPTIONS = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     fullName: '',
     company: '',
@@ -108,9 +110,27 @@ export default function ContactPage() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const errData = await res.json();
+        setError(errData.error || 'Failed to submit enquiry.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const scrollToForm = () => {
@@ -224,6 +244,11 @@ export default function ContactPage() {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {error && (
+                        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm">
+                          {error}
+                        </div>
+                      )}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
@@ -337,9 +362,10 @@ export default function ContactPage() {
 
                       <button
                         type="submit"
-                        className="w-full py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg"
+                        disabled={submitting}
+                        className="w-full py-5 bg-gold hover:bg-yellow-500 disabled:bg-gold/50 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg flex items-center justify-center gap-2"
                       >
-                        Send Message
+                        {submitting ? 'Sending...' : 'Send Message'}
                       </button>
                     </form>
                   )}
