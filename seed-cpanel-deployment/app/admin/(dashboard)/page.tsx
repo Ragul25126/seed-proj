@@ -1,48 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createClient } from '../../../lib/supabase/server';
+import {
+  getDashboardStats,
+  getUnreadInquiriesCount,
+  getRecentProjects,
+  getRecentInquiries
+} from '../../../lib/supabase/cached-queries';
 
 export default async function AdminDashboardOverviewPage() {
-  const supabase = createClient();
-
-  // 1. Get statistics
+  // Fetch statistics and recent items using cached, parallel queries
   const [
-    { count: totalProjects },
-    { count: totalImages },
-    { count: totalInquiries },
-    { count: unreadInquiries }
+    statsData,
+    unreadInquiries,
+    recentProjects,
+    recentInquiries
   ] = await Promise.all([
-    supabase.from('projects').select('*', { count: 'exact', head: true }),
-    supabase.from('project_images').select('*', { count: 'exact', head: true }),
-    supabase.from('contact_inquiries').select('*', { count: 'exact', head: true }),
-    supabase.from('contact_inquiries').select('*', { count: 'exact', head: true }).eq('status', 'new')
+    getDashboardStats(),
+    getUnreadInquiriesCount(),
+    getRecentProjects(),
+    getRecentInquiries()
   ]);
 
-  // 2. Fetch 5 recent projects with their cover images
-  const { data: recentProjects } = await supabase
-    .from('projects')
-    .select(`
-      id,
-      title,
-      slug,
-      division,
-      client_sector,
-      created_at,
-      project_images (
-        image_url,
-        is_cover
-      )
-    `)
-    .order('created_at', { ascending: false })
-    .limit(5);
-
-  // 3. Fetch 5 recent inquiries
-  const { data: recentInquiries } = await supabase
-    .from('contact_inquiries')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(5);
+  const { totalProjects, totalImages, totalInquiries } = statsData;
 
   const stats = [
     { label: 'Total Projects', value: totalProjects || 0, color: 'text-blue-400' },
@@ -123,7 +103,6 @@ export default async function AdminDashboardOverviewPage() {
                               src={coverImg}
                               alt={proj.title}
                               fill
-                              unoptimized
                               className="object-cover"
                               sizes="40px"
                             />

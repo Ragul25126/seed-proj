@@ -1,14 +1,63 @@
 import { createServerClient } from '@supabase/ssr';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
+import { getSupabaseSecretKey } from './admin';
+
+// Helper to sign a message using HMAC SHA-256 for fast edge-native session caching
+async function getAdminToken(userId: string) {
+  const encoder = new TextEncoder();
+  const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
+  const data = encoder.encode(userId);
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    secretKey,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', cryptoKey, data);
+  return btoa(String.fromCharCode(...new Uint8Array(signature)));
+}
+
+async function verifyAdminToken(userId: string, token: string) {
+  try {
+    const encoder = new TextEncoder();
+    const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
+    const data = encoder.encode(userId);
+    const cryptoKey = await crypto.subtle.importKey(
+      'raw',
+      secretKey,
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['verify']
+    );
+    const binaryStr = atob(token);
+    const signature = new Uint8Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) {
+      signature[i] = binaryStr.charCodeAt(i);
+    }
+    return await crypto.subtle.verify('HMAC', cryptoKey, signature, data);
+  } catch (e) {
+    return false;
+  }
+}
 
 export async function updateSession(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
   let supabaseResponse = NextResponse.next({
-    request,
+    request: {
+      headers: requestHeaders,
+    },
   });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
-  
+  const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  )!;
+
   const formattedUrl = supabaseUrl.startsWith('http')
     ? supabaseUrl
     : `https://${supabaseUrl}.supabase.co`;
@@ -65,36 +114,86 @@ export async function updateSession(request: NextRequest) {
       return redirectResponse(url);
     }
 
-    // Verify admin role against admin_users table in the public schema
-    const { data: adminUser, error: adminCheckErr } = await supabase
-      .from('admin_users')
-      .select('id')
-      .eq('id', user.id)
-      .maybeSingle();
+    // Check if the user is already verified via a signed token in cookies
+    const cachedToken = request.cookies.get('seed_admin_token')?.value;
+    let isVerifiedAdmin = false;
+    if (cachedToken) {
+      isVerifiedAdmin = await verifyAdminToken(user.id, cachedToken);
+    }
 
-    if (adminCheckErr || !adminUser) {
-      // Sign out unauthorized user session and redirect to login
-      await supabase.auth.signOut();
-      const url = request.nextUrl.clone();
-      url.pathname = '/admin/login';
-      url.searchParams.set('error', 'unauthorized');
-      return redirectResponse(url);
+    if (!isVerifiedAdmin) {
+      // Verify admin role against admin_users table in the public schema
+      // USE SERVICE-ROLE CLIENT TO BYPASS RLS
+      const secretKey = getSupabaseSecretKey();
+
+      if (!secretKey) {
+        console.error(
+          '[SEED Middleware] Cannot verify admin: service-role key is missing.'
+        );
+        // Redirect to login with config error
+        const url = request.nextUrl.clone();
+        url.pathname = '/admin/login';
+        url.searchParams.set('error', 'config');
+        return redirectResponse(url);
+      }
+
+      const adminClient = createSupabaseClient(formattedUrl, secretKey, {
+        auth: { persistSession: false },
+      });
+
+      const { data: adminUser, error: adminCheckErr } = await adminClient
+        .from('admin_users')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (adminCheckErr || !adminUser) {
+        console.error(
+          '[SEED Middleware] Admin check failed for user:', user.id,
+          '| DB error:', adminCheckErr?.message || 'none',
+          '| adminUser found:', !!adminUser
+        );
+        // Sign out unauthorized user session and redirect to login
+        await supabase.auth.signOut();
+        const url = request.nextUrl.clone();
+        url.pathname = '/admin/login';
+        url.searchParams.set('error', 'unauthorized');
+        const redirectRes = redirectResponse(url);
+        redirectRes.cookies.delete('seed_admin_token');
+        return redirectRes;
+      }
+      
+      // Cache verified admin status in a signed cookie for 7 days
+      const token = await getAdminToken(user.id);
+      supabaseResponse.cookies.set('seed_admin_token', token, {
+        path: '/',
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60, // 7 days
+      });
     }
   }
 
   // If user is already logged in as admin and tries to hit /admin/login, redirect to /admin
   if (isLoginRoute && user) {
     // Confirm if they are indeed an admin
-    const { data: adminUser } = await supabase
-      .from('admin_users')
-      .select('id')
-      .eq('id', user.id)
-      .maybeSingle();
+    const secretKey = getSupabaseSecretKey();
+    if (secretKey) {
+      const adminClient = createSupabaseClient(formattedUrl, secretKey, {
+        auth: { persistSession: false },
+      });
+      const { data: adminUser } = await adminClient
+        .from('admin_users')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
 
-    if (adminUser) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/admin';
-      return redirectResponse(url);
+      if (adminUser) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/admin';
+        return redirectResponse(url);
+      }
     }
   }
 

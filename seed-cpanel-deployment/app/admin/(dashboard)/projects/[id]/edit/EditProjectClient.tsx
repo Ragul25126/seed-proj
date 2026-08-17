@@ -573,7 +573,6 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
                         src={img.image_url}
                         alt={img.alt_text || 'Render'}
                         fill
-                        unoptimized
                         className="object-cover"
                         sizes="64px"
                       />

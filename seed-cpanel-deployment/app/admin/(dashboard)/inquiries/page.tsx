@@ -1,19 +1,10 @@
-import React from 'react';
-import { createClient } from '../../../../lib/supabase/server';
+import { getAllInquiriesCached } from '../../../../lib/supabase/cached-queries';
 import InquiriesClient from './InquiriesClient';
 
 export default async function AdminInquiriesPage() {
-  const supabase = createClient();
+  const inquiries = await getAllInquiriesCached();
 
-  // Fetch all inquiries from database ordered by newest first
-  const { data: inquiries, error } = await supabase
-    .from('contact_inquiries')
-    .select('*')
-    .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching contact inquiries:', error.message);
-  }
 
   return (
     <div className="space-y-6">

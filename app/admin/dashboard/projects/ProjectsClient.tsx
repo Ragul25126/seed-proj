@@ -90,7 +90,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
         </div>
 
         <Link
-          href="/admin/projects/new"
+          href="/admin/dashboard/projects/new"
           className="bg-gold hover:bg-[#b0934c] text-black font-semibold text-xs uppercase tracking-widest px-6 py-2.5 rounded-sm transition-all duration-300 flex items-center justify-center gap-1.5"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,7 +132,6 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                               src={coverImg}
                               alt={proj.title}
                               fill
-                              unoptimized
                               className="object-cover"
                               sizes="48px"
                             />
@@ -162,7 +161,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                         </td>
                         <td className="p-4 text-right space-x-3">
                           <Link
-                            href={`/admin/projects/${proj.id}/edit`}
+                            href={`/admin/dashboard/projects/${proj.id}/edit`}
                             className="text-gold hover:text-[#b0934c] font-medium"
                           >
                             Edit
@@ -194,8 +193,8 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                         src={coverImg}
                         alt={proj.title}
                         fill
-                        unoptimized
                         className="object-cover"
+                        sizes="80px"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -215,7 +214,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                       </div>
                       <div className="flex items-center gap-4 text-xs font-semibold">
                         <Link
-                          href={`/admin/projects/${proj.id}/edit`}
+                          href={`/admin/dashboard/projects/${proj.id}/edit`}
                           className="text-gold hover:underline"
                         >
                           Edit

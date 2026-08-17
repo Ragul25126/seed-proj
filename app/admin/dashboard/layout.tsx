@@ -4,28 +4,26 @@ import { redirect } from 'next/navigation';
 import { createClient } from '../../../lib/supabase/server';
 import { logoutAction } from '../actions';
 
+import { getUnreadInquiriesCount } from '../../../lib/supabase/cached-queries';
+
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
 export default async function AdminDashboardLayout({ children }: AdminLayoutProps) {
   const supabase = createClient();
+  
   const { data: { user } } = await supabase.auth.getUser();
+  const unreadCount = await getUnreadInquiriesCount();
 
   if (!user) {
     redirect('/admin/login');
   }
 
-  // Get unread inquiries count dynamically
-  const { count: unreadCount } = await supabase
-    .from('contact_inquiries')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'new');
-
   return (
     <div className="min-h-screen bg-[#070b13] text-white flex flex-col md:flex-row font-sans">
       {/* 1. LEFT SIDEBAR */}
-      <aside className="w-full md:w-64 bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between flex-shrink-0">
+      <aside className="w-full md:w-64 bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between flex-shrink-0 md:sticky md:top-[80px] md:h-[calc(100vh-80px)] overflow-y-auto">
         <div>
           {/* Sidebar Brand/Logo */}
           <div className="p-6 border-b border-white/10 flex items-center justify-between">
@@ -42,7 +40,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
           {/* Sidebar Navigation */}
           <nav className="p-4 space-y-1.5">
             <Link
-              href="/admin"
+              href="/admin/dashboard"
               className="flex items-center gap-3 px-4 py-3 rounded-sm text-sm font-medium hover:bg-white/5 hover:text-gold transition-all duration-200"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +50,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
             </Link>
 
             <Link
-              href="/admin/projects"
+              href="/admin/dashboard/projects"
               className="flex items-center gap-3 px-4 py-3 rounded-sm text-sm font-medium hover:bg-white/5 hover:text-gold transition-all duration-200"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +60,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
             </Link>
 
             <Link
-              href="/admin/inquiries"
+              href="/admin/dashboard/inquiries"
               className="flex items-center justify-between px-4 py-3 rounded-sm text-sm font-medium hover:bg-white/5 hover:text-gold transition-all duration-200"
             >
               <div className="flex items-center gap-3">
@@ -106,17 +104,14 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
       {/* 2. MAIN CONTENT BODY */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
-        <header className="h-16 bg-[#0b0f19] border-b border-white/10 flex items-center justify-between px-8 flex-shrink-0">
+        <header className="h-16 bg-[#0b0f19] border-b border-white/10 flex items-center px-8 flex-shrink-0">
           <h1 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold">
             SEED CMS Overview
           </h1>
-          <div className="flex items-center gap-4 text-xs text-white/40">
-            <span>Server Time: {new Date().toLocaleTimeString()}</span>
-          </div>
         </header>
 
         {/* Main Routing Container */}
-        <main className="flex-1 overflow-y-auto p-8 bg-[#070b13]">
+        <main className="flex-1 p-8 bg-[#070b13]">
           {children}
         </main>
       </div>

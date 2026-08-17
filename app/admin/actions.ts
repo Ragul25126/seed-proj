@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { createClient as createServerClient } from '../../lib/supabase/server';
 import { createAdminClient } from '../../lib/supabase/admin';
 import dns from 'dns';
@@ -23,6 +23,8 @@ function revalidateProjectRoutes(slug: string) {
   revalidatePath('/pool/projects');
   revalidatePath('/mep/projects');
   revalidatePath('/api/project-images');
+  revalidateTag('projects');
+  revalidateTag('stats');
 }
 
 /**
@@ -616,6 +618,7 @@ export async function markInquiryStatusAction(inquiryId: string, status: 'new' |
     return { error: error.message };
   }
 
+  revalidateTag('inquiries');
   return { success: true };
 }
 
@@ -631,5 +634,6 @@ export async function deleteInquiryAction(inquiryId: string) {
     return { error: error.message };
   }
 
+  revalidateTag('inquiries');
   return { success: true };
 }

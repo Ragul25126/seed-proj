@@ -132,7 +132,6 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                               src={coverImg}
                               alt={proj.title}
                               fill
-                              unoptimized
                               className="object-cover"
                               sizes="48px"
                             />
@@ -194,8 +193,8 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                         src={coverImg}
                         alt={proj.title}
                         fill
-                        unoptimized
                         className="object-cover"
+                        sizes="80px"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

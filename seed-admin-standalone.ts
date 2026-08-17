@@ -55,7 +55,7 @@ async function verifyAdminUser(email: string) {
     // 3. Add to admin_users table
     const { error: insertError } = await adminClient
       .from('admin_users')
-      .insert({ id: user.id });
+      .insert({ id: user.id, email: user.email });
 
     if (insertError) {
       console.error('Error adding user to admin_users:', insertError);

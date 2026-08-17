@@ -14,23 +14,26 @@ interface EditProjectPageProps {
 export default async function AdminEditProjectPage({ params }: EditProjectPageProps) {
   const supabase = createClient();
 
-  // 1. Fetch project details
-  const { data: project, error: projErr } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('id', params.id)
-    .single();
+  // Fetch project details and images in parallel to optimize page load speed
+  const [
+    { data: project, error: projErr },
+    { data: images }
+  ] = await Promise.all([
+    supabase
+      .from('projects')
+      .select('*')
+      .eq('id', params.id)
+      .single(),
+    supabase
+      .from('project_images')
+      .select('*')
+      .eq('project_id', params.id)
+      .order('display_order', { ascending: true })
+  ]);
 
   if (projErr || !project) {
     notFound();
   }
-
-  // 2. Fetch project images
-  const { data: images, error: imgErr } = await supabase
-    .from('project_images')
-    .select('*')
-    .eq('project_id', params.id)
-    .order('display_order', { ascending: true });
 
   return (
     <div className="space-y-6">

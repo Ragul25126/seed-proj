@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { createClient } from '../../../lib/supabase/server';
 import { logoutAction } from '../actions';
 
+import { getUnreadInquiriesCount } from '../../../lib/supabase/cached-queries';
+
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
@@ -17,10 +19,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
   }
 
   // Get unread inquiries count dynamically
-  const { count: unreadCount } = await supabase
-    .from('contact_inquiries')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'new');
+  const unreadCount = await getUnreadInquiriesCount();
 
   return (
     <div className="min-h-screen bg-[#070b13] text-white flex flex-col md:flex-row font-sans">
@@ -110,9 +109,6 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
           <h1 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold">
             SEED CMS Overview
           </h1>
-          <div className="flex items-center gap-4 text-xs text-white/40">
-            <span>Server Time: {new Date().toLocaleTimeString()}</span>
-          </div>
         </header>
 
         {/* Main Routing Container */}

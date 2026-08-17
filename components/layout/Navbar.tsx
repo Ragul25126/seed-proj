@@ -94,7 +94,6 @@ export default function Navbar() {
           </div>
         </button>
       </div>
-
     </header>
 
     {/* Mobile full-screen menu */}

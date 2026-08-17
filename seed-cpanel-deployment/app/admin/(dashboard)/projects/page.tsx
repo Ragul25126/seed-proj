@@ -1,26 +1,8 @@
-import React from 'react';
-import { createClient } from '../../../../lib/supabase/server';
+import { getAllProjectsCached } from '../../../../lib/supabase/cached-queries';
 import ProjectsClient from './ProjectsClient';
 
 export default async function AdminProjectsPage() {
-  const supabase = createClient();
-
-  // Fetch all projects with their image references
-  const { data: projects, error } = await supabase
-    .from('projects')
-    .select(`
-      *,
-      project_images (
-        id,
-        image_url,
-        is_cover
-      )
-    `)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching projects:', error.message);
-  }
+  const projects = await getAllProjectsCached();
 
   return (
     <div className="space-y-6">

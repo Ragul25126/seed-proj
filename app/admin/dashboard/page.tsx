@@ -1,48 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createClient } from '../../../lib/supabase/server';
+import {
+  getDashboardStats,
+  getUnreadInquiriesCount,
+  getRecentProjects,
+  getRecentInquiries
+} from '../../../lib/supabase/cached-queries';
 
 export default async function AdminDashboardOverviewPage() {
-  const supabase = createClient();
-
-  // 1. Get statistics
+  // Fetch statistics and recent items using cached, parallel queries
   const [
-    { count: totalProjects },
-    { count: totalImages },
-    { count: totalInquiries },
-    { count: unreadInquiries }
+    statsData,
+    unreadInquiries,
+    recentProjects,
+    recentInquiries
   ] = await Promise.all([
-    supabase.from('projects').select('*', { count: 'exact', head: true }),
-    supabase.from('project_images').select('*', { count: 'exact', head: true }),
-    supabase.from('contact_inquiries').select('*', { count: 'exact', head: true }),
-    supabase.from('contact_inquiries').select('*', { count: 'exact', head: true }).eq('status', 'new')
+    getDashboardStats(),
+    getUnreadInquiriesCount(),
+    getRecentProjects(),
+    getRecentInquiries()
   ]);
 
-  // 2. Fetch 5 recent projects with their cover images
-  const { data: recentProjects } = await supabase
-    .from('projects')
-    .select(`
-      id,
-      title,
-      slug,
-      division,
-      client_sector,
-      created_at,
-      project_images (
-        image_url,
-        is_cover
-      )
-    `)
-    .order('created_at', { ascending: false })
-    .limit(5);
-
-  // 3. Fetch 5 recent inquiries
-  const { data: recentInquiries } = await supabase
-    .from('contact_inquiries')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(5);
+  const { totalProjects, totalImages, totalInquiries } = statsData;
 
   const stats = [
     { label: 'Total Projects', value: totalProjects || 0, color: 'text-blue-400' },
@@ -74,19 +54,19 @@ export default async function AdminDashboardOverviewPage() {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
-            href="/admin/projects/new"
+            href="/admin/dashboard/projects/new"
             className="bg-gold hover:bg-[#b0934c] text-black text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             Add New Project
           </Link>
           <Link
-            href="/admin/projects"
+            href="/admin/dashboard/projects"
             className="bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             Manage Projects
           </Link>
           <Link
-            href="/admin/inquiries"
+            href="/admin/dashboard/inquiries"
             className="bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             View Contact Inquiries
@@ -123,7 +103,6 @@ export default async function AdminDashboardOverviewPage() {
                               src={coverImg}
                               alt={proj.title}
                               fill
-                              unoptimized
                               className="object-cover"
                               sizes="40px"
                             />
@@ -140,7 +119,7 @@ export default async function AdminDashboardOverviewPage() {
                         </td>
                         <td className="py-3 text-right">
                           <Link
-                            href={`/admin/projects/${proj.id}/edit`}
+                            href={`/admin/dashboard/projects/${proj.id}/edit`}
                             className="text-gold hover:text-[#b0934c] font-medium"
                           >
                             Edit
@@ -171,7 +150,7 @@ export default async function AdminDashboardOverviewPage() {
               recentInquiries.map((inq: any) => (
                 <Link
                   key={inq.id}
-                  href="/admin/inquiries"
+                  href="/admin/dashboard/inquiries"
                   className="block p-3 rounded-sm bg-white/5 border border-white/5 hover:border-gold/30 hover:bg-white/10 transition-all duration-200"
                 >
                   <div className="flex items-center justify-between mb-1">

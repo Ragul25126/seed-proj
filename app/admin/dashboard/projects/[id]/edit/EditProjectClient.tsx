@@ -195,7 +195,7 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
       <div className="flex items-center justify-between">
         <div>
           <Link
-            href="/admin/projects"
+            href="/admin/dashboard/projects"
             className="text-gold hover:underline text-xs flex items-center gap-1 mb-2 font-semibold uppercase tracking-wider"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -573,7 +573,6 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
                         src={img.image_url}
                         alt={img.alt_text || 'Render'}
                         fill
-                        unoptimized
                         className="object-cover"
                         sizes="64px"
                       />
