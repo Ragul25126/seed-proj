@@ -1465,7 +1465,7 @@ export const team = [
     name: 'Anand Krishnan',
     role: 'Director',
     image: '/team/Anand Krishnan-head.jpeg',
-    linkedin: '/',
+    linkedin: 'https://www.linkedin.com/in/anand-krishnan-4b615613a/',
     bio: 'Chartered Engineer with 36 years of experience in Building Services Design, Supervision and Project Management. He has nurtured key client relationships, acting as the primary interface on several projects. He revels in mentoring our team to the highest level of technical competency and self-reliance.',
   },
   {
