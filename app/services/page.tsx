@@ -91,7 +91,7 @@ const SERVICES_DATA = [
     title: 'Acoustics Consultancy',
     tagline: 'Designing environments that sound as good as they look.',
     desc: 'Our acoustic specialists optimise sound quality, minimise noise and create comfortable environments across hospitality, residential, commercial and mixed-use developments.',
-    image: '/services/Acoustics.jpeg',
+    image: '/services/acoustics-consultancy.jpg',
     services: [
       'Architectural Acoustics',
       'Noise Studies',
@@ -172,8 +172,7 @@ export default function ServicesPage() {
         
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">Our capabilities</span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">Services</h1>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-6 block">Our capabilities</span>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Integrated engineering disciplines delivering high-performance buildings through coordinated design, digital delivery and technical excellence.
             </p>
