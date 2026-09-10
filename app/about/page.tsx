@@ -43,11 +43,11 @@ export default function AboutPage() {
           <Reveal>
             <div className="flex items-center gap-3 mb-8">
               <span className="block w-12 h-px bg-gold" />
-              <span className="label text-gold tracking-[0.35em] text-[10px] font-semibold uppercase">ABOUT SEED</span>
+              <span className="label text-gold tracking-[0.35em] text-[10px] font-semibold uppercase">About SEED</span>
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
+            <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
             </h1>
           </Reveal>
@@ -64,9 +64,9 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-14">
           <div className="lg:col-span-5">
             <Reveal>
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">OUR STORY</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Our story</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold leading-[1.1] text-white">
-                Built on Engineering Excellence.
+                Built on Engineering excellence.
               </h2>
             </Reveal>
           </div>
@@ -89,9 +89,9 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">WHY SEED</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Why SEED</span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
-                Engineering That Delivers More Than Design
+                Engineering that delivers more than design
               </h2>
             </div>
           </Reveal>
@@ -100,27 +100,27 @@ export default function AboutPage() {
             {[
               {
                 num: '01',
-                title: 'Engineering Excellence',
+                title: 'Engineering excellence',
                 desc: 'Every engineering decision is driven by technical expertise, performance analysis and long-term operational value.',
               },
               {
                 num: '02',
-                title: 'Integrated Design',
+                title: 'Integrated design',
                 desc: 'MEP engineering, sustainability, BIM coordination and commissioning are delivered through a fully integrated approach.',
               },
               {
                 num: '03',
-                title: 'Performance Verification',
+                title: 'Performance verification',
                 desc: 'Our involvement extends beyond design through supervision, testing and commissioning support to ensure systems perform as intended.',
               },
               {
                 num: '04',
-                title: 'Digital Delivery',
+                title: 'Digital delivery',
                 desc: 'Advanced BIM workflows improve coordination, reduce clashes and enhance project delivery.',
               },
               {
                 num: '05',
-                title: 'Regional Expertise',
+                title: 'Regional expertise',
                 desc: 'Extensive experience across multiple markets enables SEED to deliver solutions aligned with local authority requirements and international best practices.',
               },
             ].map((card, i) => (
@@ -143,9 +143,9 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Reveal>
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">LEADERSHIP</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Leadership</span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
-                Engineering Leadership
+                Engineering leadership
               </h2>
               <p className="mt-6 text-slate-400 text-base md:text-lg leading-relaxed font-light">
                 SEED’s leadership team remains actively involved throughout every stage of project delivery, bringing decades of engineering expertise, strategic direction and technical excellence to every commission.
@@ -154,9 +154,10 @@ export default function AboutPage() {
           </div>
 
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {leadership.map((m: any) => (
-              <StaggerItem key={m._id || m.name} className="flex flex-col">
-                <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group">
+            {leadership.map((m: any) => {
+              const isTargetMember = m.name === 'Anand Krishnan' || m.name === 'Mohammed Al Horoub';
+              const cardMarkup = (
+                <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group cursor-pointer">
                   <div className="relative aspect-[3/4] w-full mb-7 overflow-hidden bg-[#0b0f19] rounded-sm">
                     {m.image ? (
                       <Image src={m.image} alt={m.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -172,17 +173,34 @@ export default function AboutPage() {
                     <h3 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
                       {m.name}
                     </h3>
-                    {m.linkedin && (
-                      <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`}>
+                    {m.linkedin && !isTargetMember && (
+                      <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                       </a>
+                    )}
+                    {isTargetMember && (
+                      <span className="text-slate-400 group-hover:text-gold transition-colors">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                      </span>
                     )}
                   </div>
                   <p className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-4">{m.role}</p>
                   <p className="text-sm text-slate-400 font-light leading-relaxed">{m.bio}</p>
                 </div>
-              </StaggerItem>
-            ))}
+              );
+
+              return (
+                <StaggerItem key={m._id || m.name} className="flex flex-col">
+                  {isTargetMember ? (
+                    <Link href="/" className="h-full flex flex-col block">
+                      {cardMarkup}
+                    </Link>
+                  ) : (
+                    cardMarkup
+                  )}
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </section>
@@ -193,17 +211,17 @@ export default function AboutPage() {
         <div className="relative max-w-container mx-auto px-6">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">COMPANY STATISTICS</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">SEED at a Glance</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Company statistics</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">SEED at a glance</h2>
             </div>
           </Reveal>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
             {[
-              { v: 20, suf: '+', l: 'Years in Practice' },
-              { v: 200, suf: '+', l: 'Engineering Professionals' },
-              { v: 7, suf: '', l: 'Global Offices' },
-              { v: 21, suf: '', l: 'Countries Served' },
+              { v: 20, suf: '+', l: 'Years in practice' },
+              { v: 200, suf: '+', l: 'Engineering professionals' },
+              { v: 7, suf: '', l: 'Global offices' },
+              { v: 21, suf: '', l: 'Countries served' },
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors">
@@ -223,9 +241,9 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6">
           <div className="mb-16 max-w-3xl">
             <Reveal>
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">OUR PROCESS</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Our process</span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Our Engineering Process
+                Our engineering process
               </h2>
               <p className="text-slate-400 text-base md:text-lg leading-relaxed font-light">
                 Every project follows a structured engineering methodology that transforms design intent into measurable building performance.
@@ -237,31 +255,31 @@ export default function AboutPage() {
             {[
               {
                 step: '01',
-                title: 'Define Design Criteria',
+                title: 'Define design criteria',
                 desc: 'Every project begins with understanding the building, its operational requirements, applicable codes, energy targets, and owner expectations. We establish the design basis before a single system is selected.',
                 outputs: ['Design Basis Report', 'Load Calculations', 'Performance Criteria', 'Code Compliance Strategy'],
               },
               {
                 step: '02',
-                title: 'Engineer the Systems',
+                title: 'Engineer the systems',
                 desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability strategies based on engineering calculations — not generic templates. System selection is driven by performance, constructability, maintainability, and lifecycle cost.',
                 outputs: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', 'Preliminary Cost Alignment'],
               },
               {
                 step: '03',
-                title: 'Coordinate Across Disciplines',
+                title: 'Coordinate across disciplines',
                 desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors, and site constraints before construction begins. Clash detection is only one part of coordination — the objective is buildability.',
                 outputs: ['Coordinated BIM Models', 'Clash Resolution Reports', 'Interface Reviews', 'Construction-Ready Layouts'],
               },
               {
                 step: '04',
-                title: 'Validate Before Construction',
+                title: 'Validate before construction',
                 desc: 'Every major engineering decision is reviewed against performance requirements, installation constraints, and operational intent. Designs are subjected to internal quality checks before issue.',
                 outputs: ['Design Reviews', 'Quality Assurance Checks', 'Risk Register Updates', 'Issue-for-Construction Documentation'],
               },
               {
                 step: '05',
-                title: 'Verify Performance On Site',
+                title: 'Verify performance on site',
                 desc: 'Engineering responsibility does not end with drawings. We verify installation quality, witness testing, support commissioning activities, and confirm systems perform as intended.',
                 outputs: ['Site Inspections', 'Testing & Balancing Reviews', 'Commissioning Reports', 'Final Performance Verification'],
               },
@@ -298,8 +316,8 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">RECOGNITION</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-Winning Engineering Excellence</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning Engineering excellence</h2>
             </div>
           </Reveal>
 
@@ -322,8 +340,8 @@ export default function AboutPage() {
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">OUR PRESENCE</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Engineering Across Regions</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Our presence</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Engineering across regions</h2>
               <p className="text-slate-300 text-base md:text-lg leading-relaxed font-light max-w-2xl mx-auto">
                 With strategically located offices and project experience across the Middle East, Africa and India, SEED delivers engineering solutions that combine regional expertise with international standards.
               </p>
@@ -359,9 +377,9 @@ export default function AboutPage() {
       <section className={`${TONE_BASE} text-white py-28 md:py-36 relative overflow-hidden border-t border-white/5`}>
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">START YOUR PROJECT</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Start your project</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Let’s Build Better Together
+              Let’s build better together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
               Whether you’re developing a luxury hospitality destination, a high-rise commercial tower or a complex mixed-use development, SEED is ready to help deliver engineering solutions that perform from concept through operation.
@@ -371,13 +389,13 @@ export default function AboutPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Request Consultation →
+                Request consultation →
               </Link>
               <Link
                 href="/projects"
                 className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm"
               >
-                Explore Projects
+                Explore projects
               </Link>
             </div>
           </Reveal>

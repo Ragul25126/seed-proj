@@ -13,7 +13,7 @@ export default function Inquiry() {
   return (
     <>
       <PageHero
-        eyebrow="PROJECT INQUIRY"
+        eyebrow="Project inquiry"
         title={<>Tell us about your project. A senior partner will read it <span>personally.</span></>}
         intro="No sales script. No discovery call sequence. Send a short message, get a thoughtful reply within one working day."
       />
@@ -21,7 +21,7 @@ export default function Inquiry() {
       <Section tone="cream">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14">
           <div className="lg:col-span-4">
-            <SectionLabel>What to Include</SectionLabel>
+            <SectionLabel>What to include</SectionLabel>
             <ul className="space-y-4 text-navy/70">
               <li className="flex items-start gap-3"><span className="text-navy/40 mt-1">·</span><span>The type of building or project</span></li>
               <li className="flex items-start gap-3"><span className="text-navy/40 mt-1">·</span><span>The stage you are at — concept, tender, build, in-service</span></li>
@@ -30,7 +30,7 @@ export default function Inquiry() {
             </ul>
 
             <div className="mt-12 border-t border-navy/10 pt-8">
-              <p className="label text-navy/50 mb-4 tracking-[0.3em]">OR REACH US DIRECTLY</p>
+              <p className="label text-navy/50 mb-4 tracking-[0.3em]">Or reach us directly</p>
               <div className="space-y-2 text-sm">
                 <a href={`mailto:${settings.email}`} className="block text-navy hover:text-navy/60">{settings.email}</a>
                 <a href={`tel:${settings.phone}`} className="block text-navy hover:text-navy/60">{settings.phone}</a>

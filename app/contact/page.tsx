@@ -156,10 +156,10 @@ export default function ContactPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              GET IN TOUCH
+              Get in touch
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Let’s Start a Conversation
+              Let’s start a conversation
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Whether you’re planning a new development, looking for an engineering partner, or exploring collaboration opportunities, our team is ready to help. Get in touch to discuss your project and discover how SEED can support your vision.
@@ -173,8 +173,8 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">REACH US DIRECTLY</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Contact Information</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Reach us directly</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Contact information</h2>
               <p className="text-slate-400 font-light text-[15px]">Connect with our senior engineering team, business development, and regional headquarters.</p>
             </div>
           </Reveal>
@@ -214,8 +214,8 @@ export default function ContactPage() {
             {/* Left Content Column */}
             <div className="lg:col-span-5">
               <Reveal>
-                <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">INQUIRIES</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Send Us a Message</h2>
+                <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Inquiries</span>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Send us a message</h2>
                 <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                   Complete the form below and one of our senior engineering team members will get back to you as soon as possible.
                 </p>
@@ -231,7 +231,7 @@ export default function ContactPage() {
                       <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/40 text-gold text-3xl flex items-center justify-center mx-auto mb-6">
                         ✓
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-3">Thank You for Getting in Touch</h3>
+                      <h3 className="font-serif text-2xl font-bold text-white mb-3">Thank you for getting in touch</h3>
                       <p className="text-slate-400 text-sm font-light leading-relaxed max-w-md mx-auto mb-8">
                         Your message has been received by our engineering team. We will review your project requirements and respond within 24 business hours.
                       </p>
@@ -239,7 +239,7 @@ export default function ContactPage() {
                         onClick={() => setSubmitted(false)}
                         className="px-8 py-3 bg-white/10 text-slate-300 hover:text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
                       >
-                        Send Another Message
+                        Send another message
                       </button>
                     </div>
                   ) : (
@@ -252,7 +252,7 @@ export default function ContactPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Full Name <span className="text-gold">*</span>
+                            Full name <span className="text-gold">*</span>
                           </label>
                           <input
                             type="text"
@@ -281,7 +281,7 @@ export default function ContactPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Email Address <span className="text-gold">*</span>
+                            Email address <span className="text-gold">*</span>
                           </label>
                           <input
                             type="email"
@@ -294,7 +294,7 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Phone Number
+                            Phone number
                           </label>
                           <input
                             type="tel"
@@ -322,7 +322,7 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Service Required
+                            Service required
                           </label>
                           <select
                             value={form.service}
@@ -334,7 +334,7 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Project Sector
+                            Project sector
                           </label>
                           <select
                             value={form.sector}
@@ -348,7 +348,7 @@ export default function ContactPage() {
 
                       <div>
                         <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                          Project Description / Message <span className="text-gold">*</span>
+                          Project description / message <span className="text-gold">*</span>
                         </label>
                         <textarea
                           required
@@ -365,7 +365,7 @@ export default function ContactPage() {
                         disabled={submitting}
                         className="w-full py-5 bg-gold hover:bg-yellow-500 disabled:bg-gold/50 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg flex items-center justify-center gap-2"
                       >
-                        {submitting ? 'Sending...' : 'Send Message'}
+                        {submitting ? 'Sending...' : 'Send message'}
                       </button>
                     </form>
                   )}
@@ -382,8 +382,8 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">OUR OFFICES</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Global Presence</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Our offices</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our global presence</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
               </p>
@@ -432,9 +432,9 @@ export default function ContactPage() {
       <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Ready to Build Something Exceptional?
+              Ready to build something exceptional?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, performance-driven solutions.
@@ -444,10 +444,10 @@ export default function ContactPage() {
                 onClick={scrollToForm}
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Contact Our Team
+                Contact our team
               </button>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
-                Explore Our Projects
+                Explore our projects
               </Link>
             </div>
           </Reveal>

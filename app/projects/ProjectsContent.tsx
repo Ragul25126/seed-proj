@@ -147,7 +147,7 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
               href={`/projects/${proj.slug}`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
             >
-              VIEW FULL PROJECT PAGE →
+              View full project page →
             </Link>
           </div>
         </div>
@@ -205,7 +205,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
 
           <Reveal>
             <div className="mb-12 border-b border-white/10 pb-12">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">PORTFOLIO</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio</span>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-8">Projects</h1>
 
               <div className="text-slate-400 font-light text-[15px] leading-relaxed max-w-4xl mb-10">
@@ -232,7 +232,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
               </div>
 
               <div className="bg-white/5 p-6 md:p-8 rounded-sm border border-white/10">
-                <h2 className="text-lg font-serif font-bold text-white mb-6">Filter Projects</h2>
+                <h2 className="text-lg font-serif font-bold text-white mb-6">Filter projects</h2>
 
                 <div className="flex flex-col md:flex-row gap-4 mb-6">
                   <div className="flex-1">
@@ -260,7 +260,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     onClick={() => { setFilterLocation('All Locations'); setFilterSector('All Sectors'); }}
                     className="text-[12px] font-bold text-gold hover:text-yellow-400 uppercase tracking-wider transition-colors"
                   >
-                    Reset Filter
+                    Reset filter
                   </button>
                 </div>
               </div>
@@ -328,7 +328,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                           )}
                         </div>
                         <span className="text-gold text-[10px] font-bold tracking-[0.1em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 whitespace-nowrap">
-                          View Details →
+                          View details →
                         </span>
                       </div>
                     </div>
@@ -347,13 +347,13 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
           {/* CALL TO ACTION */}
           <div className="mt-32 pt-20 border-t border-white/10 text-center max-w-4xl mx-auto">
             <Reveal>
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6">Let's Discuss Your Next Project</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
+              <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6">Let's discuss your next project</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed mb-10 max-w-2xl mx-auto">
                 Whether you're planning a luxury hospitality destination, residential community, commercial tower, healthcare facility, or critical infrastructure, our multidisciplinary engineering team is ready to support your project from concept to commissioning.
               </p>
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm">
-                Contact Our Team
+                Contact our team
               </Link>
             </Reveal>
           </div>

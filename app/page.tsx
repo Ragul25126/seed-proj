@@ -5,7 +5,7 @@ import { CountUp } from '@/components/ui/CountUp';
 import { HeroSlider } from '@/components/sections/HeroSlider';
 
 export const metadata = {
-  title: 'SEED Engineering — Engineering High-Performance Buildings',
+  title: 'SEED Engineering — Engineering high-performance buildings',
   description: 'SEED delivers integrated MEP engineering, sustainability consulting, and commissioning services for complex developments globally.',
 };
 
@@ -35,9 +35,9 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <Reveal>
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">WHO WE ARE</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Who we are</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
-                Engineering Decisions,<br/>Not Just Drawings.
+                Engineering decisions,<br/>not just drawings.
               </h2>
               <div className="space-y-6 text-slate-400 text-[15px] leading-relaxed font-light mb-10">
                 <p>
@@ -51,7 +51,7 @@ export default function HomePage() {
                 </p>
               </div>
               <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-300 bg-white text-[#0b0f19] hover:bg-slate-200">
-                OUR CAPABILITIES
+                Our capabilities
               </Link>
             </Reveal>
           </div>
@@ -66,7 +66,7 @@ export default function HomePage() {
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">
                 <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">20+</div>
                 <div className="text-[11px] font-sans font-medium uppercase tracking-wider text-[#0b0f19] leading-tight">
-                  Years of<br/>Engineering<br/>Excellence
+                  Years of<br/>Engineering<br/>excellence
                 </div>
               </div>
             </div>
@@ -79,16 +79,16 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 max-w-2xl">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">ENGINEERING SERVICES</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Engineering services</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
-                Integrated Engineering<br/>Solutions.
+                Integrated engineering<br/>solutions.
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 From high-rise luxury towers to complex infrastructure, our eight core disciplines provide a seamless delivery framework that governs every phase of your project.
               </p>
               <div className="mt-8">
                 <Link href="/services" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
-                  VIEW OUR SERVICES
+                  View our services
                 </Link>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 max-w-2xl text-center mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">PORTFOLIO</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
                 Featured Projects
               </h2>
@@ -153,7 +153,7 @@ export default function HomePage() {
           <Reveal>
             <div className="text-center">
               <Link href="/projects" className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-sans text-[11px] font-semibold tracking-[0.15em] uppercase hover:border-gold hover:text-gold transition-colors duration-300">
-                VIEW ALL PROJECTS
+                View all projects
               </Link>
             </div>
           </Reveal>
@@ -189,9 +189,9 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-20 max-w-3xl">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">OUR PROCESS</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Our process</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
-                Our Engineering<br/>Delivery Framework
+                Our engineering<br/>delivery framework
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 Engineering responsibility does not end with drawings. Five progressive stages — the framework that governs every project we deliver from brief to building performance.
@@ -203,31 +203,31 @@ export default function HomePage() {
             {[
               {
                 step: '01',
-                title: 'Define Design Criteria',
+                title: 'Define design criteria',
                 desc: 'Every project begins with understanding the building, its operational requirements, applicable codes, energy targets, and owner expectations. We establish the design basis before a single system is selected.',
                 items: ['Design Basis Report', 'Load Calculations', 'Performance Criteria', 'Code Compliance Strategy']
               },
               {
                 step: '02',
-                title: 'Engineer the Systems',
+                title: 'Engineer the systems',
                 desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV and Sustainability strategies based on engineering calculations — not generic templates. System selection is driven by performance, constructability, maintainability and lifecycle cost.',
                 items: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', 'Preliminary Cost Alignment']
               },
               {
                 step: '03',
-                title: 'Coordinate Across Disciplines',
+                title: 'Coordinate across disciplines',
                 desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors and site constraints before construction begins. Clash detection is only one part — the objective is buildability.',
                 items: ['Coordinated BIM Models', 'Clash Resolution Reports', 'Interface Reviews', 'Construction-Ready Layouts']
               },
               {
                 step: '04',
-                title: 'Validate Before Construction',
+                title: 'Validate before construction',
                 desc: 'Every major engineering decision is reviewed against performance requirements, installation constraints and operational intent. Designs are subjected to internal quality checks before issue.',
                 items: ['Design Reviews', 'Quality Assurance Checks', 'Risk Register Updates', 'Issue-for-Construction Docs']
               },
               {
                 step: '05',
-                title: 'Verify Performance On Site',
+                title: 'Verify performance on site',
                 desc: 'Engineering responsibility does not end with drawings. We verify installation quality, witness testing, support commissioning activities and confirm systems perform as intended.',
                 items: ['Site Inspections', 'Testing & Balancing Reviews', 'Commissioning Reports', 'Final Performance Verification']
               },
@@ -257,8 +257,8 @@ export default function HomePage() {
       <section className="py-24 md:py-32 bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">INDUSTRIES</span>
-            <h2 className="font-serif text-4xl font-bold text-white mb-6">Industries We Serve</h2>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Industries</span>
+            <h2 className="font-serif text-4xl font-bold text-white mb-6">Industries we serve</h2>
             <p className="text-slate-400 font-light text-[14px] leading-relaxed max-w-2xl mx-auto mb-16">
               Our engineering expertise spans the full range of complex building typologies — each with distinct regulatory, performance and operational demands.
             </p>
@@ -284,19 +284,19 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[#0b0f19]/60" />
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6 block">START A CONVERSATION</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6 block">Start a conversation</span>
             <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
-              Planning a Complex<br/>Building Project?
+              Planning a complex<br/>building project?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               Speak with our engineering team about MEP design, sustainability, BIM coordination and commissioning requirements.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
-                REQUEST CONSULTATION
+                Request consultation
               </Link>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
-                EXPLORE PROJECTS
+                Explore projects
               </Link>
             </div>
           </Reveal>

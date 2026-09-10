@@ -47,7 +47,7 @@ export default function AboutPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
+            <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
             </h1>
           </Reveal>

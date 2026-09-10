@@ -104,7 +104,7 @@ export default function InquiryForm({
         </div>
       )}
       <div>
-        <label className={labelCls}>Full Name</label>
+        <label className={labelCls}>Full name</label>
         <input
           className={inputBase}
           value={form.fullName}
@@ -114,7 +114,7 @@ export default function InquiryForm({
         {errors.fullName && <p className="text-xs text-gold mt-1">{errors.fullName}</p>}
       </div>
       <div>
-        <label className={labelCls}>Phone Number</label>
+        <label className={labelCls}>Phone number</label>
         <input
           className={inputBase}
           type="tel"
@@ -125,7 +125,7 @@ export default function InquiryForm({
         {errors.phone && <p className="text-xs text-gold mt-1">{errors.phone}</p>}
       </div>
       <div>
-        <label className={labelCls}>Email Address</label>
+        <label className={labelCls}>Email address</label>
         <input
           className={inputBase}
           type="email"
@@ -136,7 +136,7 @@ export default function InquiryForm({
         {errors.email && <p className="text-xs text-gold mt-1">{errors.email}</p>}
       </div>
       <div>
-        <label className={labelCls}>Service Type</label>
+        <label className={labelCls}>Service type</label>
         <select
           className={cn(inputBase, dark ? '[&>option]:text-black' : '')}
           value={form.serviceType}
@@ -148,7 +148,7 @@ export default function InquiryForm({
         </select>
       </div>
       <div className="md:col-span-2">
-        <label className={labelCls}>Project Details</label>
+        <label className={labelCls}>Project details</label>
         <textarea
           rows={5}
           className={cn(inputBase, 'resize-none')}
@@ -164,7 +164,7 @@ export default function InquiryForm({
           disabled={submitting}
           className="inline-flex items-center gap-2 bg-gold text-ink px-7 py-3.5 text-sm font-medium hover:bg-[#d6b675] transition-colors disabled:opacity-60"
         >
-          {submitting ? 'Sending…' : 'Send Inquiry'} <span aria-hidden>→</span>
+          {submitting ? 'Sending…' : 'Send inquiry'} <span aria-hidden>→</span>
         </button>
       </div>
     </form>

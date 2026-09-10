@@ -61,10 +61,10 @@ export default function CareersPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              CAREERS
+              Careers
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Build the Future With SEED
+              Build the future with SEED
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
               Join a team of passionate engineers, designers and professionals committed to delivering innovative engineering solutions. At SEED, you’ll work on landmark developments, collaborate with industry experts and build a career that makes a lasting impact.
@@ -74,7 +74,7 @@ export default function CareersPage() {
                 onClick={scrollToOpenings}
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                View Official Recruitment Posters ↓
+                View official recruitment posters ↓
               </button>
             </div>
           </Reveal>
@@ -87,8 +87,8 @@ export default function CareersPage() {
 
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">WE ARE HIRING!</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Current Opportunities</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">We are hiring!</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Current opportunities</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 Explore our official recruitment posters below for open positions in Dubai and India. Click any flyer to view full high-resolution details or apply online.
               </p>
@@ -102,25 +102,25 @@ export default function CareersPage() {
                     : 'bg-white/5 text-slate-300 border-white/10 hover:border-gold/50'
                     }`}
                 >
-                  All Hiring Flyers
+                  All hiring flyers
                 </button>
                 <button
                   onClick={() => setActiveTab('dubai')}
                   className={`px-6 py-3 text-[11px] font-bold tracking-wider uppercase rounded-sm border transition-all ${activeTab === 'dubai'
                     ? 'bg-gold text-[#0b0f19] border-gold shadow-lg'
-                    : 'bg-white/5 text-slate-300 border-white/10 hover:border-gold/50'
+                    : 'bg-[#0b0f19]/5 text-slate-300 border-white/10 hover:border-gold/50'
                     }`}
                 >
-                  Dubai Design Office
+                  Dubai design office
                 </button>
                 <button
                   onClick={() => setActiveTab('india')}
                   className={`px-6 py-3 text-[11px] font-bold tracking-wider uppercase rounded-sm border transition-all ${activeTab === 'india'
                     ? 'bg-gold text-[#0b0f19] border-gold shadow-lg'
-                    : 'bg-white/5 text-slate-300 border-white/10 hover:border-gold/50'
+                    : 'bg-[#0b0f19]/5 text-slate-300 border-white/10 hover:border-gold/50'
                     }`}
                 >
-                  India Outsourcing Office
+                  India outsourcing office
                 </button>
               </div>
             </div>
@@ -156,8 +156,8 @@ export default function CareersPage() {
                     {/* Positions Details List & Direct Apply */}
                     <div className="w-full lg:w-1/2 flex flex-col justify-between">
                       <div>
-                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase block mb-2">DUBAI DESIGN OFFICE</span>
-                        <h3 className="font-serif text-3xl font-bold text-white mb-4">Dubai Engineering & Corporate Roles</h3>
+                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase block mb-2">Dubai design office</span>
+                        <h3 className="font-serif text-3xl font-bold text-white mb-4">Dubai Engineering & corporate roles</h3>
                         <p className="text-slate-400 text-sm font-light leading-relaxed mb-6">
                           Join our flagship Dubai Design Office to work on landmark high-rise, hospitality, and commercial developments across the Middle East.
                         </p>
@@ -185,7 +185,7 @@ export default function CareersPage() {
                         href="mailto:hr@seedengineering.com?subject=Application for Dubai Design Office Opportunities"
                         className="w-full inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm text-center"
                       >
-                        Apply for Dubai Positions (hr@seedengineering.com) →
+                        Apply for Dubai positions (hr@seedengineering.com) →
                       </a>
                     </div>
 
@@ -221,8 +221,8 @@ export default function CareersPage() {
                     {/* Positions Details List & Direct Apply */}
                     <div className="w-full lg:w-1/2 flex flex-col justify-between">
                       <div>
-                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase block mb-2">INDIA OUTSOURCING OFFICE</span>
-                        <h3 className="font-serif text-3xl font-bold text-white mb-4">India Engineering & BIM Roles</h3>
+                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase block mb-2">India outsourcing office</span>
+                        <h3 className="font-serif text-3xl font-bold text-white mb-4">India Engineering & BIM roles</h3>
                         <p className="text-slate-400 text-sm font-light leading-relaxed mb-6">
                           Looking for Senior & Intermediate Engineers and BIM professionals to work from our <strong>Bangalore / Pune / Mumbai / Delhi / Koratty</strong> offices supporting our Dubai Design Office.
                         </p>
@@ -250,7 +250,7 @@ export default function CareersPage() {
                         href="mailto:hr@seedengineering.com?subject=Application for India Outsourcing Office Opportunities"
                         className="w-full inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm text-center"
                       >
-                        Apply for India Positions (hr@seedengineering.com) →
+                        Apply for India positions (hr@seedengineering.com) →
                       </a>
                     </div>
 
@@ -269,8 +269,8 @@ export default function CareersPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">HIRING TIMELINE</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Recruitment Process</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Hiring timeline</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our recruitment process</h2>
             </div>
           </Reveal>
 
@@ -298,8 +298,8 @@ export default function CareersPage() {
       <section className="py-20 bg-[#0a1124] border-t border-white/10">
         <div className="container mx-auto px-6 lg:px-12 max-w-4xl text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">TALENT NETWORK</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">We’re Always Looking for Great Talent</h2>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Talent network</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">We’re always looking for great talent</h2>
             <p className="text-slate-400 font-light text-[15px] max-w-xl mx-auto mb-10 leading-relaxed">
               If you don’t see a suitable opportunity today, we’d still love to hear from you. Send us your CV and we’ll keep it on file for future opportunities.
             </p>
@@ -308,7 +308,7 @@ export default function CareersPage() {
                 href="mailto:hr@seedengineering.com?subject=Speculative Application - Submit Your CV"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Submit Your CV
+                Submit your CV
               </a>
               <a
                 href="mailto:hr@seedengineering.com?subject=HR Inquiry"
@@ -325,9 +325,9 @@ export default function CareersPage() {
       <section className="py-28 relative overflow-hidden bg-[#0f172a] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">JOIN SEED</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Join SEED</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Ready to Shape the Future?
+              Ready to shape the future?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               Become part of a team that’s engineering high-performance buildings and creating lasting value across the built environment.
@@ -337,7 +337,7 @@ export default function CareersPage() {
                 onClick={scrollToOpenings}
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                View Current Openings
+                View current openings
               </button>
             </div>
           </Reveal>

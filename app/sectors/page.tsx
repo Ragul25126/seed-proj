@@ -11,7 +11,7 @@ const SECTORS_DATA = [
     title: 'Hospitality',
     image: '/sectors/jw marriot sevtor image.jpeg',
     desc: 'Engineering luxury hospitality environments where guest comfort, operational efficiency and sustainability work seamlessly together. From boutique hotels to destination resorts, every system is designed to enhance the guest experience while supporting long-term operational performance.',
-    cta: 'Explore Hospitality Projects →',
+    cta: 'Explore hospitality projects →',
   },
   {
     id: 'residential',
@@ -19,7 +19,7 @@ const SECTORS_DATA = [
     title: 'Residential',
     image: '/sectors/stregis sector image.avif',
     desc: 'Designing high-performance residential environments that prioritise comfort, efficiency and reliability. Our integrated engineering solutions support luxury towers, villas and mixed-use communities through every stage of development.',
-    cta: 'Explore Residential Projects →',
+    cta: 'Explore residential projects →',
   },
   {
     id: 'commercial',
@@ -27,7 +27,7 @@ const SECTORS_DATA = [
     title: 'Commercial',
     image: '/sectors/Al Ajlan KSR HQ Tower.png',
     desc: 'Creating intelligent workplaces that support productivity, occupant wellbeing and future adaptability. Our engineering solutions are designed for commercial towers, headquarters and mixed-use business environments.',
-    cta: 'Explore Commercial Projects →',
+    cta: 'Explore commercial projects →',
   },
   {
     id: 'education',
@@ -35,7 +35,7 @@ const SECTORS_DATA = [
     title: 'Education',
     image: '/sectors/Sobha Hartland.jpeg',
     desc: 'Engineering educational environments that are safe, flexible and built for long-term learning. We support schools, universities and research facilities with efficient and sustainable building systems.',
-    cta: 'Explore Education Projects →',
+    cta: 'Explore education projects →',
   },
   {
     id: 'healthcare',
@@ -43,7 +43,7 @@ const SECTORS_DATA = [
     title: 'Healthcare',
     image: '/sectors/NMC Hospital.jpg',
     desc: 'Delivering resilient engineering for hospitals and healthcare facilities where reliability, infection control and uninterrupted operations are critical. Every solution is developed to support patient wellbeing and clinical excellence.',
-    cta: 'Explore Healthcare Projects →',
+    cta: 'Explore healthcare projects →',
   },
   {
     id: 'retail',
@@ -51,7 +51,7 @@ const SECTORS_DATA = [
     title: 'Retail',
     image: '/sectors/galleria-mall.jpg',
     desc: 'Engineering retail destinations that enhance customer experience while maintaining operational efficiency. From shopping malls to mixed-use retail environments, every solution supports comfort, sustainability and flexibility.',
-    cta: 'Explore Retail Projects →',
+    cta: 'Explore retail projects →',
   },
   {
     id: 'sports-stadiums',
@@ -59,7 +59,7 @@ const SECTORS_DATA = [
     title: 'Sports & Stadiums',
     image: '/sectors/dammam stadium.webp',
     desc: 'Providing specialist engineering for stadiums, arenas and sports complexes where crowd comfort, life safety and operational resilience are essential to world-class sporting experiences.',
-    cta: 'Explore Sports Projects →',
+    cta: 'Explore sports projects →',
   },
   {
     id: 'entertainment-cultural-public-buildings',
@@ -67,7 +67,7 @@ const SECTORS_DATA = [
     title: 'Entertainment, Cultural, Public Buildings & Theme Parks',
     image: '/sectors/sector_cultural_1781248059245.webp',
     desc: 'Engineering destinations that inspire people and enrich communities. We support museums, theatres, civic buildings, convention centres and theme parks with integrated engineering that balances visitor experience, operational performance and architectural ambition.',
-    cta: 'Explore Cultural Projects →',
+    cta: 'Explore cultural projects →',
   },
   {
     id: 'aviation',
@@ -75,7 +75,7 @@ const SECTORS_DATA = [
     title: 'Aviation',
     image: '/sectors/dxb airport.png',
     desc: 'Engineering aviation facilities that demand the highest standards of safety, resilience and operational continuity. Our multidisciplinary expertise supports terminals, airport infrastructure and specialised aviation buildings.',
-    cta: 'Explore Aviation Projects →',
+    cta: 'Explore aviation projects →',
   },
   {
     id: 'villas-private-estates',
@@ -83,7 +83,7 @@ const SECTORS_DATA = [
     title: 'Villas & Private Estates',
     image: '/sectors/JEBEL HAFEET MOUNTAIN VILLA, AL AIN.webp',
     desc: 'Creating discreet, efficient and luxurious engineering solutions for high-end private residences. Every system is tailored to deliver comfort, sustainability and long-term reliability.',
-    cta: 'Explore Villa Projects →',
+    cta: 'Explore villa projects →',
   },
   {
     id: 'infrastructure-sustainable-communities',
@@ -91,7 +91,7 @@ const SECTORS_DATA = [
     title: 'Infrastructure & Sustainable Communities',
     image: '/sectors/infrastructure-sustainable-communities.jpg',
     desc: 'Supporting cities and large-scale developments with integrated engineering that improves resilience, sustainability and long-term urban performance.',
-    cta: 'Explore Infrastructure Projects →',
+    cta: 'Explore infrastructure projects →',
   },
 ];
 
@@ -114,10 +114,10 @@ export default function SectorsPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              OUR EXPERTISE
+              Our expertise
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Engineering Across Every Sector
+              Engineering across every sector
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Every sector presents unique engineering challenges. From luxury hospitality and high-rise developments to healthcare, aviation and cultural destinations, we deliver integrated engineering solutions tailored to each project’s operational, technical and commercial requirements.
@@ -182,9 +182,9 @@ export default function SectorsPage() {
       <section className="py-28 bg-[#0f172a] border-t border-white/5 relative overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">GET IN TOUCH</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Get in touch</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Let’s Build the Future Together
+              Let’s build the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
               Whether you’re planning a luxury resort, commercial tower, healthcare facility or landmark destination, our multidisciplinary engineering team is ready to help deliver exceptional building performance.
@@ -194,13 +194,13 @@ export default function SectorsPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Discuss Your Project →
+                Discuss your project →
               </Link>
               <Link
                 href="/projects"
                 className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm"
               >
-                Explore Our Projects
+                Explore our projects
               </Link>
             </div>
           </Reveal>

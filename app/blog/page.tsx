@@ -93,11 +93,10 @@ export default function InsightsPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
         </div>
-
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              KNOWLEDGE & UPDATES
+              Knowledge & updates
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
               Insights
@@ -114,8 +113,8 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">MEDIA & UPDATES</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media & Coverages</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Media & updates</span>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media & coverages</h2>
             </div>
           </Reveal>
 
@@ -149,13 +148,13 @@ export default function InsightsPage() {
                       href={`/blog/${news.slug}`}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
-                      Read Full Article →
+                      Read full article →
                     </Link>
                     <button
                       onClick={() => setActiveModal(news)}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
-                      🔍 Preview Image
+                      🔍 Preview image
                     </button>
                   </div>
                 </div>
@@ -170,8 +169,8 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">ACCOLADES & HONOURS</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Awards & Recognition</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Accolades & honours</span>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Awards & recognition</h2>
             </div>
           </Reveal>
 
@@ -204,13 +203,13 @@ export default function InsightsPage() {
                       href={`/blog/${news.slug}`}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
-                      View Award →
+                      View award →
                     </Link>
                     <button
                       onClick={() => setActiveModal(news)}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
-                      🔍 Preview Image
+                      🔍 Preview image
                     </button>
                   </div>
                 </div>
@@ -254,13 +253,13 @@ export default function InsightsPage() {
                 href={`/blog/${activeModal.slug}`}
                 className="px-8 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
               >
-                {activeModal.category.includes('Award') ? 'View Award Details →' : 'Go to Dedicated Article Page →'}
+                {activeModal.category.includes('Award') ? 'View award details →' : 'Go to dedicated article page →'}
               </Link>
               <button
                 onClick={() => setActiveModal(null)}
                 className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
               >
-                Close Preview
+                Close preview
               </button>
             </div>
           </div>
@@ -271,19 +270,19 @@ export default function InsightsPage() {
       <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">COLLABORATION</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Collaboration</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Let’s Shape the Future Together
+              Let’s shape the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               Whether you’re looking for engineering expertise, project collaboration or industry insights, our team is ready to help.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm">
-                Contact Us
+                Contact us
               </Link>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
-                Explore Our Projects
+                Explore our projects
               </Link>
             </div>
           </Reveal>

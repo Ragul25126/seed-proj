@@ -46,7 +46,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
       <Section tone="cream">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14">
           <div className="lg:col-span-4">
-            <SectionLabel>What This Really Means</SectionLabel>
+            <SectionLabel>What this really means</SectionLabel>
             <h2 className="font-sans text-3xl md:text-4xl font-medium leading-[1.1] tracking-[-0.01em] text-navy">
               {props.realMeaningTitle}
             </h2>
@@ -66,7 +66,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="block w-10 h-px bg-navy/40" />
-            <span className="label text-navy/60 tracking-[0.3em]">THE SEED APPROACH</span>
+            <span className="label text-navy/60 tracking-[0.3em]">The SEED approach</span>
             <span className="block w-10 h-px bg-navy/40" />
           </div>
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.05] text-navy">
@@ -90,7 +90,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
       <Section tone="cream">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-end">
           <div className="lg:col-span-7">
-            <SectionLabel>Related Work</SectionLabel>
+            <SectionLabel>Related work</SectionLabel>
             <h2 className="font-sans text-4xl md:text-5xl font-medium leading-[1.05] text-navy">
               A few projects where this work <span>mattered.</span>
             </h2>

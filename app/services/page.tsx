@@ -137,19 +137,19 @@ const SERVICES_DATA = [
 
 const WHY_CHOOSE_SEED = [
   {
-    title: 'Integrated Multidisciplinary Engineering',
+    title: 'Integrated multidisciplinary engineering',
     desc: 'Seamless collaboration across HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability disciplines from concept to handover.',
   },
   {
-    title: 'BIM-Led Coordination',
+    title: 'BIM-led coordination',
     desc: 'Advanced 3D modeling and automated clash detection ensuring zero site conflicts and buildability prior to construction.',
   },
   {
-    title: 'Sustainability-Driven Design',
+    title: 'Sustainability-driven design',
     desc: 'Practical energy-efficient, low-carbon strategies aligned with international green building standards such as LEED & Estidama.',
   },
   {
-    title: 'Concept-to-Commissioning Delivery',
+    title: 'Concept-to-commissioning delivery',
     desc: 'Complete technical responsibility extending beyond drawings to include on-site supervision, testing, and verified building performance.',
   },
 ];
@@ -172,7 +172,7 @@ export default function ServicesPage() {
         
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">OUR CAPABILITIES</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">Our capabilities</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">Services</h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Integrated engineering disciplines delivering high-performance buildings through coordinated design, digital delivery and technical excellence.
@@ -186,7 +186,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
-              Engineering Services Built Around Performance
+              Engineering services built around performance
             </h2>
             <p className="text-base md:text-lg font-sans font-light text-slate-300 leading-relaxed max-w-3xl mx-auto">
               Every building presents unique engineering challenges. Our multidisciplinary teams work together from concept to commissioning, delivering integrated solutions that improve building performance, reduce project risks and support long-term operational value.
@@ -200,9 +200,9 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">DELIVERY METHODOLOGY</span>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Delivery methodology</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-                How We Deliver Engineering Excellence
+                How we deliver Engineering excellence
               </h2>
               <p className="text-slate-400 font-light text-[15px]">
                 A structured 6-step engineering process that converts design intent into verified operational performance.
@@ -242,8 +242,8 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-20 max-w-3xl">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">PORTFOLIO OF SERVICES</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">Our Services</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio of services</span>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">Our services</h2>
               <div className="w-20 h-1 bg-gold mt-4" />
             </div>
           </Reveal>
@@ -305,8 +305,8 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">OUR ADVANTAGE</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Why Clients Choose SEED</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Our advantage</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Why clients choose SEED</h2>
             </div>
           </Reveal>
 
@@ -330,9 +330,9 @@ export default function ServicesPage() {
       <section className="py-28 bg-[#0b0f19] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">GET STARTED</span>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Get started</span>
             <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Planning a Complex Building Project?
+              Planning a complex building project?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
               Whether you’re developing a luxury hotel, residential tower, commercial development or mixed-use destination, our multidisciplinary engineering teams are ready to help deliver high-performance buildings.
@@ -342,13 +342,13 @@ export default function ServicesPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Request Consultation →
+                Request consultation →
               </Link>
               <Link
                 href="/projects"
                 className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm"
               >
-                Explore Projects
+                Explore projects
               </Link>
             </div>
           </Reveal>

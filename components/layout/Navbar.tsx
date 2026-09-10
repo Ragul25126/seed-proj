@@ -51,18 +51,18 @@ export default function Navbar() {
               className="h-10 w-auto brightness-0 invert"
             />
           </Link>
-          <span className="text-[10px] text-white/50 tracking-[0.2em] uppercase hidden lg:block ml-1">Engineering High-Performance Buildings</span>
+          <span className="text-[10px] text-white/50 tracking-[0.2em] uppercase hidden lg:block ml-1">SEED Engineering Consultants</span>
         </div>
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-          <Link href="/about" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">ABOUT</Link>
-          <Link href="/services" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">SERVICES</Link>
-          <Link href="/sectors" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">SECTORS</Link>
-          <Link href="/projects" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">PROJECTS</Link>
-          <Link href="/blog" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">INSIGHTS</Link>
-          <Link href="/careers" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">CAREERS</Link>
-          <Link href="/contact" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">CONTACT</Link>
+          <Link href="/about" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
+          <Link href="/services" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
+          <Link href="/sectors" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
+          <Link href="/projects" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
+          <Link href="/blog" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Insights</Link>
+          <Link href="/careers" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
+          <Link href="/contact" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -115,7 +115,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <span className="block w-10 h-px bg-champagne" />
-              <span className="label text-champagne tracking-[0.3em]">MENU</span>
+              <span className="label text-champagne tracking-[0.3em]">Menu</span>
             </div>
             <button
               onClick={() => setOpen(false)}
@@ -188,7 +188,7 @@ export default function Navbar() {
               href="/inquiry"
               className="block w-full text-center bg-champagne hover:bg-white text-navy px-6 py-4 text-sm font-medium tracking-[0.22em] transition-colors mb-6"
             >
-              REQUEST A QUOTE
+              Request a quote
             </Link>
             <div className="space-y-2 text-sm text-white/55">
               <p>

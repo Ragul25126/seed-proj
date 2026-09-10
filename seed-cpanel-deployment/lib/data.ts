@@ -1457,7 +1457,7 @@ export const team = [
     name: 'Gurpreet Singh Maini',
     role: 'Managing Partner',
     image: '/team/Gurpreet Singh Maini-head.png',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/gurpreetarora/',
     bio: 'Gurpreet Singh Maini is a dynamic, accomplished and result oriented Real Estate Professional with over 2.5 decades of experience in leading high-performance teams and successfully increasing efficiency, productivity and reducing costs. Adept in project planning, execution and delivering engineering solutions for multimillion-dollar Real Estate projects.',
   },
   {
@@ -1465,7 +1465,7 @@ export const team = [
     name: 'Anand Krishnan',
     role: 'Director',
     image: '/team/Anand Krishnan-head.jpeg',
-    linkedin: 'https://www.linkedin.com/in/anand-krishnan/',
+    linkedin: 'https://www.linkedin.com/in/anand-krishnan-4b615613a/',
     bio: 'Chartered Engineer with 36 years of experience in Building Services Design, Supervision and Project Management. He has nurtured key client relationships, acting as the primary interface on several projects. He revels in mentoring our team to the highest level of technical competency and self-reliance.',
   },
   {
@@ -1481,7 +1481,7 @@ export const team = [
     name: 'Jaygopal Kottilil',
     role: 'Director',
     image: '/team/Jaygopal-head.png',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/jaygopal-kottilil-38a55349/',
     bio: 'Qualified MEP Building Services professional with over 40 years of experience. He leads teams to deliver robust, safe, and cost-effective sustainable built environments.',
   }
 ];

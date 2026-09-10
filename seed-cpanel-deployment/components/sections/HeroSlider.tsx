@@ -79,7 +79,10 @@ export function HeroSlider() {
               <div className="max-w-4xl">
                 {idx === current && (
                   <div className="animate-fade-in-up">
-                    <h1 className="text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.05] tracking-tight">
+                    <h1 
+                      className="text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.25] md:leading-[1.25] lg:leading-[1.25] tracking-tight"
+                      style={{ lineHeight: 1.25 }}
+                    >
                       {slide.title}
                     </h1>
                     <p className="text-lg md:text-xl font-sans font-light text-slate-300 max-w-xl leading-relaxed mb-10">
@@ -101,7 +104,6 @@ export function HeroSlider() {
 
           {/* Project Details Overlay */}
           <div className={`absolute bottom-6 md:bottom-12 right-6 md:right-12 z-20 text-right transition-opacity duration-1000 delay-300 ${idx === current ? 'opacity-100' : 'opacity-0'}`}>
-            <span className="text-white/50 text-[10px] tracking-[0.2em] uppercase block mb-1 font-semibold">Featured Project</span>
             <span className="text-white text-sm md:text-base font-medium tracking-wide">{slide.projectInfo}</span>
           </div>
 
