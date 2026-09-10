@@ -255,14 +255,16 @@ export default function ServicesPage() {
                 {/* Image Side */}
                 <div className="w-full lg:w-1/2">
                   <Reveal delay={0.1}>
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm shadow-2xl border border-white/5 group">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm shadow-2xl border border-white/5 group bg-[#0f172a]">
                       <Image 
                         src={service.image} 
                         alt={service.title} 
                         fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className={`${service.id === 'acoustics-consultancy' ? 'object-contain' : 'object-cover'} transition-transform duration-700 group-hover:scale-105`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+                      {service.id !== 'acoustics-consultancy' && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+                      )}
                     </div>
                   </Reveal>
                 </div>
