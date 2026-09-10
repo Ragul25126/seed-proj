@@ -40,12 +40,6 @@ export default function AboutPage() {
         <div className="absolute inset-0 grid-bg opacity-20" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#0b0f19]" />
         <div className="relative max-w-container mx-auto px-6 lg:px-12">
-          <Reveal>
-            <div className="flex items-center gap-3 mb-8">
-              <span className="block w-12 h-px bg-gold" />
-              <span className="label text-gold tracking-[0.35em] text-[10px] font-semibold uppercase">About SEED</span>
-            </div>
-          </Reveal>
           <Reveal delay={0.08}>
             <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
