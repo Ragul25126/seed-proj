@@ -1473,7 +1473,7 @@ export const team = [
     name: 'Mohammed Al Horoub',
     role: 'Director',
     image: '/team/Mohammed Al Horoub-head.png',
-    linkedin: '/',
+    linkedin: 'https://www.linkedin.com/in/mohammad-h-0a7bb49?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
     bio: 'Mechanical Engineer & LEED AP with 20 years in Design & Planning of MEP Services. A lead designer, he brings innovative and sustainable solutions to Office, Residential, Retail, and Hospital projects.',
   },
   {
