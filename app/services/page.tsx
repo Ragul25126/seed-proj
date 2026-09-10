@@ -91,7 +91,7 @@ const SERVICES_DATA = [
     title: 'Acoustics Consultancy',
     tagline: 'Designing environments that sound as good as they look.',
     desc: 'Our acoustic specialists optimise sound quality, minimise noise and create comfortable environments across hospitality, residential, commercial and mixed-use developments.',
-    image: '/services/acoustics-consultancy.jpg',
+    image: '/services/Acoustics.jpeg',
     services: [
       'Architectural Acoustics',
       'Noise Studies',
