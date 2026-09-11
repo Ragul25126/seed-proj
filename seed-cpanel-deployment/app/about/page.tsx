@@ -198,7 +198,7 @@ export default function AboutPage() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
               { v: 20, suf: '+', l: 'Years in Practice' },
               { v: 200, suf: '+', l: 'Engineering Professionals' },
@@ -206,7 +206,24 @@ export default function AboutPage() {
               { v: 21, suf: '', l: 'Countries Served' },
             ].map((s) => (
               <Reveal key={s.l}>
-                <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors">
+                <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
+                  <p className="font-serif text-5xl md:text-7xl font-bold text-gold mb-3">
+                    <CountUp to={s.v} suffix={s.suf} />
+                  </p>
+                  <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-center">
+            {[
+              { v: 500, suf: '+', l: 'Million Sq.Ft' },
+              { v: 300, suf: '+', l: 'People' },
+              { v: 1000, suf: '+', l: 'Projects' },
+            ].map((s) => (
+              <Reveal key={s.l} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(25%-2.25rem)]">
+                <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
                   <p className="font-serif text-5xl md:text-7xl font-bold text-gold mb-3">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>

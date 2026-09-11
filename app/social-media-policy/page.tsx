@@ -28,19 +28,10 @@ export default function SocialMediaPolicyPage() {
         <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
           <div className="bg-[#0b0f19] border border-white/10 p-8 md:p-14 rounded-sm shadow-2xl space-y-10">
 
-            {/* HEADER INTRO */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">
-                Social Media Policy
-              </h2>
-            </div>
-
-            <hr className="border-white/5" />
-
             {/* REPURPOSED CONTENT & PERSONAL REPRESENTATIONS */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                REPURPOSED CONTENT & PERSONAL REPRESENTATIONS
+                Repurposed content & personal representations
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 As with most social media channels, there will be user generated and distributed content produced by non-SEED personnel. This may include but is not limited to: Instagram comments, LinkedIn group and individual status updates. SEED cannot be held responsible for repurposed content and would therefore advise that only the official SEED channels listed here are referenced. Where individuals are active online, unless they are an approved spokesperson; it is to be understood that their comments are personal views and not necessarily representative of the company.
@@ -52,7 +43,7 @@ export default function SocialMediaPolicyPage() {
             {/* RESERVE ALL RIGHTS */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                RESERVE ALL RIGHTS
+                Reserve all rights
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 SEED reserves the right to remove and/or block Instagram followers, LinkedIn group members and company followers, as well as removing, modifying or adding content to anything posted on or to its official accounts.

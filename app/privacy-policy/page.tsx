@@ -46,12 +46,10 @@ export default function PrivacyPolicyPage() {
               </div>
             </div>
 
-            <hr className="border-white/5" />
-
             {/* INFORMATION COLLECTION AND USE */}
-            <div>
+            <div className="!mt-7">
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                Information collection and Use
+                Information collection and use
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-6">
                 We collect several different types of information for various purposes to provide and improve our Service to you.
