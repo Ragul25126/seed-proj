@@ -248,7 +248,7 @@ export default function PrivacyPolicyPage() {
                 Contact Us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
-                If you have any questions about this Privacy Policy, please contact us by email: <a href="mailto:contact@seedengineering.com" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
+                If you have any questions about this Privacy Policy, please contact us by email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
               </p>
             </div>
 

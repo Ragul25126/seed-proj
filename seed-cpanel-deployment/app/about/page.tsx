@@ -21,15 +21,15 @@ const AWARDS = [
 const GLOBAL_OFFICES = [
   { city: 'Dubai', country: 'United Arab Emirates', role: 'Headquarters & Regional Design Hub', flag: '🇦🇪' },
   { city: 'Singapore', country: 'Singapore', role: 'Southeast Asia Regional Hub', flag: '🇸🇬' },
-  { city: 'Mumbai', country: 'India', role: 'West India Design Center', flag: '🇮🇳' },
-  { city: 'Kochi', country: 'India', role: 'South India Engineering Center', flag: '🇮🇳' },
-  { city: 'Bengaluru', country: 'India', role: 'Digital Delivery & BIM Center', flag: '🇮🇳' },
+  { city: 'Mumbai', country: 'India', role: 'West India Design', flag: '🇮🇳' },
+  { city: 'Kochi', country: 'India', role: 'South India Engineering', flag: '🇮🇳' },
+  { city: 'Bengaluru', country: 'India', role: 'Digital Delivery & BIM', flag: '🇮🇳' },
   { city: 'Gurugram', country: 'India', role: 'North India Regional Office', flag: '🇮🇳' },
-  { city: 'Pune', country: 'India', role: 'Engineering Design Center', flag: '🇮🇳' },
+  { city: 'Pune', country: 'India', role: 'Engineering Design', flag: '🇮🇳' },
 ];
 
 export default function AboutPage() {
-  const [selectedOffice, setSelectedOffice] = useState<string | null>('Dubai');
+  const [selectedOffice, setSelectedOffice] = useState<string | null>(null);
   const leadership = team;
 
   return (
@@ -321,15 +321,20 @@ export default function AboutPage() {
           </Reveal>
 
           <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {AWARDS.map((award, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm hover:border-gold/40 transition-colors group flex items-start h-full">
-                  <p className="text-slate-200 text-base md:text-lg leading-relaxed font-light">
-                    {award}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
+            {AWARDS.map((award, idx) => {
+              const hasBullet = award.startsWith('•');
+              const text = hasBullet ? award.replace(/^•\s*/, '') : award;
+              return (
+                <StaggerItem key={idx}>
+                  <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm hover:border-gold/40 transition-colors group flex items-start h-full">
+                    <p className="text-slate-200 text-base md:text-lg leading-relaxed font-light flex items-start w-full">
+                      {hasBullet && <span className="mr-3 select-none shrink-0">•</span>}
+                      <span className="flex-1">{text}</span>
+                    </p>
+                  </div>
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </section>

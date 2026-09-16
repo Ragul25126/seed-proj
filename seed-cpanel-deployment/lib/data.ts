@@ -1457,7 +1457,7 @@ export const team = [
     name: 'Gurpreet Singh Maini',
     role: 'Managing Partner',
     image: '/team/Gurpreet Singh Maini-head.png',
-    linkedin: 'https://www.linkedin.com/in/gurpreetarora/',
+    linkedin: 'https://www.linkedin.com/in/gurpreetmaini/',
     bio: 'Gurpreet Singh Maini is a dynamic, accomplished and result oriented Real Estate Professional with over 2.5 decades of experience in leading high-performance teams and successfully increasing efficiency, productivity and reducing costs. Adept in project planning, execution and delivering engineering solutions for multimillion-dollar Real Estate projects.',
   },
   {

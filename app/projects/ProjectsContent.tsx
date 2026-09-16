@@ -210,7 +210,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
 
               <div className="text-slate-400 font-light text-[15px] leading-relaxed max-w-4xl mb-10">
                 <p className="mb-6 text-slate-300 text-base md:text-lg font-light leading-relaxed">
-                  Every project reflects SEED's commitment to engineering excellence, technical precision, and coordinated delivery. From luxury hospitality and high-rise residential developments to commercial, healthcare, infrastructure, and mixed-use projects, our portfolio demonstrates how integrated engineering creates high-performance buildings across the Middle East, Africa, and Asia.
+                  Every project reflects SEED's commitment to engineering excellence, technical precision and coordinated delivery. From luxury hospitality and high-rise residential developments to commercial, healthcare, infrastructure and mixed-use projects, our portfolio demonstrates how integrated engineering creates high-performance buildings across the Middle East, Africa, and Asia.
                 </p>
                 {/* Statistics Bar */}
                 <div className="my-10 p-6 md:p-8 bg-[#0a1124] border border-gold/30 rounded-sm shadow-xl max-w-4xl">

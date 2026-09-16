@@ -41,18 +41,15 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-5 lg:px-12">
-        <div className="flex flex-col gap-1">
-          <Link href="/" className="flex items-center gap-3 z-[60] relative">
-            <Image
-              src="/seedlogo.png"
-              alt="Seed Engineering"
-              width={140}
-              height={42}
-              className="h-10 w-auto brightness-0 invert"
-            />
-          </Link>
-          <span className="text-[10px] text-white/50 tracking-[0.2em] uppercase hidden lg:block ml-1">Engineering High-Performance Buildings</span>
-        </div>
+        <Link href="/" className="flex items-center gap-3 z-[60] relative">
+          <Image
+            src="/seedlogo.png"
+            alt="Seed Engineering"
+            width={140}
+            height={42}
+            className="h-10 w-auto brightness-0 invert"
+          />
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -60,7 +57,7 @@ export default function Navbar() {
           <Link href="/services" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">SERVICES</Link>
           <Link href="/sectors" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">SECTORS</Link>
           <Link href="/projects" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">PROJECTS</Link>
-          <Link href="/blog" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">INSIGHTS</Link>
+          <Link href="/blog" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">MEDIA</Link>
           <Link href="/careers" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">CAREERS</Link>
           <Link href="/contact" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">CONTACT</Link>
         </nav>
@@ -165,7 +162,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
-              Insights
+              Media
             </Link>
             <Link
               href="/careers"
@@ -196,7 +193,7 @@ export default function Navbar() {
                 <a href="tel:+97142564882" className="hover:text-champagne">+971 4 256 4882</a>
               </p>
               <p>
-                <a href="mailto:contact@seedengineering.com" className="hover:text-champagne">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="hover:text-champagne">
                   contact@seedengineering.com
                 </a>
               </p>

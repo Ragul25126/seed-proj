@@ -47,7 +47,7 @@ export default function Footer() {
                 P O Box 119146, Dubai, UAE
               </li>
               <li><a href="tel:+97142564882" className="hover:text-gold transition-colors">+971 42 564 882</a></li>
-              <li><a href="mailto:contact@seedengineering.com" className="hover:text-gold transition-colors">contact@seedengineering.com</a></li>
+              <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">contact@seedengineering.com</a></li>
             </ul>
             
             <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Follow Us</h4>

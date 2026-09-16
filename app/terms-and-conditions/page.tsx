@@ -30,9 +30,6 @@ export default function TermsAndConditionsPage() {
 
             {/* HEADER INTRO */}
             <div>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">
-                Terms & Conditions
-              </h2>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 These terms and conditions (“Terms”, “Agreement”) are an agreement between Website Operator (“Website Operator”, “us”, “we” or “our”) and you (“User”, “you” or “your”). This Agreement sets forth the general terms and conditions of your use of the <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a> website and any of its products or services (collectively, “Website” or “Services”).
               </p>
@@ -43,7 +40,7 @@ export default function TermsAndConditionsPage() {
             {/* BACKUPS */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                BACKUPS
+                Backups
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 We are not responsible for Content residing on the Website. In no event shall we be held liable for any loss of any Content. It is your sole responsibility to maintain appropriate backup of your Content. Notwithstanding the foregoing, on some occasions and in certain circumstances, with absolutely no obligation, we may be able to restore some or all of your data that has been deleted as of a certain date and time when we may have backed up data for our own purposes. We make no guarantee that the data you need will be available.
@@ -55,7 +52,7 @@ export default function TermsAndConditionsPage() {
             {/* LINKS TO OTHER WEBSITES */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                LINKS TO OTHER WEBSITES
+                Links to other websites
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 Although this Website may link to other websites, we are not, directly or indirectly, implying any approval, association, sponsorship, endorsement, or affiliation with any linked website, unless specifically stated herein. We are not responsible for examining or evaluating, and we do not warrant the offerings of, any businesses or individuals or the content of their websites. We do not assume any responsibility or liability for the actions, products, services, and content of any other third-parties. You should carefully review the legal statements and other conditions of use of any website which you access through a link from this Website. Your linking to any other off-site websites is at your own risk.
@@ -67,7 +64,7 @@ export default function TermsAndConditionsPage() {
             {/* CHANGES AND AMENDMENTS */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                CHANGES AND AMENDMENTS
+                Changes and amendments
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 We reserve the right to modify this Agreement or its policies relating to the Website or Services at any time, effective upon posting of an updated version of this Agreement on the Website. When we do, we will revise the updated date at the bottom of this page. Continued use of the Website after any such changes shall constitute your consent to such changes.
@@ -79,7 +76,7 @@ export default function TermsAndConditionsPage() {
             {/* ACCEPTANCE OF THESE TERMS */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                ACCEPTANCE OF THESE TERMS
+                Acceptance of these terms
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 You acknowledge that you have read this Agreement and agree to all its terms and conditions. By using the Website or its Services you agree to be bound by this Agreement. If you do not agree to abide by the terms of this Agreement, you are not authorised to use or access the Website and its Services.
@@ -91,10 +88,10 @@ export default function TermsAndConditionsPage() {
             {/* CONTACTING US */}
             <div>
               <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
-                CONTACTING US
+                Contacting us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-6">
-                If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to: <a href="mailto:contact@seedengineering.com" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
+                If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
               </p>
               <p className="text-slate-500 text-xs font-mono">
                 This document was last updated on September 7, 2026.

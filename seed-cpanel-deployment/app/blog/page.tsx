@@ -114,8 +114,7 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">MEDIA & UPDATES</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media & Coverages</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media</h2>
             </div>
           </Reveal>
 

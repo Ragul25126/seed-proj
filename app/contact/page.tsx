@@ -23,7 +23,7 @@ const CONTACT_CARDS = [
     details: [
       { label: 'Monday – Friday', value: '8:00 AM – 6:00 PM' },
       { label: 'Saturday & Sunday', value: 'Closed' },
-      { label: 'Response Time', value: 'Within 24 Business Hours' },
+      { label: 'Response Time', value: 'Within 24 business hours' },
     ],
   },
 ];
@@ -194,7 +194,13 @@ export default function ContactPage() {
                       {card.details.map((d, j) => (
                         <div key={j}>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">{d.label}</span>
-                          <span className="text-slate-300 text-[13px] font-light leading-relaxed block">{d.value}</span>
+                          {d.label === 'Email' ? (
+                            <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${d.value}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors text-[13px] font-light leading-relaxed block">
+                              {d.value}
+                            </a>
+                          ) : (
+                            <span className="text-slate-300 text-[13px] font-light leading-relaxed block">{d.value}</span>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -414,7 +420,7 @@ export default function ContactPage() {
                       {off.email && (
                         <div>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Email</span>
-                          <a href={`mailto:${off.email}`} className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
+                          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${off.email}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
                         </div>
                       )}
                     </div>
