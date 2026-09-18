@@ -292,10 +292,13 @@ export default function HomePage() {
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               Speak with our engineering team about MEP design, sustainability, BIM coordination and commissioning requirements.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center items-start">
+              <div className="flex flex-col items-center">
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
                 REQUEST CONSULTATION
-              </Link>
+                </Link>
+                <span className="w-12 h-[2px] bg-gold mt-6 block" />
+              </div>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
                 EXPLORE PROJECTS
               </Link>

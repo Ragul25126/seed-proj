@@ -85,7 +85,7 @@ export default function AboutPage() {
             <div className="mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Why SEED</span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
-                Engineering that delivers more than design
+                Engineering that delivers <br />more than design
               </h2>
             </div>
           </Reveal>
@@ -328,7 +328,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning Engineering excellence</h2>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
             </div>
           </Reveal>
 

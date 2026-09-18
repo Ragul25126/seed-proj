@@ -905,7 +905,7 @@ export const portfolio: {
         description: ""
     },
     {
-        title: "National Games Stadium , Trivandrum India",
+        title: "National Games Stadium",
         slug: "national-games-stadium-trivandrum-india",
         division: "mep",
         clientSector: "Sports",

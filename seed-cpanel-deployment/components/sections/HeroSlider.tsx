@@ -111,13 +111,13 @@ export function HeroSlider() {
       ))}
 
       {/* Carousel indicators */}
-      <div className="absolute bottom-16 left-6 lg:left-12 z-20 flex gap-3">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
             className={`h-[2px] transition-all duration-500 ${
-              idx === current ? 'w-12 bg-gold' : 'w-6 bg-white/30 hover:bg-white/50'
+              idx === current ? 'w-12 bg-white' : 'w-6 bg-white/30 hover:bg-white/50'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

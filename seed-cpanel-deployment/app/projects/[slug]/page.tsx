@@ -322,13 +322,16 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
             <p className="text-slate-400 font-light text-[15px] mb-8 leading-relaxed">
               Connect with SEED’s multidisciplinary engineering team to discuss MEP design, BIM coordination, sustainability, and field supervision for your project.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
-              >
-                REQUEST CONSULTATION
-              </Link>
+            <div className="flex flex-wrap justify-center gap-4 items-start">
+              <div className="flex flex-col items-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
+                >
+                  REQUEST CONSULTATION
+                </Link>
+                <span className="w-12 h-[2px] bg-gold mt-6 block" />
+              </div>
               <Link
                 href="/projects"
                 className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-gold hover:text-gold transition-colors"

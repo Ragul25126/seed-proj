@@ -185,7 +185,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
-              Engineering services built around performance
+              Engineering services built <br />around performance
             </h2>
             <p className="text-base md:text-lg font-sans font-light text-slate-300 leading-relaxed max-w-3xl mx-auto">
               Every building presents unique engineering challenges. Our multidisciplinary teams work together from concept to commissioning, delivering integrated solutions that improve building performance, reduce project risks and support long-term operational value.
