@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import SearchModal from '@/components/search/SearchModal';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -52,7 +54,17 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="w-56 flex items-center justify-start gap-2.5 text-sm font-sans font-medium tracking-[0.15em] uppercase text-white hover:text-white bg-white/5 hover:bg-white/10 border border-white/80 hover:border-white rounded-md pl-3.5 pr-4 py-1.5 transition-all duration-300 mr-1 shadow-sm text-left"
+            aria-label="Open search interface"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>Search</span>
+          </button>
           <Link href="/about" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
           <Link href="/services" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
           <Link href="/sectors" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
@@ -128,6 +140,18 @@ export default function Navbar() {
 
           {/* Primary nav */}
           <nav className="flex flex-col">
+            <button
+              onClick={() => {
+                setOpen(false);
+                setIsSearchOpen(true);
+              }}
+              className="flex items-center justify-between font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 text-gold hover:pl-3 transition-all text-left w-full"
+            >
+              <span>Search</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
             <Link
               href="/about"
               onClick={() => setOpen(false)}
@@ -204,7 +228,14 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+    {/* Search Modal Overlay */}
+    <SearchModal
+      isOpen={isSearchOpen}
+      onClose={() => setIsSearchOpen(false)}
+    />
     </>
   );
 }
+
 

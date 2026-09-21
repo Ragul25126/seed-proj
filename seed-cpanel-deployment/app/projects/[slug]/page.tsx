@@ -206,7 +206,7 @@ export default function SingleProjectPage({ params }: { params: { slug: string }
                   PROJECT OVERVIEW
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-6">
-                  Engineering Delivery & Performance
+                  Engineering delivery & performance
                 </h2>
                 <div className="space-y-4 text-slate-300 font-light text-[16px] leading-relaxed">
                   {proj.description ? (
