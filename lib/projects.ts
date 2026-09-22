@@ -53,7 +53,9 @@ export async function getProjectBySlug(slug: string) {
     ...project,
     clientSector: project.client_sector,
     projectScale: project.project_scale,
-    description: project.full_description || project.description || '',
+    description: project.short_description || project.description || '',
+    short_description: project.short_description || project.description || '',
+    full_description: project.full_description || '',
     // image array used by gallery — Supabase-only, ordered by display_order
     images: imgs.map((img: any) => img.image_url || img.storage_path).filter(Boolean),
     // cover thumbnail — prefer is_cover flag, then fall back to project.image
@@ -91,7 +93,9 @@ export async function getAllProjects() {
       ...p,
       clientSector: p.client_sector,
       projectScale: p.project_scale,
-      description: p.full_description || p.description || '',
+      description: p.short_description || p.description || '',
+      short_description: p.short_description || p.description || '',
+      full_description: p.full_description || '',
       // image array — Supabase-only, ordered by display_order
       images: imgs.map((img: any) => img.image_url || img.storage_path).filter(Boolean),
       // cover thumbnail

@@ -144,7 +144,7 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
           {/* Link to full page */}
           <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
             <Link
-              href={`/projects/${proj.slug}`}
+              href={`/view/${proj.slug}`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
             >
               View full project page →
@@ -197,6 +197,44 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
     }
     return true;
   });
+
+  const openProjectModal = (proj: LiveProject) => {
+    setSelected(proj);
+    if (typeof window !== 'undefined' && proj.slug) {
+      const targetUrl = `/projects/${proj.slug}`;
+      if (window.location.pathname !== targetUrl) {
+        window.history.pushState({ slug: proj.slug }, '', targetUrl);
+      }
+    }
+  };
+
+  const closeProjectModal = () => {
+    setSelected(null);
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/projects/') && window.location.pathname !== '/projects') {
+      window.history.pushState(null, '', '/projects');
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window === 'undefined') return;
+      const pathname = window.location.pathname;
+      if (pathname === '/projects' || pathname === '/projects/') {
+        setSelected(null);
+      } else if (pathname.startsWith('/projects/')) {
+        const slug = pathname.replace('/projects/', '').split('/')[0];
+        if (slug) {
+          const matched = projects.find(p => p.slug === slug);
+          if (matched) {
+            setSelected(matched);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [projects]);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19] pb-32">
@@ -284,7 +322,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                 <StaggerItem key={proj.id || proj.slug} className={spanClass}>
                   <div
                     className="group bg-[#0f172a] border border-white/5 rounded-sm overflow-hidden hover:border-gold/40 transition-all cursor-pointer flex flex-col h-full"
-                    onClick={() => setSelected(proj)}
+                    onClick={() => openProjectModal(proj)}
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0a1020]">
                       {cardImage && (
@@ -361,7 +399,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
         </div>
       </div>
 
-      {selected && <ProjectModal proj={selected} onClose={() => setSelected(null)} />}
+      {selected && <ProjectModal proj={selected} onClose={closeProjectModal} />}
     </div>
   );
 }

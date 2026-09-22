@@ -112,7 +112,7 @@ function ProjectModal({ proj, onClose }: { proj: Project; onClose: () => void })
           {/* Dedicated page link */}
           <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
             <Link
-              href={`/projects/${proj.slug}`}
+              href={`/view/${proj.slug}`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
             >
               VIEW FULL PROJECT PAGE →

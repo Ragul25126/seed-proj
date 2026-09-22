@@ -438,9 +438,10 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
               id="short_description"
               name="short_description"
               disabled={isPending}
-              rows={2}
-              defaultValue={project.short_description || ''}
+              rows={3}
+              defaultValue={project.short_description || project.description || ''}
               className="w-full bg-[#070b13] border border-white/10 rounded-sm p-4 text-white placeholder-white/20 text-sm focus:outline-none focus:border-gold/50 transition-colors resize-y"
+              placeholder="Brief project summary used for project cards and modal previews."
             />
           </div>
 
@@ -452,9 +453,10 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
               id="full_description"
               name="full_description"
               disabled={isPending}
-              rows={5}
+              rows={6}
               defaultValue={project.full_description || ''}
               className="w-full bg-[#070b13] border border-white/10 rounded-sm p-4 text-white placeholder-white/20 text-sm focus:outline-none focus:border-gold/50 transition-colors resize-y"
+              placeholder="Detailed project description used exclusively on the View Full Project page..."
             />
           </div>
 

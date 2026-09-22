@@ -416,9 +416,9 @@ export default function AdminNewProjectPage() {
                 id="short_description"
                 name="short_description"
                 disabled={isSubmitting}
-                rows={2}
+                rows={3}
                 className="w-full bg-[#070b13] border border-white/10 rounded-sm p-4 text-white placeholder-white/20 text-sm focus:outline-none focus:border-gold/50 transition-colors resize-y"
-                placeholder="A brief 1-2 sentence description for listing views."
+                placeholder="Brief project summary used for project cards and modal previews."
               />
             </div>
 
@@ -430,9 +430,9 @@ export default function AdminNewProjectPage() {
                 id="full_description"
                 name="full_description"
                 disabled={isSubmitting}
-                rows={5}
+                rows={6}
                 className="w-full bg-[#070b13] border border-white/10 rounded-sm p-4 text-white placeholder-white/20 text-sm focus:outline-none focus:border-gold/50 transition-colors resize-y"
-                placeholder="Detailed description of the project scope, technical specifications, and key features."
+                placeholder="Detailed project description used exclusively on the View Full Project page..."
               />
             </div>
           </div>
