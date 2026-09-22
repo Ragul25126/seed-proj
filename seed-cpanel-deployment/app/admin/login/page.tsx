@@ -79,7 +79,7 @@ function LoginForm() {
               required
               disabled={isPending}
               className="w-full bg-[#0a1020]/50 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-gold/50 transition-colors"
-              placeholder="admin@seedengineering.com"
+              placeholder="example@gmail.com"
             />
           </div>
 
