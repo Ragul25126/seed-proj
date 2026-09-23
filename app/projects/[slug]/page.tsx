@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
-import { getAllProjects, getProjectBySlug } from '@/lib/projects';
+import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -17,11 +17,11 @@ async function findProjectBySlug(slugParam: string) {
   // Otherwise fallback to fetching all and doing fuzzy/partial matching locally
   const all = await getAllProjects();
   const cleanParam = normalized.replace(/[-_ ]+/g, '');
-  let matchedProj = all.find((p) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
+  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
   if (matchedProj) return matchedProj;
 
   matchedProj = all.find(
-    (p) =>
+    (p: Project) =>
       p.slug.toLowerCase().includes(normalized) ||
       normalized.includes(p.slug.toLowerCase()) ||
       p.title.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanParam)
@@ -32,7 +32,7 @@ async function findProjectBySlug(slugParam: string) {
 
 export async function generateStaticParams() {
   const all = await getAllProjects();
-  return all.map((p) => ({
+  return all.map((p: Project) => ({
     slug: p.slug,
   }));
 }
@@ -81,7 +81,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
     proj.sector    && { label: 'Sector',    value: proj.sector || proj.clientSector },
   ].filter(Boolean) as { label: string; value: string }[];
 
-  const images = proj.images && proj.images.length > 0 ? proj.images : [proj.image];
+  const images: string[] = proj.images && proj.images.length > 0 ? proj.images : (proj.image ? [proj.image] : []);
   const shortDescription = proj.short_description || proj.description || '';
 
   return (

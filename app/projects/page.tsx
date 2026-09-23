@@ -23,5 +23,5 @@ export const metadata = {
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
 
-  return <ProjectsContentWrapper projects={projects} />;
+  return <ProjectsContentWrapper projects={projects as any} />;
 }

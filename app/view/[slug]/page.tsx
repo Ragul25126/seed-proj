@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
-import { getAllProjects, getProjectBySlug } from '@/lib/projects';
+import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -19,11 +19,11 @@ async function findProjectBySlug(slugParam: string) {
   // Otherwise fallback to fetching all and doing fuzzy/partial matching locally
   const all = await getAllProjects();
   const cleanParam = normalized.replace(/[-_ ]+/g, '');
-  let matchedProj = all.find((p) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
+  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
   if (matchedProj) return matchedProj;
 
   matchedProj = all.find(
-    (p) =>
+    (p: Project) =>
       p.slug.toLowerCase().includes(normalized) ||
       normalized.includes(p.slug.toLowerCase()) ||
       p.title.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanParam)
@@ -34,7 +34,7 @@ async function findProjectBySlug(slugParam: string) {
 
 export async function generateStaticParams() {
   const all = await getAllProjects();
-  return all.map((p) => ({
+  return all.map((p: Project) => ({
     slug: p.slug,
   }));
 }
@@ -77,7 +77,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
 
   const allProjects = await getAllProjects();
   const relatedProjects = allProjects
-    .filter((p) => p.slug !== proj.slug && (p.sector === proj.sector || p.division === proj.division))
+    .filter((p: Project) => p.slug !== proj.slug && (p.sector === proj.sector || p.division === proj.division))
     .slice(0, 3);
 
   const details = [
@@ -89,7 +89,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
     proj.location && { label: 'LOCATION', value: proj.location.split('**')[0].trim() },
   ].filter(Boolean) as { label: string; value: string }[];
 
-  const images = proj.images && proj.images.length > 0 ? proj.images : [proj.image];
+  const images: string[] = proj.images && proj.images.length > 0 ? proj.images : (proj.image ? [proj.image] : []);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19] pb-32">
@@ -175,7 +175,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                       paragraph.trim() && <p key={i}>{paragraph}</p>
                     ))
                   ) : (proj.short_description || proj.description) ? (
-                    (proj.short_description || proj.description).split('\n').map((paragraph: string, i: number) => (
+                    (proj.short_description || proj.description)!.split('\n').map((paragraph: string, i: number) => (
                       paragraph.trim() && <p key={i}>{paragraph}</p>
                     ))
                   ) : (
@@ -265,7 +265,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
             </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {relatedProjects.map((relProj) => (
+              {relatedProjects.map((relProj: Project) => (
                 <SimilarProjectCard key={relProj.slug} project={relProj} />
               ))}
             </div>
