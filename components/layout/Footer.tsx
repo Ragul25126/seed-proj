@@ -74,14 +74,6 @@ export default function Footer() {
               </li>
             </ul>
             
-            <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Management</h4>
-            <ul className="space-y-4 text-[13px] text-white/70">
-              <li>
-                <Link href="/admin/login" className="hover:text-gold transition-colors">
-                  Admin login
-                </Link>
-              </li>
-            </ul>
           </div>
         </div>
 

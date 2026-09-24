@@ -23,7 +23,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
   return (
     <div className="min-h-screen bg-[#070b13] text-white flex flex-col md:flex-row font-sans">
       {/* 1. LEFT SIDEBAR */}
-      <aside className="w-full md:w-64 bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between flex-shrink-0 md:sticky md:top-[80px] md:h-[calc(100vh-80px)] overflow-y-auto">
+      <aside className="w-full md:w-64 bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between flex-shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto">
         <div>
           {/* Sidebar Brand/Logo */}
           <div className="p-6 border-b border-white/10 flex items-center justify-between">
