@@ -130,50 +130,54 @@ export default function SectorsPage() {
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SECTORS_DATA.map((sector) => (
-              <StaggerItem key={sector.id}>
-                <div id={sector.id} className="bg-[#0f172a] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group scroll-mt-28">
-                  <div>
-                    {/* Image Container with Hover Zoom */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-white/5 mb-6">
-                      <Image 
-                        src={sector.image} 
-                        alt={sector.title} 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60 pointer-events-none" />
-                      <div className="absolute top-4 left-4">
-                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase bg-[#0b0f19]/80 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/10">
-                          {sector.num}
-                        </span>
+            {SECTORS_DATA.map((sector) => {
+              const filterTarget = (sector as any).filterParam || sector.title;
+              const projectLink = `/projects?sector=${encodeURIComponent(filterTarget)}`;
+              return (
+                <StaggerItem key={sector.id}>
+                  <div id={sector.id} className="bg-[#0f172a] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group scroll-mt-28">
+                    <Link href={projectLink} className="block cursor-pointer">
+                      {/* Image Container with Hover Zoom */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-white/5 mb-6">
+                        <Image 
+                          src={sector.image} 
+                          alt={sector.title} 
+                          fill 
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60 pointer-events-none" />
+                        <div className="absolute top-4 left-4">
+                          <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase bg-[#0b0f19]/80 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/10">
+                            {sector.num}
+                          </span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Sector Title with Orange/Gold Hover Underline */}
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
-                      {sector.title}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
-                    </h2>
+                      {/* Sector Title with Orange/Gold Hover Underline */}
+                      <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
+                        {sector.title}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
+                      </h2>
 
-                    {/* 2-3 Line Description */}
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">
-                      {sector.desc}
-                    </p>
-                  </div>
-
-                  {/* Primary CTA Button */}
-                  <div className="pt-4 border-t border-white/5">
-                    <Link
-                      href={`/projects?sector=${encodeURIComponent(sector.title)}`}
-                      className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-gold/10 hover:bg-gold text-gold hover:text-[#0b0f19] font-sans text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-sm"
-                    >
-                      {sector.cta}
+                      {/* 2-3 Line Description */}
+                      <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">
+                        {sector.desc}
+                      </p>
                     </Link>
+
+                    {/* Primary CTA Button */}
+                    <div className="pt-4 border-t border-white/5">
+                      <Link
+                        href={projectLink}
+                        className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-gold/10 hover:bg-gold text-gold hover:text-[#0b0f19] font-sans text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-sm"
+                      >
+                        {sector.cta}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </StaggerItem>
-            ))}
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </section>

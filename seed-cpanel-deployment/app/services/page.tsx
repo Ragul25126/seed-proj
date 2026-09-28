@@ -11,7 +11,7 @@ const SERVICES_DATA = [
     title: 'MEP Design',
     tagline: 'Engineering the systems that make buildings perform.',
     desc: 'Every successful building depends on engineering systems working together seamlessly. Our multidisciplinary teams deliver coordinated mechanical, electrical and public health engineering that improves efficiency, occupant comfort and operational performance.',
-    image: '/services/mep-design-pic2.jpg',
+    image: '/services/image.png',
     services: [
       'HVAC Systems',
       'Electrical Distribution',

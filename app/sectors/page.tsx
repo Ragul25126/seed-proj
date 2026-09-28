@@ -9,6 +9,7 @@ const SECTORS_DATA = [
     id: 'hospitality',
     num: '01',
     title: 'Hospitality',
+    filterParam: 'Hospitality',
     image: '/sectors/jw marriot sevtor image.jpeg',
     desc: 'Engineering luxury hospitality environments where guest comfort, operational efficiency and sustainability work seamlessly together. From boutique hotels to destination resorts, every system is designed to enhance the guest experience while supporting long-term operational performance.',
     cta: 'Explore hospitality projects →',
@@ -17,6 +18,7 @@ const SECTORS_DATA = [
     id: 'residential',
     num: '02',
     title: 'Residential',
+    filterParam: 'Residential',
     image: '/sectors/stregis sector image.avif',
     desc: 'Designing high-performance residential environments that prioritise comfort, efficiency and reliability. Our integrated engineering solutions support luxury towers, villas and mixed-use communities through every stage of development.',
     cta: 'Explore residential projects →',
@@ -25,6 +27,7 @@ const SECTORS_DATA = [
     id: 'commercial',
     num: '03',
     title: 'Commercial',
+    filterParam: 'Commercial',
     image: '/sectors/Al Ajlan KSR HQ Tower.png',
     desc: 'Creating intelligent workplaces that support productivity, occupant wellbeing and future adaptability. Our engineering solutions are designed for commercial towers, headquarters and mixed-use business environments.',
     cta: 'Explore commercial projects →',
@@ -33,6 +36,7 @@ const SECTORS_DATA = [
     id: 'education',
     num: '04',
     title: 'Education',
+    filterParam: 'Education',
     image: '/sectors/Sobha Hartland.jpeg',
     desc: 'Engineering educational environments that are safe, flexible and built for long-term learning. We support schools, universities and research facilities with efficient and sustainable building systems.',
     cta: 'Explore education projects →',
@@ -41,6 +45,7 @@ const SECTORS_DATA = [
     id: 'healthcare',
     num: '05',
     title: 'Healthcare',
+    filterParam: 'Healthcare',
     image: '/sectors/NMC Hospital.jpg',
     desc: 'Delivering resilient engineering for hospitals and healthcare facilities where reliability, infection control and uninterrupted operations are critical. Every solution is developed to support patient wellbeing and clinical excellence.',
     cta: 'Explore healthcare projects →',
@@ -49,6 +54,7 @@ const SECTORS_DATA = [
     id: 'retail',
     num: '06',
     title: 'Retail',
+    filterParam: 'Retail',
     image: '/sectors/galleria-mall.jpg',
     desc: 'Engineering retail destinations that enhance customer experience while maintaining operational efficiency. From shopping malls to mixed-use retail environments, every solution supports comfort, sustainability and flexibility.',
     cta: 'Explore retail projects →',
@@ -57,6 +63,7 @@ const SECTORS_DATA = [
     id: 'sports-stadiums',
     num: '07',
     title: 'Sports & Stadiums',
+    filterParam: 'Sports',
     image: '/sectors/dammam stadium.webp',
     desc: 'Providing specialist engineering for stadiums, arenas and sports complexes where crowd comfort, life safety and operational resilience are essential to world-class sporting experiences.',
     cta: 'Explore sports projects →',
@@ -65,6 +72,7 @@ const SECTORS_DATA = [
     id: 'entertainment-cultural-public-buildings',
     num: '08',
     title: 'Entertainment, Cultural, Public Buildings & Theme Parks',
+    filterParam: 'Entertainment',
     image: '/sectors/sector_cultural_1781248059245.webp',
     desc: 'Engineering destinations that inspire people and enrich communities. We support museums, theatres, civic buildings, convention centres and theme parks with integrated engineering that balances visitor experience, operational performance and architectural ambition.',
     cta: 'Explore cultural projects →',
@@ -73,6 +81,7 @@ const SECTORS_DATA = [
     id: 'aviation',
     num: '09',
     title: 'Aviation',
+    filterParam: 'Aviation',
     image: '/sectors/dxb airport.png',
     desc: 'Engineering aviation facilities that demand the highest standards of safety, resilience and operational continuity. Our multidisciplinary expertise supports terminals, airport infrastructure and specialised aviation buildings.',
     cta: 'Explore aviation projects →',
@@ -81,6 +90,7 @@ const SECTORS_DATA = [
     id: 'villas-private-estates',
     num: '10',
     title: 'Villas & Private Estates',
+    filterParam: 'Villas',
     image: '/sectors/JEBEL HAFEET MOUNTAIN VILLA, AL AIN.webp',
     desc: 'Creating discreet, efficient and luxurious engineering solutions for high-end private residences. Every system is tailored to deliver comfort, sustainability and long-term reliability.',
     cta: 'Explore villa projects →',
@@ -89,6 +99,7 @@ const SECTORS_DATA = [
     id: 'infrastructure-sustainable-communities',
     num: '11',
     title: 'Infrastructure & Sustainable Communities',
+    filterParam: 'Infrastructure',
     image: '/sectors/infrastructure-sustainable-communities.jpg',
     desc: 'Supporting cities and large-scale developments with integrated engineering that improves resilience, sustainability and long-term urban performance.',
     cta: 'Explore infrastructure projects →',
@@ -130,50 +141,53 @@ export default function SectorsPage() {
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SECTORS_DATA.map((sector) => (
-              <StaggerItem key={sector.id}>
-                <div id={sector.id} className="bg-[#0f172a] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group scroll-mt-28">
-                  <div>
-                    {/* Image Container with Hover Zoom */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-white/5 mb-6">
-                      <Image 
-                        src={sector.image} 
-                        alt={sector.title} 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60 pointer-events-none" />
-                      <div className="absolute top-4 left-4">
-                        <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase bg-[#0b0f19]/80 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/10">
-                          {sector.num}
-                        </span>
+            {SECTORS_DATA.map((sector) => {
+              const projectLink = `/projects?sector=${encodeURIComponent(sector.filterParam)}`;
+              return (
+                <StaggerItem key={sector.id}>
+                  <div id={sector.id} className="bg-[#0f172a] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group scroll-mt-28">
+                    <Link href={projectLink} className="block cursor-pointer">
+                      {/* Image Container with Hover Zoom */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-white/5 mb-6">
+                        <Image 
+                          src={sector.image} 
+                          alt={sector.title} 
+                          fill 
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60 pointer-events-none" />
+                        <div className="absolute top-4 left-4">
+                          <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase bg-[#0b0f19]/80 backdrop-blur-sm px-3 py-1 rounded-sm border border-white/10">
+                            {sector.num}
+                          </span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Sector Title with Orange/Gold Hover Underline */}
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
-                      {sector.title}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
-                    </h2>
+                      {/* Sector Title with Orange/Gold Hover Underline */}
+                      <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
+                        {sector.title}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
+                      </h2>
 
-                    {/* 2-3 Line Description */}
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">
-                      {sector.desc}
-                    </p>
-                  </div>
-
-                  {/* Primary CTA Button */}
-                  <div className="pt-4 border-t border-white/5">
-                    <Link
-                      href={`/projects?sector=${encodeURIComponent(sector.title)}`}
-                      className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-gold/10 hover:bg-gold text-gold hover:text-[#0b0f19] font-sans text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-sm"
-                    >
-                      {sector.cta}
+                      {/* 2-3 Line Description */}
+                      <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">
+                        {sector.desc}
+                      </p>
                     </Link>
+
+                    {/* Primary CTA Button */}
+                    <div className="pt-4 border-t border-white/5">
+                      <Link
+                        href={projectLink}
+                        className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-gold/10 hover:bg-gold text-gold hover:text-[#0b0f19] font-sans text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-sm"
+                      >
+                        {sector.cta}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </StaggerItem>
-            ))}
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </section>

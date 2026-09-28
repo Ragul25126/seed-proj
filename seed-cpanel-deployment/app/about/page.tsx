@@ -219,7 +219,6 @@ export default function AboutPage() {
           <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-center">
             {[
               { v: 500, suf: '+', l: 'Million Sq.Ft' },
-              { v: 300, suf: '+', l: 'People' },
               { v: 1000, suf: '+', l: 'Projects' },
             ].map((s) => (
               <Reveal key={s.l} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(25%-2.25rem)]">

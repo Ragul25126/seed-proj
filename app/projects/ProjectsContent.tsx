@@ -162,6 +162,27 @@ interface ProjectsContentProps {
   projects: LiveProject[];
 }
 
+// Helper to perform flexible sector matching across DB values and URL parameters
+function matchSector(projSector: string | null | undefined, targetFilter: string): boolean {
+  if (!targetFilter || targetFilter === 'All Sectors') return true;
+  if (!projSector) return false;
+
+  const pSec = projSector.trim().toLowerCase();
+  const tSec = targetFilter.trim().toLowerCase();
+
+  if (pSec === tSec) return true;
+
+  // Flexible sector alias mapping
+  if (tSec === 'sports' || tSec.includes('sport')) return pSec.includes('sport');
+  if (tSec === 'villas' || tSec.includes('villa')) return pSec.includes('villa');
+  if (tSec === 'entertainment' || tSec.includes('cultural') || tSec.includes('entertain')) {
+    return pSec.includes('entertain') || pSec.includes('cultur');
+  }
+  if (tSec === 'infrastructure' || tSec.includes('infrastructur')) return pSec.includes('infrastructur');
+
+  return pSec.includes(tSec) || tSec.includes(pSec);
+}
+
 function ProjectsContent({ projects }: ProjectsContentProps) {
   const searchParams = useSearchParams();
   const sectorQuery = searchParams?.get('sector');
@@ -172,19 +193,23 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
   )).sort();
   const LOCATIONS = ['All Locations', ...uniqueLocations];
 
-  const uniqueSectors = Array.from(new Set(
-    projects.map(p => p.sector || p.clientSector || p.client_sector || '').filter(Boolean)
+  const uniqueSectorsFromDb = Array.from(new Set(
+    projects.map(p => (p.sector || p.clientSector || p.client_sector || '').trim()).filter(Boolean)
   )).sort();
-  const SECTORS = ['All Sectors', ...uniqueSectors];
+
+  const allSectorsSet = new Set(['All Sectors', ...uniqueSectorsFromDb]);
+  if (sectorQuery) {
+    allSectorsSet.add(sectorQuery);
+  }
+  const SECTORS = Array.from(allSectorsSet);
 
   const [filterLocation, setFilterLocation] = useState('All Locations');
-  const [filterSector, setFilterSector] = useState(
-    sectorQuery && SECTORS.includes(sectorQuery) ? sectorQuery : 'All Sectors'
-  );
+  const [filterSector, setFilterSector] = useState(sectorQuery || 'All Sectors');
+
   const [selected, setSelected] = useState<LiveProject | null>(null);
 
   useEffect(() => {
-    if (sectorQuery && SECTORS.includes(sectorQuery)) {
+    if (sectorQuery) {
       setFilterSector(sectorQuery);
     }
   }, [sectorQuery]);
@@ -193,7 +218,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
     if (filterLocation !== 'All Locations' && !p.location.includes(filterLocation.split(',')[0])) return false;
     if (filterSector !== 'All Sectors') {
       const sec = p.sector || p.clientSector || p.client_sector || '';
-      if (sec !== filterSector) return false;
+      if (!matchSector(sec, filterSector)) return false;
     }
     return true;
   });

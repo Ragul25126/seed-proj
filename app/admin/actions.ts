@@ -637,3 +637,206 @@ export async function deleteInquiryAction(inquiryId: string) {
   revalidateTag('inquiries');
   return { success: true };
 }
+
+// ─── 5. Vacancy Actions ──────────────────────────────────────────────────────
+
+function revalidateVacancyRoutes() {
+  revalidatePath('/careers');
+  revalidatePath('/admin/dashboard/vacancies');
+  revalidateTag('vacancies');
+}
+
+const IS_UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export async function createVacancyAction(vacancyData: {
+  title: string;
+  department?: string;
+  location?: string;
+  employment_type?: string;
+  description?: string;
+  requirements?: string;
+  application_instructions?: string;
+  application_email?: string;
+  poster_url?: string;
+  positions?: any[];
+  display_order?: number;
+  is_active?: boolean;
+}): Promise<{ success?: boolean; error?: string; vacancyId?: string }> {
+  await verifyAdmin();
+  const adminClient = createAdminClient();
+
+  if (!vacancyData.title || !vacancyData.title.trim()) {
+    return { error: 'Job title is required' };
+  }
+
+  const payload = {
+    title: vacancyData.title.trim(),
+    department: vacancyData.department?.trim() || null,
+    location: vacancyData.location?.trim() || null,
+    employment_type: vacancyData.employment_type?.trim() || 'Full-time',
+    description: vacancyData.description?.trim() || null,
+    requirements: vacancyData.requirements?.trim() || null,
+    application_instructions: vacancyData.application_instructions?.trim() || 'Please send your CV to hr@seedengineering.com',
+    application_email: vacancyData.application_email?.trim() || 'hr@seedengineering.com',
+    poster_url: vacancyData.poster_url?.trim() || null,
+    positions: vacancyData.positions || [],
+    display_order: Number(vacancyData.display_order || 0),
+    is_active: vacancyData.is_active !== false,
+  };
+
+  const { data, error } = (await retrySupabase(async () =>
+    adminClient.from('vacancies').insert(payload).select('id').single()
+  )) as any;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidateVacancyRoutes();
+  return { success: true, vacancyId: data.id };
+}
+
+export async function updateVacancyAction(vacancyId: string, vacancyData: {
+  title: string;
+  department?: string;
+  location?: string;
+  employment_type?: string;
+  description?: string;
+  requirements?: string;
+  application_instructions?: string;
+  application_email?: string;
+  poster_url?: string;
+  positions?: any[];
+  display_order?: number;
+  is_active?: boolean;
+}): Promise<{ success?: boolean; error?: string; vacancyId?: string }> {
+  await verifyAdmin();
+  const adminClient = createAdminClient();
+
+  if (!vacancyData.title || !vacancyData.title.trim()) {
+    return { error: 'Job title is required' };
+  }
+
+  const payload = {
+    title: vacancyData.title.trim(),
+    department: vacancyData.department?.trim() || null,
+    location: vacancyData.location?.trim() || null,
+    employment_type: vacancyData.employment_type?.trim() || 'Full-time',
+    description: vacancyData.description?.trim() || null,
+    requirements: vacancyData.requirements?.trim() || null,
+    application_instructions: vacancyData.application_instructions?.trim() || 'Please send your CV to hr@seedengineering.com',
+    application_email: vacancyData.application_email?.trim() || 'hr@seedengineering.com',
+    poster_url: vacancyData.poster_url === '' ? null : (vacancyData.poster_url || null),
+    positions: vacancyData.positions || [],
+    display_order: Number(vacancyData.display_order || 0),
+    is_active: vacancyData.is_active !== false,
+    updated_at: new Date().toISOString(),
+  };
+
+  if (!IS_UUID_REGEX.test(vacancyId)) {
+    return await createVacancyAction(vacancyData);
+  }
+
+  const { error } = (await retrySupabase(async () =>
+    adminClient.from('vacancies').update(payload).eq('id', vacancyId)
+  )) as any;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidateVacancyRoutes();
+  return { success: true };
+}
+
+export async function toggleVacancyActiveAction(vacancyId: string, isActive: boolean): Promise<{ success?: boolean; error?: string }> {
+  await verifyAdmin();
+  const adminClient = createAdminClient();
+
+  if (!IS_UUID_REGEX.test(vacancyId)) {
+    revalidateVacancyRoutes();
+    return { success: true };
+  }
+
+  const { error } = (await retrySupabase(async () =>
+    adminClient.from('vacancies').update({ is_active: isActive, updated_at: new Date().toISOString() }).eq('id', vacancyId)
+  )) as any;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidateVacancyRoutes();
+  return { success: true };
+}
+
+export async function deleteVacancyAction(vacancyId: string): Promise<{ success?: boolean; error?: string }> {
+  await verifyAdmin();
+  const adminClient = createAdminClient();
+
+  if (!IS_UUID_REGEX.test(vacancyId)) {
+    revalidateVacancyRoutes();
+    return { success: true };
+  }
+
+  const { error } = (await retrySupabase(async () =>
+    adminClient.from('vacancies').delete().eq('id', vacancyId)
+  )) as any;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidateVacancyRoutes();
+  return { success: true };
+}
+
+export async function uploadVacancyPosterAction(formData: FormData) {
+  await verifyAdmin();
+  const adminClient = createAdminClient();
+
+  const file = formData.get('file') as File;
+  if (!file) {
+    return { error: 'No image file provided' };
+  }
+  if (!file.type.startsWith('image/')) {
+    return { error: 'Uploaded file must be a valid image (PNG, JPG, WEBP)' };
+  }
+
+  const ext = file.name.split('.').pop() || 'png';
+  const timestamp = Date.now();
+  const safeName = file.name
+    .replace(/\.[^.]+$/, '')
+    .replace(/[^\w-]/g, '_')
+    .substring(0, 50);
+  const storagePath = `vacancies/${timestamp}_${safeName}.${ext}`;
+
+  let buffer: Buffer;
+  try {
+    buffer = Buffer.from(await file.arrayBuffer());
+  } catch (err: any) {
+    return { error: `Failed to read image file: ${err.message}` };
+  }
+
+  const { error: uploadError } = (await retrySupabase(async () =>
+    adminClient.storage
+      .from('project-images')
+      .upload(storagePath, buffer, { contentType: file.type, upsert: true })
+  )) as any;
+
+  if (uploadError) {
+    return { error: `Storage upload failed: ${uploadError.message}` };
+  }
+
+  let imageUrl: string;
+  try {
+    imageUrl = await getImageUrl(adminClient, storagePath);
+  } catch (urlErr: any) {
+    try { await adminClient.storage.from('project-images').remove([storagePath]); } catch (_) {}
+    return { error: `Failed to get image URL: ${urlErr.message}` };
+  }
+
+  return { success: true, imageUrl };
+}
+
+

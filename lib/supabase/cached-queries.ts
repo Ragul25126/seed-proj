@@ -152,3 +152,43 @@ export const getAllInquiriesCached = cache(
     { revalidate: 60, tags: ['inquiries'] }
   )
 );
+// 7. All vacancies (for admin dashboard) - SUPABASE IS 100% SINGLE SOURCE OF TRUTH
+export const getAllVacanciesCached = cache(
+  async () => {
+    try {
+      const adminClient = createAdminClient();
+      const { data, error } = await adminClient
+        .from('vacancies')
+        .select('*')
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        return data;
+      }
+    } catch (_) {}
+
+    return [];
+  }
+);
+
+// 8. Active vacancies (for public Careers page) - SUPABASE IS 100% SINGLE SOURCE OF TRUTH
+export const getActiveVacanciesCached = cache(
+  async () => {
+    try {
+      const adminClient = createAdminClient();
+      const { data, error } = await adminClient
+        .from('vacancies')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true })
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        return data;
+      }
+    } catch (_) {}
+
+    return [];
+  }
+);

@@ -124,16 +124,43 @@ function ProjectModal({ proj, onClose }: { proj: Project; onClose: () => void })
   );
 }
 
+// Helper to perform flexible sector matching across DB values and URL parameters
+function matchSector(projSector: string | null | undefined, targetFilter: string): boolean {
+  if (!targetFilter || targetFilter === 'All Sectors') return true;
+  if (!projSector) return false;
+
+  const pSec = projSector.trim().toLowerCase();
+  const tSec = targetFilter.trim().toLowerCase();
+
+  if (pSec === tSec) return true;
+
+  // Flexible sector alias mapping
+  if (tSec === 'sports' || tSec.includes('sport')) return pSec.includes('sport');
+  if (tSec === 'villas' || tSec.includes('villa')) return pSec.includes('villa');
+  if (tSec === 'entertainment' || tSec.includes('cultural') || tSec.includes('entertain')) {
+    return pSec.includes('entertain') || pSec.includes('cultur');
+  }
+  if (tSec === 'infrastructure' || tSec.includes('infrastructur')) return pSec.includes('infrastructur');
+
+  return pSec.includes(tSec) || tSec.includes(pSec);
+}
+
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const sectorQuery = searchParams?.get('sector');
 
+  const allSectorsSet = new Set(['All Sectors', ...uniqueSectors]);
+  if (sectorQuery) {
+    allSectorsSet.add(sectorQuery);
+  }
+  const DYNAMIC_SECTORS = Array.from(allSectorsSet);
+
   const [filterLocation, setFilterLocation] = useState('All Locations');
-  const [filterSector, setFilterSector] = useState(sectorQuery && SECTORS.includes(sectorQuery) ? sectorQuery : 'All Sectors');
+  const [filterSector, setFilterSector] = useState(sectorQuery || 'All Sectors');
   const [selected, setSelected] = useState<Project | null>(null);
 
   useEffect(() => {
-    if (sectorQuery && SECTORS.includes(sectorQuery)) {
+    if (sectorQuery) {
       setFilterSector(sectorQuery);
     }
   }, [sectorQuery]);
@@ -142,7 +169,7 @@ function ProjectsContent() {
     if (filterLocation !== 'All Locations' && !p.location.includes(filterLocation.split(',')[0])) return false;
     if (filterSector !== 'All Sectors') {
       const sec = p.sector || p.clientSector || '';
-      if (sec !== filterSector) return false;
+      if (!matchSector(sec, filterSector)) return false;
     }
     return true;
   });
@@ -199,7 +226,7 @@ function ProjectsContent() {
                       value={filterSector}
                       onChange={e => setFilterSector(e.target.value)}
                     >
-                      {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                      {DYNAMIC_SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
                 </div>

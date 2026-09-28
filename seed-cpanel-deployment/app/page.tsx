@@ -200,7 +200,7 @@ export default function HomePage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-white/8">
+          <Stagger className="grid grid-cols-1 md:grid-cols-5 gap-0 border border-white/8 rounded-sm overflow-hidden">
             {[
               {
                 step: '01',
@@ -233,20 +233,26 @@ export default function HomePage() {
                 items: ['Site Inspections', 'Testing & Balancing Reviews', 'Commissioning Reports', 'Final Performance Verification']
               },
             ].map((phase, i) => (
-              <StaggerItem key={i}>
-                <div className={`p-8 h-full border-r border-white/8 last:border-r-0 hover:bg-white/3 transition-colors duration-300`}>
-                  <span className="text-gold text-[11px] font-bold block mb-2">{phase.step}</span>
-                  <h3 className="text-xl font-serif font-bold text-white mb-4">{phase.title}</h3>
-                  <p className="text-slate-500 text-[12px] leading-relaxed mb-5">{phase.desc}</p>
+              <StaggerItem key={i} className="h-full">
+                <div className="p-6 lg:p-8 h-full flex flex-col justify-between border-b md:border-b-0 border-r-0 md:border-r border-white/8 last:border-b-0 md:last:border-r-0 hover:bg-white/3 transition-colors duration-300">
+                  <div>
+                    <span className="text-gold text-[11px] font-bold block mb-2">{phase.step}</span>
+                    <div className="min-h-[3.5rem] mb-4 flex items-start">
+                      <h3 className="text-xl font-serif font-bold text-white leading-snug">{phase.title}</h3>
+                    </div>
+                    <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{phase.desc}</p>
+                  </div>
+                  <div className="mt-auto pt-6 border-t border-white/5">
                   <p className="text-gold text-[9px] font-bold tracking-[0.15em] uppercase mb-3">Outputs</p>
                   <ul className="space-y-2">
                     {phase.items.map((item, j) => (
                       <li key={j} className="text-slate-400 font-light text-[12px] leading-relaxed flex items-start gap-2">
                         <span className="text-gold/50 mt-1 shrink-0">—</span>
-                        {item}
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </div>
               </StaggerItem>
             ))}
