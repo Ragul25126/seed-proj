@@ -70,8 +70,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center md:justify-center text-center text-[11px] text-white/40">
+        <div className="pt-8 border-t border-white/5 flex flex-col items-center justify-center gap-2 text-center text-[11px] text-white/40">
           <p>© {year} SEED Engineering. All rights reserved.</p>
+          <p className="text-[11px] text-white/40">
+            Designed by{' '}
+            <a
+              href="https://valgrowlabs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-gold transition-colors"
+            >
+              ValGrow Labs
+            </a>
+          </p>
         </div>
       </div>
     </footer>
