@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 // Set DNS order to prefer IPv4 on Node.js to prevent local network resolution timeouts
@@ -8,12 +9,6 @@ import dns from 'dns';
 try {
   dns.setDefaultResultOrder('ipv4first');
 } catch (e) {}
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
-const formattedUrl = supabaseUrl.startsWith('http')
-  ? supabaseUrl
-  : `https://${supabaseUrl}.supabase.co`;
 
 export async function POST(req: NextRequest) {
   let body: any;
@@ -41,6 +36,18 @@ export async function POST(req: NextRequest) {
   if (!message || message.length < 5) {
     return NextResponse.json({ error: 'A message of at least 5 characters is required' }, { status: 400 });
   }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Database inquiry insertion failed: Missing Supabase environment variables');
+    return NextResponse.json({ error: 'Server configuration error: missing Supabase credentials' }, { status: 500 });
+  }
+
+  const formattedUrl = supabaseUrl.startsWith('http')
+    ? supabaseUrl
+    : `https://${supabaseUrl}.supabase.co`;
 
   // Create public client using the publishable/anonymous key (respects RLS insert-only policy)
   const supabase = createClient(formattedUrl, supabaseAnonKey);
