@@ -1,6 +1,9 @@
 import { getAllInquiriesCached } from '../../../../lib/supabase/cached-queries';
 import InquiriesClient from './InquiriesClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function AdminInquiriesPage() {
   const inquiries = await getAllInquiriesCached();
 

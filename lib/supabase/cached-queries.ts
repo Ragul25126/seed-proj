@@ -2,25 +2,21 @@ import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import { createAdminClient } from './admin';
 
-// 1. Unread inquiries count (React cache for per-request memoization, next/cache for cross-request caching)
+// 1. Unread inquiries count (React cache for per-request deduplication)
 export const getUnreadInquiriesCount = cache(
-  unstable_cache(
-    async () => {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('contact_inquiries')
-        .select('id')
-        .eq('status', 'new');
+  async () => {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('contact_inquiries')
+      .select('id')
+      .eq('status', 'new');
 
-      if (error) {
-        console.error('[SEED cache] Error fetching unread inquiries count:', error.message);
-        return 0;
-      }
-      return data?.length || 0;
-    },
-    ['unread-inquiries-count'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    if (error) {
+      console.error('[SEED cache] Error fetching unread inquiries count:', error.message);
+      return 0;
+    }
+    return data?.length || 0;
+  }
 );
 
 // 2. Dashboard main statistics
@@ -84,24 +80,20 @@ export const getRecentProjects = cache(
 
 // 4. Recent inquiries (5 items)
 export const getRecentInquiries = cache(
-  unstable_cache(
-    async () => {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('contact_inquiries')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
+  async () => {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('contact_inquiries')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(5);
 
-      if (error) {
-        console.error('[SEED cache] Error fetching recent inquiries:', error.message);
-        return [];
-      }
-      return data || [];
-    },
-    ['recent-inquiries'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    if (error) {
+      console.error('[SEED cache] Error fetching recent inquiries:', error.message);
+      return [];
+    }
+    return data || [];
+  }
 );
 
 // 5. All projects (for projects list page)
@@ -119,6 +111,7 @@ export const getAllProjectsCached = cache(
             is_cover
           )
         `)
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -134,23 +127,19 @@ export const getAllProjectsCached = cache(
 
 // 6. All inquiries (for inquiries list page)
 export const getAllInquiriesCached = cache(
-  unstable_cache(
-    async () => {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('contact_inquiries')
-        .select('*')
-        .order('created_at', { ascending: false });
+  async () => {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('contact_inquiries')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-      if (error) {
-        console.error('[SEED cache] Error fetching all inquiries:', error.message);
-        return [];
-      }
-      return data || [];
-    },
-    ['all-inquiries-list'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    if (error) {
+      console.error('[SEED cache] Error fetching all inquiries:', error.message);
+      return [];
+    }
+    return data || [];
+  }
 );
 // 7. All vacancies (for admin dashboard) - SUPABASE IS 100% SINGLE SOURCE OF TRUTH
 export const getAllVacanciesCached = cache(

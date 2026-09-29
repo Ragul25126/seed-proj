@@ -14,14 +14,16 @@ try {
 // ─── helpers ────────────────────────────────────────────────────────────────
 
 /**
- * Revalidate every public route that shows project data.
- * IMPORTANT: this does NOT change project order – it only busts Next.js cache.
+ * Revalidate every public and admin route that shows project data.
+ * IMPORTANT: busts Next.js cache so layout and project order reflect DB immediately.
  */
 function revalidateProjectRoutes(slug: string) {
   revalidatePath(`/projects/${slug}`);
   revalidatePath('/projects');
   revalidatePath('/pool/projects');
   revalidatePath('/mep/projects');
+  revalidatePath('/admin/dashboard/projects');
+  revalidatePath('/admin/dashboard');
   revalidatePath('/api/project-images');
   revalidateTag('projects');
   revalidateTag('stats');
@@ -108,11 +110,8 @@ async function verifyAdmin() {
 /**
  * Get the public URL for a storage object.
  * Prefers getPublicUrl (no expiry). Falls back to a signed URL for private buckets.
- *
- * DOES NOT modify any project ordering.
  */
 async function getImageUrl(adminClient: ReturnType<typeof createAdminClient>, storagePath: string): Promise<string> {
-  // Always use a long-lived signed URL (10 years) because the storage bucket is private
   const tenYears = 10 * 365 * 24 * 60 * 60;
   const { data: signedData, error: signedErr } = await retrySupabase(async () =>
     adminClient.storage.from('project-images').createSignedUrl(storagePath, tenYears)
@@ -123,6 +122,70 @@ async function getImageUrl(adminClient: ReturnType<typeof createAdminClient>, st
   }
 
   return signedData.signedUrl;
+}
+
+/**
+ * Normalizes all projects' display_order in Supabase into continuous 1-based sequential positions (1, 2, 3...)
+ * without gaps or duplicate values.
+ *
+ * @param adminClient Supabase admin client
+ * @param targetId The project ID being created or updated
+ * @param targetPosition The desired 1-based exact position (1 = 1st, 2 = 2nd, etc.)
+ */
+async function syncProjectPositions(
+  adminClient: ReturnType<typeof createAdminClient>,
+  targetId?: string,
+  targetPosition?: number
+) {
+  // Fetch all existing projects ordered by current display_order ASC, created_at DESC
+  const { data: projects, error } = (await retrySupabase(async () =>
+    await adminClient
+      .from('projects')
+      .select('id, display_order')
+      .order('display_order', { ascending: true })
+      .order('created_at', { ascending: false })
+  )) as any;
+
+  if (error || !projects) return;
+
+  let list = [...projects];
+
+  if (targetId && typeof targetPosition === 'number') {
+    const existingIndex = list.findIndex(p => p.id === targetId);
+    let itemToPlace: { id: string; display_order: number };
+
+    if (existingIndex >= 0) {
+      itemToPlace = list.splice(existingIndex, 1)[0];
+    } else {
+      itemToPlace = { id: targetId, display_order: targetPosition };
+    }
+
+    // Clamp 1-based targetPosition between 1 and list.length + 1
+    const clampedPos = Math.max(1, Math.min(targetPosition, list.length + 1));
+    const insertIndex = clampedPos - 1;
+
+    list.splice(insertIndex, 0, itemToPlace);
+  }
+
+  // Assign sequential 1-based display_order values (1, 2, 3...)
+  const updates: Promise<any>[] = [];
+  list.forEach((proj, idx) => {
+    const desiredOrder = idx + 1;
+    if (proj.display_order !== desiredOrder) {
+      updates.push(
+        retrySupabase(async () =>
+          adminClient
+            .from('projects')
+            .update({ display_order: desiredOrder })
+            .eq('id', proj.id)
+        )
+      );
+    }
+  });
+
+  if (updates.length > 0) {
+    await Promise.all(updates);
+  }
 }
 
 // ─── 1. Authentication Actions ───────────────────────────────────────────────
@@ -174,6 +237,8 @@ export async function createProjectAction(projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
+  const desiredPos = Math.max(1, Number(projectData.display_order || 1));
+
   const { data, error } = (await retrySupabase(async () =>
     await adminClient
       .from('projects')
@@ -193,7 +258,7 @@ export async function createProjectAction(projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: Number(projectData.display_order || 0),
+        display_order: desiredPos,
         is_published: projectData.is_published !== false,
       })
       .select('id')
@@ -204,6 +269,9 @@ export async function createProjectAction(projectData: any) {
     return { error: error.message };
   }
 
+  // Re-sequence positions so the newly created project occupies exact desired position
+  await syncProjectPositions(adminClient, data.id, desiredPos);
+
   revalidateProjectRoutes(projectData.slug);
   return { success: true, projectId: data.id };
 }
@@ -211,6 +279,8 @@ export async function createProjectAction(projectData: any) {
 export async function updateProjectAction(projectId: string, projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
+
+  const desiredPos = Math.max(1, Number(projectData.display_order || 1));
 
   const { error } = (await retrySupabase(async () =>
     await adminClient
@@ -231,7 +301,7 @@ export async function updateProjectAction(projectId: string, projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: Number(projectData.display_order || 0),
+        display_order: desiredPos,
         is_published: projectData.is_published !== false,
       })
       .eq('id', projectId)
@@ -240,6 +310,9 @@ export async function updateProjectAction(projectId: string, projectData: any) {
   if (error) {
     return { error: error.message };
   }
+
+  // Re-sequence positions so the updated project occupies exact desired position
+  await syncProjectPositions(adminClient, projectId, desiredPos);
 
   revalidateProjectRoutes(projectData.slug);
   return { success: true };
@@ -265,7 +338,6 @@ export async function deleteProjectAction(projectId: string) {
   if (images && images.length > 0) {
     const paths = (images as any[]).map((img: any) => img.storage_path).filter(Boolean) as string[];
     if (paths.length > 0) {
-      // Attempt storage cleanup; don't fail the whole operation if this has issues
       try {
         await adminClient.storage.from('project-images').remove(paths);
       } catch (storageErr) {
@@ -274,8 +346,7 @@ export async function deleteProjectAction(projectId: string) {
     }
   }
 
-  // Delete project (cascades to project_images via DB FK if configured, otherwise rows
-  // were already soft-deleted via Storage cleanup above; the DB row delete is authoritative)
+  // Delete project
   const { error } = (await retrySupabase(async () =>
     await adminClient.from('projects').delete().eq('id', projectId)
   )) as any;
@@ -283,6 +354,9 @@ export async function deleteProjectAction(projectId: string) {
   if (error) {
     return { error: error.message };
   }
+
+  // Normalize remaining project positions after deletion
+  await syncProjectPositions(adminClient);
 
   if (project) {
     revalidateProjectRoutes(project.slug);

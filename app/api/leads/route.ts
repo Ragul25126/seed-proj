@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag, revalidatePath } from 'next/cache';
 import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
@@ -71,6 +72,13 @@ export async function POST(req: NextRequest) {
     console.error('Database inquiry insertion failed:', error);
     return NextResponse.json({ error: `Failed to save inquiry: ${error.message}` }, { status: 500 });
   }
+
+  // Bust Next.js cache so any server renders get fresh data
+  try {
+    revalidateTag('inquiries');
+    revalidatePath('/admin/dashboard/inquiries');
+    revalidatePath('/admin/dashboard');
+  } catch (err) {}
 
   // Trigger optional webhook notification if configured
   const webhook = process.env.NOTIFICATION_WEBHOOK_URL;

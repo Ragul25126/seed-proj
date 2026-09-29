@@ -1,11 +1,19 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { markInquiryStatusAction, deleteInquiryAction } from '../../actions';
+import { createClient } from '../../../../lib/supabase/client';
 
 interface InquiriesClientProps {
   initialInquiries: any[];
+}
+
+function formatDate(dateStr?: string | null): string {
+  if (!dateStr) return '-';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return '-';
+  return d.toLocaleDateString('en-US', { timeZone: 'UTC' });
 }
 
 export default function InquiriesClient({ initialInquiries }: InquiriesClientProps) {
@@ -18,6 +26,89 @@ export default function InquiriesClient({ initialInquiries }: InquiriesClientPro
 
   // Delete modal state
   const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  // Synchronize initialInquiries when props update, preserving any realtime records
+  useEffect(() => {
+    setInquiries(prev => {
+      const map = new Map<string, any>();
+      prev.forEach(item => map.set(item.id, item));
+      initialInquiries.forEach(item => {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      });
+      return Array.from(map.values()).sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    });
+  }, [initialInquiries]);
+
+  // Subscribe to Supabase Realtime for instant contact_inquiries updates
+  useEffect(() => {
+    const supabase = createClient();
+
+    const channel = supabase
+      .channel('realtime_contact_inquiries_dashboard')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'contact_inquiries',
+        },
+        (payload) => {
+          const newInquiry = payload.new;
+          if (!newInquiry || !newInquiry.id) return;
+
+          setInquiries(prev => {
+            // Deduplicate: avoid adding if already present in state
+            if (prev.some(item => item.id === newInquiry.id)) {
+              return prev;
+            }
+            const updated = [newInquiry, ...prev];
+            // Sort by created_at descending (newest first)
+            return updated.sort(
+              (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            );
+          });
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'contact_inquiries',
+        },
+        (payload) => {
+          const updatedInquiry = payload.new;
+          if (!updatedInquiry || !updatedInquiry.id) return;
+
+          setInquiries(prev =>
+            prev.map(item => (item.id === updatedInquiry.id ? { ...item, ...updatedInquiry } : item))
+          );
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'contact_inquiries',
+        },
+        (payload) => {
+          const oldInquiry = payload.old;
+          if (!oldInquiry || !oldInquiry.id) return;
+
+          setInquiries(prev => prev.filter(item => item.id !== oldInquiry.id));
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Filter inquiries based on search and status filter
   const filteredInquiries = inquiries.filter(inq => {
@@ -183,7 +274,7 @@ export default function InquiriesClient({ initialInquiries }: InquiriesClientPro
                       </span>
                     </td>
                     <td className="p-4 text-white/40 text-[10px] font-mono">
-                      {new Date(inq.created_at).toLocaleDateString()}
+                      {formatDate(inq.created_at)}
                     </td>
                     <td className="p-4 text-right">
                       <button
@@ -312,7 +403,7 @@ export default function InquiriesClient({ initialInquiries }: InquiriesClientPro
 
       {/* Delete Inquiry Confirmation Modal */}
       {deleteId && (
-        <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-55 animate-fade-in">
+        <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-[70] animate-fade-in">
           <div className="bg-[#0b0f19] border border-white/10 rounded-sm p-6 w-full max-w-sm shadow-2xl space-y-6">
             <div>
               <h4 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold mb-2">
