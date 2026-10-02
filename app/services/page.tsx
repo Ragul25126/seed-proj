@@ -123,7 +123,7 @@ const SERVICES_DATA = [
     title: 'Spa Design',
     tagline: 'Engineering wellness environments.',
     desc: 'Specialist engineering solutions for luxury spa and wellness facilities, integrating thermal, hydrotherapy and environmental systems into a seamless guest experience.',
-    image: '/services/Spa.avif',
+    image: '/services/image copy.png',
     services: [
       'Thermal Suites',
       'Hydrotherapy',
@@ -311,15 +311,17 @@ export default function ServicesPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
             {WHY_CHOOSE_SEED.map((card, i) => (
-              <StaggerItem key={i}>
-                <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
-                  <div>
-                    <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">0{i + 1}</span>
-                    <h3 className="font-serif text-xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{card.title}</h3>
-                    <p className="text-slate-400 text-xs font-light leading-relaxed">{card.desc}</p>
+              <StaggerItem key={i} className="h-full flex flex-col">
+                <div className="bg-[#0b0f19] border border-white/10 p-6 xl:p-8 rounded-sm h-full flex flex-col hover:border-gold/40 transition-colors group">
+                  <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">0{i + 1}</span>
+                  <div className="h-14 mb-2 flex flex-col justify-start">
+                    <h3 className="font-serif text-xl font-bold text-white leading-snug group-hover:text-gold transition-colors">
+                      {card.title}
+                    </h3>
                   </div>
+                  <p className="text-slate-400 text-xs font-light leading-relaxed flex-1">{card.desc}</p>
                 </div>
               </StaggerItem>
             ))}
