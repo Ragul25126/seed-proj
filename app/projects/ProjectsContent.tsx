@@ -400,16 +400,8 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
           </Reveal>
 
           <Stagger key={`${filterLocation}-${filterSector}`} className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6">
-            {filteredProjects.map((proj, idx) => {
-              const total = filteredProjects.length;
-              let spanClass = 'col-span-1 md:col-span-6 lg:col-span-4';
-
-              if (total >= 3) {
-                if (total % 3 === 2 && idx === total - 2) spanClass += ' lg:col-start-3';
-                else if (total % 3 === 1 && idx === total - 1) spanClass += ' lg:col-start-5';
-
-                if (total % 2 === 1 && idx === total - 1) spanClass += ' md:col-start-4 lg:col-start-auto';
-              }
+            {filteredProjects.map((proj) => {
+              const spanClass = 'col-span-1 md:col-span-6 lg:col-span-4';
 
               const cardImage = proj.image || '';
               const imageCount = proj.images?.length ?? 0;
