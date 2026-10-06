@@ -9,25 +9,28 @@ import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 export function getSupabaseSecretKey(): string {
   const key =
     process.env.SUPABASE_SECRET_KEY ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY;
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.SUPABASE_SERVICE_KEY ||
+    process.env.SUPABASE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY ||
+    '';
 
   if (!key) {
     console.error(
-      '[SEED Admin] FATAL: Neither SUPABASE_SECRET_KEY nor SUPABASE_SERVICE_ROLE_KEY is set.'
+      '[SEED Admin] WARN: Service-role key is missing. Set SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SECRET_KEY.'
     );
-    return '';
   }
 
   return key;
 }
 
 export function createAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'apvkdnofstyyidcmuczb';
   const supabaseSecretKey = getSupabaseSecretKey();
 
-  const formattedUrl = supabaseUrl.startsWith('http')
-    ? supabaseUrl
-    : `https://${supabaseUrl}.supabase.co`;
+  const formattedUrl = rawUrl.startsWith('http')
+    ? rawUrl
+    : `https://${rawUrl}.supabase.co`;
 
   return createSupabaseClient(formattedUrl, supabaseSecretKey, {
     auth: {

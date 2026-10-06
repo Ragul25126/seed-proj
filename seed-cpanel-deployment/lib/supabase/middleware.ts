@@ -141,10 +141,11 @@ export async function updateSession(request: NextRequest) {
         auth: { persistSession: false },
       });
 
+      const normalizedEmail = user.email ? user.email.toLowerCase() : '';
       const { data: adminUser, error: adminCheckErr } = await adminClient
         .from('admin_users')
-        .select('id')
-        .eq('id', user.id)
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
         .maybeSingle();
 
       if (adminCheckErr || !adminUser) {
@@ -183,10 +184,11 @@ export async function updateSession(request: NextRequest) {
       const adminClient = createSupabaseClient(formattedUrl, secretKey, {
         auth: { persistSession: false },
       });
+      const normalizedEmail = user.email ? user.email.toLowerCase() : '';
       const { data: adminUser } = await adminClient
         .from('admin_users')
-        .select('id')
-        .eq('id', user.id)
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
         .maybeSingle();
 
       if (adminUser) {

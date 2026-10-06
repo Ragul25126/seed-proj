@@ -163,10 +163,11 @@ export async function updateSession(request: NextRequest) {
         auth: { persistSession: false },
       });
 
+      const normalizedEmail = user.email ? user.email.toLowerCase() : '';
       const { data: adminUser, error: adminCheckErr } = await adminClient
         .from('admin_users')
-        .select('id')
-        .eq('id', user.id)
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
         .maybeSingle();
 
       if (adminCheckErr || !adminUser) {
@@ -199,11 +200,16 @@ export async function updateSession(request: NextRequest) {
 
   // If user is already logged in as admin and tries to hit /admin/login, redirect to /admin
   if (isLoginRoute && user) {
-    // Confirm if they are indeed an admin
-    const { data: adminUser } = await supabase
+    // Confirm if they are indeed an admin using service role client
+    const secretKey = getSupabaseSecretKey();
+    const adminClient = createSupabaseClient(formattedUrl, secretKey, {
+      auth: { persistSession: false },
+    });
+    const normalizedEmail = user.email ? user.email.toLowerCase() : '';
+    const { data: adminUser } = await adminClient
       .from('admin_users')
-      .select('id')
-      .eq('id', user.id)
+      .select('id, email')
+      .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
       .maybeSingle();
 
     if (adminUser) {

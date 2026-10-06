@@ -89,16 +89,34 @@ async function verifyAdmin() {
   }
 
   const adminClient = createAdminClient();
+  const normalizedEmail = user.email ? user.email.toLowerCase() : '';
+
   const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
     await adminClient
       .from('admin_users')
-      .select('id')
-      .eq('id', user.id)
+      .select('id, email')
+      .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
       .maybeSingle()
   )) as any;
 
-  if (checkErr || !adminUser) {
-    console.error('Admin check error:', checkErr, 'adminUser:', adminUser, 'user.id:', user.id);
+  let isAuthorizedAdmin = !!adminUser;
+
+  if (!isAuthorizedAdmin) {
+    const { data: fallbackUser } = (await retrySupabase(async () =>
+      await supabase
+        .from('admin_users')
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .maybeSingle()
+    )) as any;
+
+    if (fallbackUser) {
+      isAuthorizedAdmin = true;
+    }
+  }
+
+  if (!isAuthorizedAdmin) {
+    console.error('Admin check error:', checkErr, 'user.id:', user.id, 'user.email:', user.email);
     throw new Error(
       `Unauthorized: Administrative access restricted. Err: ${checkErr ? checkErr.message : 'No record found'}`
     );
@@ -209,15 +227,33 @@ export async function loginAction(formData: FormData) {
 
   if (data.user) {
     const adminClient = createAdminClient();
+    const normalizedEmail = (data.user.email || email).toLowerCase();
+
     const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
       await adminClient
         .from('admin_users')
-        .select('id')
-        .eq('id', data.user.id)
+        .select('id, email')
+        .or(`id.eq.${data.user.id},email.eq.${normalizedEmail}`)
         .maybeSingle()
     )) as any;
 
-    if (checkErr || !adminUser) {
+    let isAuthorizedAdmin = !!adminUser;
+
+    if (!isAuthorizedAdmin) {
+      const { data: fallbackUser } = (await retrySupabase(async () =>
+        await supabase
+          .from('admin_users')
+          .select('id, email')
+          .or(`id.eq.${data.user.id},email.eq.${normalizedEmail}`)
+          .maybeSingle()
+      )) as any;
+
+      if (fallbackUser) {
+        isAuthorizedAdmin = true;
+      }
+    }
+
+    if (!isAuthorizedAdmin) {
       await supabase.auth.signOut();
       return { error: 'Unauthorized: Access restricted to administrators.' };
     }
