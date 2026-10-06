@@ -98,9 +98,6 @@ export default function HomePage() {
             {CORE_SERVICES.map((service, i) => (
               <StaggerItem key={i}>
                 <div className="group p-6 border border-white/8 bg-[#0f172a] hover:border-gold/40 hover:bg-[#0f172a]/80 transition-all duration-300 h-full">
-                  <svg className="w-6 h-6 text-gold mb-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d={service.icon} />
-                  </svg>
                   <h3 className="text-white font-serif text-[17px] font-semibold mb-3 group-hover:text-gold transition-colors">{service.title}</h3>
                   <p className="text-slate-400 text-[13px] font-light leading-relaxed">{service.desc}</p>
                 </div>
