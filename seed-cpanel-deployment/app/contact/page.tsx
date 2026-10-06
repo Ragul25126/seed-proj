@@ -16,16 +16,6 @@ const CONTACT_CARDS = [
       { label: 'Email', value: 'contact@seedengineering.com' },
     ],
   },
-  {
-    title: 'Business Hours',
-    subtitle: 'Headquarters & Regional Offices',
-    icon: '⏰',
-    details: [
-      { label: 'Monday – Friday', value: '8:00 AM – 6:00 PM (GST)' },
-      { label: 'Saturday & Sunday', value: 'Closed' },
-      { label: 'Response Time', value: 'Within 24 business hours' },
-    ],
-  },
 ];
 
 const OFFICES = [
@@ -40,31 +30,37 @@ const OFFICES = [
     city: 'Bengaluru',
     country: 'India',
     address: 'No. 57, U.P. Complex, 1st Floor, Double Road, Indira Nagar, 2nd Stage, Bengaluru – 560038, Karnataka, India.',
+    email: 'contact@seedengineering.com',
   },
   {
     city: 'Mumbai',
     country: 'India',
     address: '3rd Floor, 304, Viraj Heights, Opposite Saraswat Bank, Kopri, Thane (East) – 400603, Maharashtra, India.',
+    email: 'contact@seedengineering.com',
   },
   {
     city: 'Gurugram',
     country: 'India',
     address: 'AltF Empire Square – Unit 19, 3rd Floor, JMD Empire Square, Near Sikanderpur Metro, MG Road, Gurugram, Haryana – 122002, India.',
+    email: 'contact@seedengineering.com',
   },
   {
     city: 'Kochi',
     country: 'India',
     address: '4A-2, A Wing, 4th Floor, Indeevaram Building, Infopark Thrissur, Nalikettu Road, Koratty, Kerala – 680308, India.',
+    email: 'contact@seedengineering.com',
   },
   {
     city: 'Pune',
     country: 'India',
     address: 'S. No. 52, Baner Business Bay, Pashan–Sus Road, Pune–Bangalore Highway, Pashan Exit, Behind Audi Off Mumbai, Mohan Nagar Co-operative Society, Baner, Pune – 411045, Maharashtra, India.',
+    email: 'contact@seedengineering.com',
   },
   {
     city: 'Singapore',
     country: 'Singapore',
     address: '10 Anson Road, #29-10, Singapore – 079903.',
+    email: 'contact@seedengineering.com',
   },
 ];
 
@@ -148,18 +144,60 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION 02 – CONTACT INFORMATION */}
+      {/* SECTION 02 – OUR OFFICES */}
       <section className="py-24 bg-[#0f172a] border-b border-white/5">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">REACH US DIRECTLY</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Contact Information</h2>
-              <p className="text-slate-400 font-light text-[15px]">Connect with our senior engineering team, business development, and regional headquarters.</p>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">OUR OFFICES</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Global Presence</h2>
+              <p className="text-slate-400 font-light text-[15px] leading-relaxed">
+                With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
+              </p>
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {OFFICES.map((off, idx) => (
+              <StaggerItem key={idx}>
+                <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-gold text-[10px] font-bold tracking-widest uppercase">Office 0{idx + 1}</span>
+                    </div>
+                    <h3 className="font-serif text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
+
+                    <div className="space-y-3 border-t border-white/5 pt-4 text-[13px] text-slate-400 font-light">
+                      <div>
+                        <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Address</span>
+                        <p className="leading-relaxed">{off.address}</p>
+                      </div>
+                      {off.phone && (
+                        <div>
+                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Phone</span>
+                          <a href={`tel:${off.phone}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
+                        </div>
+                      )}
+                      {off.email && (
+                        <div>
+                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Email</span>
+                          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${off.email}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      {/* SECTION 03 – CONTACT INFORMATION */}
+      <section className="py-24 bg-[#0f172a] border-b border-white/5">
+        <div className="container mx-auto px-6 lg:px-12">
+
+          <Stagger className="max-w-2xl mx-auto">
             {CONTACT_CARDS.map((card, idx) => (
               <StaggerItem key={idx}>
                 <div className="bg-[#0b0f19] border border-white/8 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
@@ -192,8 +230,36 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION 03 – SEND US A MESSAGE */}
-      <section id="contact-form" className="py-24 bg-[#0b0f19] scroll-mt-20">
+
+
+      {/* SECTION 04 – CALL TO ACTION */}
+      <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
+        <div className="container mx-auto px-6 lg:px-12 text-center">
+          <Reveal>
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
+            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+              Ready to Build Something Exceptional?
+            </h2>
+            <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
+              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, performance-driven solutions.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button
+                onClick={scrollToForm}
+                className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
+              >
+                Contact Our Team
+              </button>
+              <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
+                Explore Our Projects
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* SECTION 05 – SEND US A MESSAGE */}
+      <section id="contact-form" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
@@ -354,83 +420,6 @@ export default function ContactPage() {
             </div>
 
           </div>
-        </div>
-      </section>
-
-      {/* SECTION 04 – OUR OFFICES */}
-      <section className="py-24 bg-[#0f172a] border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12">
-          <Reveal>
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">OUR OFFICES</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Global Presence</h2>
-              <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
-              </p>
-            </div>
-          </Reveal>
-
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {OFFICES.map((off, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-gold text-[10px] font-bold tracking-widest uppercase">Office 0{idx + 1}</span>
-                    </div>
-                    <h3 className="font-serif text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
-
-                    <div className="space-y-3 border-t border-white/5 pt-4 text-[13px] text-slate-400 font-light">
-                      <div>
-                        <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Address</span>
-                        <p className="leading-relaxed">{off.address}</p>
-                      </div>
-                      {off.phone && (
-                        <div>
-                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Phone</span>
-                          <a href={`tel:${off.phone}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
-                        </div>
-                      )}
-                      {off.email && (
-                        <div>
-                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Email</span>
-                          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${off.email}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-
-
-      {/* SECTION 07 – CALL TO ACTION */}
-      <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Ready to Build Something Exceptional?
-            </h2>
-            <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, performance-driven solutions.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <button
-                onClick={scrollToForm}
-                className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
-              >
-                Contact Our Team
-              </button>
-              <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
-                Explore Our Projects
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
 

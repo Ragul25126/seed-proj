@@ -175,7 +175,7 @@ export default function ServicesPage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">OUR CAPABILITIES</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">Services</h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Integrated engineering disciplines delivering high-performance buildings through coordinated design, digital delivery and technical excellence.
+              Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation, coordinated design etc.
             </p>
           </Reveal>
         </div>

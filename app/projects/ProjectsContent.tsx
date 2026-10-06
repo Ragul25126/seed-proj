@@ -162,6 +162,22 @@ interface ProjectsContentProps {
   projects: LiveProject[];
 }
 
+const SECTORS = [
+  'All Sectors',
+  'Hospitality',
+  'Residential',
+  'Commercial',
+  'Education',
+  'Healthcare',
+  'Retail',
+  'Sports & Stadiums',
+  'Entertainment & Culture',
+  'Public Buildings & Theme Parks',
+  'Aviation',
+  'Villas & Private Estates',
+  'Infrastructure & Sustainable Communities',
+];
+
 // Helper to perform flexible sector matching across DB values and URL parameters
 function matchSector(projSector: string | null | undefined, targetFilter: string): boolean {
   if (!targetFilter || targetFilter === 'All Sectors') return true;
@@ -172,50 +188,103 @@ function matchSector(projSector: string | null | undefined, targetFilter: string
 
   if (pSec === tSec) return true;
 
-  // Flexible sector alias mapping
-  if (tSec === 'sports' || tSec.includes('sport')) return pSec.includes('sport');
-  if (tSec === 'villas' || tSec.includes('villa')) return pSec.includes('villa');
-  if (tSec === 'entertainment' || tSec.includes('cultural') || tSec.includes('entertain')) {
-    return pSec.includes('entertain') || pSec.includes('cultur');
+  if (tSec.includes('hospitality')) {
+    return pSec.includes('hospitality') || pSec.includes('hotel') || pSec.includes('resort');
   }
-  if (tSec === 'infrastructure' || tSec.includes('infrastructur')) return pSec.includes('infrastructur');
+  if (tSec.includes('residential')) {
+    return pSec.includes('residential') || pSec.includes('apartment') || pSec.includes('housing');
+  }
+  if (tSec.includes('commercial')) {
+    return pSec.includes('commercial') || pSec.includes('office') || pSec.includes('headquarters');
+  }
+  if (tSec.includes('education')) {
+    return pSec.includes('education') || pSec.includes('school') || pSec.includes('university');
+  }
+  if (tSec.includes('healthcare')) {
+    return pSec.includes('healthcare') || pSec.includes('hospital') || pSec.includes('medical');
+  }
+  if (tSec.includes('retail')) {
+    return pSec.includes('retail') || pSec.includes('mall') || pSec.includes('shopping');
+  }
+  if (tSec.includes('sports') || tSec.includes('stadium')) {
+    return pSec.includes('sport') || pSec.includes('stadium') || pSec.includes('arena');
+  }
+  if (tSec.includes('entertainment') || tSec.includes('culture')) {
+    return pSec.includes('entertain') || pSec.includes('cultur') || pSec.includes('museum') || pSec.includes('theatre');
+  }
+  if (tSec.includes('public buildings') || tSec.includes('theme park')) {
+    return pSec.includes('public') || pSec.includes('theme') || pSec.includes('civic') || pSec.includes('park');
+  }
+  if (tSec.includes('aviation')) {
+    return pSec.includes('aviation') || pSec.includes('airport') || pSec.includes('terminal');
+  }
+  if (tSec.includes('villas') || tSec.includes('private estate')) {
+    return pSec.includes('villa') || pSec.includes('estate');
+  }
+  if (tSec.includes('infrastructure') || tSec.includes('sustainable communities')) {
+    return pSec.includes('infrastructur') || pSec.includes('sustainab') || pSec.includes('utility') || pSec.includes('community');
+  }
 
   return pSec.includes(tSec) || tSec.includes(pSec);
+}
+
+function getCountryFromLocation(location?: string | null): string {
+  if (!location) return '';
+  const cleanLoc = location.split('**')[0].trim();
+  if (!cleanLoc) return '';
+
+  const parts = cleanLoc.split(',').map(p => p.trim()).filter(Boolean);
+  let rawCountry = parts[parts.length - 1] || cleanLoc;
+
+  const upper = rawCountry.toUpperCase();
+  if (upper === 'KSA' || upper === 'SAUDI ARABIA') {
+    return 'Saudi Arabia';
+  }
+  if (upper === 'UAE' || upper === 'UNITED ARAB EMIRATES') {
+    return 'UAE';
+  }
+  if (upper === 'USA' || upper === 'UNITED STATES' || upper === 'UNITED STATES OF AMERICA') {
+    return 'USA';
+  }
+  if (upper === 'UK' || upper === 'UNITED KINGDOM') {
+    return 'UK';
+  }
+
+  return rawCountry;
+}
+
+function getInitialSectorFilter(sectorQuery: string | null): string {
+  if (!sectorQuery || sectorQuery === 'All Sectors') return 'All Sectors';
+  const matched = SECTORS.find(s => s !== 'All Sectors' && matchSector(sectorQuery, s));
+  return matched || 'All Sectors';
 }
 
 function ProjectsContent({ projects }: ProjectsContentProps) {
   const searchParams = useSearchParams();
   const sectorQuery = searchParams?.get('sector');
 
-  // Build filter options from the live Supabase project list
-  const uniqueLocations = Array.from(new Set(
-    projects.map(p => p.location.split('**')[0].trim())
-  )).sort();
-  const LOCATIONS = ['All Locations', ...uniqueLocations];
-
-  const uniqueSectorsFromDb = Array.from(new Set(
-    projects.map(p => (p.sector || p.clientSector || p.client_sector || '').trim()).filter(Boolean)
-  )).sort();
-
-  const allSectorsSet = new Set(['All Sectors', ...uniqueSectorsFromDb]);
-  if (sectorQuery) {
-    allSectorsSet.add(sectorQuery);
-  }
-  const SECTORS = Array.from(allSectorsSet);
+  // Build filter options from the live Supabase project list (unique countries)
+  const uniqueCountries = Array.from(new Set(
+    projects.map(p => getCountryFromLocation(p.location)).filter(Boolean)
+  )).sort((a, b) => a.localeCompare(b));
+  const LOCATIONS = ['All Locations', ...uniqueCountries];
 
   const [filterLocation, setFilterLocation] = useState('All Locations');
-  const [filterSector, setFilterSector] = useState(sectorQuery || 'All Sectors');
+  const [filterSector, setFilterSector] = useState(() => getInitialSectorFilter(sectorQuery));
 
   const [selected, setSelected] = useState<LiveProject | null>(null);
 
   useEffect(() => {
     if (sectorQuery) {
-      setFilterSector(sectorQuery);
+      setFilterSector(getInitialSectorFilter(sectorQuery));
     }
   }, [sectorQuery]);
 
   const filteredProjects = projects.filter(p => {
-    if (filterLocation !== 'All Locations' && !p.location.includes(filterLocation.split(',')[0])) return false;
+    if (filterLocation !== 'All Locations') {
+      const pCountry = getCountryFromLocation(p.location);
+      if (pCountry !== filterLocation) return false;
+    }
     if (filterSector !== 'All Sectors') {
       const sec = p.sector || p.clientSector || p.client_sector || '';
       if (!matchSector(sec, filterSector)) return false;

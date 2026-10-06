@@ -7,11 +7,13 @@ export function CountUp({
   suffix = '',
   duration = 1.6,
   className,
+  format = true,
 }: {
   to: number;
   suffix?: string;
   duration?: number;
   className?: string;
+  format?: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0 });
@@ -34,7 +36,7 @@ export function CountUp({
 
   return (
     <span ref={ref} className={className}>
-      {val}
+      {format ? val.toLocaleString('en-US') : val}
       {suffix}
     </span>
   );

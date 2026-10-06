@@ -47,7 +47,7 @@ export default function HomePage() {
                   We coordinate complex systems across disciplines and deliver measurable building performance. Every system we design is verified in the field.
                 </p>
                 <p>
-                  Operating across the Middle East, Africa, and Asia since 2005 — with 200+ engineers across 7 offices.
+                  Operating across the Middle East, Africa, and Asia since 2005 — with 300+ engineers across 7 offices.
                 </p>
               </div>
               <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-300 bg-white text-[#0b0f19] hover:bg-slate-200">
@@ -64,7 +64,7 @@ export default function HomePage() {
                 className="object-cover" 
               />
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">
-                <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">20+</div>
+                <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">21+</div>
                 <div className="text-[11px] font-sans font-medium uppercase tracking-wider text-[#0b0f19] leading-tight">
                   Years of<br/>Engineering<br/>excellence
                 </div>
@@ -165,15 +165,15 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
             {[
-              { value: 142, suffix: '', label: 'Projects Delivered' },
-              { value: 8, suffix: ' M+', label: 'Sq Ft Designed' },
-              { value: 21, suffix: '+', label: 'Countries' },
+              { value: 500, suffix: '', label: 'Projects Delivered' },
+              { value: 1000, suffix: ' M+', label: 'Sq Ft Designed', fmt: false },
+              { value: 26, suffix: '+', label: 'Countries' },
               { value: 21, suffix: '+', label: 'Years of Experience' },
             ].map((stat, i) => (
-              <StaggerItem key={i} className="px-4">
-                <div className="text-5xl md:text-6xl font-serif font-bold text-gold mb-4 flex justify-center items-baseline">
-                  <CountUp to={stat.value} />
-                  <span className="text-3xl ml-1">{stat.suffix}</span>
+              <StaggerItem key={i} className="px-2 sm:px-4">
+                <div className={`font-serif font-bold text-gold mb-4 flex justify-center items-baseline ${stat.value === 1000 ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
+                  <CountUp to={stat.value} format={stat.fmt} />
+                  <span className={`ml-1 ${stat.value === 1000 ? 'text-xl sm:text-2xl md:text-2xl lg:text-3xl' : 'text-3xl'}`}>{stat.suffix}</span>
                 </div>
                 <div className="text-[11px] font-medium tracking-[0.15em] uppercase text-white">
                   {stat.label}

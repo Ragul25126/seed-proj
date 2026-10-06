@@ -212,10 +212,10 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
-              { v: 20, suf: '+', l: 'Years in practice' },
-              { v: 200, suf: '+', l: 'Engineering professionals' },
+              { v: 21, suf: '+', l: 'Years in practice' },
+              { v: 300, suf: '', l: 'Engineering professionals' },
               { v: 7, suf: '', l: 'Global offices' },
-              { v: 21, suf: '', l: 'Countries served' },
+              { v: 26, suf: '', l: 'Countries served' },
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
@@ -228,15 +228,15 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
             {[
-              { v: 500, suf: '+', l: 'Million sq.ft' },
-              { v: 1000, suf: '+', l: 'Projects' },
-            ].map((s) => (
-              <Reveal key={s.l} className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(25%-2.25rem)]">
+              { v: 50000, suf: '+', l: 'Million sq.ft' },
+              { v: 1000, suf: '+', l: 'Projects', fmt: false },
+            ].map((s, idx) => (
+              <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-serif text-5xl md:text-7xl font-bold text-gold mb-3">
-                    <CountUp to={s.v} suffix={s.suf} />
+                  <p className={`font-serif ${s.v === 50000 ? 'text-3xl sm:text-4xl md:text-[2.5rem] lg:text-[3.25rem] xl:text-[3.75rem] tracking-tight whitespace-nowrap' : 'text-5xl md:text-7xl'} font-bold text-gold mb-3`}>
+                    <CountUp to={s.v} suffix={s.suf} format={s.fmt} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
                 </div>
