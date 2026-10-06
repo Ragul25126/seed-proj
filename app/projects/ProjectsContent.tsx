@@ -352,11 +352,11 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Projects</div>
                     </div>
                     <div className="px-2 md:px-4">
-                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">28</div>
+                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">46</div>
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Cities</div>
                     </div>
                     <div className="px-2 md:px-4">
-                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">21</div>
+                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">26</div>
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Countries</div>
                     </div>
                   </div>
