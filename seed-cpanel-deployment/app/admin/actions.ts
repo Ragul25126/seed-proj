@@ -174,6 +174,45 @@ export async function createProjectAction(projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
+  const isOrderProvided =
+    projectData.display_order !== undefined &&
+    projectData.display_order !== null &&
+    String(projectData.display_order).trim() !== '';
+
+  let finalOrder: number;
+
+  if (isOrderProvided) {
+    const parsed = Number(projectData.display_order);
+    if (!isNaN(parsed) && parsed > 0) {
+      finalOrder = Math.floor(parsed);
+    } else {
+      const { data: maxProj } = (await retrySupabase(async () =>
+        await adminClient
+          .from('projects')
+          .select('display_order')
+          .not('display_order', 'is', null)
+          .order('display_order', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+      )) as any;
+      const maxOrder = maxProj && typeof maxProj.display_order === 'number' ? maxProj.display_order : 0;
+      finalOrder = maxOrder + 1;
+    }
+  } else {
+    const { data: maxProj } = (await retrySupabase(async () =>
+      await adminClient
+        .from('projects')
+        .select('display_order')
+        .not('display_order', 'is', null)
+        .order('display_order', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+    )) as any;
+
+    const maxOrder = maxProj && typeof maxProj.display_order === 'number' ? maxProj.display_order : 0;
+    finalOrder = maxOrder + 1;
+  }
+
   const { data, error } = (await retrySupabase(async () =>
     await adminClient
       .from('projects')
@@ -193,7 +232,7 @@ export async function createProjectAction(projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: Number(projectData.display_order || 0),
+        display_order: finalOrder,
         is_published: projectData.is_published !== false,
       })
       .select('id')
@@ -211,6 +250,30 @@ export async function createProjectAction(projectData: any) {
 export async function updateProjectAction(projectId: string, projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
+
+  const isOrderProvided =
+    projectData.display_order !== undefined &&
+    projectData.display_order !== null &&
+    String(projectData.display_order).trim() !== '';
+
+  let finalOrder: number;
+
+  if (isOrderProvided) {
+    const parsed = Number(projectData.display_order);
+    if (!isNaN(parsed) && parsed > 0) {
+      finalOrder = Math.floor(parsed);
+    } else {
+      const { data: currProj } = (await retrySupabase(async () =>
+        await adminClient.from('projects').select('display_order').eq('id', projectId).single()
+      )) as any;
+      finalOrder = currProj?.display_order || 1;
+    }
+  } else {
+    const { data: currProj } = (await retrySupabase(async () =>
+      await adminClient.from('projects').select('display_order').eq('id', projectId).single()
+    )) as any;
+    finalOrder = currProj?.display_order || 1;
+  }
 
   const { error } = (await retrySupabase(async () =>
     await adminClient
@@ -231,7 +294,7 @@ export async function updateProjectAction(projectId: string, projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: Number(projectData.display_order || 0),
+        display_order: finalOrder,
         is_published: projectData.is_published !== false,
       })
       .eq('id', projectId)

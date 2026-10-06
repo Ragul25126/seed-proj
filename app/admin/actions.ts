@@ -273,7 +273,47 @@ export async function createProjectAction(projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  const desiredPos = Math.max(1, Number(projectData.display_order || 1));
+  const isOrderProvided =
+    projectData.display_order !== undefined &&
+    projectData.display_order !== null &&
+    String(projectData.display_order).trim() !== '';
+
+  let finalOrder: number;
+  let shouldSyncPositions = false;
+
+  if (isOrderProvided) {
+    const parsed = Number(projectData.display_order);
+    if (!isNaN(parsed) && parsed > 0) {
+      finalOrder = Math.floor(parsed);
+      shouldSyncPositions = true;
+    } else {
+      const { data: maxProj } = (await retrySupabase(async () =>
+        await adminClient
+          .from('projects')
+          .select('display_order')
+          .not('display_order', 'is', null)
+          .order('display_order', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+      )) as any;
+      const maxOrder = maxProj && typeof maxProj.display_order === 'number' ? maxProj.display_order : 0;
+      finalOrder = maxOrder + 1;
+    }
+  } else {
+    // Empty display order: calculate server-side MAX(display_order) + 1
+    const { data: maxProj } = (await retrySupabase(async () =>
+      await adminClient
+        .from('projects')
+        .select('display_order')
+        .not('display_order', 'is', null)
+        .order('display_order', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+    )) as any;
+
+    const maxOrder = maxProj && typeof maxProj.display_order === 'number' ? maxProj.display_order : 0;
+    finalOrder = maxOrder + 1;
+  }
 
   const { data, error } = (await retrySupabase(async () =>
     await adminClient
@@ -294,7 +334,7 @@ export async function createProjectAction(projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: desiredPos,
+        display_order: finalOrder,
         is_published: projectData.is_published !== false,
       })
       .select('id')
@@ -305,8 +345,10 @@ export async function createProjectAction(projectData: any) {
     return { error: error.message };
   }
 
-  // Re-sequence positions so the newly created project occupies exact desired position
-  await syncProjectPositions(adminClient, data.id, desiredPos);
+  // Only re-sequence positions if an explicit valid position was provided
+  if (shouldSyncPositions) {
+    await syncProjectPositions(adminClient, data.id, finalOrder);
+  }
 
   revalidateProjectRoutes(projectData.slug);
   return { success: true, projectId: data.id };
@@ -316,7 +358,31 @@ export async function updateProjectAction(projectId: string, projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  const desiredPos = Math.max(1, Number(projectData.display_order || 1));
+  const isOrderProvided =
+    projectData.display_order !== undefined &&
+    projectData.display_order !== null &&
+    String(projectData.display_order).trim() !== '';
+
+  let finalOrder: number;
+  let shouldSyncPositions = false;
+
+  if (isOrderProvided) {
+    const parsed = Number(projectData.display_order);
+    if (!isNaN(parsed) && parsed > 0) {
+      finalOrder = Math.floor(parsed);
+      shouldSyncPositions = true;
+    } else {
+      const { data: currProj } = (await retrySupabase(async () =>
+        await adminClient.from('projects').select('display_order').eq('id', projectId).single()
+      )) as any;
+      finalOrder = currProj?.display_order || 1;
+    }
+  } else {
+    const { data: currProj } = (await retrySupabase(async () =>
+      await adminClient.from('projects').select('display_order').eq('id', projectId).single()
+    )) as any;
+    finalOrder = currProj?.display_order || 1;
+  }
 
   const { error } = (await retrySupabase(async () =>
     await adminClient
@@ -337,7 +403,7 @@ export async function updateProjectAction(projectId: string, projectData: any) {
         full_description: projectData.full_description || null,
         status: projectData.status || 'Completed',
         featured: !!projectData.featured,
-        display_order: desiredPos,
+        display_order: finalOrder,
         is_published: projectData.is_published !== false,
       })
       .eq('id', projectId)
@@ -347,8 +413,9 @@ export async function updateProjectAction(projectId: string, projectData: any) {
     return { error: error.message };
   }
 
-  // Re-sequence positions so the updated project occupies exact desired position
-  await syncProjectPositions(adminClient, projectId, desiredPos);
+  if (shouldSyncPositions) {
+    await syncProjectPositions(adminClient, projectId, finalOrder);
+  }
 
   revalidateProjectRoutes(projectData.slug);
   return { success: true };

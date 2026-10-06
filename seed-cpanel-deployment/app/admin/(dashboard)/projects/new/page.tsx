@@ -103,7 +103,7 @@ export default function AdminNewProjectPage() {
       full_description: formData.get('full_description'),
       status: formData.get('status'),
       featured: formData.get('featured') === 'true',
-      display_order: formData.get('display_order') || 0,
+      display_order: formData.get('display_order') || '',
       is_published: formData.get('is_published') === 'true'
     };
 
@@ -380,9 +380,9 @@ export default function AdminNewProjectPage() {
                   type="number"
                   id="display_order"
                   name="display_order"
-                  defaultValue={0}
                   disabled={isSubmitting}
-                  className="w-full bg-[#070b13] border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-gold/50 transition-colors font-mono"
+                  placeholder="Leave empty to add at last"
+                  className="w-full bg-[#070b13] border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/20 text-sm focus:outline-none focus:border-gold/50 transition-colors font-mono"
                 />
               </div>
             </div>
