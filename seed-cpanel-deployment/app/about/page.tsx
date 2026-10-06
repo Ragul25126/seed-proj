@@ -12,10 +12,50 @@ const TONE_LIFT = 'bg-[#0f172a]';
 const TONE_NAVY = 'bg-[#0a1124]';
 
 const AWARDS = [
-  '• Big Project Middle East Awards 2026 – MEP Project of the Year – Wasl Tower',
-  '• Big Project Middle East Awards 2026 – Honourable Achievement – Project of the Year (Residential) – The St. Regis Branded Residences',
-  '• ISHRAE UAE MEERA Awards 2026 – Highly Commended – MEP Project of the Year – Hilton & Holiday Inn',
-  '• Middle East Consultant Awards 2025 – Honourable Achievement – Executive of the Year – Male – Sanu Mathew',
+  {
+    organization: 'Big Project Middle East Awards 2026',
+    items: [
+      {
+        category: 'MEP Project of the Year',
+        details: 'Winner – Wasl Tower',
+      },
+      {
+        category: 'Project of the Year (Residential)',
+        details: 'Honourable Achievement – The St. Regis Branded Residences',
+      },
+    ],
+  },
+  {
+    organization: 'ISHRAE UAE MEERA Awards',
+    items: [
+      {
+        category: '2026 – MEP Project of the Year',
+        details: 'Highly Commended – Hilton & Holiday Inn',
+      },
+      {
+        category: '2025 – Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'MEP Middle East Awards 2026',
+    items: [
+      {
+        category: 'Mechanical Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'Middle East Consultant Awards 2025',
+    items: [
+      {
+        category: 'Executive of the Year – Male',
+        details: 'Honourable Achievement – Sanu Mathew',
+      },
+    ],
+  },
 ];
 
 const GLOBAL_OFFICES = [
@@ -319,21 +359,30 @@ export default function AboutPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {AWARDS.map((award, idx) => {
-              const hasBullet = award.startsWith('•');
-              const text = hasBullet ? award.replace(/^•\s*/, '') : award;
-              return (
-                <StaggerItem key={idx}>
-                  <div className="bg-[#0b0f19] border border-white/10 p-8 rounded-sm hover:border-gold/40 transition-colors group flex items-start h-full">
-                    <p className="text-slate-200 text-base md:text-lg leading-relaxed font-light flex items-start w-full">
-                      {hasBullet && <span className="mr-3 select-none shrink-0">•</span>}
-                      <span className="flex-1">{text}</span>
-                    </p>
+          <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {AWARDS.map((group, idx) => (
+              <StaggerItem key={idx}>
+                <div className="bg-[#0b0f19] border border-white/10 p-8 md:p-10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-start group">
+                  <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-gold shrink-0 group-hover:scale-125 transition-transform" />
+                    <span>{group.organization}</span>
+                  </h3>
+
+                  <div className="space-y-6 flex-grow">
+                    {group.items.map((item, itemIdx) => (
+                      <div key={itemIdx} className={itemIdx > 0 ? 'pt-5 border-t border-white/5' : ''}>
+                        <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">
+                          {item.category}
+                        </p>
+                        <p className="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                          {item.details}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                </StaggerItem>
-              );
-            })}
+                </div>
+              </StaggerItem>
+            ))}
           </Stagger>
         </div>
       </section>
