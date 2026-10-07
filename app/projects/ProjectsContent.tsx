@@ -238,7 +238,7 @@ function getCountryFromLocation(location?: string | null): string {
 
   const upper = rawCountry.toUpperCase();
   if (upper === 'KSA' || upper === 'SAUDI ARABIA') {
-    return 'Saudi Arabia';
+    return 'Saudi arabia';
   }
   if (upper === 'UAE' || upper === 'UNITED ARAB EMIRATES') {
     return 'UAE';
@@ -250,7 +250,7 @@ function getCountryFromLocation(location?: string | null): string {
     return 'UK';
   }
 
-  return rawCountry;
+  return rawCountry.charAt(0).toUpperCase() + rawCountry.slice(1).toLowerCase();
 }
 
 function getInitialSectorFilter(sectorQuery: string | null): string {

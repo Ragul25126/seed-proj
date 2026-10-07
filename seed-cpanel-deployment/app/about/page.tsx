@@ -118,7 +118,7 @@ export default function AboutPage() {
               Over the past two decades, SEED has grown into one of the region’s leading MEP engineering consultancies, delivering projects across hospitality, residential, commercial, healthcare, education and mixed-use sectors.
             </p>
             <p>
-              Today, with more than 200 professionals across seven offices, SEED partners with developers, architects and contractors to deliver high-performing buildings across the Middle East, Africa and India.
+              Today, with more than 300 professionals across seven offices, SEED partners with developers, architects and contractors to deliver high-performing buildings across the Middle East, Africa and India.
             </p>
           </div>
         </div>
