@@ -143,15 +143,45 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
 
           {/* Featured Image & Gallery */}
           <Reveal delay={0.15}>
-            <ProjectGallery
-              images={images}
-              title={proj.title}
-              aspectRatio="aspect-[16/9] md:aspect-[21/9]"
-              objectFit="cover"
-              containImages={['/projects/mandarin-wasl-tower.webp', '/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png']}
-              containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
-              currentSlug={proj.slug}
-            />
+            {proj.slug === 'iconic-tower' || proj.slug.includes('iconic') ? (
+              /* New Iconic Tower image – 1600×900 landscape (16:9). Width 100%, height auto shows complete image. */
+              <div
+                style={{
+                  width: '100%',
+                  background: '#0a1020',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '2px',
+                  padding: '0',
+                  boxSizing: 'border-box',
+                  overflow: 'visible',
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/projects/iconic-tower-hero.png"
+                  alt={`${proj.title} – full building photograph`}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto',
+                    maxWidth: '100%',
+                    objectFit: 'contain',
+                    objectPosition: 'center',
+                    transform: 'none',
+                  }}
+                />
+              </div>
+            ) : (
+              <ProjectGallery
+                images={images}
+                title={proj.title}
+                aspectRatio="aspect-[16/9] md:aspect-[21/9]"
+                objectFit="cover"
+                containImages={['/projects/mandarin-wasl-tower.webp', '/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png']}
+                containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
+                currentSlug={proj.slug}
+              />
+            )}
           </Reveal>
         </div>
       </section>
