@@ -11,16 +11,22 @@ try {
 }
 
 export function createClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  // Support both our local key name and the Vercel Supabase integration standard name
+  const rawUrl = (
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    'apvkdnofstyyidcmuczb'
+  ).trim();
+
+  // Support both standard Vercel Supabase name, custom publishable name, and anon key
   const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )!;
+    process.env.SUPABASE_ANON_KEY ||
+    ''
+  ).trim();
   
-  const formattedUrl = supabaseUrl.startsWith('http')
-    ? supabaseUrl
-    : `https://${supabaseUrl}.supabase.co`;
+  const formattedUrl = rawUrl.startsWith('http')
+    ? rawUrl
+    : `https://${rawUrl}.supabase.co`;
 
   try {
     const cookieStore = cookies();

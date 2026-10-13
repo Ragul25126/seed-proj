@@ -53,24 +53,30 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  // Support both our custom key name and the Vercel Supabase integration standard name
+  const rawUrl = (
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    'apvkdnofstyyidcmuczb'
+  ).trim();
+
+  // Support standard Vercel Supabase integration key, custom publishable key, and anon key
   const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )!;
+    process.env.SUPABASE_ANON_KEY ||
+    ''
+  ).trim();
 
   if (!supabaseAnonKey) {
     console.error(
-      '[SEED Middleware] FATAL: Neither NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY nor ' +
-      'NEXT_PUBLIC_SUPABASE_ANON_KEY is set. Auth will not work in production. ' +
+      '[SEED Middleware] FATAL: Neither NEXT_PUBLIC_SUPABASE_ANON_KEY nor ' +
+      'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is set. Auth will not work in production. ' +
       'Add one of these to your Vercel environment variables.'
     );
   }
   
-  const formattedUrl = supabaseUrl.startsWith('http')
-    ? supabaseUrl
-    : `https://${supabaseUrl}.supabase.co`;
+  const formattedUrl = rawUrl.startsWith('http')
+    ? rawUrl
+    : `https://${rawUrl}.supabase.co`;
 
   const supabase = createServerClient(
     formattedUrl,
@@ -200,17 +206,28 @@ export async function updateSession(request: NextRequest) {
 
   // If user is already logged in as admin and tries to hit /admin/login, redirect to /admin
   if (isLoginRoute && user) {
-    // Confirm if they are indeed an admin using service role client
     const secretKey = getSupabaseSecretKey();
-    const adminClient = createSupabaseClient(formattedUrl, secretKey, {
-      auth: { persistSession: false },
-    });
     const normalizedEmail = user.email ? user.email.toLowerCase() : '';
-    const { data: adminUser } = await adminClient
-      .from('admin_users')
-      .select('id, email')
-      .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
-      .maybeSingle();
+    let adminUser = null;
+
+    if (secretKey) {
+      const adminClient = createSupabaseClient(formattedUrl, secretKey, {
+        auth: { persistSession: false },
+      });
+      const { data } = await adminClient
+        .from('admin_users')
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .maybeSingle();
+      adminUser = data;
+    } else {
+      const { data } = await supabase
+        .from('admin_users')
+        .select('id, email')
+        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .maybeSingle();
+      adminUser = data;
+    }
 
     if (adminUser) {
       const url = request.nextUrl.clone();

@@ -2,10 +2,22 @@ import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import { createAdminClient } from './admin';
 
-// 1. Unread inquiries count (React cache for per-request memoization, next/cache for cross-request caching)
+function logQueryError(queryName: string, error: any) {
+  const msg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error));
+  if (msg.includes('Invalid API key') || msg.includes('JWT') || msg.includes('apikey') || msg.includes('supabaseKey')) {
+    console.error(
+      `[SEED cache] Error fetching ${queryName}: Invalid or missing Supabase API key. ` +
+      `Verify NEXT_PUBLIC_SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SECRET_KEY) in deployment settings.`
+    );
+  } else {
+    console.error(`[SEED cache] Error fetching ${queryName}:`, msg);
+  }
+}
+
+// 1. Unread inquiries count (React cache for per-request deduplication)
 export const getUnreadInquiriesCount = cache(
-  unstable_cache(
-    async () => {
+  async () => {
+    try {
       const adminClient = createAdminClient();
       const { data, error } = await adminClient
         .from('contact_inquiries')
@@ -13,36 +25,50 @@ export const getUnreadInquiriesCount = cache(
         .eq('status', 'new');
 
       if (error) {
-        console.error('[SEED cache] Error fetching unread inquiries count:', error.message);
+        logQueryError('unread inquiries count', error);
         return 0;
       }
       return data?.length || 0;
-    },
-    ['unread-inquiries-count'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    } catch (err: any) {
+      logQueryError('unread inquiries count', err);
+      return 0;
+    }
+  }
 );
 
 // 2. Dashboard main statistics
 export const getDashboardStats = cache(
   unstable_cache(
     async () => {
-      const adminClient = createAdminClient();
-      const [
-        { count: totalProjects },
-        { count: totalImages },
-        { count: totalInquiries }
-      ] = await Promise.all([
-        adminClient.from('projects').select('*', { count: 'exact', head: true }),
-        adminClient.from('project_images').select('*', { count: 'exact', head: true }),
-        adminClient.from('contact_inquiries').select('*', { count: 'exact', head: true })
-      ]);
+      try {
+        const adminClient = createAdminClient();
+        const [
+          { count: totalProjects, error: errProjects },
+          { count: totalImages, error: errImages },
+          { count: totalInquiries, error: errInquiries }
+        ] = await Promise.all([
+          adminClient.from('projects').select('*', { count: 'exact', head: true }),
+          adminClient.from('project_images').select('*', { count: 'exact', head: true }),
+          adminClient.from('contact_inquiries').select('*', { count: 'exact', head: true })
+        ]);
 
-      return {
-        totalProjects: totalProjects || 0,
-        totalImages: totalImages || 0,
-        totalInquiries: totalInquiries || 0
-      };
+        if (errProjects) logQueryError('dashboard totalProjects', errProjects);
+        if (errImages) logQueryError('dashboard totalImages', errImages);
+        if (errInquiries) logQueryError('dashboard totalInquiries', errInquiries);
+
+        return {
+          totalProjects: totalProjects || 0,
+          totalImages: totalImages || 0,
+          totalInquiries: totalInquiries || 0
+        };
+      } catch (err: any) {
+        logQueryError('dashboard stats', err);
+        return {
+          totalProjects: 0,
+          totalImages: 0,
+          totalInquiries: 0
+        };
+      }
     },
     ['dashboard-stats'],
     { revalidate: 60, tags: ['stats', 'projects', 'inquiries'] }
@@ -53,29 +79,42 @@ export const getDashboardStats = cache(
 export const getRecentProjects = cache(
   unstable_cache(
     async () => {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('projects')
-        .select(`
-          id,
-          title,
-          slug,
-          division,
-          client_sector,
-          created_at,
-          project_images (
-            image_url,
-            is_cover
-          )
-        `)
-        .order('created_at', { ascending: false })
-        .limit(5);
+      try {
+        const adminClient = createAdminClient();
+        const { data, error } = await adminClient
+          .from('projects')
+          .select(`
+            id,
+            title,
+            slug,
+            division,
+            client_sector,
+            created_at,
+            project_images (
+              id,
+              image_url,
+              storage_path,
+              display_order,
+              is_cover
+            )
+          `)
+          .order('created_at', { ascending: false })
+          .limit(5);
 
-      if (error) {
-        console.error('[SEED cache] Error fetching recent projects:', error.message);
+        if (error) {
+          logQueryError('recent projects', error);
+          return [];
+        }
+        return (data || []).map((p: any) => ({
+          ...p,
+          project_images: (p.project_images || []).sort(
+            (a: any, b: any) => (a.display_order ?? 999) - (b.display_order ?? 999)
+          ),
+        }));
+      } catch (err: any) {
+        logQueryError('recent projects', err);
         return [];
       }
-      return data || [];
     },
     ['recent-projects'],
     { revalidate: 60, tags: ['projects'] }
@@ -84,8 +123,8 @@ export const getRecentProjects = cache(
 
 // 4. Recent inquiries (5 items)
 export const getRecentInquiries = cache(
-  unstable_cache(
-    async () => {
+  async () => {
+    try {
       const adminClient = createAdminClient();
       const { data, error } = await adminClient
         .from('contact_inquiries')
@@ -94,38 +133,52 @@ export const getRecentInquiries = cache(
         .limit(5);
 
       if (error) {
-        console.error('[SEED cache] Error fetching recent inquiries:', error.message);
+        logQueryError('recent inquiries', error);
         return [];
       }
       return data || [];
-    },
-    ['recent-inquiries'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    } catch (err: any) {
+      logQueryError('recent inquiries', err);
+      return [];
+    }
+  }
 );
 
 // 5. All projects (for projects list page)
 export const getAllProjectsCached = cache(
   unstable_cache(
     async () => {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('projects')
-        .select(`
-          *,
-          project_images (
-            id,
-            image_url,
-            is_cover
-          )
-        `)
-        .order('created_at', { ascending: false });
+      try {
+        const adminClient = createAdminClient();
+        const { data, error } = await adminClient
+          .from('projects')
+          .select(`
+            *,
+            project_images (
+              id,
+              image_url,
+              storage_path,
+              display_order,
+              is_cover
+            )
+          `)
+          .order('display_order', { ascending: true })
+          .order('created_at', { ascending: false });
 
-      if (error) {
-        console.error('[SEED cache] Error fetching all projects:', error.message);
+        if (error) {
+          logQueryError('all projects', error);
+          return [];
+        }
+        return (data || []).map((p: any) => ({
+          ...p,
+          project_images: (p.project_images || []).sort(
+            (a: any, b: any) => (a.display_order ?? 999) - (b.display_order ?? 999)
+          ),
+        }));
+      } catch (err: any) {
+        logQueryError('all projects', err);
         return [];
       }
-      return data || [];
     },
     ['all-projects-list'],
     { revalidate: 60, tags: ['projects'] }
@@ -134,8 +187,8 @@ export const getAllProjectsCached = cache(
 
 // 6. All inquiries (for inquiries list page)
 export const getAllInquiriesCached = cache(
-  unstable_cache(
-    async () => {
+  async () => {
+    try {
       const adminClient = createAdminClient();
       const { data, error } = await adminClient
         .from('contact_inquiries')
@@ -143,15 +196,17 @@ export const getAllInquiriesCached = cache(
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('[SEED cache] Error fetching all inquiries:', error.message);
+        logQueryError('all inquiries', error);
         return [];
       }
       return data || [];
-    },
-    ['all-inquiries-list'],
-    { revalidate: 60, tags: ['inquiries'] }
-  )
+    } catch (err: any) {
+      logQueryError('all inquiries', err);
+      return [];
+    }
+  }
 );
+
 // 7. All vacancies (for admin dashboard) - SUPABASE IS 100% SINGLE SOURCE OF TRUTH
 export const getAllVacanciesCached = cache(
   async () => {
@@ -163,12 +218,15 @@ export const getAllVacanciesCached = cache(
         .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
 
-      if (!error && data) {
-        return data;
+      if (error) {
+        logQueryError('all vacancies', error);
+        return [];
       }
-    } catch (_) {}
-
-    return [];
+      return data || [];
+    } catch (err: any) {
+      logQueryError('all vacancies', err);
+      return [];
+    }
   }
 );
 
@@ -184,11 +242,14 @@ export const getActiveVacanciesCached = cache(
         .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
 
-      if (!error && data) {
-        return data;
+      if (error) {
+        logQueryError('active vacancies', error);
+        return [];
       }
-    } catch (_) {}
-
-    return [];
+      return data || [];
+    } catch (err: any) {
+      logQueryError('active vacancies', err);
+      return [];
+    }
   }
 );

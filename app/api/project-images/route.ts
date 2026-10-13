@@ -13,21 +13,32 @@ export const dynamic = 'force-dynamic';
  * latest images from Supabase instead of the hardcoded portfolio array.
  */
 export async function GET(req: NextRequest) {
-  const slug = req.nextUrl.searchParams.get('slug');
-  if (!slug) {
+  const rawSlug = req.nextUrl.searchParams.get('slug');
+  if (!rawSlug) {
     return NextResponse.json({ error: 'slug is required' }, { status: 400 });
   }
 
+  const slug = rawSlug.trim();
   const supabase = createClient();
 
   // 1. Find the project by slug
-  const { data: project, error: projErr } = await supabase
+  let { data: project, error: projErr } = await supabase
     .from('projects')
-    .select('id, image')
+    .select('id')
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
 
-  if (projErr || !project) {
+  if (!project) {
+    // Fallback: try case-insensitive or untrimmed match (e.g. slugs with trailing spaces in DB)
+    const { data: fallback } = await supabase
+      .from('projects')
+      .select('id')
+      .ilike('slug', `${slug}%`)
+      .maybeSingle();
+    project = fallback;
+  }
+
+  if (!project) {
     return NextResponse.json({ images: [], coverImage: null });
   }
 
@@ -44,7 +55,7 @@ export async function GET(req: NextRequest) {
 
   const rows = imgRows || [];
 
-  // Sort: cover image first, then by display_order
+  // Sort: cover image first (is_cover = true), then by display_order
   rows.sort((a, b) => {
     if (a.is_cover && !b.is_cover) return -1;
     if (!a.is_cover && b.is_cover) return 1;
@@ -59,7 +70,6 @@ export async function GET(req: NextRequest) {
     rows.find((img) => img.is_cover)?.image_url ||
     rows.find((img) => img.is_cover)?.storage_path ||
     images[0] ||
-    project.image ||
     null;
 
   return NextResponse.json({ images, coverImage });

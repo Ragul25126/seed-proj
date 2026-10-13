@@ -121,20 +121,26 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {filteredProjects.map(proj => {
-                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                     const imageCount = proj.project_images?.length || 0;
 
                     return (
                       <tr key={proj.id} className="hover:bg-white/5 transition-colors">
                         <td className="p-4">
                           <div className="relative w-12 h-8 rounded-sm overflow-hidden bg-white/5 border border-white/10">
-                            <Image
-                              src={coverImg}
-                              alt={proj.title}
-                              fill
-                              className="object-cover"
-                              sizes="48px"
-                            />
+                            {coverImg ? (
+                              <Image
+                                src={coverImg}
+                                alt={proj.title}
+                                fill
+                                className="object-cover"
+                                sizes="48px"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[8px] text-white/30 uppercase font-mono">
+                                None
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="p-4 font-medium text-white max-w-[200px] truncate" title={proj.title}>
@@ -183,19 +189,25 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
             {/* Mobile Cards View */}
             <div className="grid grid-cols-1 gap-4 p-4 md:hidden divide-y divide-white/5">
               {filteredProjects.map(proj => {
-                const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                 const imageCount = proj.project_images?.length || 0;
 
                 return (
                   <div key={proj.id} className="pt-4 first:pt-0 flex gap-4">
                     <div className="relative w-20 h-14 rounded-sm overflow-hidden bg-white/5 border border-white/10 flex-shrink-0">
-                      <Image
-                        src={coverImg}
-                        alt={proj.title}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
+                      {coverImg ? (
+                        <Image
+                          src={coverImg}
+                          alt={proj.title}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-[9px] text-white/30 uppercase font-mono">
+                          No Cover
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-sm text-white truncate mb-1">

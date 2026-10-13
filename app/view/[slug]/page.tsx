@@ -171,7 +171,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                   }}
                 />
               </div>
-            ) : (
+            ) : images.length > 0 ? (
               <ProjectGallery
                 images={images}
                 title={proj.title}
@@ -181,6 +181,10 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                 containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
                 currentSlug={proj.slug}
               />
+            ) : (
+              <div className="w-full aspect-[16/9] md:aspect-[21/9] bg-[#0a1020] border border-white/10 rounded-sm flex items-center justify-center text-white/30 text-xs font-mono uppercase tracking-wider">
+                No Photos Available
+              </div>
             )}
           </Reveal>
         </div>

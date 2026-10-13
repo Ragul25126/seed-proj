@@ -54,19 +54,19 @@ export default async function AdminDashboardOverviewPage() {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
-            href="/admin/projects/new"
+            href="/admin/dashboard/projects/new"
             className="bg-gold hover:bg-[#b0934c] text-black text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             Add New Project
           </Link>
           <Link
-            href="/admin/projects"
+            href="/admin/dashboard/projects"
             className="bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             Manage Projects
           </Link>
           <Link
-            href="/admin/inquiries"
+            href="/admin/dashboard/inquiries"
             className="bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-widest py-3 px-4 rounded-sm transition-all duration-300 text-center"
           >
             View Contact Inquiries
@@ -94,18 +94,24 @@ export default async function AdminDashboardOverviewPage() {
               <tbody className="divide-y divide-white/5">
                 {recentProjects && recentProjects.length > 0 ? (
                   recentProjects.map((proj: any) => {
-                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                     return (
                       <tr key={proj.id} className="hover:bg-white/5 transition-colors">
                         <td className="py-3 flex items-center gap-3 font-medium">
                           <div className="relative w-10 h-7 rounded-sm overflow-hidden bg-white/5 border border-white/10 flex-shrink-0">
-                            <Image
-                              src={coverImg}
-                              alt={proj.title}
-                              fill
-                              className="object-cover"
-                              sizes="40px"
-                            />
+                            {coverImg ? (
+                              <Image
+                                src={coverImg}
+                                alt={proj.title}
+                                fill
+                                className="object-cover"
+                                sizes="40px"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[7px] text-white/30 uppercase font-mono">
+                                None
+                              </div>
+                            )}
                           </div>
                           <span className="truncate max-w-[150px]" title={proj.title}>
                             {proj.title}
@@ -119,7 +125,7 @@ export default async function AdminDashboardOverviewPage() {
                         </td>
                         <td className="py-3 text-right">
                           <Link
-                            href={`/admin/projects/${proj.id}/edit`}
+                            href={`/admin/dashboard/projects/${proj.id}/edit`}
                             className="text-gold hover:text-[#b0934c] font-medium"
                           >
                             Edit
@@ -150,7 +156,7 @@ export default async function AdminDashboardOverviewPage() {
               recentInquiries.map((inq: any) => (
                 <Link
                   key={inq.id}
-                  href="/admin/inquiries"
+                  href="/admin/dashboard/inquiries"
                   className="block p-3 rounded-sm bg-white/5 border border-white/5 hover:border-gold/30 hover:bg-white/10 transition-all duration-200"
                 >
                   <div className="flex items-center justify-between mb-1">

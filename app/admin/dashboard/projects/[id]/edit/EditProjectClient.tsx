@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition, useRef } from 'react';
+import React, { useState, useEffect, useTransition, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -87,6 +87,13 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
     });
   };
 
+  // Synchronize state when server component re-renders or refreshes
+  useEffect(() => {
+    if (initialImages) {
+      setImages(initialImages);
+    }
+  }, [initialImages]);
+
   // Image Upload handler
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -95,77 +102,91 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
     setUploading(true);
     setNotification(null);
 
-    let successCount = 0;
-    let failMsg = '';
-    const uploadedImages: any[] = [];
-
-    for (let idx = 0; idx < files.length; idx++) {
-      const file = files[idx];
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const result = await uploadImageAction(project.id, formData) as any;
-      if (result.success && result.image) {
-        successCount++;
-        uploadedImages.push(result.image);
-      } else {
-        failMsg = result.error || 'Upload error';
-      }
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
     }
 
+    const result = (await uploadImageAction(project.id, formData)) as any;
     setUploading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
 
-    if (successCount > 0) {
-      setImages(prev => [...prev, ...uploadedImages]);
+    if (result.success) {
+      if (result.allImages) {
+        setImages(result.allImages);
+      } else if (result.images) {
+        setImages(prev => [...prev, ...result.images]);
+      }
       setNotification({
         type: 'success',
-        message: `Successfully uploaded ${successCount} image(s).`
+        message: `Successfully uploaded ${files.length} image(s). First image is set as cover.`,
       });
-      // Fetch updated images server-side too
       router.refresh();
-    } else if (failMsg) {
-      setNotification({ type: 'error', message: `Upload failed: ${failMsg}` });
+    } else {
+      setNotification({ type: 'error', message: result.error || 'Upload failed' });
     }
   };
 
-  // Delete image handler
+  // Delete image handler (allows deleting cover image, promotes next remaining image)
   const handleConfirmDeleteImage = async () => {
     if (!deleteImageId) return;
 
     setNotification(null);
     const result = await deleteImageAction(deleteImageId);
-    
+
     if (result.error) {
       setNotification({ type: 'error', message: result.error });
     } else {
-      setImages(prev => prev.filter(img => img.id !== deleteImageId));
+      if (result.allImages) {
+        setImages(result.allImages);
+      } else {
+        setImages(prev => {
+          const remaining = prev.filter(img => img.id !== deleteImageId);
+          return remaining.map((img, idx) => ({
+            ...img,
+            display_order: idx,
+            is_cover: idx === 0,
+          }));
+        });
+      }
       setNotification({ type: 'success', message: 'Image deleted successfully.' });
       router.refresh();
     }
     setDeleteImageId(null);
   };
 
-  // Set Cover image handler
+  // Set Cover image handler: moves selected image to index 0 and marks as cover
   const handleSetCover = async (imageId: string) => {
     setNotification(null);
+
+    // Optimistically move target image to index 0
+    const targetIdx = images.findIndex(img => img.id === imageId);
+    if (targetIdx >= 0) {
+      const targetImg = images[targetIdx];
+      const others = images.filter(img => img.id !== imageId);
+      const reordered = [targetImg, ...others].map((img, idx) => ({
+        ...img,
+        display_order: idx,
+        is_cover: idx === 0,
+      }));
+      setImages(reordered);
+    }
+
     const result = await setCoverImageAction(project.id, imageId);
 
     if (result.error) {
       setNotification({ type: 'error', message: result.error });
+      router.refresh();
     } else {
-      setImages(prev =>
-        prev.map(img => ({
-          ...img,
-          is_cover: img.id === imageId
-        }))
-      );
+      if (result.allImages) {
+        setImages(result.allImages);
+      }
       setNotification({ type: 'success', message: 'Cover image updated successfully.' });
       router.refresh();
     }
   };
 
-  // Reorder handler
+  // Reorder handler: first image in the ordered list automatically becomes cover
   const handleMoveImage = async (index: number, direction: 'up' | 'down') => {
     const newImages = [...images];
     const targetIdx = direction === 'up' ? index - 1 : index + 1;
@@ -177,14 +198,23 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
     newImages[index] = newImages[targetIdx];
     newImages[targetIdx] = temp;
 
-    setImages(newImages);
+    // Re-index: first item is ALWAYS cover
+    const reordered = newImages.map((img, idx) => ({
+      ...img,
+      display_order: idx,
+      is_cover: idx === 0,
+    }));
+    setImages(reordered);
 
     // Save ordering to DB
-    const imageIds = newImages.map(img => img.id);
-    const result = await updateImageOrderAction(project.id, imageIds) as any;
+    const imageIds = reordered.map(img => img.id);
+    const result = (await updateImageOrderAction(project.id, imageIds)) as any;
     if (result.error) {
       setNotification({ type: 'error', message: result.error });
     } else {
+      if (result.allImages) {
+        setImages(result.allImages);
+      }
       router.refresh();
     }
   };
@@ -565,8 +595,8 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
               images.map((img, idx) => (
                 <div
                   key={img.id}
-                  className={`p-3 rounded-sm bg-[#070b13] border flex items-center justify-between gap-4 ${
-                    img.is_cover ? 'border-gold/50' : 'border-white/10'
+                  className={`p-3 rounded-sm bg-[#070b13] border flex items-center justify-between gap-4 transition-colors ${
+                    img.is_cover ? 'border-gold/60 shadow-md bg-gold/[0.02]' : 'border-white/10'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
@@ -579,6 +609,11 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
                         className="object-cover"
                         sizes="64px"
                       />
+                      {img.is_cover && (
+                        <div className="absolute top-0 left-0 bg-gold text-black text-[7.5px] font-black px-1 py-0.5 tracking-wider uppercase z-10 leading-none shadow-sm">
+                          COVER
+                        </div>
+                      )}
                     </div>
 
                     <div className="min-w-0">
@@ -587,13 +622,14 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
                       </span>
                       <div className="flex items-center gap-2 mt-1">
                         {img.is_cover ? (
-                          <span className="bg-gold text-black text-[8px] font-bold px-1 rounded-sm uppercase tracking-wider">
-                            Cover Image
+                          <span className="bg-gold text-black text-[8.5px] font-bold px-1.5 py-0.5 rounded-xs uppercase tracking-wider inline-flex items-center gap-1 shadow-sm">
+                            <span className="w-1.5 h-1.5 rounded-full bg-black inline-block" />
+                            COVER
                           </span>
                         ) : (
                           <button
                             onClick={() => handleSetCover(img.id)}
-                            className="text-white/40 hover:text-gold text-[9px] font-semibold uppercase tracking-wider"
+                            className="text-white/40 hover:text-gold text-[9px] font-semibold uppercase tracking-wider transition-colors"
                           >
                             Set Cover
                           </button>

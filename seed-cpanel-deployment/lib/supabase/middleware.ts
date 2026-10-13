@@ -52,15 +52,21 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = (
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )!;
+  const rawUrl = (
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    'apvkdnofstyyidcmuczb'
+  ).trim();
 
-  const formattedUrl = supabaseUrl.startsWith('http')
-    ? supabaseUrl
-    : `https://${supabaseUrl}.supabase.co`;
+  const supabaseAnonKey = (
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    ''
+  ).trim();
+
+  const formattedUrl = rawUrl.startsWith('http')
+    ? rawUrl
+    : `https://${rawUrl}.supabase.co`;
 
   const supabase = createServerClient(
     formattedUrl,

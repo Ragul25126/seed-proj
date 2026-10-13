@@ -48,7 +48,7 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
     fetch(`/api/project-images?slug=${encodeURIComponent(proj.slug)}`)
       .then(r => r.json())
       .then(data => {
-        if (data.images && data.images.length > 0) {
+        if (Array.isArray(data.images)) {
           setLiveImages(data.images);
         }
       })
@@ -67,7 +67,11 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
   const fallbackImages = (proj.images && proj.images.length > 0)
     ? proj.images
     : (proj.image ? [proj.image] : []);
-  const images = (liveImages && liveImages.length > 0) ? liveImages : fallbackImages;
+  const images = (liveImages !== null && liveImages.length > 0)
+    ? liveImages
+    : (liveImages !== null && liveImages.length === 0 && fallbackImages.length === 0)
+    ? []
+    : fallbackImages;
 
   return (
     <div
@@ -95,13 +99,21 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
 
         {/* Hero Gallery */}
         <div className="p-4 sm:p-6 pb-0">
-          <ProjectGallery
-            images={images}
-            title={proj.title}
-            aspectRatio="aspect-[16/9]"
-            objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
-            containImages={['/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
-          />
+          {images.length > 0 ? (
+            <ProjectGallery
+              images={images}
+              title={proj.title}
+              aspectRatio="aspect-[16/9]"
+              objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
+              containImages={['/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
+              containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
+              currentSlug={proj.slug}
+            />
+          ) : (
+            <div className="w-full aspect-[16/9] bg-[#0a1020] border border-white/10 rounded-sm flex items-center justify-center text-white/30 text-xs font-mono uppercase tracking-wider">
+              No Photos Available
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -413,7 +425,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     onClick={() => openProjectModal(proj)}
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0a1020]">
-                      {cardImage && (
+                      {cardImage ? (
                         <Image
                           src={cardImage}
                           alt={proj.title}
@@ -429,6 +441,10 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                           }
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-white/20 text-xs font-mono uppercase tracking-wider">
+                          No Photo
+                        </div>
                       )}
                       {imageCount > 1 && (
                         <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-white text-[10px] font-mono tracking-widest px-2.5 py-1 rounded-full border border-white/20 z-10 flex items-center gap-1.5 shadow-lg">

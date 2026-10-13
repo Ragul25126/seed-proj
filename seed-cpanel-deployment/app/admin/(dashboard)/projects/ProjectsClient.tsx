@@ -90,7 +90,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
         </div>
 
         <Link
-          href="/admin/projects/new"
+          href="/admin/dashboard/projects/new"
           className="bg-gold hover:bg-[#b0934c] text-black font-semibold text-xs uppercase tracking-widest px-6 py-2.5 rounded-sm transition-all duration-300 flex items-center justify-center gap-1.5"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -121,20 +121,26 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {filteredProjects.map(proj => {
-                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                     const imageCount = proj.project_images?.length || 0;
 
                     return (
                       <tr key={proj.id} className="hover:bg-white/5 transition-colors">
                         <td className="p-4">
                           <div className="relative w-12 h-8 rounded-sm overflow-hidden bg-white/5 border border-white/10">
-                            <Image
-                              src={coverImg}
-                              alt={proj.title}
-                              fill
-                              className="object-cover"
-                              sizes="48px"
-                            />
+                            {coverImg ? (
+                              <Image
+                                src={coverImg}
+                                alt={proj.title}
+                                fill
+                                className="object-cover"
+                                sizes="48px"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[8px] text-white/30 uppercase font-mono">
+                                None
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="p-4 font-medium text-white max-w-[200px] truncate" title={proj.title}>
@@ -161,7 +167,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                         </td>
                         <td className="p-4 text-right space-x-3">
                           <Link
-                            href={`/admin/projects/${proj.id}/edit`}
+                            href={`/admin/dashboard/projects/${proj.id}/edit`}
                             className="text-gold hover:text-[#b0934c] font-medium"
                           >
                             Edit
@@ -183,19 +189,25 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
             {/* Mobile Cards View */}
             <div className="grid grid-cols-1 gap-4 p-4 md:hidden divide-y divide-white/5">
               {filteredProjects.map(proj => {
-                const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                 const imageCount = proj.project_images?.length || 0;
 
                 return (
                   <div key={proj.id} className="pt-4 first:pt-0 flex gap-4">
                     <div className="relative w-20 h-14 rounded-sm overflow-hidden bg-white/5 border border-white/10 flex-shrink-0">
-                      <Image
-                        src={coverImg}
-                        alt={proj.title}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
+                      {coverImg ? (
+                        <Image
+                          src={coverImg}
+                          alt={proj.title}
+                          fill
+                          className="object-cover"
+                          sizes="80px"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-[9px] text-white/30 uppercase font-mono">
+                          No Cover
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-sm text-white truncate mb-1">
@@ -214,7 +226,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                       </div>
                       <div className="flex items-center gap-4 text-xs font-semibold">
                         <Link
-                          href={`/admin/projects/${proj.id}/edit`}
+                          href={`/admin/dashboard/projects/${proj.id}/edit`}
                           className="text-gold hover:underline"
                         >
                           Edit

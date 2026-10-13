@@ -17,16 +17,33 @@ try {
  * Revalidate every public and admin route that shows project data.
  * IMPORTANT: busts Next.js cache so layout and project order reflect DB immediately.
  */
-function revalidateProjectRoutes(slug: string) {
-  revalidatePath(`/projects/${slug}`);
+function revalidateProjectRoutes(slug?: string) {
+  if (slug) {
+    revalidatePath(`/projects/${slug}`);
+    revalidatePath(`/projects/${slug}`, 'page');
+    revalidatePath(`/view/${slug}`);
+    revalidatePath(`/view/${slug}`, 'page');
+    revalidatePath(`/project/${slug}`);
+    revalidatePath(`/project/${slug}`, 'page');
+  }
   revalidatePath('/projects');
+  revalidatePath('/projects', 'page');
   revalidatePath('/pool/projects');
+  revalidatePath('/pool/projects', 'page');
   revalidatePath('/mep/projects');
+  revalidatePath('/mep/projects', 'page');
+  revalidatePath('/');
+  revalidatePath('/', 'page');
   revalidatePath('/admin/dashboard/projects');
+  revalidatePath('/admin/dashboard/projects', 'page');
   revalidatePath('/admin/dashboard');
+  revalidatePath('/admin/dashboard', 'page');
   revalidatePath('/api/project-images');
   revalidateTag('projects');
+  revalidateTag('all-projects-list');
+  revalidateTag('recent-projects');
   revalidateTag('stats');
+  revalidateTag('dashboard-stats');
 }
 
 /**
@@ -222,6 +239,10 @@ export async function loginAction(formData: FormData) {
   )) as any;
 
   if (error) {
+    if (error.message?.includes('Invalid API key') || error.message?.includes('apikey')) {
+      console.error('[SEED Auth] Login failed: Supabase API key is invalid or not configured on Vercel.');
+      return { error: 'Authentication service configuration error. Please verify Supabase environment variables.' };
+    }
     return { error: error.message };
   }
 
@@ -471,22 +492,102 @@ export async function deleteProjectAction(projectId: string) {
 // ─── 3. Image Actions ────────────────────────────────────────────────────────
 
 /**
+ * Synchronizes and normalizes project_images for a given project:
+ * - Orders images by display_order ASC, created_at ASC.
+ * - Re-indexes display_order to sequential 0, 1, 2, ...
+ * - Guarantees that the first image (idx === 0) is marked is_cover = true.
+ * - Guarantees that all remaining images (idx > 0) are marked is_cover = false.
+ * - If no images exist, sets projects.image to null (if column exists).
+ * - If images exist, updates projects.image to the first image's URL (if column exists).
+ * - Never leaves a deleted image URL as a fallback or cached cover image.
+ */
+async function syncProjectImages(
+  adminClient: ReturnType<typeof createAdminClient>,
+  projectId: string
+) {
+  const { data: rawImages, error } = (await retrySupabase(async () =>
+    adminClient
+      .from('project_images')
+      .select('id, image_url, storage_path, alt_text, display_order, is_cover, created_at')
+      .eq('project_id', projectId)
+      .order('display_order', { ascending: true })
+      .order('created_at', { ascending: true })
+  )) as any;
+
+  if (error || !rawImages) {
+    console.error('Error fetching images for sync:', error?.message);
+    return [];
+  }
+
+  const images = (rawImages as any[]) || [];
+
+  if (images.length === 0) {
+    // Gracefully handle empty-image state: clear project cover column if present
+    try {
+      await adminClient.from('projects').update({ image: null }).eq('id', projectId);
+    } catch (_) {}
+    return [];
+  }
+
+  const updates: Promise<any>[] = [];
+  const normalized = images.map((img, idx) => {
+    const shouldBeCover = idx === 0;
+    const shouldOrder = idx;
+    const needsUpdate = img.display_order !== shouldOrder || img.is_cover !== shouldBeCover;
+
+    if (needsUpdate) {
+      updates.push(
+        retrySupabase(async () =>
+          adminClient
+            .from('project_images')
+            .update({ display_order: shouldOrder, is_cover: shouldBeCover })
+            .eq('id', img.id)
+            .eq('project_id', projectId)
+        )
+      );
+    }
+
+    return {
+      ...img,
+      display_order: shouldOrder,
+      is_cover: shouldBeCover,
+    };
+  });
+
+  if (updates.length > 0) {
+    await Promise.all(updates);
+  }
+
+  // Update projects.image with current authoritative cover URL if column exists
+  const coverUrl = normalized[0]?.image_url || normalized[0]?.storage_path || null;
+  try {
+    await adminClient.from('projects').update({ image: coverUrl }).eq('id', projectId);
+  } catch (_) {}
+
+  return normalized;
+}
+
+/**
  * uploadImageAction
  *
- * Uploads a file to Supabase Storage, then creates a project_images row.
- * Uses the project's ACTUAL UUID as project_id – NEVER an array index or display_order.
- * Does NOT touch projects.display_order.
+ * Uploads one or multiple files to Supabase Storage, creates project_images rows,
+ * and automatically marks the first image in display_order as the cover image.
  */
 export async function uploadImageAction(projectId: string, formData: FormData) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  const file = formData.get('file') as File;
-  if (!file) {
+  const rawFiles = formData.getAll('files').concat(formData.getAll('file'));
+  const files = rawFiles.filter((f): f is File => f instanceof File && f.size > 0);
+
+  if (files.length === 0) {
     return { error: 'No file provided' };
   }
-  if (!file.type.startsWith('image/')) {
-    return { error: 'Uploaded file must be a valid image' };
+
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) {
+      return { error: `File "${file.name}" must be a valid image (JPG, PNG, or WEBP)` };
+    }
   }
 
   // 1. Verify project exists and get its slug
@@ -498,45 +599,7 @@ export async function uploadImageAction(projectId: string, formData: FormData) {
     return { error: `Project not found (id: ${projectId})` };
   }
 
-  // 2. Build a unique storage path
-  const ext = file.name.split('.').pop() || 'jpg';
-  const timestamp = Date.now();
-  const safeName = file.name
-    .replace(/\.[^.]+$/, '')   // strip extension
-    .replace(/[^\w-]/g, '_')   // sanitise
-    .substring(0, 60);         // truncate
-  const storagePath = `projects/${project.slug}/${timestamp}_${safeName}.${ext}`;
-
-  // 3. Read file into buffer
-  let buffer: Buffer;
-  try {
-    buffer = Buffer.from(await file.arrayBuffer());
-  } catch (err: any) {
-    return { error: `Failed to read file: ${err.message}` };
-  }
-
-  // 4. Upload to Storage
-  const { error: uploadError } = (await retrySupabase(async () =>
-    adminClient.storage
-      .from('project-images')
-      .upload(storagePath, buffer, { contentType: file.type, upsert: true })
-  )) as any;
-
-  if (uploadError) {
-    return { error: `Storage upload failed: ${uploadError.message}` };
-  }
-
-  // 5. Get the accessible image URL (public URL preferred; signed URL as fallback)
-  let imageUrl: string;
-  try {
-    imageUrl = await getImageUrl(adminClient, storagePath);
-  } catch (urlErr: any) {
-    // Clean up the orphaned storage file
-    try { await adminClient.storage.from('project-images').remove([storagePath]); } catch (_) {}
-    return { error: `Failed to get image URL: ${urlErr.message}` };
-  }
-
-  // 6. Determine the next display_order for images in this project
+  // 2. Determine base display_order for new images
   const { data: maxImg } = (await retrySupabase(async () =>
     adminClient
       .from('project_images')
@@ -547,61 +610,95 @@ export async function uploadImageAction(projectId: string, formData: FormData) {
       .maybeSingle()
   )) as any;
 
-  const nextOrder = (maxImg?.display_order ?? -1) + 1;
+  let nextOrder = (maxImg?.display_order ?? -1) + 1;
+  const insertedImages: any[] = [];
 
-  // 7. Check if this project already has a cover image
-  const { data: existingCover } = (await retrySupabase(async () =>
-    adminClient
-      .from('project_images')
-      .select('id')
-      .eq('project_id', projectId)
-      .eq('is_cover', true)
-      .maybeSingle()
-  )) as any;
+  // 3. Upload each file in sequence to preserve chosen order
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const ext = file.name.split('.').pop() || 'jpg';
+    const timestamp = Date.now() + i;
+    const safeName = file.name
+      .replace(/\.[^.]+$/, '')
+      .replace(/[^\w-]/g, '_')
+      .substring(0, 60);
+    const storagePath = `projects/${project.slug}/${timestamp}_${safeName}.${ext}`;
 
-  const isCover = !existingCover; // first image uploaded becomes cover
+    let buffer: Buffer;
+    try {
+      buffer = Buffer.from(await file.arrayBuffer());
+    } catch (err: any) {
+      return { error: `Failed to read file "${file.name}": ${err.message}` };
+    }
 
-  // 8. Insert into project_images
-  //    CRITICAL: project_id = actual project UUID, NEVER an index or display_order
-  const { data: newImg, error: dbError } = (await retrySupabase(async () =>
-    adminClient
-      .from('project_images')
-      .insert({
-        project_id: project.id,   // ← the project's actual UUID
-        image_url: imageUrl,
-        storage_path: storagePath,
-        alt_text: `${project.slug} image`,
-        display_order: nextOrder,
-        is_cover: isCover,
-      })
-      .select()
-      .single()
-  )) as any;
+    const { error: uploadError } = (await retrySupabase(async () =>
+      adminClient.storage
+        .from('project-images')
+        .upload(storagePath, buffer, { contentType: file.type, upsert: true })
+    )) as any;
 
-  if (dbError) {
-    // Storage upload succeeded but DB insert failed → clean up orphaned storage file
-    console.error('DB insert failed after storage upload – cleaning up storage:', dbError.message);
-    try { await adminClient.storage.from('project-images').remove([storagePath]); } catch (_) {}
-    return { error: `Failed to save image record: ${dbError.message}` };
+    if (uploadError) {
+      return { error: `Storage upload failed for "${file.name}": ${uploadError.message}` };
+    }
+
+    let imageUrl: string;
+    try {
+      imageUrl = await getImageUrl(adminClient, storagePath);
+    } catch (urlErr: any) {
+      try { await adminClient.storage.from('project-images').remove([storagePath]); } catch (_) {}
+      return { error: `Failed to get image URL for "${file.name}": ${urlErr.message}` };
+    }
+
+    const { data: newImg, error: dbError } = (await retrySupabase(async () =>
+      adminClient
+        .from('project_images')
+        .insert({
+          project_id: project.id,
+          image_url: imageUrl,
+          storage_path: storagePath,
+          alt_text: `${project.slug} image`,
+          display_order: nextOrder + i,
+          is_cover: false, // will be resolved deterministically by syncProjectImages
+        })
+        .select()
+        .single()
+    )) as any;
+
+    if (dbError) {
+      try { await adminClient.storage.from('project-images').remove([storagePath]); } catch (_) {}
+      return { error: `Failed to save image record for "${file.name}": ${dbError.message}` };
+    }
+
+    insertedImages.push(newImg);
   }
 
+  // 4. Synchronize all images: first image is strictly is_cover = true, all others false
+  const syncedImages = await syncProjectImages(adminClient, projectId);
+
+  // 5. Invalidate caches for all public and admin routes
   revalidateProjectRoutes(project.slug);
 
-  return { success: true, image: newImg };
+  return {
+    success: true,
+    image: insertedImages[0],
+    images: insertedImages,
+    allImages: syncedImages,
+  };
 }
 
 /**
  * deleteImageAction
  *
  * Deletes one image identified by its project_images.id.
- * Removes the DB row first, then the Storage object.
- * NEVER modifies projects.display_order.
+ * Allows deleting the cover image. When deleted, automatically promotes
+ * the first remaining image by display_order as the new cover image.
+ * If no images remain, handles the empty-image state gracefully.
  */
 export async function deleteImageAction(imageId: string) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  // 1. Look up the image by its own ID – NOT by URL or index
+  // 1. Look up the image by its own ID
   const { data: img, error: getImgErr } = (await retrySupabase(async () =>
     adminClient
       .from('project_images')
@@ -614,23 +711,7 @@ export async function deleteImageAction(imageId: string) {
     return { error: `Image record not found (id: ${imageId})` };
   }
 
-  // 2. Prevent deleting a cover image when others exist (UI should reassign cover first)
-  if (img.is_cover) {
-    const { count } = (await retrySupabase(async () =>
-      adminClient
-        .from('project_images')
-        .select('*', { count: 'exact', head: true })
-        .eq('project_id', img.project_id)
-    )) as any;
-
-    if (count && count > 1) {
-      return {
-        error: 'Cannot delete the cover image while other images exist. Please set another image as cover first.',
-      };
-    }
-  }
-
-  // 3. Delete the DB row FIRST (authoritative delete)
+  // 2. Delete the DB row FIRST (authoritative delete)
   const { error: dbError } = (await retrySupabase(async () =>
     adminClient.from('project_images').delete().eq('id', imageId)
   )) as any;
@@ -639,20 +720,22 @@ export async function deleteImageAction(imageId: string) {
     return { error: `Database delete failed: ${dbError.message}` };
   }
 
-  // 4. Now remove from Storage (best-effort — DB row is already gone)
+  // 3. Remove from Storage (best-effort)
   if (img.storage_path) {
     const { error: storageErr } = (await retrySupabase(async () =>
       adminClient.storage.from('project-images').remove([img.storage_path])
     )) as any;
 
     if (storageErr) {
-      // Log the issue but don't fail — the DB row is already deleted, which is the source of truth
       console.warn(
         `Storage object "${img.storage_path}" could not be removed after DB delete:`,
         storageErr.message
       );
     }
   }
+
+  // 4. Automatically promote the first remaining image to cover and re-index order
+  const remainingImages = await syncProjectImages(adminClient, img.project_id);
 
   // 5. Get project slug for revalidation
   const { data: project } = (await retrySupabase(async () =>
@@ -663,20 +746,23 @@ export async function deleteImageAction(imageId: string) {
     revalidateProjectRoutes(project.slug);
   }
 
-  return { success: true };
+  return {
+    success: true,
+    allImages: remainingImages,
+  };
 }
 
 /**
  * setCoverImageAction
  *
- * Updates is_cover on project_images for ONE project.
- * NEVER touches projects.display_order.
+ * Sets an image as the cover image by moving it to the top (display_order = 0)
+ * and updating is_cover = true, keeping ordering and cover flags perfectly in sync.
  */
 export async function setCoverImageAction(projectId: string, imageId: string) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  // Verify the target image actually belongs to this project
+  // Verify the target image belongs to this project
   const { data: targetImg, error: checkErr } = (await retrySupabase(async () =>
     adminClient
       .from('project_images')
@@ -690,26 +776,38 @@ export async function setCoverImageAction(projectId: string, imageId: string) {
     return { error: 'Image does not belong to this project' };
   }
 
-  // Unset all covers for this project
-  const { error: unsetErr } = (await retrySupabase(async () =>
+  // Fetch all images for this project ordered by display_order
+  const { data: rawImages } = (await retrySupabase(async () =>
     adminClient
       .from('project_images')
-      .update({ is_cover: false })
+      .select('id')
       .eq('project_id', projectId)
+      .order('display_order', { ascending: true })
+      .order('created_at', { ascending: true })
   )) as any;
 
-  if (unsetErr) {
-    return { error: `Failed to unset existing covers: ${unsetErr.message}` };
-  }
+  const images = (rawImages as any[]) || [];
+  const otherImages = images.filter(img => img.id !== imageId);
+  const reordered = [targetImg, ...otherImages];
 
-  // Set the selected image as cover
-  const { error: setErr } = (await retrySupabase(async () =>
-    adminClient.from('project_images').update({ is_cover: true }).eq('id', imageId)
-  )) as any;
+  // Update display_order: target image becomes 0, others follow
+  const updatePromises = reordered.map((img, idx) =>
+    retrySupabase(async () =>
+      adminClient
+        .from('project_images')
+        .update({
+          display_order: idx,
+          is_cover: idx === 0,
+        })
+        .eq('id', img.id)
+        .eq('project_id', projectId)
+    )
+  );
 
-  if (setErr) {
-    return { error: `Failed to set cover image: ${setErr.message}` };
-  }
+  await Promise.all(updatePromises);
+
+  // Sync and ensure consistency
+  const syncedImages = await syncProjectImages(adminClient, projectId);
 
   // Get project slug for revalidation
   const { data: project } = (await retrySupabase(async () =>
@@ -720,20 +818,20 @@ export async function setCoverImageAction(projectId: string, imageId: string) {
     revalidateProjectRoutes(project.slug);
   }
 
-  return { success: true };
+  return { success: true, allImages: syncedImages };
 }
 
 /**
  * updateImageOrderAction
  *
- * Updates project_images.display_order only – NEVER projects.display_order.
- * Each imageId must belong to the given projectId to prevent cross-project mutations.
+ * Updates project_images.display_order.
+ * The first image in the new order (idx === 0) automatically becomes the cover image (is_cover = true).
  */
 export async function updateImageOrderAction(projectId: string, imageIds: string[]) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
-  // Verify all image IDs belong to the declared project before mutating anything
+  // Verify all image IDs belong to the declared project
   const { data: ownedImages, error: verifyErr } = (await retrySupabase(async () =>
     adminClient
       .from('project_images')
@@ -746,20 +844,23 @@ export async function updateImageOrderAction(projectId: string, imageIds: string
     return { error: `Verification failed: ${verifyErr.message}` };
   }
 
-  const ownedIds = new Set((ownedImages as any[] || []).map((r: any) => r.id));
+  const ownedIds = new Set(((ownedImages as any[]) || []).map((r: any) => r.id));
   const invalidIds = imageIds.filter(id => !ownedIds.has(id));
   if (invalidIds.length > 0) {
     return { error: `Image IDs do not belong to this project: ${invalidIds.join(', ')}` };
   }
 
-  // Update display_order for each image – only project_images, never projects
+  // Update display_order and cover flags (first image in list is ALWAYS cover)
   const updatePromises = imageIds.map((id, idx) =>
     retrySupabase(async () =>
       adminClient
         .from('project_images')
-        .update({ display_order: idx })
+        .update({
+          display_order: idx,
+          is_cover: idx === 0,
+        })
         .eq('id', id)
-        .eq('project_id', projectId) // extra safety: scoped to this project only
+        .eq('project_id', projectId)
     )
   );
 
@@ -768,6 +869,9 @@ export async function updateImageOrderAction(projectId: string, imageIds: string
   if (firstError) {
     return { error: `Failed to update image order: ${(firstError as any).error.message}` };
   }
+
+  // Guarantee DB-level consistency across all images
+  const syncedImages = await syncProjectImages(adminClient, projectId);
 
   // Get project slug for revalidation
   const { data: project } = (await retrySupabase(async () =>
@@ -778,7 +882,7 @@ export async function updateImageOrderAction(projectId: string, imageIds: string
     revalidateProjectRoutes(project.slug);
   }
 
-  return { success: true };
+  return { success: true, allImages: syncedImages };
 }
 
 // ─── 4. Inquiry Actions ──────────────────────────────────────────────────────

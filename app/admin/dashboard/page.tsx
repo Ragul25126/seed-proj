@@ -94,18 +94,24 @@ export default async function AdminDashboardOverviewPage() {
               <tbody className="divide-y divide-white/5">
                 {recentProjects && recentProjects.length > 0 ? (
                   recentProjects.map((proj: any) => {
-                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || '/placeholder.jpg';
+                    const coverImg = proj.project_images?.find((img: any) => img.is_cover)?.image_url || proj.project_images?.[0]?.image_url || null;
                     return (
                       <tr key={proj.id} className="hover:bg-white/5 transition-colors">
                         <td className="py-3 flex items-center gap-3 font-medium">
                           <div className="relative w-10 h-7 rounded-sm overflow-hidden bg-white/5 border border-white/10 flex-shrink-0">
-                            <Image
-                              src={coverImg}
-                              alt={proj.title}
-                              fill
-                              className="object-cover"
-                              sizes="40px"
-                            />
+                            {coverImg ? (
+                              <Image
+                                src={coverImg}
+                                alt={proj.title}
+                                fill
+                                className="object-cover"
+                                sizes="40px"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[7px] text-white/30 uppercase font-mono">
+                                None
+                              </div>
+                            )}
                           </div>
                           <span className="truncate max-w-[150px]" title={proj.title}>
                             {proj.title}

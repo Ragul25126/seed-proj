@@ -1,17 +1,31 @@
 'use client';
 
-import React, { useState, useTransition, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { loginAction } from '../actions';
 
-function LoginForm() {
+interface LoginFormProps {
+  initialErrorParam?: string;
+}
+
+function LoginForm({ initialErrorParam }: LoginFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  // Check if redirect has an error param
-  const unauthorizedError = searchParams.get('error') === 'unauthorized';
+  // Resolve actionable error message from URL query param if present
+  const urlErrorMessage = initialErrorParam === 'unauthorized'
+    ? 'Access denied: You must be an administrator to view this page.'
+    : initialErrorParam === 'config'
+    ? 'Configuration error: Supabase environment credentials are not configured in production.'
+    : initialErrorParam === 'session_expired'
+    ? 'Your session has expired. Please sign in again.'
+    : initialErrorParam
+    ? `Authentication error: ${initialErrorParam}`
+    : null;
+
+  // Single source of truth for error rendering: form submission error takes priority
+  const activeError = error || urlErrorMessage;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,45 +45,54 @@ function LoginForm() {
   };
 
   return (
-    <main className="min-h-screen bg-[#070b13] flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#070b13] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background Decorative Gradients */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold/5 rounded-full filter blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-[100px] pointer-events-none" />
 
       <div className="w-full max-w-md bg-[#0b0f19] border border-white/10 rounded-sm p-8 shadow-2xl z-10 relative">
-        {/* Logo/Header */}
-        <div className="text-center mb-8">
-          <span className="text-gold text-2xl font-serif tracking-[0.2em] font-bold block mb-1">
+        {/* Logo / Header */}
+        <div className="text-center mb-8 select-none">
+          <h1 className="text-gold text-2xl font-serif tracking-[0.2em] font-bold block mb-1 leading-tight whitespace-nowrap">
             SEED
-          </span>
-          <span className="text-[10px] text-white/50 tracking-[0.3em] uppercase block">
+          </h1>
+          <p className="text-[10px] text-white/50 tracking-[0.3em] uppercase block leading-normal whitespace-nowrap">
             Engineering CMS
-          </span>
+          </p>
         </div>
 
-        {/* Error Notifications */}
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm mb-6 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        {/* Single Error Notification */}
+        {activeError && (
+          <div
+            role="alert"
+            className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm mb-6 flex items-start gap-2.5 leading-relaxed"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 flex-shrink-0 mt-0.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
             </svg>
-            <span>{error}</span>
+            <span className="flex-1 break-words">{activeError}</span>
           </div>
         )}
 
-        {unauthorizedError && !error && (
-          <div className="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-4 py-3 rounded-sm mb-6 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            <span>Access denied: You must be an administrator to view this page.</span>
-          </div>
-        )}
-
-        {/* Form */}
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-[10px] font-semibold uppercase tracking-widest text-gold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-[10px] font-semibold uppercase tracking-widest text-gold mb-2 leading-none select-none"
+            >
               Email Address
             </label>
             <input
@@ -78,13 +101,17 @@ function LoginForm() {
               name="email"
               required
               disabled={isPending}
-              className="w-full bg-[#0a1020]/50 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-gold/50 transition-colors"
+              autoComplete="email"
+              className="w-full bg-[#0a1020]/50 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-gold/50 transition-colors leading-normal"
               placeholder="example@gmail.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-[10px] font-semibold uppercase tracking-widest text-gold mb-2">
+            <label
+              htmlFor="password"
+              className="block text-[10px] font-semibold uppercase tracking-widest text-gold mb-2 leading-none select-none"
+            >
               Password
             </label>
             <input
@@ -93,7 +120,8 @@ function LoginForm() {
               name="password"
               required
               disabled={isPending}
-              className="w-full bg-[#0a1020]/50 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-gold/50 transition-colors"
+              autoComplete="current-password"
+              className="w-full bg-[#0a1020]/50 border border-white/10 rounded-sm px-4 py-3 text-white placeholder-white/30 text-sm focus:outline-none focus:border-gold/50 transition-colors leading-normal"
               placeholder="••••••••"
             />
           </div>
@@ -101,7 +129,7 @@ function LoginForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full bg-gold hover:bg-[#b0934c] disabled:bg-gold/40 text-black font-semibold text-xs uppercase tracking-widest py-3.5 px-4 rounded-sm transition-all duration-300 flex items-center justify-center gap-2"
+            className="w-full bg-gold hover:bg-[#b0934c] disabled:bg-gold/40 text-black font-semibold text-xs uppercase tracking-widest py-3.5 px-4 rounded-sm transition-all duration-300 flex items-center justify-center gap-2 select-none"
           >
             {isPending ? (
               <>
@@ -117,20 +145,14 @@ function LoginForm() {
           </button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
 
-export default function AdminLoginPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-[#070b13] flex items-center justify-center">
-          <span className="text-gold text-xs uppercase tracking-widest animate-pulse">Loading Interface...</span>
-        </div>
-      }
-    >
-      <LoginForm />
-    </Suspense>
-  );
+export default function AdminLoginPage({
+  searchParams,
+}: {
+  searchParams?: { error?: string };
+}) {
+  return <LoginForm initialErrorParam={searchParams?.error} />;
 }

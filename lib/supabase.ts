@@ -1,17 +1,29 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const rawUrl = (
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  'apvkdnofstyyidcmuczb'
+).trim();
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase environment variables NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY are not defined in .env.local');
+const formattedUrl = rawUrl.startsWith('http')
+  ? rawUrl
+  : `https://${rawUrl}.supabase.co`;
+
+const supabaseAnonKey = (
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.SUPABASE_ANON_KEY ||
+  ''
+).trim();
+
+if (!supabaseAnonKey && typeof window === 'undefined') {
+  console.warn(
+    '[SEED Supabase] Notice: Supabase anonymous key is not set. ' +
+    'Set NEXT_PUBLIC_SUPABASE_ANON_KEY or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in environment variables.'
+  );
 }
-
-const formattedUrl = supabaseUrl && supabaseUrl.startsWith('http')
-  ? supabaseUrl
-  : (supabaseUrl ? `https://${supabaseUrl}.supabase.co` : 'https://placeholder-url.supabase.co');
 
 export const supabase = createClient(
   formattedUrl,
-  supabaseAnonKey || 'placeholder-anon-key'
+  supabaseAnonKey || 'dummy-key-missing'
 );

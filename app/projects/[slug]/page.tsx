@@ -108,13 +108,21 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
         <div className="bg-[#0d1526] border border-white/10 rounded-sm shadow-2xl overflow-hidden">
           {/* Hero Gallery */}
           <div className="p-4 sm:p-6 pb-0">
-            <ProjectGallery
-              images={images}
-              title={proj.title}
-              aspectRatio="aspect-[16/9]"
-              objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
-              containImages={['/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
-            />
+            {images.length > 0 ? (
+              <ProjectGallery
+                images={images}
+                title={proj.title}
+                aspectRatio="aspect-[16/9]"
+                objectFit={proj.slug === 'saas-st-regis' ? 'contain' : 'cover'}
+                containImages={['/projects/mandarin-wasl-2-new.jpg', '/projects/ellington-hq.png', '/projects/uptown-mercer-house-skyline.jpg', '/projects/uptown-mercer-house-lobby.jpg', '/projects/uptown-mercer-house-pool.jpg', '/projects/uptown-mercer-house-retail.jpg', '/projects/uptown-mercer-house-balcony.jpg']}
+                containSlugs={['saas-st-regis', 'uptown-mercer-house', 'ellington-sands-1-2']}
+                currentSlug={proj.slug}
+              />
+            ) : (
+              <div className="w-full aspect-[16/9] bg-[#0a1020] border border-white/10 rounded-sm flex items-center justify-center text-white/30 text-xs font-mono uppercase tracking-wider">
+                No Photos Available
+              </div>
+            )}
           </div>
 
           {/* Content Body */}

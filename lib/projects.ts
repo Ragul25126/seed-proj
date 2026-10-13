@@ -29,6 +29,8 @@ export interface Project {
  */
 function sortImages(imgs: any[]): any[] {
   return [...imgs].sort((a, b) => {
+    if (a.is_cover && !b.is_cover) return -1;
+    if (!a.is_cover && b.is_cover) return 1;
     const aOrder = a.display_order ?? Infinity;
     const bOrder = b.display_order ?? Infinity;
     return aOrder - bOrder;
@@ -41,6 +43,7 @@ function sortImages(imgs: any[]): any[] {
  * 2. Fall back to the first image in display_order
  */
 function pickCoverUrl(imgs: any[]): string | null {
+  if (!imgs || imgs.length === 0) return null;
   const cover = imgs.find((img) => img.is_cover);
   const first = imgs[0];
   const src = cover || first;
@@ -51,7 +54,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const supabase = createClient();
 
   // Fetch project with images ordered by display_order at the DB level
-  const { data: project, error } = await supabase
+  let { data: project, error } = await supabase
     .from('projects')
     .select(`
       *,
@@ -65,13 +68,34 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       )
     `)
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
 
-  if (error || !project) return null;
+  if (!project) {
+    const { data: fallback } = await supabase
+      .from('projects')
+      .select(`
+        *,
+        project_images (
+          id,
+          image_url,
+          storage_path,
+          alt_text,
+          display_order,
+          is_cover
+        )
+      `)
+      .ilike('slug', `${slug}%`)
+      .maybeSingle();
+    project = fallback;
+  }
+
+  if (!project) return null;
 
   const imgs = sortImages(project.project_images || []);
   const coverUrl = pickCoverUrl(imgs);
-  const validImages: string[] = imgs.map((img: any) => img.image_url || img.storage_path).filter((s): s is string => typeof s === 'string' && s.length > 0);
+  const validImages: string[] = imgs
+    .map((img: any) => img.image_url || img.storage_path)
+    .filter((s): s is string => typeof s === 'string' && s.length > 0);
 
   return {
     ...project,
@@ -84,8 +108,8 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     full_description: project.full_description || '',
     // image array used by gallery — Supabase-only, ordered by display_order
     images: validImages,
-    // cover thumbnail — prefer is_cover flag, then fall back to project.image
-    image: coverUrl || project.image || '',
+    // cover thumbnail — Supabase project_images is single source of truth; null/empty when deleted
+    image: coverUrl || '',
   };
 }
 
@@ -115,7 +139,9 @@ export async function getAllProjects(): Promise<Project[]> {
   return projects.map((p: any) => {
     const imgs = sortImages(p.project_images || []);
     const coverUrl = pickCoverUrl(imgs);
-    const validImages: string[] = imgs.map((img: any) => img.image_url || img.storage_path).filter((s): s is string => typeof s === 'string' && s.length > 0);
+    const validImages: string[] = imgs
+      .map((img: any) => img.image_url || img.storage_path)
+      .filter((s): s is string => typeof s === 'string' && s.length > 0);
     return {
       ...p,
       id: p.id || '',
@@ -127,8 +153,8 @@ export async function getAllProjects(): Promise<Project[]> {
       full_description: p.full_description || '',
       // image array — Supabase-only, ordered by display_order
       images: validImages,
-      // cover thumbnail
-      image: coverUrl || p.image || '',
+      // cover thumbnail — Supabase project_images is single source of truth; null/empty when deleted
+      image: coverUrl || '',
     };
   });
 }
