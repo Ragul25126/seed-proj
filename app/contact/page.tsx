@@ -27,9 +27,9 @@ const OFFICES = [
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Bengaluru',
-    country: 'India',
-    address: 'No. 57, U.P. Complex, 1st Floor, Double Road, Indira Nagar, 2nd Stage, Bengaluru – 560038, Karnataka, India.',
+    city: 'Singapore',
+    country: 'Singapore',
+    address: '10 Anson Road, #29-10, Singapore – 079903.',
     email: 'contact@seedengineering.com',
   },
   {
@@ -39,27 +39,27 @@ const OFFICES = [
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Gurugram',
-    country: 'India',
-    address: 'AltF Empire Square – Unit 19, 3rd Floor, JMD Empire Square, Near Sikanderpur Metro, MG Road, Gurugram, Haryana – 122002, India.',
-    email: 'contact@seedengineering.com',
-  },
-  {
     city: 'Kochi',
     country: 'India',
     address: '4A-2, A Wing, 4th Floor, Indeevaram Building, Infopark Thrissur, Nalikettu Road, Koratty, Kerala – 680308, India.',
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Pune',
+    city: 'Bengaluru',
     country: 'India',
-    address: 'S. No. 52, Baner Business Bay, Pashan–Sus Road, Pune–Bangalore Highway, Pashan Exit, Behind Audi Off Mumbai, Mohan Nagar Co-operative Society, Baner, Pune – 411045, Maharashtra, India.',
+    address: 'No. 57, U.P. Complex, 1st Floor, Double Road, Indira Nagar, 2nd Stage, Bengaluru – 560038, Karnataka, India.',
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Singapore',
-    country: 'Singapore',
-    address: '10 Anson Road, #29-10, Singapore – 079903.',
+    city: 'Gurugram',
+    country: 'India',
+    address: 'AltF Empire Square – Unit 19, 3rd Floor, JMD Empire Square, Near Sikanderpur Metro, MG Road, Gurugram, Haryana – 122002, India.',
+    email: 'contact@seedengineering.com',
+  },
+  {
+    city: 'Pune',
+    country: 'India',
+    address: 'S. No. 52, Baner Business Bay, Pashan–Sus Road, Pune–Bangalore Highway, Pashan Exit, Behind Audi Off Mumbai, Mohan Nagar Co-operative Society, Baner, Pune – 411045, Maharashtra, India.',
     email: 'contact@seedengineering.com',
   },
 ];

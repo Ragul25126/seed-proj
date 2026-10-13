@@ -175,7 +175,7 @@ export default function ServicesPage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">OUR CAPABILITIES</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">Services</h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation, coordinated design etc.
+              Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation and coordinated design.
             </p>
           </Reveal>
         </div>
@@ -317,7 +317,7 @@ export default function ServicesPage() {
               <StaggerItem key={i} className="h-full flex flex-col">
                 <div className="bg-[#0b0f19] border border-white/10 p-6 xl:p-8 rounded-sm h-full flex flex-col hover:border-gold/40 transition-colors group">
                   <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">0{i + 1}</span>
-                  <div className="h-14 mb-2 flex flex-col justify-start">
+                  <div className="mb-4 md:min-h-[5rem] flex flex-col">
                     <h3 className="font-serif text-xl font-bold text-white leading-snug group-hover:text-gold transition-colors">
                       {card.title}
                     </h3>

@@ -4,8 +4,8 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-// Inter is the closest free, geometric sans to Helvetica Now Display — used as fallback
-// after the system Helvetica stack so designers on Mac get the brand face natively.
+// Inter is self-hosted via next/font/google as the primary sans-serif typeface,
+// ensuring consistent rendering across all platforms (macOS, iOS, Windows, Android).
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],

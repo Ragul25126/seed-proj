@@ -22,7 +22,7 @@ const config: Config = {
         border: '#1e293b',
       },
       fontFamily: {
-        sans: ['"Helvetica Now Display"', '"Helvetica Neue"', 'var(--font-inter)', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['var(--font-inter)', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
         serif: ['var(--font-playfair)', 'Georgia', '"Times New Roman"', 'serif'],
         mono: ['var(--font-dm-mono)', 'ui-monospace', 'monospace'],
       },

@@ -300,13 +300,13 @@ export default function AboutPage() {
               {
                 step: '02',
                 title: 'Engineer the Systems',
-                desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability strategies based on engineering calculations — not generic templates. System selection is driven by performance, constructability, maintainability, and lifecycle cost.',
+                desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability strategies based on engineering calculations and not generic templates. System selection is driven by performance, constructability, maintainability and lifecycle cost.',
                 outputs: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', 'Preliminary Cost Alignment'],
               },
               {
                 step: '03',
                 title: 'Coordinate Across Disciplines',
-                desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors, and site constraints before construction begins. Clash detection is only one part of coordination — the objective is buildability.',
+                desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors and site constraints before construction begins. Clash detection is only one part of coordination and the objective is buildability.',
                 outputs: ['Coordinated BIM Models', 'Clash Resolution Reports', 'Interface Reviews', 'Construction-Ready Layouts'],
               },
               {

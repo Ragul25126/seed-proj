@@ -74,7 +74,7 @@ export default function AboutPage() {
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
-      
+
       {/* ============ PAGE HERO ============ */}
       <section className={`relative ${TONE_BASE} text-white pt-40 pb-28 overflow-hidden`}>
         <div className="absolute inset-0 grid-bg opacity-20" />
@@ -87,7 +87,7 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.18}>
             <p className="mt-10 max-w-3xl text-lg md:text-xl text-slate-300 leading-relaxed font-light">
-              Since 2005, SEED has delivered integrated MEP engineering design, supervision, sustainability consulting, BIM coordination and commissioning services for complex developments across the Middle East, Africa and India. Our engineering solutions prioritise performance, efficiency and long-term value throughout the building lifecycle.
+              Since 2005, SEED has delivered integrated MEP engineering design, supervision, sustainability consulting, BIM coordination and commissioning services for complex developments across the Middle East, Africa, India and Far East. Our engineering solutions prioritise performance, efficiency and long-term value throughout the building lifecycle.
             </p>
           </Reveal>
         </div>
@@ -112,7 +112,7 @@ export default function AboutPage() {
               Over the past two decades, SEED has grown into one of the region’s leading MEP engineering consultancies, delivering projects across hospitality, residential, commercial, healthcare, education and mixed-use sectors.
             </p>
             <p>
-              Today, with more than 300 professionals across seven offices, SEED partners with developers, architects and contractors to deliver high-performing buildings across the Middle East, Africa and India.
+              Today, with more than 300 professionals across seven offices, SEED partners with developers, architects and contractors to deliver high-performing buildings across the Middle East, Africa, India and Far East.
             </p>
           </div>
         </div>
@@ -209,12 +209,12 @@ export default function AboutPage() {
                     </h3>
                     {m.linkedin && !isAnand && (
                       <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                       </a>
                     )}
                     {isAnand && (
                       <span className="text-slate-400 group-hover:text-gold transition-colors">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                       </span>
                     )}
                   </div>
@@ -306,31 +306,31 @@ export default function AboutPage() {
               {
                 step: '01',
                 title: 'Define design criteria',
-                desc: 'Every project begins with understanding the building, its operational requirements, applicable codes, energy targets, and owner expectations. We establish the design basis before a single system is selected.',
+                desc: 'Every project begins with understanding the building, its operational requirements, applicable codes, energy targets and owner expectations. We establish the design basis before a single system is selected.',
                 outputs: ['Design Basis Report', 'Load Calculations', 'Performance Criteria', 'Code Compliance Strategy'],
               },
               {
                 step: '02',
                 title: 'Engineer the systems',
-                desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability strategies based on engineering calculations — not generic templates. System selection is driven by performance, constructability, maintainability, and lifecycle cost.',
+                desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV, and Sustainability strategies based on engineering calculations and not generic templates. System selection is driven by performance, constructability, maintainability and lifecycle cost.',
                 outputs: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', 'Preliminary Cost Alignment'],
               },
               {
                 step: '03',
                 title: 'Coordinate across disciplines',
-                desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors, and site constraints before construction begins. Clash detection is only one part of coordination — the objective is buildability.',
+                desc: 'Most construction issues originate at discipline interfaces. We coordinate architecture, structure, MEP, specialist vendors and site constraints before construction begins. Clash detection is only one part of coordination and the objective is buildability.',
                 outputs: ['Coordinated BIM Models', 'Clash Resolution Reports', 'Interface Reviews', 'Construction-Ready Layouts'],
               },
               {
                 step: '04',
                 title: 'Validate before construction',
-                desc: 'Every major engineering decision is reviewed against performance requirements, installation constraints, and operational intent. Designs are subjected to internal quality checks before issue.',
+                desc: 'Every major engineering decision is reviewed against performance requirements, installation constraints and operational intent. Designs are subjected to internal quality checks before issue.',
                 outputs: ['Design Reviews', 'Quality Assurance Checks', 'Risk Register Updates', 'Issue-for-Construction Documentation'],
               },
               {
                 step: '05',
                 title: 'Verify performance on site',
-                desc: 'Engineering responsibility does not end with drawings. We verify installation quality, witness testing, support commissioning activities, and confirm systems perform as intended.',
+                desc: 'Engineering responsibility does not end with drawings. We verify installation quality, witness testing, support commissioning activities and confirm systems perform as intended.',
                 outputs: ['Site Inspections', 'Testing & Balancing Reviews', 'Commissioning Reports', 'Final Performance Verification'],
               },
             ].map((phase, i) => (
@@ -418,11 +418,10 @@ export default function AboutPage() {
               <Reveal key={off.city}>
                 <div
                   onClick={() => setSelectedOffice(off.city)}
-                  className={`p-6 rounded-sm border cursor-pointer transition-all ${
-                    selectedOffice === off.city
-                      ? 'bg-gold/10 border-gold shadow-lg shadow-gold/10'
-                      : 'bg-[#0b0f19] border-white/10 hover:border-gold/40'
-                  }`}
+                  className={`p-6 rounded-sm border cursor-pointer transition-all ${selectedOffice === off.city
+                    ? 'bg-gold/10 border-gold shadow-lg shadow-gold/10'
+                    : 'bg-[#0b0f19] border-white/10 hover:border-gold/40'
+                    }`}
                 >
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl">{off.flag}</span>
