@@ -104,6 +104,7 @@ export default function ContactPage() {
     service: 'Select Service Required',
     sector: 'Select Project Sector',
     message: '',
+    website: '', // Honeypot spam trap
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -201,7 +202,7 @@ export default function ContactPage() {
                       {off.email && (
                         <div>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Email</span>
-                          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${off.email}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
+                          <a href={`mailto:${off.email}`} className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
                         </div>
                       )}
                     </div>
@@ -233,7 +234,7 @@ export default function ContactPage() {
                         <div key={j}>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">{d.label}</span>
                           {d.label === 'Email' ? (
-                            <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${d.value}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors text-[13px] font-light leading-relaxed block">
+                            <a href={`mailto:${d.value}`} className="text-slate-300 hover:text-gold transition-colors text-[13px] font-light leading-relaxed block">
                               {d.value}
                             </a>
                           ) : (
@@ -316,6 +317,19 @@ export default function ContactPage() {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {/* Honeypot field for anti-spam bots */}
+                      <div className="hidden" aria-hidden="true">
+                        <label htmlFor="contact-website">Website</label>
+                        <input
+                          id="contact-website"
+                          type="text"
+                          name="website"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={form.website}
+                          onChange={e => setForm({ ...form, website: e.target.value })}
+                        />
+                      </div>
                       {error && (
                         <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm">
                           {error}

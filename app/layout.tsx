@@ -31,17 +31,48 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://seedengineering.ae'),
   title: {
-    default: 'Seed Engineering — MEP & Pool Consultancy, Dubai',
-    template: '%s — Seed Engineering',
+    default: 'SEED Engineering — Engineering high-performance buildings',
+    template: '%s — SEED Engineering',
   },
   description:
-    'Seed Engineering is a Dubai-based MEP and swimming pool consultancy. We engineer the systems inside great buildings.',
+    'SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'Seed Engineering',
+    title: 'SEED Engineering — Engineering high-performance buildings',
     description:
-      'A Dubai-based MEP and pool consultancy. Story-driven engineering for buildings that work.',
+      'SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.',
+    url: 'https://seedengineering.ae',
+    siteName: 'SEED Engineering',
+    locale: 'en_AE',
     type: 'website',
-    siteName: 'Seed Engineering',
+    images: [
+      {
+        url: '/seedlogo.png',
+        width: 1200,
+        height: 630,
+        alt: 'SEED Engineering Consultants',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SEED Engineering — Engineering high-performance buildings',
+    description:
+      'SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.',
+    images: ['/seedlogo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

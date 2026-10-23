@@ -294,6 +294,24 @@ export async function createProjectAction(projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
+  const cleanSlug = (projectData.slug || '').trim().toLowerCase();
+  if (!cleanSlug) {
+    return { error: 'Project slug is required.' };
+  }
+
+  // Pre-validate slug uniqueness to provide a clear, user-friendly error
+  const { data: existingSlug } = (await retrySupabase(async () =>
+    await adminClient
+      .from('projects')
+      .select('id')
+      .eq('slug', cleanSlug)
+      .maybeSingle()
+  )) as any;
+
+  if (existingSlug) {
+    return { error: `A project with the slug "${cleanSlug}" already exists. Please choose a unique slug.` };
+  }
+
   const isOrderProvided =
     projectData.display_order !== undefined &&
     projectData.display_order !== null &&
@@ -340,7 +358,7 @@ export async function createProjectAction(projectData: any) {
     await adminClient
       .from('projects')
       .insert({
-        slug: projectData.slug,
+        slug: cleanSlug,
         title: projectData.title,
         division: projectData.division,
         client_sector: projectData.client_sector,
@@ -379,6 +397,25 @@ export async function updateProjectAction(projectId: string, projectData: any) {
   await verifyAdmin();
   const adminClient = createAdminClient();
 
+  const cleanSlug = (projectData.slug || '').trim().toLowerCase();
+  if (!cleanSlug) {
+    return { error: 'Project slug is required.' };
+  }
+
+  // Pre-validate slug uniqueness against other projects
+  const { data: existingSlug } = (await retrySupabase(async () =>
+    await adminClient
+      .from('projects')
+      .select('id')
+      .eq('slug', cleanSlug)
+      .neq('id', projectId)
+      .maybeSingle()
+  )) as any;
+
+  if (existingSlug) {
+    return { error: `A project with the slug "${cleanSlug}" already exists. Please choose a unique slug.` };
+  }
+
   const isOrderProvided =
     projectData.display_order !== undefined &&
     projectData.display_order !== null &&
@@ -409,7 +446,7 @@ export async function updateProjectAction(projectId: string, projectData: any) {
     await adminClient
       .from('projects')
       .update({
-        slug: projectData.slug,
+        slug: cleanSlug,
         title: projectData.title,
         division: projectData.division,
         client_sector: projectData.client_sector,

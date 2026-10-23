@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
               </h2>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 <p>
-                  SEED we operates the <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a> website (the “Service”).
+                  SEED operates the <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a> website (the “Service”).
                 </p>
                 <p>
                   This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
@@ -248,7 +248,7 @@ export default function PrivacyPolicyPage() {
                 Contact Us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
-                If you have any questions about this Privacy Policy, please contact us by email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
+                If you have any questions about this Privacy Policy, please contact us by email: <a href="mailto:contact@seedengineering.com" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
               </p>
             </div>
 

@@ -18,7 +18,7 @@ type Errors = Partial<Record<'fullName' | 'phone' | 'email' | 'serviceType' | 'd
 
 export default function InquiryForm({
   defaultService,
-  variant = 'light',
+  variant = 'dark',
 }: {
   defaultService?: string;
   variant?: 'light' | 'dark';
@@ -33,6 +33,7 @@ export default function InquiryForm({
     email: '',
     serviceType: defaultService || SERVICE_OPTIONS[0],
     details: '',
+    website: '', // Honeypot spam trap
   });
 
   const dark = variant === 'dark';
@@ -103,6 +104,19 @@ export default function InquiryForm({
           {error}
         </div>
       )}
+      {/* Honeypot field for spam prevention - hidden from humans */}
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="inquiry-website">Website</label>
+        <input
+          id="inquiry-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={(e) => setForm({ ...form, website: e.target.value })}
+        />
+      </div>
       <div>
         <label className={labelCls}>Full name</label>
         <input
