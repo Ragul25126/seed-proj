@@ -14,26 +14,30 @@ function logQueryError(queryName: string, error: any) {
   }
 }
 
-// 1. Unread inquiries count (React cache for per-request deduplication)
+// 1. Unread inquiries count (cached with short TTL for responsive admin navigation)
 export const getUnreadInquiriesCount = cache(
-  async () => {
-    try {
-      const adminClient = createAdminClient();
-      const { data, error } = await adminClient
-        .from('contact_inquiries')
-        .select('id')
-        .eq('status', 'new');
+  unstable_cache(
+    async () => {
+      try {
+        const adminClient = createAdminClient();
+        const { count, error } = await adminClient
+          .from('contact_inquiries')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'new');
 
-      if (error) {
-        logQueryError('unread inquiries count', error);
+        if (error) {
+          logQueryError('unread inquiries count', error);
+          return 0;
+        }
+        return count || 0;
+      } catch (err: any) {
+        logQueryError('unread inquiries count', err);
         return 0;
       }
-      return data?.length || 0;
-    } catch (err: any) {
-      logQueryError('unread inquiries count', err);
-      return 0;
-    }
-  }
+    },
+    ['unread-inquiries-count'],
+    { revalidate: 30, tags: ['inquiries'] }
+  )
 );
 
 // 2. Dashboard main statistics

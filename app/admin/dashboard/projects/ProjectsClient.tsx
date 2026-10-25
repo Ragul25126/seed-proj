@@ -16,6 +16,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
   const [search, setSearch] = useState('');
   const [selectedDivision, setSelectedDivision] = useState('all');
   const [isPending, startTransition] = useTransition();
+  const [navigatingId, setNavigatingId] = useState<string | null>(null);
 
   // Delete modal state
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -168,9 +169,21 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                         <td className="p-4 text-right space-x-3">
                           <Link
                             href={`/admin/dashboard/projects/${proj.id}/edit`}
-                            className="text-gold hover:text-[#b0934c] font-medium"
+                            onClick={() => setNavigatingId(proj.id)}
+                            onMouseEnter={() => router.prefetch(`/admin/dashboard/projects/${proj.id}/edit`)}
+                            className="text-gold hover:text-[#b0934c] font-medium inline-flex items-center gap-1.5"
                           >
-                            Edit
+                            {navigatingId === proj.id ? (
+                              <>
+                                <svg className="animate-spin h-3 w-3 text-gold" fill="none" viewBox="0 0 24 24">
+                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                </svg>
+                                <span>Opening...</span>
+                              </>
+                            ) : (
+                              <span>Edit</span>
+                            )}
                           </Link>
                           <button
                             onClick={() => handleDeleteClick(proj.id, proj.title)}
@@ -227,9 +240,21 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                       <div className="flex items-center gap-4 text-xs font-semibold">
                         <Link
                           href={`/admin/dashboard/projects/${proj.id}/edit`}
-                          className="text-gold hover:underline"
+                          onClick={() => setNavigatingId(proj.id)}
+                          onMouseEnter={() => router.prefetch(`/admin/dashboard/projects/${proj.id}/edit`)}
+                          className="text-gold hover:underline inline-flex items-center gap-1.5"
                         >
-                          Edit
+                          {navigatingId === proj.id ? (
+                            <>
+                              <svg className="animate-spin h-3 w-3 text-gold" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              <span>Opening...</span>
+                            </>
+                          ) : (
+                            <span>Edit</span>
+                          )}
                         </Link>
                         <button
                           onClick={() => handleDeleteClick(proj.id, proj.title)}

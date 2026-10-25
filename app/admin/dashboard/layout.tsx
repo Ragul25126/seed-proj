@@ -13,8 +13,13 @@ interface AdminLayoutProps {
 export default async function AdminDashboardLayout({ children }: AdminLayoutProps) {
   const supabase = createClient();
   
-  const { data: { user } } = await supabase.auth.getUser();
-  const unreadCount = await getUnreadInquiriesCount();
+  const [
+    { data: { user } },
+    unreadCount
+  ] = await Promise.all([
+    supabase.auth.getUser(),
+    getUnreadInquiriesCount()
+  ]);
 
   if (!user) {
     redirect('/admin/login');
