@@ -800,7 +800,7 @@ export const portfolio: {
         image: "/projects/jumeirah-living-peninsula.webp",
         images: [
           "/projects/jumeirah-living-peninsula.webp",
-          "/projects/jumeirah-living-waterfront-sunset.png",
+          "/projects/jumeirah-living-waterfront-sunset.webp",
           "/projects/jumeirah-living-5-star-hotel-apartments-at-peninsula-plot-f--dubai--uae-pu21148b-plot-f.webp"
         ],
         description: ""
@@ -920,8 +920,8 @@ export const portfolio: {
         images: [
           "/projects/National Games Stadium , Trivandrum India.webp",
           "/projects/national-games-stadium---trivandrum-india-1.webp",
-          "/projects/national-games-stadium-view-1.png",
-          "/projects/national-games-stadium-view-2.png"
+          "/projects/national-games-stadium-view-1.webp",
+          "/projects/national-games-stadium-view-2.webp"
         ],
         description: ""
     },
@@ -941,7 +941,7 @@ export const portfolio: {
         images: [
           "/projects/Novotel Al Barsha.webp",
           "/projects/novotel-al-barsha-image-1.webp",
-          "/projects/novotel-al-barsha-view-3.png"
+          "/projects/novotel-al-barsha-view-3.webp"
         ],
         description: ""
     },
@@ -1002,8 +1002,8 @@ export const portfolio: {
         image: "/projects/Gran Melia Hotel.jpg",
         images: [
           "/projects/Gran Melia Hotel.jpg",
-          "/projects/gran-melia-view-1.png",
-          "/projects/gran-melia-view-2.png"
+          "/projects/gran-melia-view-1.webp",
+          "/projects/gran-melia-view-2.webp"
         ],
         description: ""
     },
@@ -1221,9 +1221,9 @@ export const portfolio: {
         architect: "ArchCorp",
         services: "MEP Design",
         area: "1,554.93 sqm",
-        image: "/projects/g-1-beach-villa-dubai,-uae.jpg",
+        image: "/projects/g-1-beach-villa-dubai,-uae.webp",
         images: [
-          "/projects/g-1-beach-villa-dubai,-uae.jpg"
+          "/projects/g-1-beach-villa-dubai,-uae.webp"
         ],
         description: "G+1 Storey Beach Villa, Plot No. 245"
     },
@@ -1335,9 +1335,9 @@ export const portfolio: {
         architect: "ArchCorp",
         services: "MEP Design",
         area: "1,393.55 sqm",
-        image: "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.jpg",
+        image: "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.webp",
         images: [
-          "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.jpg"
+          "/projects/g-1-villa-maryam-ahmed-abdulla-almoosa-dubai,-uae.webp"
         ],
         description: "G+1 Villa on Plot No. 3620352, Umm Suqeim 2"
     },
@@ -1394,9 +1394,9 @@ export const portfolio: {
         architect: "WWF / Kling",
         services: "MEP Design",
         area: "506.97 sqm",
-        image: "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.jpg",
+        image: "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.webp",
         images: [
-          "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.jpg"
+          "/projects/modern-private-villa-on-palm-jumeirah-dubai,-uae.webp"
         ],
         description: "Modern Private G+1 Residential Villa on Plot No. PJFRN023, Palm Jumeirah"
     },

@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300;
 
 async function findProjectBySlug(slugParam: string) {
   const normalized = slugParam.toLowerCase().trim();

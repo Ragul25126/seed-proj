@@ -23,8 +23,12 @@ export type LiveProject = {
   services?: string | null;
   area?: string | null;
   description?: string | null;
+  short_description?: string | null;
+  projectScale?: string | null;
+  project_scale?: string | null;
   image?: string | null;       // cover image URL
-  images?: string[];           // all image URLs (ordered by display_order)
+  imageCount?: number;         // total photo count
+  images?: string[];           // all image URLs (when available)
 };
 
 // ─── modal ───────────────────────────────────────────────────────────────────
@@ -283,12 +287,15 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
 
   const [filterLocation, setFilterLocation] = useState('All Locations');
   const [filterSector, setFilterSector] = useState(() => getInitialSectorFilter(sectorQuery));
+  const PAGE_SIZE = 12;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const [selected, setSelected] = useState<LiveProject | null>(null);
 
   useEffect(() => {
     if (sectorQuery) {
       setFilterSector(getInitialSectorFilter(sectorQuery));
+      setVisibleCount(PAGE_SIZE);
     }
   }, [sectorQuery]);
 
@@ -303,6 +310,8 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
     }
     return true;
   });
+
+  const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const openProjectModal = (proj: LiveProject) => {
     setSelected(proj);
@@ -383,7 +392,10 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     <select
                       className="w-full bg-white/5 border border-white/10 text-[13px] py-4 px-4 text-slate-300 font-medium outline-none focus:ring-1 focus:ring-gold appearance-none cursor-pointer [&>option]:text-gray-900 [&>option]:bg-white"
                       value={filterLocation}
-                      onChange={e => setFilterLocation(e.target.value)}
+                      onChange={e => {
+                        setFilterLocation(e.target.value);
+                        setVisibleCount(PAGE_SIZE);
+                      }}
                     >
                       {LOCATIONS.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
@@ -392,7 +404,10 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     <select
                       className="w-full bg-white/5 border border-white/10 text-[13px] py-4 px-4 text-slate-300 font-medium outline-none focus:ring-1 focus:ring-gold appearance-none cursor-pointer [&>option]:text-gray-900 [&>option]:bg-white"
                       value={filterSector}
-                      onChange={e => setFilterSector(e.target.value)}
+                      onChange={e => {
+                        setFilterSector(e.target.value);
+                        setVisibleCount(PAGE_SIZE);
+                      }}
                     >
                       {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
@@ -401,7 +416,11 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
 
                 <div className="flex justify-start">
                   <button
-                    onClick={() => { setFilterLocation('All Locations'); setFilterSector('All Sectors'); }}
+                    onClick={() => {
+                      setFilterLocation('All Locations');
+                      setFilterSector('All Sectors');
+                      setVisibleCount(PAGE_SIZE);
+                    }}
                     className="text-[12px] font-bold text-gold hover:text-yellow-400 uppercase tracking-wider transition-colors"
                   >
                     Reset filter
@@ -411,12 +430,12 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
             </div>
           </Reveal>
 
-          <Stagger key={`${filterLocation}-${filterSector}`} className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6">
-            {filteredProjects.map((proj) => {
+          <Stagger key={`${filterLocation}-${filterSector}-${visibleCount}`} className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6">
+            {visibleProjects.map((proj) => {
               const spanClass = 'col-span-1 md:col-span-6 lg:col-span-4';
 
               const cardImage = proj.image || '';
-              const imageCount = proj.images?.length ?? 0;
+              const imageCount = proj.imageCount ?? proj.images?.length ?? 0;
 
               return (
                 <StaggerItem key={proj.id || proj.slug} className={spanClass}>
@@ -430,7 +449,6 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                           src={cardImage}
                           alt={proj.title}
                           fill
-                          unoptimized
                           className="object-cover group-hover:scale-105 transition-transform duration-700"
                           style={
                             proj.slug === 'saas-st-regis'
@@ -479,6 +497,32 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
               );
             })}
           </Stagger>
+
+          {/* Load More Button */}
+          {visibleCount < filteredProjects.length && (
+            <div className="mt-16 flex flex-col items-center justify-center gap-4">
+              <p className="text-xs font-mono tracking-widest uppercase text-slate-400">
+                Showing {visibleProjects.length} of {filteredProjects.length} projects
+              </p>
+              <button
+                type="button"
+                onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-[#0a1124] hover:bg-gold text-gold hover:text-[#0b0f19] border border-gold/40 text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300 rounded-sm shadow-lg group cursor-pointer"
+              >
+                <span>Load More Projects</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4 transition-transform group-hover:translate-y-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-20">

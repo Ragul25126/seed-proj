@@ -41,6 +41,7 @@ function revalidateProjectRoutes(slug?: string) {
   revalidatePath('/api/project-images');
   revalidateTag('projects');
   revalidateTag('all-projects-list');
+  revalidateTag('projects-summary');
   revalidateTag('recent-projects');
   revalidateTag('stats');
   revalidateTag('dashboard-stats');

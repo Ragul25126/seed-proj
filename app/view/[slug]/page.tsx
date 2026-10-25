@@ -6,8 +6,7 @@ import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300;
 
 async function findProjectBySlug(slugParam: string) {
   const normalized = slugParam.toLowerCase().trim();
@@ -158,7 +157,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/projects/iconic-tower-hero.png"
+                  src="/projects/iconic-tower-hero.webp"
                   alt={`${proj.title} – full building photograph`}
                   style={{
                     display: 'block',
@@ -259,7 +258,6 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                       src={img}
                       alt={`${proj.title} Render ${idx + 1}`}
                       fill
-                      unoptimized
                       className={`${(proj.slug === 'saas-st-regis' || img === '/projects/mandarin-wasl-2-new.jpg' || img === '/projects/ellington-hq.png' || img.includes('uptown-mercer-house')) ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-700`}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
