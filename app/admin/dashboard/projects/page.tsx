@@ -1,7 +1,9 @@
+import { requireAdmin } from '../../../../lib/supabase/server';
 import { getAllProjectsCached } from '../../../../lib/supabase/cached-queries';
 import ProjectsClient from './ProjectsClient';
 
 export default async function AdminProjectsPage() {
+  await requireAdmin();
   const projects = await getAllProjectsCached();
 
   return (

@@ -4,10 +4,12 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { getSupabaseSecretKey } from './admin';
 
 // Helper to sign a message using HMAC SHA-256 for fast edge-native session caching
-async function getAdminToken(userId: string) {
+async function getAdminToken(userId: string): Promise<string | null> {
+  const secret = getSupabaseSecretKey();
+  if (!secret) return null;
+
   const encoder = new TextEncoder();
-  // Use the actual service-role key as the HMAC secret so tokens are env-specific
-  const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
+  const secretKey = encoder.encode(secret);
   const data = encoder.encode(userId);
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
@@ -20,10 +22,13 @@ async function getAdminToken(userId: string) {
   return btoa(String.fromCharCode(...new Uint8Array(signature)));
 }
 
-async function verifyAdminToken(userId: string, token: string) {
+async function verifyAdminToken(userId: string, token: string): Promise<boolean> {
   try {
+    const secret = getSupabaseSecretKey();
+    if (!secret) return false;
+
     const encoder = new TextEncoder();
-    const secretKey = encoder.encode(getSupabaseSecretKey() || 'seed_admin_fallback_secret');
+    const secretKey = encoder.encode(secret);
     const data = encoder.encode(userId);
     const cryptoKey = await crypto.subtle.importKey(
       'raw',
@@ -192,15 +197,17 @@ export async function updateSession(request: NextRequest) {
         return redirectRes;
       }
       
-      // Cache verified admin status in a signed cookie for 7 days
+      // Cache verified admin status in a signed cookie for 7 days if secret key is configured
       const token = await getAdminToken(user.id);
-      supabaseResponse.cookies.set('seed_admin_token', token, {
-        path: '/',
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        maxAge: 7 * 24 * 60 * 60, // 7 days
-      });
+      if (token) {
+        supabaseResponse.cookies.set('seed_admin_token', token, {
+          path: '/',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'lax',
+          maxAge: 7 * 24 * 60 * 60, // 7 days
+        });
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { requireAdmin } from '../../../../lib/supabase/server';
 import { getAllVacanciesCached } from '../../../../lib/supabase/cached-queries';
 import VacanciesClient from './VacanciesClient';
 
@@ -8,6 +9,7 @@ export const metadata = {
 };
 
 export default async function VacanciesAdminPage() {
+  await requireAdmin();
   const vacancies = await getAllVacanciesCached();
 
   return (

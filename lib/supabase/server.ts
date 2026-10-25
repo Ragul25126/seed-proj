@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createAdminClient } from './admin';
 import dns from 'dns';
 
 // Force Node.js to prefer IPv4 DNS resolution to avoid NAT64/IPv6 timeout hangs
@@ -60,4 +62,38 @@ export function createClient() {
       }
     });
   }
+}
+
+/**
+ * Server-side authorization helper for Next.js App Router Server Components.
+ *
+ * 1. Authenticates the incoming request session via createClient().auth.getUser().
+ * 2. Verifies that the authenticated user exists in the public.admin_users table.
+ * 3. Fails closed:
+ *    - Unauthenticated: redirects to /admin/login
+ *    - Authenticated non-admin / lookup failure: redirects to /admin/login?error=unauthorized
+ * 4. Returns the verified User object.
+ */
+export async function requireAdmin() {
+  const supabase = createClient();
+  const { data: { user }, error: authErr } = await supabase.auth.getUser();
+
+  if (authErr || !user) {
+    redirect('/admin/login');
+  }
+
+  const normalizedEmail = user.email ? user.email.toLowerCase() : '';
+  const authLookupClient = createAdminClient();
+
+  const { data: adminUser, error: checkErr } = await authLookupClient
+    .from('admin_users')
+    .select('id, email')
+    .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+    .maybeSingle();
+
+  if (checkErr || !adminUser) {
+    redirect('/admin/login?error=unauthorized');
+  }
+
+  return user;
 }

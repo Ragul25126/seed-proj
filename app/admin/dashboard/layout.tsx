@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { createClient } from '../../../lib/supabase/server';
+import { requireAdmin } from '../../../lib/supabase/server';
 import { logoutAction } from '../actions';
-
 import { getUnreadInquiriesCount } from '../../../lib/supabase/cached-queries';
 
 interface AdminLayoutProps {
@@ -11,19 +9,11 @@ interface AdminLayoutProps {
 }
 
 export default async function AdminDashboardLayout({ children }: AdminLayoutProps) {
-  const supabase = createClient();
-  
-  const [
-    { data: { user } },
-    unreadCount
-  ] = await Promise.all([
-    supabase.auth.getUser(),
-    getUnreadInquiriesCount()
-  ]);
+  // 1. Enforce server-side authentication and admin authorization first
+  const user = await requireAdmin();
 
-  if (!user) {
-    redirect('/admin/login');
-  }
+  // 2. Query unread inquiries count only after verified authorization
+  const unreadCount = await getUnreadInquiriesCount();
 
   return (
     <div className="min-h-screen bg-[#070b13] text-white flex flex-col md:flex-row font-sans">

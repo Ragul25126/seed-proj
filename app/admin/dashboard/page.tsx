@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { requireAdmin } from '../../../lib/supabase/server';
 import {
   getDashboardStats,
   getUnreadInquiriesCount,
@@ -9,6 +10,8 @@ import {
 } from '../../../lib/supabase/cached-queries';
 
 export default async function AdminDashboardOverviewPage() {
+  await requireAdmin();
+
   // Fetch statistics and recent items using cached, parallel queries
   const [
     statsData,
