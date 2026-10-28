@@ -11,7 +11,19 @@ try {
   dns.setDefaultResultOrder('ipv4first');
 } catch (e) {}
 
-// In-memory sliding window rate limiter: max 5 submissions per 10 minutes per IP
+/**
+ * In-memory sliding window rate limiter: max 5 submissions per 10 minutes per IP.
+ *
+ * SERVERLESS ARCHITECTURE LIMITATION & RISK DOCUMENTATION:
+ * This in-memory Map is maintained within the single Node.js runtime process instance.
+ * In a distributed, auto-scaling platform like Vercel, requests may be routed to different
+ * concurrent containers or cold-start instances, each maintaining its own independent memory.
+ * It reliably protects an individual active serverless instance against burst flooding, but
+ * it does NOT enforce a globally coordinated rate limit across multiple concurrent Vercel
+ * serverless function instances. To achieve synchronized multi-instance rate limiting without
+ * third-party packages, an external distributed store (such as Upstash Redis or Vercel KV)
+ * or edge-level firewall rules (e.g. Vercel WAF / Cloudflare) would be required.
+ */
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
 const ipSubmissions = new Map<string, number[]>();
@@ -23,6 +35,7 @@ function isRateLimited(ip: string): boolean {
 
   if (timestamps.length >= MAX_REQUESTS_PER_WINDOW) {
     ipSubmissions.set(ip, timestamps);
+    // Blocked requests do NOT append `now`, ensuring the rate-limit window is not extended
     return true;
   }
 
@@ -42,6 +55,55 @@ function isRateLimited(ip: string): boolean {
   }
 
   return false;
+}
+
+/**
+ * Safely extracts the client IP address in a Vercel-deployed Next.js environment.
+ *
+ * VERCEL HEADER TRUST ARCHITECTURE:
+ * 1. 'x-real-ip': In Vercel's edge network, Vercel strips any client-supplied 'x-real-ip'
+ *    headers and sets this header to the connecting client's true TCP/IP address. This is
+ *    the primary trusted header in production.
+ * 2. 'x-vercel-forwarded-for': Vercel-specific forwarded chain populated by Vercel edge.
+ * 3. 'x-forwarded-for': Standard proxy header. When an attacker sends 'X-Forwarded-For: spoofed-ip',
+ *    upstream reverse proxies APPEND the true IP at the end ('spoofed-ip, real-client-ip').
+ *    Therefore, taking the FIRST IP is vulnerable to spoofing. If inspecting 'x-forwarded-for',
+ *    we take the LAST entry added by the trusted proxy hop.
+ * 4. Fallback: If no proxy headers exist (e.g. direct local development), returns '127.0.0.1'
+ *    in development, or 'unresolved-client' in production. All unidentifiable requests in production
+ *    share the 'unresolved-client' bucket to prevent unmetered bypass.
+ */
+function getClientIp(req: NextRequest): string {
+  // 1. Primary: Vercel-sanitized real client IP
+  const realIp = req.headers.get('x-real-ip')?.trim();
+  if (realIp) {
+    return realIp;
+  }
+
+  // 2. Secondary: Vercel edge proxy forwarded header (take rightmost hop)
+  const vercelForwarded = req.headers.get('x-vercel-forwarded-for')?.trim();
+  if (vercelForwarded) {
+    const parts = vercelForwarded.split(',').map((p) => p.trim()).filter(Boolean);
+    if (parts.length > 0) {
+      return parts[parts.length - 1];
+    }
+  }
+
+  // 3. Fallback: Standard x-forwarded-for (take rightmost hop added by outermost proxy)
+  const forwarded = req.headers.get('x-forwarded-for')?.trim();
+  if (forwarded) {
+    const parts = forwarded.split(',').map((p) => p.trim()).filter(Boolean);
+    if (parts.length > 0) {
+      return parts[parts.length - 1];
+    }
+  }
+
+  // 4. Safe fallback when running without reverse proxy
+  if (process.env.NODE_ENV === 'development') {
+    return '127.0.0.1';
+  }
+
+  return 'unresolved-client';
 }
 
 // Forward inquiry via Resend API if configured
@@ -135,12 +197,49 @@ async function forwardInquiryEmail(data: {
 }
 
 export async function POST(req: NextRequest) {
-  // Rate limiting check
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-    req.headers.get('x-real-ip') ||
-    '127.0.0.1';
+  // 1. Payload size guard: reject payloads larger than 64 KB before parsing
+  const contentLength = req.headers.get('content-length');
+  if (contentLength && parseInt(contentLength, 10) > 65536) {
+    return NextResponse.json({ error: 'Payload too large' }, { status: 413 });
+  }
 
+  // 2. Request body parsing and structure validation
+  let body: any;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 });
+  }
+
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
+
+  // Individual field length safety guard (prevents memory/DB bloat)
+  const MAX_FIELD_LENGTH = 10000;
+  for (const [key, value] of Object.entries(body)) {
+    if (typeof value === 'string' && value.length > MAX_FIELD_LENGTH) {
+      return NextResponse.json({ error: `Field '${key}' exceeds maximum permitted length` }, { status: 400 });
+    }
+  }
+
+  // 3. Honeypot anti-bot filter:
+  // Checked BEFORE rate limiting so automated bot submissions hitting the honeypot
+  // do NOT consume the rate-limit quota for real users sharing the same network/IP.
+  // Evaluates company_fax (new trap), website (legacy trap), and _gotcha (legacy trap).
+  const isNonEmptyString = (val: unknown): boolean =>
+    typeof val === 'string' && val.trim().length > 0;
+
+  if (
+    isNonEmptyString(body.company_fax) ||
+    isNonEmptyString(body.website) ||
+    isNonEmptyString(body._gotcha)
+  ) {
+    return NextResponse.json({ ok: true, id: 'filtered' });
+  }
+
+  // 4. Rate limiting check (server-side, Vercel-safe client IP extraction)
+  const ip = getClientIp(req);
   if (isRateLimited(ip)) {
     return NextResponse.json(
       { error: 'Too many requests. Please wait a few minutes before submitting another inquiry.' },
@@ -148,29 +247,17 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: any;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
-  }
+  // 5. Support fields from both InquiryForm and ContactPage form
+  const name = (body.name || body.fullName || '').toString().trim();
+  const email = (body.email || '').toString().trim();
+  const phone = (body.phone || '').toString().trim();
+  const subject = (body.subject || body.serviceType || body.service || '').toString().trim();
+  const message = (body.message || body.details || '').toString().trim();
+  const company = (body.company || '').toString().trim();
+  const country = (body.country || '').toString().trim();
+  const sector = (body.sector || '').toString().trim();
 
-  // Honeypot spam trap: if hidden field is filled, silently drop bot submission
-  if (body.website || body._gotcha) {
-    return NextResponse.json({ ok: true, id: 'filtered' });
-  }
-
-  // Support fields from both InquiryForm and ContactPage form
-  const name = (body.name || body.fullName || '').trim();
-  const email = (body.email || '').trim();
-  const phone = (body.phone || '').trim();
-  const subject = (body.subject || body.serviceType || body.service || '').trim();
-  const message = (body.message || body.details || '').trim();
-  const company = (body.company || '').trim();
-  const country = (body.country || '').trim();
-  const sector = (body.sector || '').trim();
-
-  // Validation
+  // 6. Field validation
   if (!name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }

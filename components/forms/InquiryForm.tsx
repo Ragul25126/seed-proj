@@ -33,7 +33,7 @@ export default function InquiryForm({
     email: '',
     serviceType: defaultService || SERVICE_OPTIONS[0],
     details: '',
-    website: '', // Honeypot spam trap
+    company_fax: '', // Honeypot spam trap
   });
 
   const dark = variant === 'dark';
@@ -105,16 +105,34 @@ export default function InquiryForm({
         </div>
       )}
       {/* Honeypot field for spam prevention - hidden from humans */}
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="inquiry-website">Website</label>
+      <div
+        className="hidden"
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          opacity: 0,
+          top: '-9999px',
+          left: '-9999px',
+          pointerEvents: 'none',
+          height: 0,
+          width: 0,
+          overflow: 'hidden',
+          zIndex: -1,
+        }}
+      >
+        <label htmlFor="inquiry-company-fax" className="sr-only" aria-hidden="true">
+          Do not fill this field
+        </label>
         <input
-          id="inquiry-website"
+          id="inquiry-company-fax"
           type="text"
-          name="website"
+          name="company_fax"
           tabIndex={-1}
           autoComplete="off"
-          value={form.website}
-          onChange={(e) => setForm({ ...form, website: e.target.value })}
+          data-lpignore="true"
+          data-1p-ignore="true"
+          value={form.company_fax}
+          onChange={(e) => setForm({ ...form, company_fax: e.target.value })}
         />
       </div>
       <div>

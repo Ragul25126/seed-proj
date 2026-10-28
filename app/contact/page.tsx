@@ -104,7 +104,7 @@ export default function ContactPage() {
     service: 'Select Service Required',
     sector: 'Select Project Sector',
     message: '',
-    website: '', // Honeypot spam trap
+    company_fax: '', // Honeypot spam trap
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -318,16 +318,34 @@ export default function ContactPage() {
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       {/* Honeypot field for anti-spam bots */}
-                      <div className="hidden" aria-hidden="true">
-                        <label htmlFor="contact-website">Website</label>
+                      <div
+                        className="hidden"
+                        aria-hidden="true"
+                        style={{
+                          position: 'absolute',
+                          opacity: 0,
+                          top: '-9999px',
+                          left: '-9999px',
+                          pointerEvents: 'none',
+                          height: 0,
+                          width: 0,
+                          overflow: 'hidden',
+                          zIndex: -1,
+                        }}
+                      >
+                        <label htmlFor="contact-company-fax" className="sr-only" aria-hidden="true">
+                          Do not fill this field
+                        </label>
                         <input
-                          id="contact-website"
+                          id="contact-company-fax"
                           type="text"
-                          name="website"
+                          name="company_fax"
                           tabIndex={-1}
                           autoComplete="off"
-                          value={form.website}
-                          onChange={e => setForm({ ...form, website: e.target.value })}
+                          data-lpignore="true"
+                          data-1p-ignore="true"
+                          value={form.company_fax}
+                          onChange={e => setForm({ ...form, company_fax: e.target.value })}
                         />
                       </div>
                       {error && (
