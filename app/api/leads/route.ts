@@ -106,6 +106,63 @@ function getClientIp(req: NextRequest): string {
   return 'unresolved-client';
 }
 
+/**
+ * HTML-escape helper for untrusted user inputs to prevent HTML/XSS injection in emails.
+ */
+function escapeHtml(str: unknown): string {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Validates an email address.
+ * Rejects control characters, CRLF, whitespace, quotes, HTML characters, and non-conforming formats.
+ * Returns the normalized (trimmed) email string if valid, or null if invalid.
+ */
+function validateEmail(email: unknown): string | null {
+  if (!email || typeof email !== 'string') return null;
+  const trimmed = email.trim();
+  if (trimmed.length === 0 || trimmed.length > 254) return null;
+  if (/[\r\n\t\s"'/<>]/i.test(trimmed)) {
+    return null;
+  }
+  if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(trimmed)) {
+    return null;
+  }
+  return trimmed;
+}
+
+/**
+ * Safely format an email address for use in mailto: attributes.
+ * Validates the address format. Returns the mailto: URL if valid,
+ * or null if invalid or unsafe, preventing silent mutation of the destination.
+ */
+function safeMailto(email: string): string | null {
+  const valid = validateEmail(email);
+  if (!valid) return null;
+  return `mailto:${encodeURI(valid)}`;
+}
+
+/**
+ * Safely format a phone number for use in tel: attributes.
+ * Restricts to valid telephone characters (digits, +, -, (, ), ., and spaces).
+ * Returns the tel: URI if valid digits are present, or null if invalid.
+ */
+function safeTel(phone: string): string | null {
+  if (!phone || typeof phone !== 'string') return null;
+  const trimmed = phone.trim();
+  if (/[\r\n\t"'/<>]/i.test(trimmed)) return null;
+  if (!/^[0-9+\-().\s]+$/.test(trimmed) || !/\d/.test(trimmed)) {
+    return null;
+  }
+  return `tel:${encodeURIComponent(trimmed)}`;
+}
+
 // Forward inquiry via Resend API if configured
 async function forwardInquiryEmail(data: {
   id: string;
@@ -123,8 +180,36 @@ async function forwardInquiryEmail(data: {
     return;
   }
 
+  // Ensure the inquiry email is validated; never use an unvalidated address in the Resend payload
+  const validatedEmail = validateEmail(data.email);
+  if (!validatedEmail) {
+    console.error('Cannot forward inquiry email: invalid or unvalidated email address');
+    return;
+  }
+
   const toEmail = process.env.CONTACT_EMAIL_TO || 'contact@seedengineering.com';
   const fromEmail = process.env.CONTACT_EMAIL_FROM || 'SEED Engineering Inquiries <onboarding@resend.dev>';
+
+  // Clean and length-limit each interpolated field for the email subject header (strip all CR/LF)
+  const cleanName = (data.name || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 100);
+  const serviceOrCompany = data.service || data.company || 'General';
+  const cleanCategory = serviceOrCompany.replace(/[\r\n]+/g, ' ').trim().slice(0, 100);
+  const emailSubject = `New Inquiry: ${cleanName} - ${cleanCategory}`.slice(0, 250);
+
+  // Safely resolve mailto: and tel: links; reuse validated email for display and link logic
+  const mailtoUrl = safeMailto(validatedEmail);
+  const emailFieldHtml = mailtoUrl
+    ? `<a href="${escapeHtml(mailtoUrl)}" style="color: #d4af37;">${escapeHtml(validatedEmail)}</a>`
+    : `<span style="color: #d4af37;">${escapeHtml(validatedEmail)}</span>`;
+
+  const telUrl = data.phone ? safeTel(data.phone) : null;
+  const phoneFieldHtml = data.phone
+    ? `<div class="field"><div class="label">Phone</div><div class="value">${
+        telUrl
+          ? `<a href="${escapeHtml(telUrl)}" style="color: #cbd5e1;">${escapeHtml(data.phone)}</a>`
+          : `<span style="color: #cbd5e1;">${escapeHtml(data.phone)}</span>`
+      }</div></div>`
+    : '';
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -147,24 +232,24 @@ async function forwardInquiryEmail(data: {
       <div class="card">
         <div class="header">
           <h2 class="title">New Website Inquiry</h2>
-          <div class="meta">Received from seedengineering.ae &bull; ID: ${data.id}</div>
+          <div class="meta">Received from seedengineering.ae &bull; ID: ${escapeHtml(data.id)}</div>
         </div>
         <div class="field">
           <div class="label">Client Name</div>
-          <div class="value"><strong>${data.name}</strong></div>
+          <div class="value"><strong>${escapeHtml(data.name)}</strong></div>
         </div>
         <div class="field">
           <div class="label">Email Address</div>
-          <div class="value"><a href="mailto:${data.email}" style="color: #d4af37;">${data.email}</a></div>
+          <div class="value">${emailFieldHtml}</div>
         </div>
-        ${data.phone ? `<div class="field"><div class="label">Phone</div><div class="value"><a href="tel:${data.phone}" style="color: #cbd5e1;">${data.phone}</a></div></div>` : ''}
-        ${data.company ? `<div class="field"><div class="label">Company</div><div class="value">${data.company}</div></div>` : ''}
-        ${data.country ? `<div class="field"><div class="label">Country</div><div class="value">${data.country}</div></div>` : ''}
-        ${data.service ? `<div class="field"><div class="label">Service Required</div><div class="value">${data.service}</div></div>` : ''}
-        ${data.sector ? `<div class="field"><div class="label">Project Sector</div><div class="value">${data.sector}</div></div>` : ''}
+        ${phoneFieldHtml}
+        ${data.company ? `<div class="field"><div class="label">Company</div><div class="value">${escapeHtml(data.company)}</div></div>` : ''}
+        ${data.country ? `<div class="field"><div class="label">Country</div><div class="value">${escapeHtml(data.country)}</div></div>` : ''}
+        ${data.service ? `<div class="field"><div class="label">Service Required</div><div class="value">${escapeHtml(data.service)}</div></div>` : ''}
+        ${data.sector ? `<div class="field"><div class="label">Project Sector</div><div class="value">${escapeHtml(data.sector)}</div></div>` : ''}
         <div class="field" style="margin-top: 24px;">
           <div class="label">Project Description / Message</div>
-          <div class="message-box">${data.message}</div>
+          <div class="message-box">${escapeHtml(data.message)}</div>
         </div>
       </div>
     </body>
@@ -181,8 +266,8 @@ async function forwardInquiryEmail(data: {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        reply_to: data.email,
-        subject: `New Inquiry: ${data.name} - ${data.service || data.company || 'General'}`,
+        reply_to: validatedEmail,
+        subject: emailSubject,
         html: htmlContent,
       }),
     });
@@ -249,7 +334,7 @@ export async function POST(req: NextRequest) {
 
   // 5. Support fields from both InquiryForm and ContactPage form
   const name = (body.name || body.fullName || '').toString().trim();
-  const email = (body.email || '').toString().trim();
+  const rawEmail = (body.email || '').toString().trim();
   const phone = (body.phone || '').toString().trim();
   const subject = (body.subject || body.serviceType || body.service || '').toString().trim();
   const message = (body.message || body.details || '').toString().trim();
@@ -261,7 +346,9 @@ export async function POST(req: NextRequest) {
   if (!name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Validate email address once before database insertion and email forwarding
+  const email = validateEmail(rawEmail);
+  if (!email) {
     return NextResponse.json({ error: 'A valid email address is required' }, { status: 400 });
   }
   if (!message || message.length < 5) {
