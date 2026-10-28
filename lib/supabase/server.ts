@@ -82,13 +82,12 @@ export async function requireAdmin() {
     redirect('/admin/login');
   }
 
-  const normalizedEmail = user.email ? user.email.toLowerCase() : '';
   const authLookupClient = createAdminClient();
 
   const { data: adminUser, error: checkErr } = await authLookupClient
     .from('admin_users')
-    .select('id, email')
-    .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+    .select('id')
+    .eq('id', user.id)
     .maybeSingle();
 
   if (checkErr || !adminUser) {

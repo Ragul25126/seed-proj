@@ -8,22 +8,20 @@ import Footer from '@/components/layout/Footer';
 // ensuring consistent rendering across all platforms (macOS, iOS, Windows, Android).
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-inter',
   display: 'swap',
 });
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
-  style: ['normal', 'italic'],
 });
 
 const dmMono = DM_Mono({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['400', '500'],
   variable: '--font-dm-mono',
   display: 'swap',
 });

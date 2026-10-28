@@ -21,3 +21,11 @@ seed-proj/
 scratch/
 *.mjs
 
+# Database and storage backups
+backups/
+
+# Supabase temporary files
+supabase/.temp/
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

@@ -174,11 +174,10 @@ export async function updateSession(request: NextRequest) {
         auth: { persistSession: false },
       });
 
-      const normalizedEmail = user.email ? user.email.toLowerCase() : '';
       const { data: adminUser, error: adminCheckErr } = await adminClient
         .from('admin_users')
-        .select('id, email')
-        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .select('id')
+        .eq('id', user.id)
         .maybeSingle();
 
       if (adminCheckErr || !adminUser) {
@@ -214,7 +213,6 @@ export async function updateSession(request: NextRequest) {
   // If user is already logged in as admin and tries to hit /admin/login, redirect to /admin
   if (isLoginRoute && user) {
     const secretKey = getSupabaseSecretKey();
-    const normalizedEmail = user.email ? user.email.toLowerCase() : '';
     let adminUser = null;
 
     if (secretKey) {
@@ -223,15 +221,15 @@ export async function updateSession(request: NextRequest) {
       });
       const { data } = await adminClient
         .from('admin_users')
-        .select('id, email')
-        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .select('id')
+        .eq('id', user.id)
         .maybeSingle();
       adminUser = data;
     } else {
       const { data } = await supabase
         .from('admin_users')
-        .select('id, email')
-        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .select('id')
+        .eq('id', user.id)
         .maybeSingle();
       adminUser = data;
     }

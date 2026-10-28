@@ -107,13 +107,12 @@ async function verifyAdmin() {
   }
 
   const adminClient = createAdminClient();
-  const normalizedEmail = user.email ? user.email.toLowerCase() : '';
 
   const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
     await adminClient
       .from('admin_users')
-      .select('id, email')
-      .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+      .select('id')
+      .eq('id', user.id)
       .maybeSingle()
   )) as any;
 
@@ -123,8 +122,8 @@ async function verifyAdmin() {
     const { data: fallbackUser } = (await retrySupabase(async () =>
       await supabase
         .from('admin_users')
-        .select('id, email')
-        .or(`id.eq.${user.id},email.eq.${normalizedEmail}`)
+        .select('id')
+        .eq('id', user.id)
         .maybeSingle()
     )) as any;
 
@@ -249,13 +248,12 @@ export async function loginAction(formData: FormData) {
 
   if (data.user) {
     const adminClient = createAdminClient();
-    const normalizedEmail = (data.user.email || email).toLowerCase();
 
     const { data: adminUser, error: checkErr } = (await retrySupabase(async () =>
       await adminClient
         .from('admin_users')
-        .select('id, email')
-        .or(`id.eq.${data.user.id},email.eq.${normalizedEmail}`)
+        .select('id')
+        .eq('id', data.user.id)
         .maybeSingle()
     )) as any;
 
@@ -265,8 +263,8 @@ export async function loginAction(formData: FormData) {
       const { data: fallbackUser } = (await retrySupabase(async () =>
         await supabase
           .from('admin_users')
-          .select('id, email')
-          .or(`id.eq.${data.user.id},email.eq.${normalizedEmail}`)
+          .select('id')
+          .eq('id', data.user.id)
           .maybeSingle()
       )) as any;
 

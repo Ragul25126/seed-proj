@@ -61,6 +61,7 @@ export default function HomePage() {
                 src="/projects/mandarin-wasl-tower.webp" 
                 alt="MEP Engineering" 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
                 className="object-cover" 
               />
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">
@@ -134,6 +135,7 @@ export default function HomePage() {
                       src={proj.img}
                       alt={proj.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 384px"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -282,6 +284,8 @@ export default function HomePage() {
           src="/city_aerial_night_1780504844349.webp"
           alt="Contact Background"
           fill
+          sizes="100vw"
+          quality={60}
           className="object-cover opacity-50 mix-blend-overlay"
         />
         <div className="absolute inset-0 bg-[#0b0f19]/60" />

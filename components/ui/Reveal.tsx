@@ -14,7 +14,7 @@ export function Reveal({
   as?: any;
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = useMemo(() => motion(As as any), [As]);
+  const MotionTag = useMemo(() => motion.create(As as any), [As]);
   return (
     <MotionTag
       className={className}

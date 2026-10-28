@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import SearchModal from '@/components/search/SearchModal';
+import dynamic from 'next/dynamic';
+
+const SearchModal = dynamic(() => import('@/components/search/SearchModal'), { ssr: false });
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -50,9 +52,11 @@ export default function Navbar() {
           <Image
             src="/seedlogo.png"
             alt="Seed Engineering"
-            width={140}
-            height={42}
+            width={151}
+            height={40}
             className="h-10 w-auto brightness-0 invert"
+            priority
+            decoding="sync"
           />
         </Link>
 
@@ -117,7 +121,7 @@ export default function Navbar() {
     >
       <div
         className="absolute inset-0 opacity-15"
-        style={{ backgroundImage: "url('/seedv3/hero.webp')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{ backgroundImage: open ? "url('/hero.webp')" : undefined, backgroundSize: 'cover', backgroundPosition: 'center' }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/95 to-ink" />
 

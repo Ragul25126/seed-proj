@@ -19,7 +19,7 @@ const SECTORS_DATA = [
     num: '02',
     title: 'Residential',
     filterParam: 'Residential',
-    image: '/sectors/stregis sector image.avif',
+    image: '/projects/stregis sector image.avif',
     desc: 'Designing high-performance residential environments that prioritise comfort, efficiency and reliability. Our integrated engineering solutions support luxury towers, villas and mixed-use communities through every stage of development.',
     cta: 'Explore residential projects →',
   },
@@ -64,7 +64,7 @@ const SECTORS_DATA = [
     num: '07',
     title: 'Sports & Stadiums',
     filterParam: 'Sports',
-    image: '/sectors/dammam stadium.webp',
+    image: '/projects/dammam stadium.webp',
     desc: 'Providing specialist engineering for stadiums, arenas and sports complexes where crowd comfort, life safety and operational resilience are essential to world-class sporting experiences.',
     cta: 'Explore sports projects →',
   },
@@ -117,6 +117,8 @@ export default function SectorsPage() {
             src="/city_aerial_night_1780504844349.webp"
             alt="Engineering Across Every Sector"
             fill
+            sizes="100vw"
+            quality={60}
             className="object-cover opacity-25 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
@@ -153,6 +155,7 @@ export default function SectorsPage() {
                           src={sector.image} 
                           alt={sector.title} 
                           fill 
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60 pointer-events-none" />
