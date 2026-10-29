@@ -51,25 +51,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
   const proj = await findProjectBySlug(params.slug);
 
   if (!proj) {
-    return (
-      <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans pt-40 pb-32 flex items-center">
-        <div className="container mx-auto px-6 lg:px-12 text-center max-w-2xl">
-          <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">PORTFOLIO</span>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Project Not Found</h1>
-          <p className="text-slate-400 font-light text-[15px] mb-8 leading-relaxed">
-            The project you requested could not be found or has been moved.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/projects"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
-            >
-              EXPLORE ALL PROJECTS
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   const details = [

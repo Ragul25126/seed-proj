@@ -212,7 +212,7 @@ export default function Navbar() {
           {/* Footer block */}
           <div className="mt-auto pt-10">
             <Link
-              href="/inquiry"
+              href="/contact"
               className="block w-full text-center bg-champagne hover:bg-white text-navy px-6 py-4 text-sm font-medium tracking-[0.22em] transition-colors mb-6"
             >
               Request a quote
