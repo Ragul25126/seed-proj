@@ -89,6 +89,8 @@ export default function InsightsPage() {
             src="/dubai_skyline_night_1780503516791.webp"
             alt="Insights Hero"
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-20 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
@@ -130,6 +132,7 @@ export default function InsightsPage() {
                         src={news.image}
                         alt={news.headline}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
@@ -185,6 +188,7 @@ export default function InsightsPage() {
                         src={news.image}
                         alt={news.headline}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
@@ -241,6 +245,7 @@ export default function InsightsPage() {
                 src={activeModal.image}
                 alt={activeModal.headline}
                 fill
+                sizes="(max-width: 1024px) 90vw, 800px"
                 className="object-contain"
               />
             </div>

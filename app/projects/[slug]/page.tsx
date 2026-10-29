@@ -7,16 +7,23 @@ import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 export const revalidate = 300;
 
 async function findProjectBySlug(slugParam: string) {
-  const normalized = slugParam.toLowerCase().trim();
+  let decoded = slugParam;
+  try {
+    decoded = decodeURIComponent(slugParam);
+  } catch {}
+  const normalized = decoded.toLowerCase().trim();
   
-  // Try exact match first via database function
-  const proj = await getProjectBySlug(normalized);
+  // Try exact match first via database function (original decoded and lowercase)
+  let proj = await getProjectBySlug(decoded);
+  if (!proj && decoded !== normalized) {
+    proj = await getProjectBySlug(normalized);
+  }
   if (proj) return proj;
 
   // Otherwise fallback to fetching all and doing fuzzy/partial matching locally
   const all = await getAllProjects();
-  const cleanParam = normalized.replace(/[-_ ]+/g, '');
-  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
+  const cleanParam = normalized.replace(/[-_ ,]+/g, '');
+  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ,]+/g, '') === cleanParam);
   if (matchedProj) return matchedProj;
 
   matchedProj = all.find(
@@ -41,9 +48,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!proj) {
     return { title: 'Project Not Found | SEED Engineering' };
   }
+  const title = `${proj.title.trim()} — Project Details`;
+  const desc = `Project details for ${proj.title.trim()} in ${proj.location || 'the Middle East'}. Delivered by SEED Engineering.`;
   return {
-    title: `${proj.title} - Project Details | SEED Engineering`,
-    description: `Project details for ${proj.title} in ${proj.location}. Delivered by SEED Engineering.`,
+    title,
+    description: desc,
+    alternates: {
+      canonical: `/projects/${encodeURIComponent(proj.slug.trim())}`,
+    },
+    openGraph: {
+      title,
+      description: desc,
+      images: proj.image ? [{ url: proj.image }] : ['/seedlogo.png'],
+    },
   };
 }
 
@@ -70,12 +87,16 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-5xl">
         {/* Navigation Bar */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase hover:underline"
-          >
-            ← Back to Projects
-          </Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1 hover:underline"
+            >
+              ← Projects
+            </Link>
+            <span className="text-white/30">/</span>
+            <span className="text-white/60 truncate max-w-xs">{proj.title}</span>
+          </nav>
 
           <Link
             href={`/view/${proj.slug}`}

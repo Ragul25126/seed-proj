@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,6 +18,29 @@ export function generateStaticParams() {
     slug: post.slug,
   }));
 }
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = fallbackPosts.find((p) => p.slug === params.slug);
+  if (!post) {
+    return {
+      title: 'Article Not Found | SEED Engineering',
+      description: 'The requested article could not be found.',
+    };
+  }
+  return {
+    title: post.title,
+    description: post.excerpt || `Read ${post.title} by SEED Engineering.`,
+    alternates: {
+      canonical: `/blog/${encodeURIComponent(post.slug.trim())}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} by SEED Engineering.`,
+      images: post.image ? [{ url: post.image }] : ['/seedlogo.png'],
+    },
+  };
+}
+
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = fallbackPosts.find((p) => p.slug === params.slug);
 
@@ -32,15 +56,17 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     <div className="bg-[#0b0f19] min-h-screen text-white pt-40 pb-24">
       <div className="container mx-auto px-6 lg:px-12">
         
-        {/* Back Link */}
-        <div className="mb-8 max-w-4xl mx-auto">
+        {/* Breadcrumb Navigation */}
+        <nav aria-label="Breadcrumb" className="mb-8 max-w-4xl mx-auto flex items-center gap-2 text-gold text-xs font-bold tracking-[0.15em] uppercase">
           <Link 
             href="/blog" 
-            className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
+            className="hover:underline inline-flex items-center gap-1"
           >
-            {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
+            ← {post.category?.toLowerCase() === 'media coverage' ? 'Back to Media & Coverages' : 'Back to Insights'}
           </Link>
-        </div>
+          <span className="text-white/30">/</span>
+          <span className="text-white/60 truncate max-w-md">{post.title}</span>
+        </nav>
 
         {/* Article Title & Header */}
         <div className="max-w-4xl mx-auto mb-10">

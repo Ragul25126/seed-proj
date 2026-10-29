@@ -3,6 +3,9 @@ import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 export const metadata = {
   title: 'Commercial MEP',
   description: 'MEP consultancy for commercial buildings — towers, offices, mixed-use developments in the UAE.',
+  alternates: {
+    canonical: '/mep/commercial',
+  },
 };
 
 export default function Page() {

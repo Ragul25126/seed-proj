@@ -208,7 +208,7 @@ export const getProjectBySlug = cache(async (slug: string): Promise<Project | nu
                 is_cover
               )
             `)
-            .ilike('slug', `${slug}%`)
+            .ilike('slug', slug)
             .maybeSingle()
         );
 

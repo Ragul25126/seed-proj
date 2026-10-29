@@ -145,6 +145,8 @@ export default function ContactPage() {
             src="/dubai_skyline_night_1780503516791.webp"
             alt="SEED Headquarters"
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-25 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
@@ -196,7 +198,7 @@ export default function ContactPage() {
                       {off.phone && (
                         <div>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Phone</span>
-                          <a href={`tel:${off.phone}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
+                          <a href={`tel:${off.phone.replace(/\s+/g, '')}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
                         </div>
                       )}
                       {off.email && (
@@ -355,80 +357,86 @@ export default function ContactPage() {
                       )}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-fullName" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Full name <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-fullName"
                             type="text"
                             required
                             placeholder="John Doe"
                             value={form.fullName}
                             onChange={e => setForm({ ...form, fullName: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-company" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Company <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-company"
                             type="text"
                             required
                             placeholder="Company / Consultancy Name"
                             value={form.company}
                             onChange={e => setForm({ ...form, company: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-email" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Email address <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-email"
                             type="email"
                             required
                             placeholder="john@company.com"
                             value={form.email}
                             onChange={e => setForm({ ...form, email: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-phone" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Phone number
                           </label>
                           <input
+                            id="contact-phone"
                             type="tel"
                             placeholder="+971 XX XXX XXXX"
                             value={form.phone}
                             onChange={e => setForm({ ...form, phone: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-country" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Country <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-country"
                             type="text"
                             required
                             placeholder="e.g. UAE, Singapore"
                             value={form.country}
                             onChange={e => setForm({ ...form, country: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-service" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Service required
                           </label>
                           <select
+                            id="contact-service"
                             value={form.service}
                             onChange={e => setForm({ ...form, service: e.target.value })}
                             className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm [&>option]:bg-[#0b0f19] cursor-pointer"
@@ -437,10 +445,11 @@ export default function ContactPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-sector" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Project sector
                           </label>
                           <select
+                            id="contact-sector"
                             value={form.sector}
                             onChange={e => setForm({ ...form, sector: e.target.value })}
                             className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm [&>option]:bg-[#0b0f19] cursor-pointer"
@@ -451,16 +460,17 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                        <label htmlFor="contact-message" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                           Project description / message <span className="text-gold">*</span>
                         </label>
                         <textarea
+                          id="contact-message"
                           required
                           rows={5}
                           placeholder="Tell us about your project scope, location, scale, and timeline..."
                           value={form.message}
                           onChange={e => setForm({ ...form, message: e.target.value })}
-                          className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600 resize-y"
+                          className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400 resize-y"
                         />
                       </div>
 

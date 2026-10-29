@@ -5,8 +5,18 @@ import { Button } from '@/components/ui/Button';
 import InquiryForm from '@/components/forms/InquiryForm';
 
 export const metadata = {
-  title: 'Why SEED | Engineering high-performance buildings',
-  description: 'Why developers, PMCs, architects and contractors appoint SEED Engineering. Four pillars: Engineering Excellence, Coordination Expertise, Sustainability Leadership and Commissioning Verification.',
+  title: 'Why SEED — Engineering High-Performance Buildings',
+  description:
+    'Why developers, PMCs, architects and contractors appoint SEED Engineering. Four pillars: Engineering Excellence, Coordination Expertise, Sustainability Leadership and Commissioning Verification.',
+  alternates: {
+    canonical: '/why-seed',
+  },
+  openGraph: {
+    title: 'Why SEED — Engineering High-Performance Buildings',
+    description:
+      'Why developers, PMCs, architects and contractors appoint SEED Engineering. Four pillars: Engineering Excellence, Coordination Expertise, Sustainability Leadership and Commissioning Verification.',
+    images: ['/seedlogo.png'],
+  },
 };
 
 export default function WhySeed() {

@@ -6,8 +6,18 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'Careers | SEED Engineering Consultants',
-  description: 'Join SEED Engineering. Explore current job opportunities across engineering, corporate, and digital engineering disciplines in Dubai and India.',
+  title: 'Careers & Opportunities',
+  description:
+    'Join SEED Engineering. Explore current job opportunities across engineering, corporate, and digital engineering disciplines in Dubai and India.',
+  alternates: {
+    canonical: '/careers',
+  },
+  openGraph: {
+    title: 'Careers & Opportunities — SEED Engineering',
+    description:
+      'Join SEED Engineering. Explore current job opportunities across engineering, corporate, and digital engineering disciplines in Dubai and India.',
+    images: ['/seedlogo.png'],
+  },
 };
 
 export default async function CareersPage() {

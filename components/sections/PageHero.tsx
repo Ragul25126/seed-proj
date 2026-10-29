@@ -9,7 +9,7 @@ export function PageHero({
   title,
   intro,
 }: {
-  eyebrow: string;
+  eyebrow: React.ReactNode;
   title: React.ReactNode;
   intro?: string;
 }) {
@@ -18,16 +18,12 @@ export function PageHero({
       <div className="absolute inset-0 grid-bg opacity-20" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#050816]" />
       <div className="relative max-w-container mx-auto">
-        <Reveal>
-          <div className="mb-8">
-            <span className="label text-champagne tracking-[0.35em]">{eyebrow}</span>
-          </div>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <h1 className="text-white font-serif font-bold tracking-[-0.025em] leading-[1.02] text-[clamp(2.5rem,6vw,5.5rem)] max-w-5xl">
-            {title}
-          </h1>
-        </Reveal>
+        <div className="mb-8">
+          <span className="label text-champagne tracking-[0.35em]">{eyebrow}</span>
+        </div>
+        <h1 className="text-white font-serif font-bold tracking-[-0.025em] leading-[1.02] text-[clamp(2.5rem,6vw,5.5rem)] max-w-5xl">
+          {title}
+        </h1>
         {intro && (
           <Reveal delay={0.16}>
             <p className="mt-10 max-w-2xl text-lg text-white/65 leading-relaxed">{intro}</p>

@@ -109,7 +109,7 @@ With expanding investment landscapes and commitment to sustainable infrastructur
     image: '/blog/sanu-mathew-media-coverage.png',
     content: `Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building Services Industry. With its exemplary expertise and fourteen years of experience, the company seamlessly provides international design standards services at a competitive rate. Having in-house personnel of more than 85 experienced professionals, SEED caters to its esteemed clients with sustainable design. It is consistently striving hard and making sure that the services adhere to QA/QC procedures and are accredited to ISO 9001 standard since its inception.
 
-SEED’s constant efforts and focus on quality in design and deliverables has helped it to knob landmark projects in the Middle-East, Africa and the Indian sub-continent. The company has also gained success in the hospitality sector with a lot of prestigious projects.
+SEED’s constant efforts and focus on quality in design and deliverables has helped it to secure landmark projects in the Middle-East, Africa and the Indian sub-continent. The company has also gained success in the hospitality sector with a lot of prestigious projects.
 
 Meet the Dynamic Persona
 
@@ -155,7 +155,7 @@ The company is continuously engaging its employees in various coaching programs 
 
 Futuristic Vision
 
-SEED has witnessed steady growth to its African business. As a strategy to support this demand and to work more efficiently with our partners a new office is going to be launched in ‘Dar es Salaam’. It is the economic center and a former capita of Tanzania. And as a part of its growth planning in the national market SEED will also establish an office in Mumbai.
+SEED has witnessed steady growth to its African business. As a strategy to support this demand and to work more efficiently with our partners a new office is going to be launched in ‘Dar es Salaam’. It is the economic center and a former capital of Tanzania. And as a part of its growth planning in the national market SEED will also establish an office in Mumbai.
 
 Apart from Growing the business, SEED recognizes its Academic & Social responsibility. SEED has launched a training academy for young engineers and students. ‘SEED ACADEMY’ is one of its kind initiatives to inculcate the budding engineers, architects and technicians with the zeal to conquer the knowledge and understanding which lies in the multifaceted Building Services Industry. As part of the CSR initiative this institute imparts free training and scholarships to needy students to establish a successful career in engineering and built environment fields.
 

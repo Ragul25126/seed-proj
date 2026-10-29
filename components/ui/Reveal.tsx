@@ -1,6 +1,6 @@
 'use client';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode } from 'react';
 
 export function Reveal({
   children,
@@ -14,14 +14,14 @@ export function Reveal({
   as?: any;
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = useMemo(() => motion.create(As as any), [As]);
+  const MotionTag = As === 'div' ? motion.div : (motion as any)[As] || motion.div;
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+      initial={{ opacity: 0, y: reduce ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: '0px 0px -40px 0px' }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </MotionTag>
@@ -42,7 +42,7 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0 }}
+      viewport={{ once: true, margin: '0px 0px -40px 0px' }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: delay } },
@@ -54,12 +54,13 @@ export function Stagger({
 }
 
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 30 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+        hidden: { opacity: 0, y: reduce ? 0 : 20 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
       }}
     >
       {children}

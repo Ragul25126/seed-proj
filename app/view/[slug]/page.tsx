@@ -9,16 +9,23 @@ import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 export const revalidate = 300;
 
 async function findProjectBySlug(slugParam: string) {
-  const normalized = slugParam.toLowerCase().trim();
+  let decoded = slugParam;
+  try {
+    decoded = decodeURIComponent(slugParam);
+  } catch {}
+  const normalized = decoded.toLowerCase().trim();
   
-  // Try exact match first via database function
-  const proj = await getProjectBySlug(normalized);
+  // Try exact match first via database function (original decoded and lowercase)
+  let proj = await getProjectBySlug(decoded);
+  if (!proj && decoded !== normalized) {
+    proj = await getProjectBySlug(normalized);
+  }
   if (proj) return proj;
 
   // Otherwise fallback to fetching all and doing fuzzy/partial matching locally
   const all = await getAllProjects();
-  const cleanParam = normalized.replace(/[-_ ]+/g, '');
-  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ]+/g, '') === cleanParam);
+  const cleanParam = normalized.replace(/[-_ ,]+/g, '');
+  let matchedProj = all.find((p: Project) => p.slug.toLowerCase().replace(/[-_ ,]+/g, '') === cleanParam);
   if (matchedProj) return matchedProj;
 
   matchedProj = all.find(
@@ -44,8 +51,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     return { title: 'Project Not Found | SEED Engineering' };
   }
   return {
-    title: `${proj.title} - Full Case Study | SEED Engineering Projects`,
-    description: `Detailed engineering case study for ${proj.title} in ${proj.location}. Delivered by SEED Engineering.`,
+    title: `${proj.title.trim()} — Case Study`,
+    description: `Detailed engineering case study for ${proj.title.trim()} in ${proj.location || 'the Middle East'}. Delivered by SEED Engineering.`,
+    alternates: {
+      canonical: `/projects/${encodeURIComponent(proj.slug.trim())}`,
+    },
+    openGraph: {
+      title: `${proj.title.trim()} — Case Study`,
+      description: `Detailed engineering case study for ${proj.title.trim()} in ${proj.location || 'the Middle East'}. Delivered by SEED Engineering.`,
+      images: proj.image ? [{ url: proj.image }] : ['/seedlogo.png'],
+    },
   };
 }
 
@@ -79,12 +94,16 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-6">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 text-gold text-[11px] font-semibold tracking-[0.15em] uppercase hover:underline mb-4"
-              >
-                ← BACK TO ALL PROJECTS
-              </Link>
+              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-[11px] font-semibold tracking-[0.15em] uppercase mb-4">
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-1 hover:underline"
+                >
+                  ← Projects
+                </Link>
+                <span className="text-white/30">/</span>
+                <span className="text-white/60 truncate max-w-sm">{proj.title}</span>
+              </nav>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">
                 {proj.sector || proj.clientSector || 'PROJECT CASE STUDY'}
               </span>

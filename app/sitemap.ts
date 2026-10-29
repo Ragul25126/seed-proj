@@ -172,7 +172,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     projectRoutes = projects
       .filter((p) => p.slug && p.is_published !== false)
       .map((p) => ({
-        url: `${base}/projects/${encodeURIComponent(p.slug)}`,
+        url: `${base}/projects/${encodeURIComponent(p.slug.trim())}`,
         lastModified: p.updated_at ? new Date(p.updated_at) : now,
         changeFrequency: 'monthly',
         priority: p.featured ? 0.8 : 0.7,
@@ -185,7 +185,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogRoutes: MetadataRoute.Sitemap = fallbackPosts
     .filter((post) => post.slug)
     .map((post) => ({
-      url: `${base}/blog/${encodeURIComponent(post.slug)}`,
+      url: `${base}/blog/${encodeURIComponent(post.slug.trim())}`,
       lastModified: post.publishedAt ? new Date(post.publishedAt) : now,
       changeFrequency: 'monthly',
       priority: 0.7,

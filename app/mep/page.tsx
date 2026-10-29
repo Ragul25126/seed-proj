@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/sections/PageHero';
 import { Section, SectionLabel } from '@/components/ui/Section';
@@ -9,6 +10,15 @@ export const metadata = {
   title: 'MEP Consultancy — Mechanical, Electrical, Plumbing',
   description:
     'Seed Engineering MEP consultancy in Dubai — engineered systems for buildings that need to work the day they open and a decade later.',
+  alternates: {
+    canonical: '/mep',
+  },
+  openGraph: {
+    title: 'MEP Consultancy — SEED Engineering',
+    description:
+      'Seed Engineering MEP consultancy in Dubai — engineered systems for buildings that need to work the day they open and a decade later.',
+    images: ['/seedlogo.png'],
+  },
 };
 
 const services = [
@@ -88,8 +98,14 @@ export default function MEPOverview() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="placeholder-block bordered aspect-[4/3]">
-              [HERO IMAGE — Engineers on site]
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-[#0a1020] border border-navy/10">
+              <Image
+                src="/modern_mep_interior_1780503503410.webp"
+                alt="Coordinated MEP building systems in commercial development"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
           </Reveal>
         </div>

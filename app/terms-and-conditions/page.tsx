@@ -1,8 +1,12 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions',
-  description: 'Terms & Conditions for SEED Engineering Consultants website.',
+  description: 'Terms and Conditions of use for the SEED Engineering Consultants website.',
+  alternates: {
+    canonical: '/terms-and-conditions',
+  },
 };
 
 export default function TermsAndConditionsPage() {
@@ -31,7 +35,7 @@ export default function TermsAndConditionsPage() {
             {/* HEADER INTRO */}
             <div>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
-                These terms and conditions (“Terms”, “Agreement”) are an agreement between Website Operator (“Website Operator”, “us”, “we” or “our”) and you (“User”, “you” or “your”). This Agreement sets forth the general terms and conditions of your use of the <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a> website and any of its products or services (collectively, “Website” or “Services”).
+                These terms and conditions (“Terms”, “Agreement”) are an agreement between Website Operator (“Website Operator”, “us”, “we” or “our”) and you (“User”, “you” or “your”). This Agreement sets forth the general terms and conditions of your use of the <Link href="/" className="text-gold hover:underline">https://www.seedengineering.com/</Link> website and any of its products or services (collectively, “Website” or “Services”).
               </p>
             </div>
 
@@ -91,7 +95,7 @@ export default function TermsAndConditionsPage() {
                 Contacting us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-6">
-                If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
+                If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to: <a href="mailto:contact@seedengineering.com" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
               </p>
               <p className="text-slate-500 text-xs font-mono">
                 This document was last updated on September 7, 2026.

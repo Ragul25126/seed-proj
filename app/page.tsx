@@ -7,6 +7,9 @@ import { HeroSlider } from '@/components/sections/HeroSlider';
 export const metadata = {
   title: 'SEED Engineering — Engineering high-performance buildings',
   description: 'SEED delivers integrated MEP engineering, sustainability consulting, and commissioning services for complex developments globally.',
+  alternates: {
+    canonical: '/',
+  },
 };
 
 const CORE_SERVICES = [

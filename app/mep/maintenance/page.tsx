@@ -1,8 +1,11 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
 export const metadata = {
-  title: 'MEP Maintenance & Service',
-  description: 'Service contracts and maintenance for MEP systems across Dubai and the UAE.',
+  title: 'MEP Maintenance & Asset Optimization',
+  description: 'Condition assessments, asset optimization, energy audits and MEP maintenance consultancy.',
+  alternates: {
+    canonical: '/mep/maintenance',
+  },
 };
 
 export default function Page() {

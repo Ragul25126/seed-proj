@@ -9,8 +9,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'MEP Projects',
-  description: 'Selected MEP project case studies.',
+  title: 'MEP Projects Portfolio',
+  description: 'Featured MEP engineering projects delivered by SEED Engineering across the Middle East.',
+  alternates: {
+    canonical: '/mep/projects',
+  },
 };
 
 /**

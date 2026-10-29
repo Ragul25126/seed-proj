@@ -1,6 +1,12 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
-export const metadata = { title: 'Pool Maintenance', description: 'Pool maintenance and service contracts across the UAE.' };
+export const metadata = {
+  title: 'Swimming Pool Water Treatment & Maintenance',
+  description: 'Water chemistry, hydraulic filtration maintenance, and operational consulting for pools.',
+  alternates: {
+    canonical: '/pool/maintenance',
+  },
+};
 
 export default function Page() {
   return (

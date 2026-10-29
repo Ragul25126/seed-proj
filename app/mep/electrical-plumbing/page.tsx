@@ -1,8 +1,11 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
 export const metadata = {
-  title: 'Electrical & Plumbing',
-  description: 'Coordinated electrical and plumbing installation for buildings in the UAE.',
+  title: 'Electrical & Plumbing Engineering',
+  description: 'Complete electrical distribution, substations, lighting design, and public health engineering.',
+  alternates: {
+    canonical: '/mep/electrical-plumbing',
+  },
 };
 
 export default function Page() {

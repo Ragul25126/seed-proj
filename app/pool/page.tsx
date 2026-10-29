@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/sections/PageHero';
 import { Section, SectionLabel } from '@/components/ui/Section';
@@ -9,6 +10,15 @@ export const metadata = {
   title: 'Pool Division — Swimming Pool Consultancy',
   description:
     'Seed Engineering Pool Division — bespoke swimming pools for hospitality, private residences and architects.',
+  alternates: {
+    canonical: '/pool',
+  },
+  openGraph: {
+    title: 'Pool Division — SEED Engineering',
+    description:
+      'Seed Engineering Pool Division — bespoke swimming pools for hospitality, private residences and architects.',
+    images: ['/seedlogo.png'],
+  },
 };
 
 const services = [
@@ -86,7 +96,16 @@ export default function PoolOverview() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="placeholder-block bordered aspect-[4/3]">[POOL PHOTO — Hospitality]</div>
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-[#0a1020] border border-navy/10">
+              <Image
+                src="/luxury_resort_pool_1780503490609.webp"
+                alt="SEED Pool Engineering — Hospitality"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
           </Reveal>
         </div>
       </Section>

@@ -1,6 +1,12 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
-export const metadata = { title: 'Pool Construction', description: 'New-build swimming pool design and construction.' };
+export const metadata = {
+  title: 'Swimming Pool Construction & Engineering',
+  description: 'Structural and MEP engineering for commercial, resort, and residential swimming pools.',
+  alternates: {
+    canonical: '/pool/construction',
+  },
+};
 
 export default function Page() {
   return (

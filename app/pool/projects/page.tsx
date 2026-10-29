@@ -9,8 +9,11 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'Pool Projects',
-  description: 'Selected pool projects from Seed Engineering.',
+  title: 'Pool & Water Feature Projects Portfolio',
+  description: 'Portfolio of luxury resort swimming pools, residential features, and aquatic designs.',
+  alternates: {
+    canonical: '/pool/projects',
+  },
 };
 
 /**

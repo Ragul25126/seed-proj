@@ -1,8 +1,11 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
 export const metadata = {
-  title: 'HVAC Systems',
-  description: 'HVAC design, installation and commissioning for the UAE climate.',
+  title: 'HVAC Engineering',
+  description: 'Specialist HVAC engineering, central chiller plant design and ventilation systems.',
+  alternates: {
+    canonical: '/mep/hvac',
+  },
 };
 
 export default function Page() {

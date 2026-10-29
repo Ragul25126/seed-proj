@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -165,18 +163,21 @@ export default function ServicesPage() {
             src="/dubai_skyline_night_1780503516791.webp"
             alt="Services Background"
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-20 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
         </div>
         
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
-          <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-6 block">Our capabilities</span>
-            <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation and coordinated design.
-            </p>
-          </Reveal>
+          <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-6 block">Our capabilities</span>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+            Engineering Services & Capabilities
+          </h1>
+          <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
+            Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation and coordinated design.
+          </p>
         </div>
       </section>
 
@@ -260,6 +261,7 @@ export default function ServicesPage() {
                         src={service.image} 
                         alt={service.title} 
                         fill 
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         className={`${service.id === 'acoustics-consultancy' ? 'object-contain' : 'object-cover group-hover:scale-105'} transition-transform duration-700`}
                       />
                       {service.id !== 'acoustics-consultancy' && (
@@ -292,6 +294,34 @@ export default function ServicesPage() {
                         ))}
                       </div>
                     </div>
+
+                    {service.id === 'mep-design' && (
+                      <>
+                        <span id="fire-protection" className="scroll-mt-28" />
+                        <span id="bim-coordination" className="scroll-mt-28" />
+                      </>
+                    )}
+                    {(service.id === 'mep-design' || service.id === 'mep-supervision') && (
+                      <div className="pt-2">
+                        <Link
+                          href="/mep"
+                          className="inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase hover:underline"
+                        >
+                          Explore MEP Engineering Division →
+                        </Link>
+                      </div>
+                    )}
+
+                    {service.id === 'swimming-pool-water-feature' && (
+                      <div className="pt-2">
+                        <Link
+                          href="/pool"
+                          className="inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase hover:underline"
+                        >
+                          Explore Swimming Pool Division →
+                        </Link>
+                      </div>
+                    )}
                   </Reveal>
                 </div>
 

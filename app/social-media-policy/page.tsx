@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Social Media Policy',
-  description: 'Social Media Policy for SEED Engineering Consultants website.',
+  description: 'Official Social Media Policy and communication standards for SEED Engineering Consultants.',
+  alternates: {
+    canonical: '/social-media-policy',
+  },
 };
 
 export default function SocialMediaPolicyPage() {
@@ -58,7 +61,7 @@ export default function SocialMediaPolicyPage() {
                 Contact Us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
-                If you have any questions about this Privacy Policy, please contact us by email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@seedengineering.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
+                If you have any questions about this Social Media Policy, please contact us by email: <a href="mailto:contact@seedengineering.com" className="text-gold hover:underline font-normal">contact@seedengineering.com</a>.
               </p>
             </div>
 

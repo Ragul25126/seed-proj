@@ -360,7 +360,7 @@ export async function POST(req: NextRequest) {
 
   if (!supabaseUrl || !supabaseAnonKey) {
     console.error('Database inquiry insertion failed: Missing Supabase environment variables');
-    return NextResponse.json({ error: 'Server configuration error: missing Supabase credentials' }, { status: 500 });
+    return NextResponse.json({ error: 'Unable to process inquiry at this time. Please try again later.' }, { status: 500 });
   }
 
   const formattedUrl = supabaseUrl.startsWith('http')
@@ -387,7 +387,7 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     console.error('Database inquiry insertion failed:', error);
-    return NextResponse.json({ error: `Failed to save inquiry: ${error.message}` }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to save inquiry. Please try again later.' }, { status: 500 });
   }
 
   // Bust Next.js cache so any server renders get fresh data

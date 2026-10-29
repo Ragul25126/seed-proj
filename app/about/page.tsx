@@ -119,7 +119,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ SECTION 3 – WHY SEED ============ */}
-      <section className={`${TONE_NAVY} text-white py-24 md:py-32 border-t border-white/5`}>
+      <section id="sustainability" className={`${TONE_NAVY} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="mb-16">
@@ -173,7 +173,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ SECTION 4 – LEADERSHIP ============ */}
-      <section className={`${TONE_BASE} text-white py-24 md:py-32 border-t border-white/5`}>
+      <section id="leadership" className={`${TONE_BASE} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
         <div className="max-w-container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Reveal>
@@ -194,7 +194,13 @@ export default function AboutPage() {
                 <div className={`bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group ${isAnand ? 'cursor-pointer' : ''}`}>
                   <div className="relative aspect-[3/4] w-full mb-7 overflow-hidden bg-[#0b0f19] rounded-sm">
                     {m.image ? (
-                      <Image src={m.image} alt={m.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image
+                        src={m.image}
+                        alt={m.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
                     ) : (
                       <div className="flex items-center justify-center h-full">
                         <span className="font-serif text-7xl text-gold/30 select-none">
@@ -362,7 +368,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ SECTION 7 – AWARDS & RECOGNITION ============ */}
-      <section className={`${TONE_LIFT} text-white py-24 md:py-32 border-t border-white/5`}>
+      <section id="awards" className={`${TONE_LIFT} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -400,7 +406,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ SECTION 8 – GLOBAL PRESENCE ============ */}
-      <section className={`${TONE_NAVY} text-white py-24 md:py-32 border-t border-white/5`}>
+      <section id="offices" className={`${TONE_NAVY} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
         <div className="max-w-container mx-auto px-6">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">

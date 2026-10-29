@@ -19,13 +19,15 @@ export default function Footer() {
       <div className="container mx-auto px-6 lg:px-12 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24 mb-16">
           <div className="md:col-span-5 lg:col-span-6">
-            <Image
-              src="/seedlogo.png"
-              alt="Seed Engineering"
-              width={140}
-              height={42}
-              className="h-10 w-auto brightness-0 invert mb-6"
-            />
+            <Link href="/" className="inline-block" aria-label="SEED Engineering Home">
+              <Image
+                src="/seedlogo.png"
+                alt="Seed Engineering"
+                width={140}
+                height={42}
+                className="h-10 w-auto brightness-0 invert mb-6"
+              />
+            </Link>
             <p className="text-slate-400 text-[14px] leading-relaxed max-w-sm mb-8">
               Engineering high-performance buildings from concept to commissioning. SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.
             </p>

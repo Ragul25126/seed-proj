@@ -2,7 +2,10 @@ import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
 export const metadata = {
   title: 'Residential MEP',
-  description: 'Residential MEP — villas, townhouses, apartments and towers across the UAE.',
+  description: 'MEP engineering consultancy for luxury residential developments and high-rise apartments.',
+  alternates: {
+    canonical: '/mep/residential',
+  },
 };
 
 export default function Page() {

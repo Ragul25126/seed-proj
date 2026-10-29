@@ -5,9 +5,18 @@ import ProjectsContentWrapper from './ProjectsContent';
 export const revalidate = 300;
 
 export const metadata = {
-  title: 'Projects | SEED Engineering',
+  title: 'Projects Portfolio',
   description:
-    'Explore SEED Engineering\'s portfolio of 1,000+ landmark projects across hospitality, residential, commercial, healthcare, and infrastructure sectors.',
+    "Explore SEED Engineering's portfolio of landmark projects across hospitality, residential, commercial, healthcare, and infrastructure sectors.",
+  alternates: {
+    canonical: '/projects',
+  },
+  openGraph: {
+    title: 'Projects Portfolio — SEED Engineering',
+    description:
+      "Explore SEED Engineering's portfolio of landmark projects across hospitality, residential, commercial, healthcare, and infrastructure sectors.",
+    images: ['/seedlogo.png'],
+  },
 };
 
 /**

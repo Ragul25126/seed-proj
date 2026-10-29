@@ -1,8 +1,12 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for SEED Engineering Consultants website.',
+  description: 'Privacy Policy and data protection terms for SEED Engineering Consultants.',
+  alternates: {
+    canonical: '/privacy-policy',
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -35,13 +39,13 @@ export default function PrivacyPolicyPage() {
               </h2>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
                 <p>
-                  SEED operates the <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a> website (the “Service”).
+                  SEED operates the <Link href="/" className="text-gold hover:underline">https://www.seedengineering.com/</Link> website (the “Service”).
                 </p>
                 <p>
                   This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
                 </p>
                 <p>
-                  We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from <a href="https://www.seedengineering.com/" className="text-gold hover:underline">https://www.seedengineering.com/</a>
+                  We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from <Link href="/" className="text-gold hover:underline">https://www.seedengineering.com/</Link>
                 </p>
               </div>
             </div>

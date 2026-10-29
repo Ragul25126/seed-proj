@@ -50,7 +50,8 @@ export async function GET(req: NextRequest) {
     .order('display_order', { ascending: true });
 
   if (imgErr) {
-    return NextResponse.json({ error: imgErr.message }, { status: 500 });
+    console.error('[SEED Project Images API] Database error:', imgErr);
+    return NextResponse.json({ error: 'Failed to retrieve project images' }, { status: 500 });
   }
 
   const rows = imgRows || [];

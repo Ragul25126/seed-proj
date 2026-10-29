@@ -136,8 +136,9 @@ export default function InquiryForm({
         />
       </div>
       <div>
-        <label className={labelCls}>Full name</label>
+        <label htmlFor="inquiry-fullName" className={labelCls}>Full name</label>
         <input
+          id="inquiry-fullName"
           className={inputBase}
           value={form.fullName}
           onChange={(e) => setForm({ ...form, fullName: e.target.value })}
@@ -146,8 +147,9 @@ export default function InquiryForm({
         {errors.fullName && <p className="text-xs text-gold mt-1">{errors.fullName}</p>}
       </div>
       <div>
-        <label className={labelCls}>Phone number</label>
+        <label htmlFor="inquiry-phone" className={labelCls}>Phone number</label>
         <input
+          id="inquiry-phone"
           className={inputBase}
           type="tel"
           value={form.phone}
@@ -157,8 +159,9 @@ export default function InquiryForm({
         {errors.phone && <p className="text-xs text-gold mt-1">{errors.phone}</p>}
       </div>
       <div>
-        <label className={labelCls}>Email address</label>
+        <label htmlFor="inquiry-email" className={labelCls}>Email address</label>
         <input
+          id="inquiry-email"
           className={inputBase}
           type="email"
           value={form.email}
@@ -168,8 +171,9 @@ export default function InquiryForm({
         {errors.email && <p className="text-xs text-gold mt-1">{errors.email}</p>}
       </div>
       <div>
-        <label className={labelCls}>Service type</label>
+        <label htmlFor="inquiry-serviceType" className={labelCls}>Service type</label>
         <select
+          id="inquiry-serviceType"
           className={cn(inputBase, dark ? '[&>option]:text-black' : '')}
           value={form.serviceType}
           onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
@@ -180,8 +184,9 @@ export default function InquiryForm({
         </select>
       </div>
       <div className="md:col-span-2">
-        <label className={labelCls}>Project details</label>
+        <label htmlFor="inquiry-details" className={labelCls}>Project details</label>
         <textarea
+          id="inquiry-details"
           rows={5}
           className={cn(inputBase, 'resize-none')}
           value={form.details}

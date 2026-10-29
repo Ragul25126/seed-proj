@@ -1,6 +1,12 @@
 import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate';
 
-export const metadata = { title: 'Pool Renovation', description: 'Pool renovation and re-engineering across the UAE.' };
+export const metadata = {
+  title: 'Pool Renovation & Modernization',
+  description: 'Engineering upgrades, filtration overhauls, and modernization for existing aquatic facilities.',
+  alternates: {
+    canonical: '/pool/renovation',
+  },
+};
 
 export default function Page() {
   return (

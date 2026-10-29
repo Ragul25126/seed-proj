@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { PageHero } from './PageHero';
 import { Section, SectionLabel } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -34,10 +35,24 @@ export function ServicePageTemplate(props: ServicePageProps) {
   // We do NOT fall back to the hardcoded lib/data.ts portfolio here.
   const projects = props.relatedProjects ?? [];
 
+  const breadcrumb = props.division ? (
+    <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2">
+      <Link href="/services" className="hover:underline">Services</Link>
+      <span className="text-champagne/40">/</span>
+      <Link href={props.division === 'mep' ? '/mep' : '/pool'} className="hover:underline">
+        {props.division === 'mep' ? 'MEP' : 'Pool'}
+      </Link>
+      <span className="text-champagne/40">/</span>
+      <span className="text-white/80">{props.defaultService}</span>
+    </nav>
+  ) : (
+    props.eyebrow
+  );
+
   return (
     <>
       <PageHero
-        eyebrow={props.eyebrow}
+        eyebrow={breadcrumb}
         title={italicLastWord(props.heroTitle)}
         intro={props.heroIntro}
       />
@@ -95,7 +110,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
           </div>
           <div className="lg:col-span-5">
             <p className="text-navy/60 leading-relaxed">
-              Each case study is told as a complete story ΓÇö the brief, the challenge, the
+              Each case study is told as a complete story — the brief, the challenge, the
               engineering answer.
             </p>
           </div>
@@ -117,7 +132,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
             </h2>
             <p className="mt-6 text-white/70 leading-relaxed max-w-md">
               Share what you are working on. A senior member of the studio will reply within one
-              working day ΓÇö not a sales script, an engineer.
+              working day — not a sales script, an engineer.
             </p>
           </div>
           <div className="lg:col-span-7">

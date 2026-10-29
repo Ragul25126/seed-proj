@@ -48,6 +48,7 @@ export function HeroSlider() {
   const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({ 0: true });
   const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
   const [pendingTarget, setPendingTarget] = useState<number | null>(null);
+  const [hasRotated, setHasRotated] = useState(false);
 
   const pendingRef = useRef<number | null>(null);
   pendingRef.current = pendingTarget;
@@ -58,13 +59,15 @@ export function HeroSlider() {
   const failedImagesRef = useRef<Record<number, boolean>>({});
   failedImagesRef.current = failedImages;
 
-  // 1. Defer inactive slide images until after critical initial paint & LCP window (2s)
+  // 1. Defer preloading the next upcoming slide to avoid network contention during initial LCP (3.5s)
   useEffect(() => {
+    if (current > 0) setHasRotated(true);
+    setReadyToPreload(false);
     const idleTimer = setTimeout(() => {
       setReadyToPreload(true);
-    }, 2000);
+    }, 3500);
     return () => clearTimeout(idleTimer);
-  }, []);
+  }, [current]);
 
   // Helper to find the next slide that is loaded and has not failed
   const getNextLoadedSlide = useCallback((fromIdx: number): number => {
@@ -139,9 +142,12 @@ export function HeroSlider() {
     <section id="hero" className="relative h-screen w-full overflow-hidden">
       {slides.map((slide, idx) => {
         const isFailed = failedImages[idx];
+        const isNextSlide = idx === (current + 1) % slides.length;
         const shouldRenderImage =
           !isFailed &&
-          (idx === 0 || readyToPreload || idx === current || idx === pendingTarget);
+          (idx === current ||
+            (readyToPreload && isNextSlide) ||
+            idx === pendingTarget);
 
         return (
           <div
@@ -154,7 +160,7 @@ export function HeroSlider() {
               {shouldRenderImage && (
                 <Image
                   src={slide.image}
-                  alt="Slide Background"
+                  alt={slide.projectInfo}
                   fill
                   sizes="100vw"
                   className="object-cover object-center"
@@ -167,13 +173,13 @@ export function HeroSlider() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
             </div>
 
-            <div className="relative z-10 h-full flex items-center">
-              <div className="container mx-auto px-6 lg:px-12 pt-24">
-                <div className="max-w-4xl">
-                  {idx === current && (
-                    <div className="animate-fade-in-up">
+            {idx === current && (
+              <div className="relative z-10 h-full flex items-center">
+                <div className="container mx-auto px-6 lg:px-12 pt-24">
+                  <div className="max-w-4xl">
+                    <div className={!hasRotated && idx === 0 ? '' : 'animate-fade-in-up'}>
                       <h1
-                        className="text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.25] md:leading-[1.25] lg:leading-[1.25] tracking-tight"
+                        className="text-4xl sm:text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.25] md:leading-[1.25] lg:leading-[1.25] tracking-tight"
                         style={{ lineHeight: 1.25 }}
                       >
                         {slide.title}
@@ -190,15 +196,17 @@ export function HeroSlider() {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Project Details Overlay */}
-            <div className={`absolute bottom-6 md:bottom-12 right-6 md:right-12 z-20 text-right transition-opacity duration-1000 delay-300 ${idx === current ? 'opacity-100' : 'opacity-0'}`}>
-              <span className="text-white text-sm md:text-base font-medium tracking-wide">{slide.projectInfo}</span>
-            </div>
+            {idx === current && (
+              <div className="absolute bottom-6 md:bottom-12 right-6 md:right-12 z-20 text-right transition-opacity duration-1000 delay-300 opacity-100">
+                <span className="text-white text-sm md:text-base font-medium tracking-wide">{slide.projectInfo}</span>
+              </div>
+            )}
 
           </div>
         );

@@ -34,9 +34,7 @@ export const metadata: Metadata = {
   },
   description:
     'SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.',
-  alternates: {
-    canonical: '/',
-  },
+
   openGraph: {
     title: 'SEED Engineering — Engineering high-performance buildings',
     description:
