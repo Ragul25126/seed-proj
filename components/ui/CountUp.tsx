@@ -16,7 +16,7 @@ export function CountUp({
   format?: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0 });
+  const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' });
   const reduce = useReducedMotion();
   const [val, setVal] = useState(reduce ? to : 0);
 

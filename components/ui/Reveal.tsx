@@ -53,16 +53,14 @@ export function Stagger({
   );
 }
 
+const defaultItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
-  const reduce = useReducedMotion();
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: reduce ? 0 : 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-      }}
-    >
+    <motion.div className={className} variants={defaultItemVariants}>
       {children}
     </motion.div>
   );

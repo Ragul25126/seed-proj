@@ -14,14 +14,13 @@ const inter = Inter({
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
 });
 
 const dmMono = DM_Mono({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['500'],
   variable: '--font-dm-mono',
   display: 'swap',
 });
