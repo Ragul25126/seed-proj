@@ -19,8 +19,7 @@ export function PageHero({
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#050816]" />
       <div className="relative max-w-container mx-auto">
         <Reveal>
-          <div className="flex items-center gap-3 mb-8">
-            <span className="block w-12 h-px bg-champagne" />
+          <div className="mb-8">
             <span className="label text-champagne tracking-[0.35em]">{eyebrow}</span>
           </div>
         </Reveal>

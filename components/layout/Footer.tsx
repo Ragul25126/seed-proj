@@ -47,6 +47,7 @@ export default function Footer() {
               <li><Link href="/why-seed" className="hover:text-gold transition-colors">Why SEED</Link></li>
               <li><Link href="/blog" className="hover:text-gold transition-colors">Engineering insights</Link></li>
               <li><Link href="/careers" className="hover:text-gold transition-colors">Careers</Link></li>
+              <li><Link href="/faq" className="hover:text-gold transition-colors">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-gold transition-colors">Contact</Link></li>
             </ul>
           </div>

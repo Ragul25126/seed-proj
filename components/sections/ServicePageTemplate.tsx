@@ -64,10 +64,8 @@ export function ServicePageTemplate(props: ServicePageProps) {
       {/* The Seed Approach */}
       <Section tone="white">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="block w-10 h-px bg-navy/40" />
+          <div className="mb-6">
             <span className="label text-navy/60 tracking-[0.3em]">The SEED approach</span>
-            <span className="block w-10 h-px bg-navy/40" />
           </div>
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.05] text-navy">
             How we do this work <span>differently.</span>

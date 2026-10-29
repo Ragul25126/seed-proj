@@ -40,8 +40,7 @@ export function Section({
 
 export function SectionLabel({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <div className="flex items-center gap-3 mb-6">
-      <span className={cn('block w-10 h-px', dark ? 'bg-champagne' : 'bg-navy/40')} />
+    <div className="mb-6">
       <span className={cn('label tracking-[0.3em]', dark ? 'text-champagne' : 'text-navy/60')}>
         {children}
       </span>
