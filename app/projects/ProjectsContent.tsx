@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,7 +33,7 @@ export type LiveProject = {
 
 // ─── modal ───────────────────────────────────────────────────────────────────
 
-function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => void }) {
+function ProjectModal({ proj, onClose, sector }: { proj: LiveProject; onClose: () => void; sector?: string }) {
   // Fetch live images from Supabase when the modal opens
   const [liveImages, setLiveImages] = useState<string[] | null>(null);
 
@@ -160,7 +160,7 @@ function ProjectModal({ proj, onClose }: { proj: LiveProject; onClose: () => voi
           {/* Link to full page */}
           <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
             <Link
-              href={`/view/${proj.slug}`}
+              href={`/view/${proj.slug}${sector && sector !== 'All Sectors' ? `?sector=${encodeURIComponent(sector)}` : ''}`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
             >
               View full project page →
@@ -183,6 +183,7 @@ const SECTORS = [
   'Hospitality',
   'Residential',
   'Commercial',
+  'Industrial',
   'Education',
   'Healthcare',
   'Retail',
@@ -212,6 +213,9 @@ function matchSector(projSector: string | null | undefined, targetFilter: string
   }
   if (tSec.includes('commercial')) {
     return pSec.includes('commercial') || pSec.includes('office') || pSec.includes('headquarters');
+  }
+  if (tSec.includes('industrial')) {
+    return pSec.includes('industr') || pSec.includes('factory') || pSec.includes('warehouse') || pSec.includes('logistics');
   }
   if (tSec.includes('education')) {
     return pSec.includes('education') || pSec.includes('school') || pSec.includes('university');
@@ -271,8 +275,63 @@ function getCountryFromLocation(location?: string | null): string {
 
 function getInitialSectorFilter(sectorQuery: string | null): string {
   if (!sectorQuery || sectorQuery === 'All Sectors') return 'All Sectors';
-  const matched = SECTORS.find(s => s !== 'All Sectors' && matchSector(sectorQuery, s));
-  return matched || 'All Sectors';
+  const clean = sectorQuery.trim();
+  const matched = SECTORS.find(s => s !== 'All Sectors' && matchSector(s, clean));
+  if (matched) return matched;
+  const reverseMatched = SECTORS.find(s => s !== 'All Sectors' && matchSector(clean, s));
+  return reverseMatched || clean;
+}
+
+
+// ─── scroll restoration helpers ───────────────────────────────────────────────
+
+const SCROLL_STORAGE_KEY = 'seed_projects_scroll_state';
+
+interface SavedScrollState {
+  sector: string;
+  location?: string;
+  scrollY: number;
+  visibleCount: number;
+  projectSlug?: string;
+  timestamp: number;
+  restorePending: boolean;
+}
+
+function getSavedProjectsScroll(): SavedScrollState | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = sessionStorage.getItem(SCROLL_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.scrollY === 'number') {
+      return parsed as SavedScrollState;
+    }
+  } catch {}
+  return null;
+}
+
+function saveProjectsScroll(state: Partial<SavedScrollState> & { scrollY: number; sector: string }) {
+  if (typeof window === 'undefined') return;
+  try {
+    const prev = getSavedProjectsScroll() || ({} as Partial<SavedScrollState>);
+    const updated: SavedScrollState = {
+      sector: state.sector || prev.sector || 'All Sectors',
+      location: state.location ?? prev.location,
+      scrollY: Math.max(0, state.scrollY),
+      visibleCount: state.visibleCount ?? prev.visibleCount ?? 12,
+      projectSlug: state.projectSlug ?? prev.projectSlug,
+      timestamp: Date.now(),
+      restorePending: state.restorePending !== undefined ? state.restorePending : true,
+    };
+    sessionStorage.setItem(SCROLL_STORAGE_KEY, JSON.stringify(updated));
+  } catch {}
+}
+
+function clearProjectsScroll() {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.removeItem(SCROLL_STORAGE_KEY);
+  } catch {}
 }
 
 function ProjectsContent({ projects }: ProjectsContentProps) {
@@ -288,16 +347,163 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
   const [filterLocation, setFilterLocation] = useState('All Locations');
   const [filterSector, setFilterSector] = useState(() => getInitialSectorFilter(sectorQuery));
   const PAGE_SIZE = 12;
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  // Initialize visibleCount from saved state if returning to the same sector
+  const [visibleCount, setVisibleCount] = useState(() => {
+    const saved = getSavedProjectsScroll();
+    const initialSector = getInitialSectorFilter(sectorQuery);
+    if (saved && saved.visibleCount && saved.visibleCount > PAGE_SIZE) {
+      if (
+        !saved.sector ||
+        saved.sector === 'All Sectors' ||
+        matchSector(saved.sector, initialSector) ||
+        matchSector(initialSector, saved.sector)
+      ) {
+        return saved.visibleCount;
+      }
+    }
+    return PAGE_SIZE;
+  });
 
   const [selected, setSelected] = useState<LiveProject | null>(null);
+  const lastScrollYRef = useRef(0);
 
+  // Sync sector filter and visible count from query params
   useEffect(() => {
-    if (sectorQuery) {
-      setFilterSector(getInitialSectorFilter(sectorQuery));
+    const newSec = getInitialSectorFilter(sectorQuery);
+    setFilterSector(newSec);
+
+    const saved = getSavedProjectsScroll();
+    if (
+      saved &&
+      saved.visibleCount &&
+      saved.visibleCount > PAGE_SIZE &&
+      (matchSector(saved.sector, newSec) || matchSector(newSec, saved.sector))
+    ) {
+      setVisibleCount(saved.visibleCount);
+    } else {
       setVisibleCount(PAGE_SIZE);
     }
   }, [sectorQuery]);
+
+  // Passively track scroll position while browsing
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let timeoutId: NodeJS.Timeout;
+    const handleScroll = () => {
+      if (selected) return;
+      const currentY = window.scrollY;
+      lastScrollYRef.current = currentY;
+
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (window.location.pathname.startsWith('/projects') && currentY > 0) {
+          saveProjectsScroll({
+            sector: filterSector,
+            location: filterLocation,
+            scrollY: currentY,
+            visibleCount,
+            restorePending: true,
+          });
+        }
+      }, 120);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [filterSector, filterLocation, visibleCount, selected]);
+
+  // Reliable scroll restoration on mount or sector change
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    const saved = getSavedProjectsScroll();
+    if (!saved || typeof saved.scrollY !== 'number' || saved.scrollY <= 0) return;
+    if (!saved.restorePending) return;
+
+    if (saved.timestamp && Date.now() - saved.timestamp > 30 * 60 * 1000) {
+      clearProjectsScroll();
+      return;
+    }
+
+    const sectorMatches =
+      !saved.sector ||
+      saved.sector === 'All Sectors' ||
+      matchSector(saved.sector, filterSector) ||
+      matchSector(filterSector, saved.sector);
+
+    if (!sectorMatches) return;
+
+    const targetY = saved.scrollY;
+    let attempts = 0;
+    const maxAttempts = 25;
+    let rafId: number;
+    let settleTimeoutId: NodeJS.Timeout;
+
+    const applyScroll = () => {
+      attempts++;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: 'instant' as ScrollBehavior,
+      });
+
+      const diff = Math.abs(window.scrollY - targetY);
+      if (diff <= 10 || attempts >= maxAttempts) {
+        settleTimeoutId = setTimeout(() => {
+          if (Math.abs(window.scrollY - targetY) > 10) {
+            window.scrollTo({
+              top: targetY,
+              behavior: 'instant' as ScrollBehavior,
+            });
+          }
+          saveProjectsScroll({
+            sector: filterSector,
+            scrollY: targetY,
+            restorePending: false,
+          });
+        }, 100);
+      } else {
+        rafId = requestAnimationFrame(applyScroll);
+      }
+    };
+
+    rafId = requestAnimationFrame(applyScroll);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(settleTimeoutId);
+    };
+  }, [filterSector]);
+
+  const handleSectorChange = (newSector: string) => {
+    setFilterSector(newSector);
+    setVisibleCount(PAGE_SIZE);
+
+    if (typeof window !== 'undefined') {
+      clearProjectsScroll();
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      const url = new URL(window.location.href);
+      if (newSector && newSector !== 'All Sectors') {
+        url.searchParams.set('sector', newSector);
+      } else {
+        url.searchParams.delete('sector');
+      }
+      const targetUrl = url.pathname + (url.search ? url.search : '');
+      if (window.location.pathname + window.location.search !== targetUrl) {
+        window.history.pushState({ sector: newSector }, '', targetUrl);
+      }
+    }
+  };
 
   const filteredProjects = projects.filter(p => {
     if (filterLocation !== 'All Locations') {
@@ -314,19 +520,51 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
   const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const openProjectModal = (proj: LiveProject) => {
+    const currentY = window.scrollY || lastScrollYRef.current;
+    lastScrollYRef.current = currentY;
+
+    saveProjectsScroll({
+      sector: filterSector,
+      location: filterLocation,
+      scrollY: currentY,
+      visibleCount,
+      projectSlug: proj.slug,
+      restorePending: true,
+    });
+
     setSelected(proj);
     if (typeof window !== 'undefined' && proj.slug) {
-      const targetUrl = `/projects/${proj.slug}`;
-      if (window.location.pathname !== targetUrl) {
-        window.history.pushState({ slug: proj.slug }, '', targetUrl);
+      const currentParams = new URLSearchParams(window.location.search);
+      const sectorParam = filterSector !== 'All Sectors' ? filterSector : currentParams.get('sector');
+      const query = sectorParam && sectorParam !== 'All Sectors'
+        ? `?sector=${encodeURIComponent(sectorParam)}`
+        : '';
+      const targetUrl = `/projects/${proj.slug}${query}`;
+      if (window.location.pathname + window.location.search !== targetUrl) {
+        window.history.pushState({ slug: proj.slug, sector: sectorParam }, '', targetUrl);
       }
     }
   };
 
   const closeProjectModal = () => {
+    const savedY = lastScrollYRef.current;
     setSelected(null);
-    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/projects/') && window.location.pathname !== '/projects') {
-      window.history.pushState(null, '', '/projects');
+    if (typeof window !== 'undefined') {
+      const currentParams = new URLSearchParams(window.location.search);
+      const sectorParam = filterSector !== 'All Sectors' ? filterSector : currentParams.get('sector');
+      const query = sectorParam && sectorParam !== 'All Sectors'
+        ? `?sector=${encodeURIComponent(sectorParam)}`
+        : '';
+      const returnUrl = `/projects${query}`;
+      if (window.location.pathname + window.location.search !== returnUrl) {
+        window.history.pushState(null, '', returnUrl);
+      }
+
+      if (savedY > 0) {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: savedY, behavior: 'instant' });
+        });
+      }
     }
   };
 
@@ -334,8 +572,19 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
     const handlePopState = () => {
       if (typeof window === 'undefined') return;
       const pathname = window.location.pathname;
+      const currentSearchParams = new URLSearchParams(window.location.search);
+      const sectorFromUrl = currentSearchParams.get('sector');
+
+      setFilterSector(getInitialSectorFilter(sectorFromUrl));
+
       if (pathname === '/projects' || pathname === '/projects/') {
+        const wasModalOpen = !!selected;
         setSelected(null);
+        if (wasModalOpen && lastScrollYRef.current > 0) {
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: lastScrollYRef.current, behavior: 'instant' });
+          });
+        }
       } else if (pathname.startsWith('/projects/')) {
         const slug = pathname.replace('/projects/', '').split('/')[0];
         if (slug) {
@@ -349,7 +598,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [projects]);
+  }, [projects, selected]);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19] pb-32">
@@ -404,10 +653,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     <select
                       className="w-full bg-white/5 border border-white/10 text-[13px] py-4 px-4 text-slate-300 font-medium outline-none focus:ring-1 focus:ring-gold appearance-none cursor-pointer [&>option]:text-gray-900 [&>option]:bg-white"
                       value={filterSector}
-                      onChange={e => {
-                        setFilterSector(e.target.value);
-                        setVisibleCount(PAGE_SIZE);
-                      }}
+                      onChange={e => handleSectorChange(e.target.value)}
                     >
                       {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
@@ -417,9 +663,10 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                 <div className="flex justify-start">
                   <button
                     onClick={() => {
+                      clearProjectsScroll();
+                      window.scrollTo({ top: 0, behavior: 'instant' });
                       setFilterLocation('All Locations');
-                      setFilterSector('All Sectors');
-                      setVisibleCount(PAGE_SIZE);
+                      handleSectorChange('All Sectors');
                     }}
                     className="text-[12px] font-bold text-gold hover:text-yellow-400 uppercase tracking-wider transition-colors"
                   >
@@ -440,6 +687,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
               return (
                 <StaggerItem key={proj.id || proj.slug} className={spanClass}>
                   <div
+                    data-project-slug={proj.slug}
                     className="group bg-[#0f172a] border border-white/5 rounded-sm overflow-hidden hover:border-gold/40 transition-all cursor-pointer flex flex-col h-full"
                     onClick={() => openProjectModal(proj)}
                   >
@@ -547,7 +795,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
         </div>
       </div>
 
-      {selected && <ProjectModal proj={selected} onClose={closeProjectModal} />}
+      {selected && <ProjectModal proj={selected} onClose={closeProjectModal} sector={filterSector} />}
     </div>
   );
 }

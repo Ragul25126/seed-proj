@@ -14,19 +14,22 @@ interface SimilarProjectCardProps {
     image: string;
     images?: string[];
   };
+  sector?: string;
 }
 
-export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
+export function SimilarProjectCard({ project, sector }: SimilarProjectCardProps) {
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const [activeIdx, setActiveIdx] = useState(0);
 
   const activeImage = images[activeIdx] || project.image;
+  const sectorQuery = sector && sector !== 'All Sectors' ? `?sector=${encodeURIComponent(sector.replace(/[^\w\s\-&,]/g, '').trim())}` : '';
+  const projectHref = `/projects/${project.slug}${sectorQuery}`;
 
   return (
     <div className="group block bg-[#0f172a] border border-white/5 hover:border-gold/40 transition-all rounded-sm overflow-hidden h-full flex flex-col">
       {/* Image Preview Area */}
       <div className="relative aspect-[4/3] w-full bg-[#0a1020] overflow-hidden">
-        <Link href={`/projects/${project.slug}`}>
+        <Link href={projectHref}>
           <Image
             src={activeImage}
             alt={`${project.title} render ${activeIdx + 1}`}
@@ -87,7 +90,7 @@ export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
           <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
             {project.sector || project.clientSector}
           </span>
-          <Link href={`/projects/${project.slug}`}>
+          <Link href={projectHref}>
             <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
               {project.title}
             </h3>
@@ -95,7 +98,7 @@ export function SimilarProjectCard({ project }: SimilarProjectCardProps) {
           <p className="text-slate-400 text-[12px]">{project.location.split('**')[0].trim()}</p>
         </div>
         <Link
-          href={`/projects/${project.slug}`}
+          href={projectHref}
           className="text-gold text-[10px] font-bold tracking-[0.1em] uppercase mt-4 block hover:underline"
         >
           View Project Details →

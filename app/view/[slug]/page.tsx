@@ -64,11 +64,29 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ViewFullProjectPage({ params }: { params: { slug: string } }) {
+interface ViewFullProjectPageProps {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ViewFullProjectPage({ params, searchParams }: ViewFullProjectPageProps) {
   const proj = await findProjectBySlug(params.slug);
 
   if (!proj) {
     notFound();
+  }
+
+  const sectorQuery = typeof searchParams?.sector === 'string' ? searchParams.sector.trim() : undefined;
+  const returnToQuery = typeof searchParams?.returnTo === 'string' ? searchParams.returnTo.trim() : undefined;
+
+  let backUrl = '/projects';
+  if (returnToQuery && returnToQuery.startsWith('/projects') && !returnToQuery.startsWith('//') && !returnToQuery.includes('://') && !returnToQuery.includes('\\')) {
+    backUrl = returnToQuery;
+  } else if (sectorQuery && sectorQuery !== 'All Sectors') {
+    const cleanSector = sectorQuery.replace(/[^\w\s\-&,]/g, '').trim();
+    if (cleanSector) {
+      backUrl = `/projects?sector=${encodeURIComponent(cleanSector)}`;
+    }
   }
 
   const allProjects = await getAllProjects();
@@ -96,7 +114,8 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
             <div className="mb-6">
               <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-[11px] font-semibold tracking-[0.15em] uppercase mb-4">
                 <Link
-                  href="/projects"
+                  href={backUrl}
+                  scroll={false}
                   className="inline-flex items-center gap-1 hover:underline"
                 >
                   ← Projects
@@ -289,7 +308,8 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                   <h2 className="font-serif text-3xl font-bold text-white">Similar Engineering Case Studies</h2>
                 </div>
                 <Link
-                  href="/projects"
+                  href={backUrl}
+                  scroll={false}
                   className="hidden md:inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-widest uppercase hover:underline"
                 >
                   VIEW ALL PORTFOLIO →
@@ -299,7 +319,7 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedProjects.map((relProj: Project) => (
-                <SimilarProjectCard key={relProj.slug} project={relProj} />
+                <SimilarProjectCard key={relProj.slug} project={relProj} sector={sectorQuery} />
               ))}
             </div>
           </div>

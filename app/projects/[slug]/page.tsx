@@ -64,12 +64,34 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProjectDetailPage({ params }: { params: { slug: string } }) {
+interface ProjectDetailPageProps {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ProjectDetailPage({ params, searchParams }: ProjectDetailPageProps) {
   const proj = await findProjectBySlug(params.slug);
 
   if (!proj) {
     notFound();
   }
+
+  const sectorQuery = typeof searchParams?.sector === 'string' ? searchParams.sector.trim() : undefined;
+  const returnToQuery = typeof searchParams?.returnTo === 'string' ? searchParams.returnTo.trim() : undefined;
+
+  let backUrl = '/projects';
+  if (returnToQuery && returnToQuery.startsWith('/projects') && !returnToQuery.startsWith('//') && !returnToQuery.includes('://') && !returnToQuery.includes('\\')) {
+    backUrl = returnToQuery;
+  } else if (sectorQuery && sectorQuery !== 'All Sectors') {
+    const cleanSector = sectorQuery.replace(/[^\w\s\-&,]/g, '').trim();
+    if (cleanSector) {
+      backUrl = `/projects?sector=${encodeURIComponent(cleanSector)}`;
+    }
+  }
+
+  const viewFullQuery = sectorQuery && sectorQuery !== 'All Sectors'
+    ? `?sector=${encodeURIComponent(sectorQuery.replace(/[^\w\s\-&,]/g, '').trim())}`
+    : '';
 
   const details = [
     proj.client    && { label: 'Client',    value: proj.client },
@@ -89,7 +111,8 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase">
             <Link
-              href="/projects"
+              href={backUrl}
+              scroll={false}
               className="inline-flex items-center gap-1 hover:underline"
             >
               ← Projects
@@ -99,7 +122,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
           </nav>
 
           <Link
-            href={`/view/${proj.slug}`}
+            href={`/view/${proj.slug}${viewFullQuery}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
           >
             View full project page →
@@ -171,13 +194,13 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
             {/* Link to View Full Project Page */}
             <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-center">
               <Link
-                href="/projects"
+                href={backUrl}
                 className="text-xs text-slate-400 hover:text-white transition-colors"
               >
                 ← Back to Projects
               </Link>
               <Link
-                href={`/view/${proj.slug}`}
+                href={`/view/${proj.slug}${viewFullQuery}`}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
               >
                 View full project page →
