@@ -56,17 +56,15 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     <div className="bg-[#0b0f19] min-h-screen text-white pt-40 pb-24">
       <div className="container mx-auto px-6 lg:px-12">
         
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mb-8 max-w-4xl mx-auto flex items-center gap-2 text-gold text-xs font-bold tracking-[0.15em] uppercase">
+        {/* Back Link */}
+        <div className="mb-8 max-w-4xl mx-auto">
           <Link 
             href="/blog" 
-            className="hover:underline inline-flex items-center gap-1"
+            className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
           >
-            ← {post.category?.toLowerCase() === 'media coverage' ? 'Back to Media & Coverages' : 'Back to Insights'}
+            {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
           </Link>
-          <span className="text-white/30">/</span>
-          <span className="text-white/60 truncate max-w-md">{post.title}</span>
-        </nav>
+        </div>
 
         {/* Article Title & Header */}
         <div className="max-w-4xl mx-auto mb-10">

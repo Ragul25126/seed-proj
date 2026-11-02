@@ -60,7 +60,11 @@ const defaultItemVariants = {
 
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div className={className} variants={defaultItemVariants}>
+    <motion.div
+      className={className}
+      variants={defaultItemVariants}
+      animate="show"
+    >
       {children}
     </motion.div>
   );

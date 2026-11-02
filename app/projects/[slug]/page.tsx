@@ -109,17 +109,13 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-5xl">
         {/* Navigation Bar */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase">
-            <Link
-              href={backUrl}
-              scroll={false}
-              className="inline-flex items-center gap-1 hover:underline"
-            >
-              ← Projects
-            </Link>
-            <span className="text-white/30">/</span>
-            <span className="text-white/60 truncate max-w-xs">{proj.title}</span>
-          </nav>
+          <Link
+            href={backUrl}
+            scroll={false}
+            className="inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-[0.15em] uppercase hover:underline"
+          >
+            ← Back to Projects
+          </Link>
 
           <Link
             href={`/view/${proj.slug}${viewFullQuery}`}
@@ -195,6 +191,7 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
             <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-center">
               <Link
                 href={backUrl}
+                scroll={false}
                 className="text-xs text-slate-400 hover:text-white transition-colors"
               >
                 ← Back to Projects

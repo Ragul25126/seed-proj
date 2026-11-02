@@ -112,17 +112,13 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-6">
-              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-gold text-[11px] font-semibold tracking-[0.15em] uppercase mb-4">
-                <Link
-                  href={backUrl}
-                  scroll={false}
-                  className="inline-flex items-center gap-1 hover:underline"
-                >
-                  ← Projects
-                </Link>
-                <span className="text-white/30">/</span>
-                <span className="text-white/60 truncate max-w-sm">{proj.title}</span>
-              </nav>
+              <Link
+                href={backUrl}
+                scroll={false}
+                className="inline-flex items-center gap-2 text-gold text-[11px] font-semibold tracking-[0.15em] uppercase hover:underline mb-4"
+              >
+                ← BACK TO ALL PROJECTS
+              </Link>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">
                 {proj.sector || proj.clientSector || 'PROJECT CASE STUDY'}
               </span>

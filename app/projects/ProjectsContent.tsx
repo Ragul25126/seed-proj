@@ -205,44 +205,52 @@ function matchSector(projSector: string | null | undefined, targetFilter: string
 
   if (pSec === tSec) return true;
 
-  if (tSec.includes('hospitality')) {
+  if (tSec.includes('hospitality') || tSec.includes('hotel') || tSec.includes('resort')) {
     return pSec.includes('hospitality') || pSec.includes('hotel') || pSec.includes('resort');
   }
-  if (tSec.includes('residential')) {
+  if (tSec.includes('residential') || tSec.includes('housing') || tSec.includes('apartment')) {
     return pSec.includes('residential') || pSec.includes('apartment') || pSec.includes('housing');
   }
-  if (tSec.includes('commercial')) {
+  if (tSec.includes('commercial') || tSec.includes('office') || tSec.includes('headquarters')) {
     return pSec.includes('commercial') || pSec.includes('office') || pSec.includes('headquarters');
   }
-  if (tSec.includes('industrial')) {
+  if (tSec.includes('industrial') || tSec.includes('warehouse') || tSec.includes('factory')) {
     return pSec.includes('industr') || pSec.includes('factory') || pSec.includes('warehouse') || pSec.includes('logistics');
   }
-  if (tSec.includes('education')) {
+  if (tSec.includes('education') || tSec.includes('school') || tSec.includes('university')) {
     return pSec.includes('education') || pSec.includes('school') || pSec.includes('university');
   }
-  if (tSec.includes('healthcare')) {
-    return pSec.includes('healthcare') || pSec.includes('hospital') || pSec.includes('medical');
+  if (tSec.includes('healthcare') || tSec.includes('medical') || tSec.includes('clinic') || (tSec.includes('hospital') && !tSec.includes('hospitality'))) {
+    // Safeguard: "hospitality" contains "hospital" as a prefix substring; exclude hospitality from healthcare
+    if (pSec.includes('hospitality')) return false;
+    return pSec.includes('healthcare') || pSec.includes('hospital') || pSec.includes('medical') || pSec.includes('clinic');
   }
-  if (tSec.includes('retail')) {
+  if (tSec.includes('retail') || tSec.includes('mall') || tSec.includes('shopping')) {
     return pSec.includes('retail') || pSec.includes('mall') || pSec.includes('shopping');
   }
-  if (tSec.includes('sports') || tSec.includes('stadium')) {
+  if (tSec.includes('sports') || tSec.includes('stadium') || tSec.includes('arena')) {
     return pSec.includes('sport') || pSec.includes('stadium') || pSec.includes('arena');
   }
-  if (tSec.includes('entertainment') || tSec.includes('culture')) {
+  if (tSec.includes('entertainment') || tSec.includes('culture') || tSec.includes('museum') || tSec.includes('theatre')) {
     return pSec.includes('entertain') || pSec.includes('cultur') || pSec.includes('museum') || pSec.includes('theatre');
   }
-  if (tSec.includes('public buildings') || tSec.includes('theme park')) {
+  if (tSec.includes('public buildings') || tSec.includes('theme park') || tSec.includes('civic')) {
     return pSec.includes('public') || pSec.includes('theme') || pSec.includes('civic') || pSec.includes('park');
   }
-  if (tSec.includes('aviation')) {
+  if (tSec.includes('aviation') || tSec.includes('airport') || tSec.includes('terminal')) {
     return pSec.includes('aviation') || pSec.includes('airport') || pSec.includes('terminal');
   }
   if (tSec.includes('villas') || tSec.includes('private estate')) {
     return pSec.includes('villa') || pSec.includes('estate');
   }
-  if (tSec.includes('infrastructure') || tSec.includes('sustainable communities')) {
+  if (tSec.includes('infrastructure') || tSec.includes('sustainable communities') || tSec.includes('sustainability')) {
     return pSec.includes('infrastructur') || pSec.includes('sustainab') || pSec.includes('utility') || pSec.includes('community');
+  }
+
+  // Safety fallback: ensure "hospitality" is never matched to "hospital" and vice versa
+  if ((tSec.includes('hospital') && !tSec.includes('hospitality') && pSec.includes('hospitality')) ||
+      (pSec.includes('hospital') && !pSec.includes('hospitality') && tSec.includes('hospitality'))) {
+    return false;
   }
 
   return pSec.includes(tSec) || tSec.includes(pSec);
@@ -348,22 +356,9 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
   const [filterSector, setFilterSector] = useState(() => getInitialSectorFilter(sectorQuery));
   const PAGE_SIZE = 12;
 
-  // Initialize visibleCount from saved state if returning to the same sector
-  const [visibleCount, setVisibleCount] = useState(() => {
-    const saved = getSavedProjectsScroll();
-    const initialSector = getInitialSectorFilter(sectorQuery);
-    if (saved && saved.visibleCount && saved.visibleCount > PAGE_SIZE) {
-      if (
-        !saved.sector ||
-        saved.sector === 'All Sectors' ||
-        matchSector(saved.sector, initialSector) ||
-        matchSector(initialSector, saved.sector)
-      ) {
-        return saved.visibleCount;
-      }
-    }
-    return PAGE_SIZE;
-  });
+  // Always initialize visibleCount to PAGE_SIZE for SSR hydration consistency.
+  // When returning to a sector, visibleCount is restored in useEffect after hydration.
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const [selected, setSelected] = useState<LiveProject | null>(null);
   const lastScrollYRef = useRef(0);
@@ -482,7 +477,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
       cancelAnimationFrame(rafId);
       clearTimeout(settleTimeoutId);
     };
-  }, [filterSector]);
+  }, [filterSector, visibleCount]);
 
   const handleSectorChange = (newSector: string) => {
     setFilterSector(newSector);
@@ -677,7 +672,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
             </div>
           </Reveal>
 
-          <Stagger key={`${filterLocation}-${filterSector}-${visibleCount}`} className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6">
+          <Stagger key={`${filterLocation}-${filterSector}`} className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6">
             {visibleProjects.map((proj) => {
               const spanClass = 'col-span-1 md:col-span-6 lg:col-span-4';
 
@@ -754,8 +749,27 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
               </p>
               <button
                 type="button"
-                onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[#0a1124] hover:bg-gold text-gold hover:text-[#0b0f19] border border-gold/40 text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300 rounded-sm shadow-lg group cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const currentY = window.scrollY;
+                  const newCount = visibleCount + PAGE_SIZE;
+                  setVisibleCount(newCount);
+                  if (typeof window !== 'undefined' && currentY > 0) {
+                    saveProjectsScroll({
+                      sector: filterSector,
+                      location: filterLocation,
+                      scrollY: currentY,
+                      visibleCount: newCount,
+                      restorePending: false,
+                    });
+                    requestAnimationFrame(() => {
+                      if (Math.abs(window.scrollY - currentY) > 5) {
+                        window.scrollTo({ top: currentY, behavior: 'instant' });
+                      }
+                    });
+                  }
+                }}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-[#0a1124] hover:bg-gold text-gold hover:text-[#0b0f19] border border-gold/40 font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-sm shadow-lg group cursor-pointer"
               >
                 <span>Load More Projects</span>
                 <svg
