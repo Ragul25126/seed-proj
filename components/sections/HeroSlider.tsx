@@ -178,20 +178,17 @@ export function HeroSlider() {
                 <div className="container mx-auto px-6 lg:px-12 pt-24">
                   <div className="max-w-4xl">
                     <div className={!hasRotated && idx === 0 ? '' : 'animate-fade-in-up'}>
-                      <h1
-                        className="text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.25] md:leading-[1.25] lg:leading-[1.25] tracking-tight"
-                        style={{ lineHeight: 1.25 }}
-                      >
+                      <h1 className="text-6xl md:text-7xl lg:text-[90px] font-serif font-bold text-[#f8fafc] mb-6 leading-[1.05] tracking-tight">
                         {slide.title}
                       </h1>
                       <p className="text-lg md:text-xl font-sans font-light text-slate-300 max-w-xl leading-relaxed mb-10">
                         {slide.desc}
                       </p>
                       <div className="flex flex-wrap gap-4">
-                        <Link href="/contact" className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 bg-gold text-[#0b0f19] hover:bg-yellow-500">
+                        <Link prefetch={false} href="/contact" className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 bg-gold text-[#0b0f19] hover:bg-yellow-500">
                           REQUEST CONSULTATION
                         </Link>
-                        <Link href="/projects" className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
+                        <Link prefetch={false} href="/projects" className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
                           EXPLORE PROJECTS
                         </Link>
                       </div>
@@ -213,16 +210,21 @@ export function HeroSlider() {
       })}
 
       {/* Carousel indicators */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
+            type="button"
             onClick={() => goToSlide(idx)}
-            className={`h-[2px] transition-all duration-500 ${
-              idx === current ? 'w-12 bg-white' : 'w-6 bg-white/30 hover:bg-white/50'
-            }`}
+            className="py-3 px-1 flex items-center justify-center cursor-pointer"
             aria-label={`Go to slide ${idx + 1}`}
-          />
+          >
+            <span
+              className={`block h-[2px] transition-all duration-500 ${
+                idx === current ? 'w-12 bg-white' : 'w-6 bg-white/30 hover:bg-white/50'
+              }`}
+            />
+          </button>
         ))}
       </div>
     </section>

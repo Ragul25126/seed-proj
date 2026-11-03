@@ -48,14 +48,14 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-5 lg:px-12">
-        <Link href="/" className="flex items-center gap-3 z-[60] relative">
+        <Link href="/" prefetch={false} className="flex items-center gap-3 z-[60] relative">
           <Image
             src="/seedlogo.png"
             alt="Seed Engineering"
             width={140}
             height={42}
             className="h-10 w-auto brightness-0 invert"
-            loading="eager"
+            priority={false}
           />
         </Link>
 
@@ -70,13 +70,13 @@ export default function Navbar() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
-          <Link href="/about" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
-          <Link href="/services" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
-          <Link href="/sectors" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
-          <Link href="/projects" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
-          <Link href="/blog" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Media</Link>
-          <Link href="/careers" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
-          <Link href="/contact" className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
+          <Link href="/about" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
+          <Link href="/services" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
+          <Link href="/sectors" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
+          <Link href="/projects" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
+          <Link href="/blog" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Media</Link>
+          <Link href="/careers" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
+          <Link href="/contact" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -157,51 +157,37 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-            <Link
-              href="/about"
-              onClick={() => setOpen(false)}
+            <Link href="/about" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               About
             </Link>
-            <Link
-              href="/services"
-              onClick={() => setOpen(false)}
+            <Link href="/services" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Services
             </Link>
-            <Link
-              href="/sectors"
-              onClick={() => setOpen(false)}
+            <Link href="/sectors" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Sectors
             </Link>
-            <Link
-              href="/projects"
-              onClick={() => setOpen(false)}
+            <Link href="/projects" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Projects
             </Link>
-            <Link
-              href="/blog"
-              onClick={() => setOpen(false)}
+            <Link href="/blog" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Media
             </Link>
-            <Link
-              href="/careers"
-              onClick={() => setOpen(false)}
+            <Link href="/careers" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Careers
             </Link>
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
+            <Link href="/contact" prefetch={false} onClick={() => setOpen(false)}
               className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Contact
@@ -211,8 +197,7 @@ export default function Navbar() {
           {/* Footer block */}
           <div className="mt-auto pt-10">
             <Link
-              href="/contact"
-              className="block w-full text-center bg-champagne hover:bg-white text-navy px-6 py-4 text-sm font-medium tracking-[0.22em] transition-colors mb-6"
+              href="/contact" prefetch={false} className="block w-full text-center bg-champagne hover:bg-white text-navy px-6 py-4 text-sm font-medium tracking-[0.22em] transition-colors mb-6"
             >
               Request a quote
             </Link>

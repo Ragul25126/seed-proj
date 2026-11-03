@@ -15,15 +15,17 @@ interface SimilarProjectCardProps {
     images?: string[];
   };
   sector?: string;
+  basePath?: string;
 }
 
-export function SimilarProjectCard({ project, sector }: SimilarProjectCardProps) {
+export function SimilarProjectCard({ project, sector, basePath = '/view' }: SimilarProjectCardProps) {
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const [activeIdx, setActiveIdx] = useState(0);
 
   const activeImage = images[activeIdx] || project.image;
   const sectorQuery = sector && sector !== 'All Sectors' ? `?sector=${encodeURIComponent(sector.replace(/[^\w\s\-&,]/g, '').trim())}` : '';
-  const projectHref = `/projects/${project.slug}${sectorQuery}`;
+  const cleanSlug = encodeURIComponent((project.slug || '').trim());
+  const projectHref = `${basePath}/${cleanSlug}${sectorQuery}`;
 
   return (
     <div className="group block bg-[#0f172a] border border-white/5 hover:border-gold/40 transition-all rounded-sm overflow-hidden h-full flex flex-col">
@@ -32,13 +34,13 @@ export function SimilarProjectCard({ project, sector }: SimilarProjectCardProps)
         <Link href={projectHref}>
           <Image
             src={activeImage}
-            alt={`${project.title} render ${activeIdx + 1}`}
+            alt={`${project.title.trim()} render ${activeIdx + 1}`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             style={
-              project.slug === 'saas-st-regis'
+              cleanSlug === 'saas-st-regis'
                 ? { objectPosition: 'center 20%' }
-                : project.slug === 'uptown-mercer-house'
+                : cleanSlug === 'uptown-mercer-house'
                 ? { objectPosition: 'center 40%' }
                 : undefined
             }
@@ -50,7 +52,7 @@ export function SimilarProjectCard({ project, sector }: SimilarProjectCardProps)
         {images.length > 1 && (
           <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-white text-[10px] font-mono tracking-widest px-2.5 py-1 rounded-full border border-white/20 z-10 flex items-center gap-1.5 shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>{images.length} PHOTOS</span>
           </div>
@@ -92,7 +94,7 @@ export function SimilarProjectCard({ project, sector }: SimilarProjectCardProps)
           </span>
           <Link href={projectHref}>
             <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
-              {project.title}
+              {project.title.trim()}
             </h3>
           </Link>
           <p className="text-slate-400 text-[12px]">{project.location.split('**')[0].trim()}</p>

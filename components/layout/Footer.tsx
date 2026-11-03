@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 lg:px-12 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24 mb-16">
           <div className="md:col-span-5 lg:col-span-6">
-            <Link href="/" className="inline-block" aria-label="SEED Engineering Home">
+            <Link href="/" prefetch={false} className="inline-block" aria-label="SEED Engineering Home">
               <Image
                 src="/seedlogo.png"
                 alt="Seed Engineering"
@@ -31,31 +31,31 @@ export default function Footer() {
             <p className="text-slate-400 text-[14px] leading-relaxed max-w-sm mb-8">
               Engineering high-performance buildings from concept to commissioning. SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.
             </p>
-            <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Policies</h4>
+            <h3 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Policies</h3>
             <ul className="space-y-4 text-[13px] text-white/70">
-              <li><Link href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/social-media-policy" className="hover:text-gold transition-colors">Social Media Policy</Link></li>
-              <li><Link href="/terms-and-conditions" className="hover:text-gold transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/privacy-policy" prefetch={false} className="hover:text-gold transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/social-media-policy" prefetch={false} className="hover:text-gold transition-colors">Social Media Policy</Link></li>
+              <li><Link href="/terms-and-conditions" prefetch={false} className="hover:text-gold transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-3 lg:col-span-3">
-            <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Quick links</h4>
+            <h3 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Quick links</h3>
             <ul className="space-y-4 text-[13px] text-white/70">
-              <li><Link href="/about" className="hover:text-gold transition-colors">About</Link></li>
-              <li><Link href="/services" className="hover:text-gold transition-colors">Services</Link></li>
-              <li><Link href="/sectors" className="hover:text-gold transition-colors">Sectors</Link></li>
-              <li><Link href="/projects" className="hover:text-gold transition-colors">Projects</Link></li>
-              <li><Link href="/why-seed" className="hover:text-gold transition-colors">Why SEED</Link></li>
-              <li><Link href="/blog" className="hover:text-gold transition-colors">Engineering insights</Link></li>
-              <li><Link href="/careers" className="hover:text-gold transition-colors">Careers</Link></li>
-              <li><Link href="/faq" className="hover:text-gold transition-colors">FAQ</Link></li>
-              <li><Link href="/contact" className="hover:text-gold transition-colors">Contact</Link></li>
+              <li><Link href="/about" prefetch={false} className="hover:text-gold transition-colors">About</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-gold transition-colors">Services</Link></li>
+              <li><Link href="/sectors" prefetch={false} className="hover:text-gold transition-colors">Sectors</Link></li>
+              <li><Link href="/projects" prefetch={false} className="hover:text-gold transition-colors">Projects</Link></li>
+              <li><Link href="/why-seed" prefetch={false} className="hover:text-gold transition-colors">Why SEED</Link></li>
+              <li><Link href="/blog" prefetch={false} className="hover:text-gold transition-colors">Engineering insights</Link></li>
+              <li><Link href="/careers" prefetch={false} className="hover:text-gold transition-colors">Careers</Link></li>
+              <li><Link href="/faq" prefetch={false} className="hover:text-gold transition-colors">FAQ</Link></li>
+              <li><Link href="/contact" prefetch={false} className="hover:text-gold transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-4 lg:col-span-3">
-            <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Head office</h4>
+            <h3 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Head office</h3>
             <ul className="space-y-4 text-[13px] text-white/70 mb-8">
               <li className="leading-relaxed">
                 #303, Old Commercial Bank of Dubai Building<br/>
@@ -67,7 +67,7 @@ export default function Footer() {
               <li><a href="mailto:contact@seedengineering.com" className="hover:text-gold transition-colors">contact@seedengineering.com</a></li>
             </ul>
             
-            <h4 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Follow us</h4>
+            <h3 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Follow us</h3>
             <ul className="space-y-4 text-[13px] text-white/70 mb-8">
               <li>
                 <a href="https://www.linkedin.com/company/seed-engineering" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors flex items-center gap-2">
@@ -80,9 +80,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col items-center justify-center gap-2 text-center text-[11px] text-white/40">
+        <div className="pt-8 border-t border-white/5 flex flex-col items-center justify-center gap-2 text-center text-[11px] text-slate-400">
           <p>© {year} SEED Engineering. All rights reserved.</p>
-          <p className="text-[11px] text-white/40">
+          <p className="text-[11px] text-slate-400">
             Developed by{' '}
             <a
               href="https://valgrowlabs.com/"

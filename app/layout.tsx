@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, DM_Mono, Playfair_Display } from 'next/font/google';
+import { Inter, DM_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -13,12 +14,51 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const playfair = localFont({
+  src: [
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-Italic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-MediumItalic.woff2',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-SemiBoldItalic.woff2',
+      weight: '600',
+      style: 'italic',
+    },
+    {
+      path: '../public/fonts/playfair/PlayfairDisplay-BoldItalic.woff2',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
   variable: '--font-playfair',
   display: 'swap',
-  style: ['normal', 'italic'],
 });
 
 const dmMono = DM_Mono({

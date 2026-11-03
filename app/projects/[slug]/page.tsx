@@ -89,8 +89,12 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
     }
   }
 
-  const viewFullQuery = sectorQuery && sectorQuery !== 'All Sectors'
-    ? `?sector=${encodeURIComponent(sectorQuery.replace(/[^\w\s\-&,]/g, '').trim())}`
+  const activeSector = (sectorQuery && sectorQuery !== 'All Sectors')
+    ? sectorQuery
+    : (proj.sector || proj.clientSector || '');
+
+  const viewFullQuery = activeSector && activeSector !== 'All Sectors'
+    ? `?sector=${encodeURIComponent(activeSector.replace(/[^\w\s\-&,]/g, '').trim())}`
     : '';
 
   const details = [

@@ -5,6 +5,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
+import { matchSector } from '@/lib/sectorUtils';
 
 export const revalidate = 300;
 
@@ -89,9 +90,19 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
     }
   }
 
+  const activeSector = (sectorQuery && sectorQuery !== 'All Sectors')
+    ? sectorQuery
+    : (proj.sector || proj.clientSector || '');
+
   const allProjects = await getAllProjects();
   const relatedProjects = allProjects
-    .filter((p: Project) => p.slug !== proj.slug && (p.sector === proj.sector || p.division === proj.division))
+    .filter((p: Project) => {
+      if (p.slug === proj.slug) return false;
+      if (activeSector) {
+        return matchSector(p.sector || p.clientSector || p.client_sector, activeSector);
+      }
+      return Boolean(proj.sector && p.sector === proj.sector);
+    })
     .slice(0, 3);
 
   const details = [
@@ -292,35 +303,53 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
       )}
 
       {/* SIMILAR PROJECTS */}
-      {relatedProjects.length > 0 && (
-        <section className="py-20 bg-[#070b13]">
-          <div className="container mx-auto px-6 lg:px-12">
-            <Reveal>
-              <div className="flex justify-between items-end mb-12">
-                <div>
-                  <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-2 block">
-                    RELATED EXPERIENCE
-                  </span>
-                  <h2 className="font-serif text-3xl font-bold text-white">Similar Engineering Case Studies</h2>
-                </div>
-                <Link
-                  href={backUrl}
-                  scroll={false}
-                  className="hidden md:inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-widest uppercase hover:underline"
-                >
-                  VIEW ALL PORTFOLIO →
-                </Link>
+      <section className="py-20 bg-[#070b13]">
+        <div className="container mx-auto px-6 lg:px-12">
+          <Reveal>
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-2 block">
+                  RELATED EXPERIENCE
+                </span>
+                <h2 className="font-serif text-3xl font-bold text-white">Similar Engineering Case Studies</h2>
               </div>
-            </Reveal>
+              <Link
+                href={backUrl}
+                scroll={false}
+                className="hidden md:inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-widest uppercase hover:underline"
+              >
+                VIEW ALL PORTFOLIO →
+              </Link>
+            </div>
+          </Reveal>
 
+          {relatedProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedProjects.map((relProj: Project) => (
-                <SimilarProjectCard key={relProj.slug} project={relProj} sector={sectorQuery} />
+                <SimilarProjectCard
+                  key={relProj.slug}
+                  project={relProj}
+                  sector={activeSector}
+                  basePath="/view"
+                />
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="py-12 px-6 rounded-sm border border-white/5 bg-[#0a1020]/60 text-center max-w-xl mx-auto">
+              <p className="text-slate-400 text-sm font-light leading-relaxed mb-4">
+                No other engineering case studies are currently listed under this sector.
+              </p>
+              <Link
+                href={backUrl}
+                scroll={false}
+                className="inline-flex items-center gap-2 text-gold text-xs font-semibold tracking-widest uppercase hover:underline"
+              >
+                ← Explore All Projects
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

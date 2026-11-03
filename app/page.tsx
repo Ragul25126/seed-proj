@@ -53,7 +53,7 @@ export default function HomePage() {
                   Operating across the Middle East, Africa, and Asia since 2005 — with 300+ engineers across 7 offices.
                 </p>
               </div>
-              <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-300 bg-white text-[#0b0f19] hover:bg-slate-200">
+              <Link href="/services" prefetch={false} className="inline-flex items-center justify-center px-8 py-4 font-sans text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-300 bg-white text-[#0b0f19] hover:bg-slate-200">
                 Our capabilities
               </Link>
             </Reveal>
@@ -91,7 +91,7 @@ export default function HomePage() {
                 From high-rise luxury towers to complex infrastructure, our eight core disciplines provide a seamless delivery framework that governs every phase of your project.
               </p>
               <div className="mt-8">
-                <Link href="/services" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
+                <Link href="/services" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
                   View our services
                 </Link>
               </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
 
           <Reveal>
             <div className="text-center">
-              <Link href="/projects" className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-sans text-[11px] font-semibold tracking-[0.15em] uppercase hover:border-gold hover:text-gold transition-colors duration-300">
+              <Link href="/projects" prefetch={false} className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-sans text-[11px] font-semibold tracking-[0.15em] uppercase hover:border-gold hover:text-gold transition-colors duration-300">
                 View all projects
               </Link>
             </div>
@@ -272,7 +272,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
               {SECTORS.map((sector, i) => (
-                <Link key={i} href={`/projects?sector=${encodeURIComponent(sector)}`} className="px-6 py-4 border border-white/10 bg-transparent text-[11px] font-medium tracking-[0.1em] uppercase text-white hover:border-gold hover:text-gold transition-colors cursor-pointer block">
+                <Link key={i} href={`/projects?sector=${encodeURIComponent(sector)}`} prefetch={false} className="px-6 py-4 border border-white/10 bg-transparent text-[11px] font-medium tracking-[0.1em] uppercase text-white hover:border-gold hover:text-gold transition-colors cursor-pointer block">
                   {sector}
                 </Link>
               ))}
@@ -302,10 +302,10 @@ export default function HomePage() {
               Speak with our engineering team about MEP design, sustainability, BIM coordination and commissioning requirements.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
+              <Link href="/contact" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
                 Request consultation
               </Link>
-              <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
+              <Link href="/projects" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
                 Explore projects
               </Link>
             </div>
