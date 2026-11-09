@@ -118,15 +118,8 @@ function getPublicClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
     process.env.SUPABASE_ANON_KEY ||
-    ''
+    'placeholder-anon-key'
   ).trim();
-
-  if (!anonKey) {
-    throw new Error(
-      '[SEED Supabase] Missing public Supabase credentials. ' +
-      'Please ensure NEXT_PUBLIC_SUPABASE_ANON_KEY or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is configured in deployment environment variables.'
-    );
-  }
 
   const formattedUrl = rawUrl.startsWith('http')
     ? rawUrl
@@ -189,8 +182,7 @@ export const getProjectBySlug = cache(async (slug: string): Promise<Project | nu
       );
 
       if (error && error.code !== 'PGRST116') {
-        console.error(`[SEED Supabase] Error fetching project by slug "${slug}":`, error.message);
-        throw new Error(`[SEED Supabase] Database query failed for project "${slug}": ${error.message}`);
+        console.warn(`[SEED Supabase] Warning fetching project by slug "${slug}":`, error.message);
       }
 
       if (!project) {
@@ -213,13 +205,33 @@ export const getProjectBySlug = cache(async (slug: string): Promise<Project | nu
         );
 
         if (fallbackError && fallbackError.code !== 'PGRST116') {
-          console.error(`[SEED Supabase] Error fetching fallback project "${slug}":`, fallbackError.message);
-          throw new Error(`[SEED Supabase] Database fallback query failed: ${fallbackError.message}`);
+          console.warn(`[SEED Supabase] Warning fetching fallback project "${slug}":`, fallbackError.message);
         }
         project = fallback;
       }
 
-      if (!project) return null;
+      if (!project) {
+        // Fallback to static portfolio data from lib/data.ts
+        const { portfolio } = await import('./data');
+        const match = portfolio.find(
+          (p) => p.slug.toLowerCase() === slug.toLowerCase()
+        );
+        if (match) {
+          return {
+            ...match,
+            id: match.slug,
+            location: match.location || '',
+            clientSector: match.clientSector || match.sector || '',
+            projectScale: match.projectScale || '',
+            description: match.description || '',
+            short_description: match.description || '',
+            full_description: match.description || '',
+            images: match.images || (match.image ? [match.image] : []),
+            image: match.image || (match.images && match.images[0]) || '',
+          };
+        }
+        return null;
+      }
 
       const imgs = sortImages(project.project_images || []);
       const coverUrl = pickCoverUrl(imgs);
@@ -273,8 +285,20 @@ export const getAllProjects = cache(
       );
 
       if (error) {
-        console.error('[SEED Supabase] Error fetching all projects:', error.message);
-        throw new Error(`[SEED Supabase] Failed to fetch projects catalogue: ${error.message}`);
+        console.warn('[SEED Supabase] Warning fetching all projects from Supabase:', error.message);
+        const { portfolio } = await import('./data');
+        return portfolio.map((p, idx) => ({
+          ...p,
+          id: String(idx + 1),
+          location: p.location || '',
+          clientSector: p.clientSector || p.sector || '',
+          projectScale: p.projectScale || '',
+          description: p.description || '',
+          short_description: p.description || '',
+          full_description: p.description || '',
+          images: p.images || (p.image ? [p.image] : []),
+          image: p.image || (p.images && p.images[0]) || '',
+        }));
       }
 
       if (!projects) return [];
@@ -346,8 +370,28 @@ export const getProjectsSummary = cache(
       );
 
       if (error) {
-        console.error('[SEED Supabase] Error fetching project summaries:', error.message);
-        throw new Error(`[SEED Supabase] Failed to fetch project summaries catalogue: ${error.message}`);
+        console.warn('[SEED Supabase] Warning fetching project summaries from Supabase:', error.message);
+        const { portfolio } = await import('./data');
+        return portfolio.map((p, idx) => ({
+          id: String(idx + 1),
+          slug: p.slug,
+          title: p.title,
+          location: p.location || '',
+          sector: p.sector || p.clientSector || '',
+          client_sector: p.clientSector || p.sector || '',
+          clientSector: p.clientSector || p.sector || '',
+          client: p.client || '',
+          architect: p.architect || '',
+          services: p.services || '',
+          area: p.area || '',
+          division: p.division || '',
+          project_scale: p.projectScale || '',
+          projectScale: p.projectScale || '',
+          description: p.description || '',
+          short_description: p.description || '',
+          image: p.image || (p.images && p.images[0]) || '',
+          imageCount: p.images ? p.images.length : (p.image ? 1 : 0),
+        }));
       }
 
       if (!projects) return [];

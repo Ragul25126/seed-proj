@@ -11,60 +11,13 @@ const TONE_BASE = 'bg-[#0b0f19]';
 const TONE_LIFT = 'bg-[#0f172a]';
 const TONE_NAVY = 'bg-[#0a1124]';
 
-const AWARDS = [
-  {
-    organization: 'Big Project Middle East Awards 2026',
-    items: [
-      {
-        category: 'MEP Project of the Year',
-        details: 'Winner – Wasl Tower',
-      },
-      {
-        category: 'Project of the Year (Residential)',
-        details: 'Honourable Achievement – The St. Regis Branded Residences',
-      },
-    ],
-  },
-  {
-    organization: 'ISHRAE UAE MEERA Awards',
-    items: [
-      {
-        category: '2026 – MEP Project of the Year',
-        details: 'Highly Commended – Hilton & Holiday Inn',
-      },
-      {
-        category: '2025 – Project of the Year',
-        details: 'Highly Commended – Wasl Tower',
-      },
-    ],
-  },
-  {
-    organization: 'MEP Middle East Awards 2026',
-    items: [
-      {
-        category: 'Mechanical Project of the Year',
-        details: 'Highly Commended – Wasl Tower',
-      },
-    ],
-  },
-  {
-    organization: 'Middle East Consultant Awards 2025',
-    items: [
-      {
-        category: 'Executive of the Year – Male',
-        details: 'Honourable Achievement – Sanu Mathew',
-      },
-    ],
-  },
-];
-
 const GLOBAL_OFFICES = [
   { city: 'Dubai', country: 'United Arab Emirates', role: 'Headquarters & Regional Design Hub', flag: '🇦🇪' },
   { city: 'Singapore', country: 'Singapore', role: 'Southeast Asia Regional Hub', flag: '🇸🇬' },
   { city: 'Mumbai', country: 'India', role: 'West India Design', flag: '🇮🇳' },
   { city: 'Kochi', country: 'India', role: 'South India Engineering', flag: '🇮🇳' },
   { city: 'Bengaluru', country: 'India', role: 'Digital Delivery & BIM', flag: '🇮🇳' },
-  { city: 'Gurugram', country: 'India', role: 'North India Regional Office', flag: '🇮🇳' },
+  { city: 'Delhi', country: 'India', role: 'North India Regional Office', flag: '🇮🇳' },
   { city: 'Pune', country: 'India', role: 'Engineering Design', flag: '🇮🇳' },
 ];
 
@@ -189,9 +142,8 @@ export default function AboutPage() {
 
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {leadership.map((m: any) => {
-              const isAnand = m.name === 'Anand Krishnan';
               const cardContent = (
-                <div className={`bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group ${isAnand ? 'cursor-pointer' : ''}`}>
+                <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group">
                   <div className="relative aspect-[3/4] w-full mb-7 overflow-hidden bg-[#0b0f19] rounded-sm">
                     {m.image ? (
                       <Image
@@ -213,15 +165,10 @@ export default function AboutPage() {
                     <h3 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
                       {m.name}
                     </h3>
-                    {m.linkedin && !isAnand && (
+                    {m.linkedin && (
                       <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                       </a>
-                    )}
-                    {isAnand && (
-                      <span className="text-slate-400 group-hover:text-gold transition-colors">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                      </span>
                     )}
                   </div>
                   <p className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-4">{m.role}</p>
@@ -231,13 +178,7 @@ export default function AboutPage() {
 
               return (
                 <StaggerItem key={m._id || m.name} className="flex flex-col">
-                  {isAnand ? (
-                    <Link href="/" className="h-full flex flex-col block">
-                      {cardContent}
-                    </Link>
-                  ) : (
-                    cardContent
-                  )}
+                  {cardContent}
                 </StaggerItem>
               );
             })}
@@ -258,7 +199,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
-              { v: 21, suf: '+', l: 'Years in practice' },
+              { v: 22, suf: '', l: 'Years of experience' },
               { v: 300, suf: '', l: 'Engineering professionals' },
               { v: 7, suf: '', l: 'Global offices' },
               { v: 26, suf: '', l: 'Countries served' },
@@ -276,13 +217,13 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
             {[
-              { v: 50000, suf: '+', l: 'Million sq.ft' },
-              { v: 1000, suf: '+', l: 'Projects', fmt: false },
+              { v: 750, suf: ' M', l: 'Sq.ft of projects undertaken' },
+              { v: 1000, suf: '+', l: 'Projects' },
             ].map((s, idx) => (
               <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className={`font-serif ${s.v === 50000 ? 'text-3xl sm:text-4xl md:text-[2.5rem] lg:text-[3.25rem] xl:text-[3.75rem] tracking-tight whitespace-nowrap' : 'text-5xl md:text-7xl'} font-bold text-gold mb-3`}>
-                    <CountUp to={s.v} suffix={s.suf} format={s.fmt} />
+                  <p className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap">
+                    <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
                 </div>
@@ -367,45 +308,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ============ SECTION 7 – AWARDS & RECOGNITION ============ */}
-      <section id="awards" className={`${TONE_LIFT} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
-        <div className="max-w-container mx-auto px-6">
-          <Reveal>
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
-            </div>
-          </Reveal>
-
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            {AWARDS.map((group, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/10 p-8 md:p-10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-start group">
-                  <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gold shrink-0 group-hover:scale-125 transition-transform" />
-                    <span>{group.organization}</span>
-                  </h3>
-
-                  <div className="space-y-6 flex-grow">
-                    {group.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className={itemIdx > 0 ? 'pt-5 border-t border-white/5' : ''}>
-                        <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">
-                          {item.category}
-                        </p>
-                        <p className="text-slate-200 text-sm md:text-base font-light leading-relaxed">
-                          {item.details}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-      {/* ============ SECTION 8 – GLOBAL PRESENCE ============ */}
+      {/* ============ SECTION 7 – GLOBAL PRESENCE ============ */}
       <section id="offices" className={`${TONE_NAVY} text-white py-24 md:py-32 border-t border-white/5 scroll-mt-24`}>
         <div className="max-w-container mx-auto px-6">
           <Reveal>

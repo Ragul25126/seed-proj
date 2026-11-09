@@ -68,7 +68,7 @@ export default function HomePage() {
                 className="object-cover" 
               />
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">
-                <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">21+</div>
+                <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">22</div>
                 <div className="text-[11px] font-sans font-medium uppercase tracking-wider text-[#0b0f19] leading-tight">
                   Years of<br/>Engineering<br/>excellence
                 </div>
@@ -167,15 +167,15 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
             {[
-              { value: 500, suffix: '', label: 'Projects Delivered' },
-              { value: 1000, suffix: ' M+', label: 'Sq Ft Designed', fmt: false },
-              { value: 26, suffix: '+', label: 'Countries' },
-              { value: 21, suffix: '+', label: 'Years of Experience' },
+              { value: 1000, suffix: '',   label: 'Projects Delivered',              fmt: true  },
+              { value: 750,  suffix: ' M', label: 'Sq. Ft. of Projects Undertaken',  fmt: false },
+              { value: 26,   suffix: '+',  label: 'Countries',                        fmt: false },
+              { value: 22,   suffix: '',   label: 'Years of Experience',              fmt: false },
             ].map((stat, i) => (
               <StaggerItem key={i} className="px-2 sm:px-4">
-                <div className={`font-serif font-bold text-gold mb-4 flex justify-center items-baseline ${stat.value === 1000 ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
+                <div className={`font-serif font-bold text-gold mb-4 flex justify-center items-baseline ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
                   <CountUp to={stat.value} format={stat.fmt} />
-                  <span className={`ml-1 ${stat.value === 1000 ? 'text-xl sm:text-2xl md:text-2xl lg:text-3xl' : 'text-3xl'}`}>{stat.suffix}</span>
+                  <span className={`ml-1 ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-xl sm:text-2xl md:text-2xl lg:text-3xl' : 'text-3xl'}`}>{stat.suffix}</span>
                 </div>
                 <div className="text-[11px] font-medium tracking-[0.15em] uppercase text-white">
                   {stat.label}

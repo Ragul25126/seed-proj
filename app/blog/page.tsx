@@ -76,6 +76,53 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
   },
 ];
 
+const AWARDS = [
+  {
+    organization: 'Big Project Middle East Awards 2026',
+    items: [
+      {
+        category: 'MEP Project of the Year',
+        details: 'Winner – Wasl Tower',
+      },
+      {
+        category: 'Project of the Year (Residential)',
+        details: 'Honourable Achievement – The St. Regis Branded Residences',
+      },
+    ],
+  },
+  {
+    organization: 'ISHRAE UAE MEERA Awards',
+    items: [
+      {
+        category: '2026 – MEP Project of the Year',
+        details: 'Highly Commended – Hilton & Holiday Inn',
+      },
+      {
+        category: '2025 – Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'MEP Middle East Awards 2026',
+    items: [
+      {
+        category: 'Mechanical Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'Middle East Consultant Awards 2025',
+    items: [
+      {
+        category: 'Executive of the Year – Male',
+        details: 'Honourable Achievement – Sanu Mathew',
+      },
+    ],
+  },
+];
+
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
 
@@ -167,7 +214,7 @@ export default function InsightsPage() {
       </section>
 
       {/* SECTION 03 – AWARDS & RECOGNITION */}
-      <section className="py-24 bg-[#0b0f19] border-t border-white/5">
+      <section id="awards" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-24">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
@@ -219,6 +266,42 @@ export default function InsightsPage() {
               </StaggerItem>
             ))}
           </Stagger>
+
+          {/* AWARD-WINNING ENGINEERING EXCELLENCE (MOVED FROM ABOUT) */}
+          <div className="pt-24 mt-24 border-t border-white/5">
+            <Reveal>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
+              </div>
+            </Reveal>
+
+            <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {AWARDS.map((group, idx) => (
+                <StaggerItem key={idx}>
+                  <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-start group">
+                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-gold shrink-0 group-hover:scale-125 transition-transform" />
+                      <span>{group.organization}</span>
+                    </h3>
+
+                    <div className="space-y-6 flex-grow">
+                      {group.items.map((item, itemIdx) => (
+                        <div key={itemIdx} className={itemIdx > 0 ? 'pt-5 border-t border-white/5' : ''}>
+                          <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">
+                            {item.category}
+                          </p>
+                          <p className="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                            {item.details}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
         </div>
       </section>
 

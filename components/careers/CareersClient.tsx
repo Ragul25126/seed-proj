@@ -79,7 +79,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
               Careers
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Build the future with SEED
+              Build the future with <span className="font-serif font-bold">SEED</span>
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
               Join a team of passionate engineers, designers and professionals committed to delivering innovative engineering solutions. At SEED, you’ll work on landmark developments, collaborate with industry experts and build a career that makes a lasting impact.

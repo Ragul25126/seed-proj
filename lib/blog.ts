@@ -113,7 +113,7 @@ SEED’s constant efforts and focus on quality in design and deliverables has he
 
 Meet the Dynamic Persona
 
-Sanu Mathew is the Co-Founder and Managing Director of SEED Engineering Consultants. He is an Electrical engineering graduate with over 28 years of experience in Building Services Design, Site Supervision and Project Management of High- & Low-Voltage Power Systems. He is one of the lead designers in the team and has experience in design & supervision of engineering services systems for Airport, Utilities, Commercial, Residential, Retail, Hotels, School, Hospital and Infrastructure Planning projects. Sanu persistently encourages the team with his passion for excellence and keenness for sustainable design.
+Sanu Mathew is the Co-Founder and Managing Director of SEED Engineering Consultants. He is an Electrical engineering graduate with over 35 years of experience in Building Services Design, Site Supervision and Project Management of High- & Low-Voltage Power Systems. He is one of the lead designers in the team and has experience in design & supervision of engineering services systems for Airport, Utilities, Commercial, Residential, Retail, Hotels, School, Hospital and Infrastructure Planning projects. Sanu persistently encourages the team with his passion for excellence and keenness for sustainable design.
 
 Groundbreaking Products and Services
 

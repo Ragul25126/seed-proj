@@ -41,7 +41,7 @@ const FAQ_DATA: FAQCategory[] = [
         question: 'Where is SEED Engineering headquartered and where are your offices located?',
         answer: (
           <p>
-            Our global headquarters and primary design hub is located in Dubai, United Arab Emirates (Office #303, Old Commercial Bank of Dubai Building, Deira). In addition to our Dubai headquarters, we maintain a regional hub in Singapore for Southeast Asia, alongside digital delivery and engineering design offices across India in Mumbai, Kochi, Bengaluru, Gurugram, and Pune. Full location addresses and office contact details can be found on our{' '}
+            Our global headquarters and primary design hub is located in Dubai, United Arab Emirates (Office #303, Old Commercial Bank of Dubai Building, Deira). In addition to our Dubai headquarters, we maintain a regional hub in Singapore for Southeast Asia, alongside digital delivery and engineering design offices across India in Mumbai, Kochi, Bengaluru, Delhi, and Pune. Full location addresses and office contact details can be found on our{' '}
             <Link href="/contact" className="text-gold underline hover:text-white transition-colors">
               Contact page
             </Link>

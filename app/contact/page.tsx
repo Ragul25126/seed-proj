@@ -5,19 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 
-const CONTACT_CARDS = [
-  {
-    title: 'Dubai Headquarters',
-    subtitle: 'Dubai, United Arab Emirates',
-    icon: '📍',
-    details: [
-      { label: 'Address', value: '#303, Old Commercial Bank of Dubai Building, Opp. Hamarain Centre, Abu Baker Al Siddique Road, Deira P O Box 119146, Dubai, UAE' },
-      { label: 'Telephone', value: '+971 42 564 882' },
-      { label: 'Email', value: 'contact@seedengineering.com' },
-    ],
-  },
-];
-
 const OFFICES = [
   {
     city: 'Dubai Head Quarters',
@@ -51,9 +38,9 @@ const OFFICES = [
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Gurugram',
+    city: 'Delhi',
     country: 'India',
-    address: 'AltF Empire Square – Unit 19, 3rd Floor, JMD Empire Square, Near Sikanderpur Metro, MG Road, Gurugram, Haryana – 122002, India.',
+    address: 'ThinkHaus Spaces, 3rd Floor, Suite No. 11, 315/274, Westend Marg, Saidulajab, Butterfly Park, Saiyad Ul Ajaib Extension, Saket, New Delhi, Delhi – 110030.',
     email: 'contact@seedengineering.com',
   },
   {
@@ -216,47 +203,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION 03 – CONTACT INFORMATION */}
-      <section className="py-24 bg-[#0f172a] border-b border-white/5">
-        <div className="container mx-auto px-6 lg:px-12">
-
-          <Stagger className="max-w-2xl mx-auto">
-            {CONTACT_CARDS.map((card, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/8 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
-                  <div>
-                    <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-xl mb-6 text-gold group-hover:bg-gold group-hover:text-[#0b0f19] transition-colors">
-                      {card.icon}
-                    </div>
-                    <h3 className="font-serif text-xl font-bold text-white mb-1 group-hover:text-gold transition-colors">{card.title}</h3>
-                    <p className="text-gold/70 text-[11px] font-semibold tracking-wider uppercase mb-6">{card.subtitle}</p>
-
-                    <div className="space-y-4 border-t border-white/5 pt-4">
-                      {card.details.map((d, j) => (
-                        <div key={j}>
-                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">{d.label}</span>
-                          {d.label === 'Email' ? (
-                            <a href={`mailto:${d.value}`} className="text-slate-300 hover:text-gold transition-colors text-[13px] font-light leading-relaxed block">
-                              {d.value}
-                            </a>
-                          ) : (
-                            <span className="text-slate-300 text-[13px] font-light leading-relaxed block">{d.value}</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-
-
-      {/* SECTION 04 – CALL TO ACTION */}
-      <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
+      {/* SECTION 03 – CALL TO ACTION */}
+      <section className="py-28 relative overflow-hidden bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
@@ -281,7 +229,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION 05 – SEND US A MESSAGE */}
+      {/* SECTION 04 – SEND US A MESSAGE */}
       <section id="contact-form" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
