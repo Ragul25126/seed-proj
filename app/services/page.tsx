@@ -93,7 +93,7 @@ const SERVICES_DATA = [
     services: [
       'Architectural Acoustics',
       'Noise Studies',
-      'Vibration Control',
+      'Vibration Recommendations',
       'Acoustic Testing',
       'Environmental Noise',
       'Compliance',
