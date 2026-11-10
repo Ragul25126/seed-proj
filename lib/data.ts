@@ -1446,6 +1446,7 @@ export const portfolio: {
 export const team = [
   {
     _id: 't1',
+    region: 'UAE',
     name: 'Sanu Mathew',
     role: 'Founder & Managing Director',
     image: '/team/sanu-headshot.webp',
@@ -1454,6 +1455,7 @@ export const team = [
   },
   {
     _id: 't5',
+    region: 'UAE',
     name: 'Gurpreet Singh Maini',
     role: 'Managing Partner',
     image: '/team/Gurpreet Singh Maini-head.png',
@@ -1461,7 +1463,17 @@ export const team = [
     bio: 'Gurpreet Singh Maini is a dynamic, accomplished and result oriented Real Estate Professional with over 25+ years of experience in leading high-performance teams and successfully increasing efficiency, productivity and reducing costs. Adept in project planning, execution and delivering engineering solutions for multimillion-dollar Real Estate projects.',
   },
   {
+    _id: 't12',
+    region: 'UAE',
+    name: 'Paul Priddy',
+    role: 'Construction Director',
+    image: '/image copy 6.png',
+    linkedin: 'https://www.linkedin.com/in/paul-priddy-ieng-mcibse-mashrae-b2468a24/',
+    bio: 'With 34 years of experience in MEP and infrastructure project delivery, including 26 years in the UAE, KSA, Qatar, Indonesia and the Philippines he brings expertise in leading major developments from design through construction, commissioning and handover. His strengths include design management, value engineering, contract administration, construction and project management, stakeholder coordination, with a focus on safety, quality, cost control and timely delivery. His portfolio spans high rise residential, commercial, hospitality, mixed use, retail, master planned villa communities and infrastructure projects.',
+  },
+  {
     _id: 't2',
+    region: 'UAE',
     name: 'Anand Krishnan',
     role: 'Director',
     image: '/team/Anand Krishnan-head.jpeg',
@@ -1470,6 +1482,7 @@ export const team = [
   },
   {
     _id: 't3',
+    region: 'UAE',
     name: 'Mohammed Al Horoub',
     role: 'Director',
     image: '/team/Mohammed Al Horoub-head.png',
@@ -1478,6 +1491,7 @@ export const team = [
   },
   {
     _id: 't4',
+    region: 'UAE',
     name: 'Jaygopal Kottilil',
     role: 'Director',
     image: '/team/Jaygopal-head.png',
@@ -1485,23 +1499,8 @@ export const team = [
     bio: 'Qualified MEP Building Services professional with over 40 years of experience. He leads teams to deliver robust, safe, and cost-effective sustainable built environments.',
   },
   {
-    _id: 't6',
-    name: 'Arathi Prakash Shengal',
-    role: 'Associate Director – India',
-    image: '/image.png',
-    linkedin: 'https://www.linkedin.com/in/arathi-shengali-gandhi-a2956a1b/',
-    bio: 'Seasoned MEP and Electrical Engineering leader with over 21 years of experience in the design, management, and delivery of large-scale residential, commercial, hospitality and mixed-use developments across India. At SEED Engineering Consultants India Pvt Ltd, she oversees technical excellence, project delivery, and business operations, bringing extensive expertise in electrical systems, sustainability, project management and multidisciplinary team leadership.',
-  },
-  {
-    _id: 't7',
-    name: 'Jayakumar K A',
-    role: 'BIM Manager',
-    image: '/image copy.png',
-    linkedin: 'https://www.linkedin.com/company/seed-engineering/',
-    bio: 'With over 40+ years of experience in Building Services Engineering, specialising in BIM strategy, implementation, coordination and management across multidisciplinary MEP services. He has proven expertise in leading BIM teams, managing complex projects, establishing BIM standards and workflows, ensuring model quality, technical accuracy, regulatory compliance and seamless multidisciplinary coordination. Passionate about mentoring BIM professionals, enhancing digital capabilities and fostering a culture of collaboration, accountability and continuous improvement.',
-  },
-  {
     _id: 't8',
+    region: 'UAE',
     name: 'Aneesh Kumar',
     role: 'Head of Electrical Engineering',
     image: '/image copy 2.png',
@@ -1510,6 +1509,7 @@ export const team = [
   },
   {
     _id: 't9',
+    region: 'UAE',
     name: 'Abodunrin Aliu',
     role: 'Head of Acoustics',
     image: '/image copy 3.png',
@@ -1517,15 +1517,8 @@ export const team = [
     bio: 'With 15 years’ experience in acoustics and noise control engineering, he specialises in acoustic design, simulation and project execution. He delivers acoustic solutions tailored to diverse building uses and environmental requirements. His portfolio spans residential, hospitality, religious, educational and corporate facilities, alongside environmental acoustics projects.',
   },
   {
-    _id: 't10',
-    name: 'Sreejith Nair',
-    role: 'Senior Associate – Electrical',
-    image: '/image copy 4.png',
-    linkedin: 'https://www.linkedin.com/company/seed-engineering/',
-    bio: 'With 19 years’ experience in MEP engineering, he specialises in electrical design, estimation, authority approvals, project coordination and construction supervision. His expertise covers power distribution, lighting, emergency power, fire alarm and ELV systems across diverse building sectors. His portfolio spans residential, commercial, hospitality, healthcare, educational and industrial projects across the Middle East, India and Africa.',
-  },
-  {
     _id: 't11',
+    region: 'UAE',
     name: 'Govind Nair',
     role: 'Head of ICT/ELV',
     image: '/image copy 5.png',
@@ -1533,20 +1526,40 @@ export const team = [
     bio: 'With over 25 years’ experience across IT, ELV systems and business operations in the UAE and India, he brings expertise in ICT, structured cabling, security, automation and AV solutions. His strengths include technical and commercial management, project execution, vendor coordination and team leadership, with a portfolio spanning hospitality, residential, commercial, healthcare and retail developments. He combines technical knowledge with operational leadership to deliver integrated technology solutions and support business growth.',
   },
   {
-    _id: 't12',
-    name: 'Paul Priddy',
-    role: 'Construction Director',
-    image: '/image copy 6.png',
-    linkedin: 'https://www.linkedin.com/in/paul-priddy-ieng-mcibse-mashrae-b2468a24/',
-    bio: 'With 34 years of experience in MEP and infrastructure project delivery, including 26 years in the UAE, KSA, Qatar, Indonesia and the Philippines he brings expertise in leading major developments from design through construction, commissioning and handover. His strengths include design management, value engineering, contract administration, construction and project management, stakeholder coordination, with a focus on safety, quality, cost control and timely delivery. His portfolio spans high rise residential, commercial, hospitality, mixed use, retail, master planned villa communities and infrastructure projects.',
-  },
-  {
     _id: 't13',
+    region: 'UAE',
     name: 'Biju Sivaraman',
     role: 'Head of Pool & Water Consultant',
     image: '/image copy 7.png',
     linkedin: 'https://www.linkedin.com/company/seed-engineering/',
     bio: 'With 32 years’ experience in mechanical engineering, water treatment and piping systems, he specialises in swimming pools, water features and electromechanical systems. His expertise spans design, procurement, construction, testing and commissioning, supported by strong team leadership and stakeholder coordination. His portfolio includes residential, hospitality and infrastructure developments.',
+  },
+  {
+    _id: 't7',
+    region: 'UAE',
+    name: 'Jayakumar K A',
+    role: 'BIM Manager',
+    image: '/image copy.png',
+    linkedin: 'https://www.linkedin.com/company/seed-engineering/',
+    bio: 'With over 40+ years of experience in Building Services Engineering, specialising in BIM strategy, implementation, coordination and management across multidisciplinary MEP services. He has proven expertise in leading BIM teams, managing complex projects, establishing BIM standards and workflows, ensuring model quality, technical accuracy, regulatory compliance and seamless multidisciplinary coordination. Passionate about mentoring BIM professionals, enhancing digital capabilities and fostering a culture of collaboration, accountability and continuous improvement.',
+  },
+  {
+    _id: 't10',
+    region: 'UAE',
+    name: 'Sreejith Nair',
+    role: 'Senior Associate – Electrical',
+    image: '/image copy 4.png',
+    linkedin: 'https://www.linkedin.com/company/seed-engineering/',
+    bio: 'With 19 years’ experience in MEP engineering, he specialises in electrical design, estimation, authority approvals, project coordination and construction supervision. His expertise covers power distribution, lighting, emergency power, fire alarm and ELV systems across diverse building sectors. His portfolio spans residential, commercial, hospitality, healthcare, educational and industrial projects across the Middle East, India and Africa.',
+  },
+  {
+    _id: 't6',
+    region: 'India',
+    name: 'Arathi Prakash Shengal',
+    role: 'Associate Director – India',
+    image: '/image.png',
+    linkedin: 'https://www.linkedin.com/in/arathi-shengali-gandhi-a2956a1b/',
+    bio: 'Seasoned MEP and Electrical Engineering leader with over 21 years of experience in the design, management, and delivery of large-scale residential, commercial, hospitality and mixed-use developments across India. At SEED Engineering Consultants India Pvt Ltd, she oversees technical excellence, project delivery, and business operations, bringing extensive expertise in electrical systems, sustainability, project management and multidisciplinary team leadership.',
   }
 ];
 

@@ -23,7 +23,18 @@ const GLOBAL_OFFICES = [
 
 export default function AboutPage() {
   const [selectedOffice, setSelectedOffice] = useState<string | null>(null);
-  const leadership = team;
+  const leadershipSections = [
+    {
+      id: 'uae-leadership',
+      title: 'UAE Leadership Team',
+      members: team.filter((m) => m.region === 'UAE'),
+    },
+    {
+      id: 'india-leadership',
+      title: 'India Leadership Team',
+      members: team.filter((m) => m.region === 'India'),
+    },
+  ];
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
@@ -140,49 +151,60 @@ export default function AboutPage() {
             </Reveal>
           </div>
 
-          <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {leadership.map((m: any) => {
-              const cardContent = (
-                <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group">
-                  <div className="relative aspect-[3/4] w-full mb-7 overflow-hidden bg-[#0b0f19] rounded-sm">
-                    {m.image ? (
-                      <Image
-                        src={m.image}
-                        alt={m.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full">
-                        <span className="font-serif text-7xl text-gold/30 select-none">
-                          {m.name.split(' ').map((p: string) => p[0]).join('').slice(0, 2)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
-                      {m.name}
-                    </h3>
-                    {m.linkedin && (
-                      <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-4">{m.role}</p>
-                  <p className="text-sm text-slate-400 font-light leading-relaxed">{m.bio}</p>
-                </div>
-              );
+          {leadershipSections.map((section, sectionIdx) => (
+            <div
+              key={section.id}
+              id={section.id}
+              className={sectionIdx > 0 ? 'mt-20 pt-16 border-t border-white/5' : ''}
+            >
+              <Reveal>
+                <h3 className="font-serif text-2xl md:text-3xl font-bold text-white text-center mb-12">
+                  {section.title}
+                </h3>
+              </Reveal>
 
-              return (
-                <StaggerItem key={m._id || m.name} className="flex flex-col">
-                  {cardContent}
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
+              <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {section.members.map((m) => (
+                  <StaggerItem
+                    key={m._id || m.name}
+                    className={`flex flex-col ${section.members.length === 1 ? 'lg:col-start-2' : ''}`}
+                  >
+                    <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 h-full flex-grow flex flex-col items-center text-center rounded-sm hover:border-gold/40 transition-colors group">
+                      <div className="relative aspect-[3/4] w-full mb-7 overflow-hidden bg-[#0b0f19] rounded-sm">
+                        {m.image ? (
+                          <Image
+                            src={m.image}
+                            alt={m.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full">
+                            <span className="font-serif text-7xl text-gold/30 select-none">
+                              {m.name.split(' ').map((p: string) => p[0]).join('').slice(0, 2)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h4 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
+                          {m.name}
+                        </h4>
+                        {m.linkedin && (
+                          <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-gold transition-colors" aria-label={`${m.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-4">{m.role}</p>
+                      <p className="text-sm text-slate-400 font-light leading-relaxed">{m.bio}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          ))}
         </div>
       </section>
 
