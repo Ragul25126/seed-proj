@@ -145,10 +145,10 @@ export default function InsightsPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              Knowledge & updates
+              News & Recognition
             </span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
-              Insights
+              SEED in Focus
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Practical insights from engineers who design, coordinate and commission complex buildings — covering MEP systems, sustainability, BIM coordination and building performance across the Middle East and beyond.
@@ -162,7 +162,7 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">In the Media</h2>
             </div>
           </Reveal>
 
@@ -219,7 +219,7 @@ export default function InsightsPage() {
           <Reveal>
             <div className="mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Accolades & honours</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Awards & recognition</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Industry Recognition</h2>
             </div>
           </Reveal>
 

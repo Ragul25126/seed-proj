@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
+import { formatProjectSector } from '@/lib/sectorUtils';
 
 export const revalidate = 300;
 
@@ -97,12 +98,14 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
     ? `?sector=${encodeURIComponent(activeSector.replace(/[^\w\s\-&,]/g, '').trim())}`
     : '';
 
+  const displaySector = formatProjectSector(proj.sector || proj.clientSector);
+
   const details = [
     proj.client    && { label: 'Client',    value: proj.client },
     proj.architect && { label: 'Architect', value: proj.architect },
     proj.services  && { label: 'Services',  value: proj.services },
     proj.area      && { label: 'Area',      value: proj.area },
-    proj.sector    && { label: 'Sector',    value: proj.sector || proj.clientSector },
+    displaySector  && { label: 'Sector',    value: displaySector },
   ].filter(Boolean) as { label: string; value: string }[];
 
   const images: string[] = proj.images && proj.images.length > 0 ? proj.images : (proj.image ? [proj.image] : []);
@@ -154,9 +157,9 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
           <div className="p-6 sm:p-10">
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {(proj.sector || proj.clientSector) && (
+              {displaySector && (
                 <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-gold border border-gold/30 px-3 py-1 rounded-full">
-                  {proj.sector || proj.clientSector}
+                  {displaySector}
                 </span>
               )}
               {proj.location && (

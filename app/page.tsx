@@ -40,7 +40,7 @@ export default function HomePage() {
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Who we are</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
-                Engineering decisions,<br/>not just drawings.
+                Engineering decisions,<br/>not just drawings
               </h2>
               <div className="space-y-6 text-slate-400 text-[15px] leading-relaxed font-light mb-10">
                 <p>
@@ -85,7 +85,7 @@ export default function HomePage() {
             <div className="mb-16 max-w-2xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Engineering services</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
-                Integrated engineering<br/>solutions.
+                Integrated engineering<br/>solutions
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 From high-rise luxury towers to complex infrastructure, our eight core disciplines provide a seamless delivery framework that governs every phase of your project.

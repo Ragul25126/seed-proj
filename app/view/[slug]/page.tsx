@@ -5,7 +5,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
-import { matchSector } from '@/lib/sectorUtils';
+import { matchSector, formatProjectSector } from '@/lib/sectorUtils';
 
 export const revalidate = 300;
 
@@ -105,12 +105,14 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
     })
     .slice(0, 3);
 
+  const displaySector = formatProjectSector(proj.sector || proj.clientSector);
+
   const details = [
     proj.client && { label: 'CLIENT', value: proj.client },
     proj.architect && { label: 'ARCHITECT', value: proj.architect },
     proj.services && { label: 'SERVICES', value: proj.services },
     proj.area && { label: 'BUA / AREA', value: proj.area },
-    proj.sector && { label: 'SECTOR', value: proj.sector || proj.clientSector },
+    displaySector && { label: 'SECTOR', value: displaySector },
     proj.location && { label: 'LOCATION', value: proj.location.split('**')[0].trim() },
   ].filter(Boolean) as { label: string; value: string }[];
 
@@ -131,7 +133,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
                 ← BACK TO ALL PROJECTS
               </Link>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">
-                {proj.sector || proj.clientSector || 'PROJECT CASE STUDY'}
+                {displaySector || 'PROJECT CASE STUDY'}
               </span>
               <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight max-w-4xl">
                 {proj.title}

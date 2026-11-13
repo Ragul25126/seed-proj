@@ -3,19 +3,38 @@ export const SECTORS = [
   'Hospitality',
   'Residential',
   'Commercial',
-  'Industrial',
   'Education',
   'Healthcare',
   'Retail',
   'Sports & Stadiums',
   'Entertainment & Culture',
-  'Public Buildings & Theme Parks',
   'Aviation',
   'Villas & Private Estates',
   'Infrastructure & Sustainable Communities',
 ] as const;
 
 export type SectorType = (typeof SECTORS)[number];
+
+/**
+ * Formats a project sector label, removing excluded sectors (Industrial, Public Buildings, Theme Parks) wherever they appear.
+ * If the sector consists solely of excluded terms, returns an empty string.
+ * If it's compound (e.g. "Commercial · Theme Parks"), strips the excluded term.
+ */
+export function formatProjectSector(sector?: string | null): string {
+  if (!sector) return '';
+  const cleaned = sector
+    .split(/[·,\/|]/)
+    .map(s => s.trim())
+    .filter(s => {
+      if (!s) return false;
+      const lower = s.toLowerCase();
+      if (lower.includes('industr')) return false;
+      if (lower.includes('public building') || lower.includes('theme park')) return false;
+      return true;
+    })
+    .join(' · ');
+  return cleaned;
+}
 
 /**
  * Flexible sector matching across database values, aliases, and URL parameters.

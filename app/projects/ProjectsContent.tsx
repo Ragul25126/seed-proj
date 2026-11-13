@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
+import { formatProjectSector } from '@/lib/sectorUtils';
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -59,12 +60,14 @@ function ProjectModal({ proj, onClose, sector }: { proj: LiveProject; onClose: (
       .catch(() => { /* fall back to project.images */ });
   }, [proj.slug]);
 
+  const modalSector = formatProjectSector(proj.sector || proj.clientSector || proj.client_sector);
+
   const details = [
     proj.client    && { label: 'Client',    value: proj.client },
     proj.architect && { label: 'Architect', value: proj.architect },
     proj.services  && { label: 'Services',  value: proj.services },
     proj.area      && { label: 'Area',      value: proj.area },
-    proj.sector    && { label: 'Sector',    value: proj.sector },
+    modalSector    && { label: 'Sector',    value: modalSector },
   ].filter(Boolean) as { label: string; value: string }[];
 
   // Prefer live Supabase images → then server-rendered images → then cover
@@ -124,11 +127,11 @@ function ProjectModal({ proj, onClose, sector }: { proj: LiveProject; onClose: (
         <div className="p-6 sm:p-10">
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {proj.sector && (
+            {modalSector ? (
               <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-gold border border-gold/30 px-3 py-1 rounded-full">
-                {proj.sector}
+                {modalSector}
               </span>
-            )}
+            ) : null}
             <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-slate-400 border border-white/10 px-3 py-1 rounded-full">
               {proj.location.split('**')[0].trim()}
             </span>
@@ -183,13 +186,11 @@ const SECTORS = [
   'Hospitality',
   'Residential',
   'Commercial',
-  'Industrial',
   'Education',
   'Healthcare',
   'Retail',
   'Sports & Stadiums',
   'Entertainment & Culture',
-  'Public Buildings & Theme Parks',
   'Aviation',
   'Villas & Private Estates',
   'Infrastructure & Sustainable Communities',
@@ -480,12 +481,18 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
   }, [filterSector, visibleCount]);
 
   const handleSectorChange = (newSector: string) => {
+    const currentY = typeof window !== 'undefined' ? window.scrollY : 0;
     setFilterSector(newSector);
     setVisibleCount(PAGE_SIZE);
 
     if (typeof window !== 'undefined') {
-      clearProjectsScroll();
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      saveProjectsScroll({
+        sector: newSector,
+        location: filterLocation,
+        scrollY: currentY,
+        visibleCount: PAGE_SIZE,
+        restorePending: false,
+      });
 
       const url = new URL(window.location.href);
       if (newSector && newSector !== 'All Sectors') {
@@ -497,6 +504,17 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
       if (window.location.pathname + window.location.search !== targetUrl) {
         window.history.pushState({ sector: newSector }, '', targetUrl);
       }
+
+      // Preserve current scroll position across DOM re-render without scrolling to top
+      const preserveScroll = () => {
+        if (currentY > 0 && Math.abs(window.scrollY - currentY) > 2) {
+          window.scrollTo({ top: currentY, behavior: 'instant' });
+        }
+      };
+      requestAnimationFrame(() => {
+        preserveScroll();
+        setTimeout(preserveScroll, 50);
+      });
     }
   };
 
@@ -658,10 +676,14 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                 <div className="flex justify-start">
                   <button
                     onClick={() => {
-                      clearProjectsScroll();
-                      window.scrollTo({ top: 0, behavior: 'instant' });
+                      const currentY = typeof window !== 'undefined' ? window.scrollY : 0;
                       setFilterLocation('All Locations');
                       handleSectorChange('All Sectors');
+                      if (currentY > 0) {
+                        requestAnimationFrame(() => {
+                          window.scrollTo({ top: currentY, behavior: 'instant' });
+                        });
+                      }
                     }}
                     className="text-[12px] font-bold text-gold hover:text-yellow-400 uppercase tracking-wider transition-colors"
                   >
@@ -718,9 +740,14 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                     </div>
                     <div className="p-6 flex-grow flex flex-col justify-between">
                       <div>
-                        <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
-                          {proj.sector || proj.clientSector || proj.client_sector}
-                        </span>
+                        {(() => {
+                          const cardSector = formatProjectSector(proj.sector || proj.clientSector || proj.client_sector);
+                          return cardSector ? (
+                            <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
+                              {cardSector}
+                            </span>
+                          ) : null;
+                        })()}
                         <h3 className="font-serif text-xl font-bold text-white mb-2 group-hover:text-gold transition-colors">{proj.title}</h3>
                         <p className="text-slate-400 text-[13px]">{proj.location.split('**')[0].trim()}</p>
                       </div>

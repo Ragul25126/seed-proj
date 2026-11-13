@@ -64,7 +64,7 @@ export default function AboutPage() {
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Our story</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold leading-[1.1] text-white">
-                Built on Engineering excellence.
+                Built on Engineering excellence
               </h2>
             </Reveal>
           </div>

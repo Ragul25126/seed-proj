@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatProjectSector } from '@/lib/sectorUtils';
 
 interface SimilarProjectCardProps {
   project: {
@@ -89,9 +90,14 @@ export function SimilarProjectCard({ project, sector, basePath = '/view' }: Simi
       {/* Card Content */}
       <div className="p-6 flex-grow flex flex-col justify-between">
         <div>
-          <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
-            {project.sector || project.clientSector}
-          </span>
+          {(() => {
+            const displaySector = formatProjectSector(project.sector || project.clientSector);
+            return displaySector ? (
+              <span className="text-gold text-[10px] font-bold tracking-[0.15em] uppercase mb-2 block">
+                {displaySector}
+              </span>
+            ) : null;
+          })()}
           <Link href={projectHref}>
             <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
               {project.title.trim()}
