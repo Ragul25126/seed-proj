@@ -60,23 +60,23 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+        <nav className="hidden lg:flex items-center gap-3 xl:gap-5">
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="w-56 flex items-center justify-start gap-2.5 text-sm font-sans font-medium tracking-[0.15em] uppercase text-white hover:text-white bg-white/5 hover:bg-white/10 border border-white/80 hover:border-white rounded-md pl-3.5 pr-4 py-1.5 transition-all duration-300 mr-1 shadow-sm text-left"
+            className="w-44 xl:w-52 flex items-center justify-start gap-2.5 text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white hover:text-white bg-white/5 hover:bg-white/10 border border-white/80 hover:border-white rounded-md pl-3.5 pr-4 py-1.5 transition-all duration-300 mr-1 shadow-sm text-left"
             aria-label="Open search interface"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
-          <Link href="/about" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
-          <Link href="/services" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
-          <Link href="/sectors" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
-          <Link href="/projects" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
-          <Link href="/blog" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Media</Link>
-          <Link href="/careers" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
-          <Link href="/contact" prefetch={false} className="text-sm font-sans font-medium tracking-[0.15em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
+          <Link href="/about" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
+          <Link href="/services" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
+          <Link href="/sectors" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
+          <Link href="/projects" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
+          <Link href="/blog" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Media</Link>
+          <Link href="/careers" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
+          <Link href="/contact" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -84,25 +84,25 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="lg:hidden relative text-white p-2 -mr-2 z-50"
+          className="lg:hidden relative text-white p-2 z-50 flex flex-col justify-center items-center"
         >
           <div className="space-y-[5px]">
             <span
               className={cn(
-                'block h-[1.5px] w-7 bg-current transition-transform duration-300 origin-center',
-                open && 'translate-y-[6.5px] rotate-45',
+                'block h-[2px] w-6 bg-white transition-transform duration-300 origin-center',
+                open && 'translate-y-[7px] rotate-45',
               )}
             />
             <span
               className={cn(
-                'block h-[1.5px] w-7 bg-current transition-opacity duration-200',
+                'block h-[2px] w-6 bg-white transition-opacity duration-200',
                 open && 'opacity-0',
               )}
             />
             <span
               className={cn(
-                'block h-[1.5px] w-7 bg-current transition-transform duration-300 origin-center',
-                open && '-translate-y-[6.5px] -rotate-45',
+                'block h-[2px] w-6 bg-white transition-transform duration-300 origin-center',
+                open && '-translate-y-[7px] -rotate-45',
               )}
             />
           </div>
@@ -150,7 +150,7 @@ export default function Navbar() {
                 setOpen(false);
                 setIsSearchOpen(true);
               }}
-              className="flex items-center justify-between font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 text-gold hover:pl-3 transition-all text-left w-full"
+              className="flex items-center justify-between font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 text-gold hover:pl-3 transition-all text-left w-full"
             >
               <span>Search</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -158,37 +158,37 @@ export default function Navbar() {
               </svg>
             </button>
             <Link href="/about" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               About
             </Link>
             <Link href="/services" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Services
             </Link>
             <Link href="/sectors" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Sectors
             </Link>
             <Link href="/projects" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Projects
             </Link>
             <Link href="/blog" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Media
             </Link>
             <Link href="/careers" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Careers
             </Link>
             <Link href="/contact" prefetch={false} onClick={() => setOpen(false)}
-              className="font-serif text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
             >
               Contact
             </Link>

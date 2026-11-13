@@ -10,6 +10,10 @@
   --color-champagne: #D4AF37;
   --color-ink: #0b0f19;
   --color-bone: #0b0f19;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  --font-serif: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  --font-inter: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  --font-playfair: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
 }
 
 html {
@@ -17,12 +21,21 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color-scheme: dark;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   background: var(--color-bone);
   color: #f8fafc;
-  font-feature-settings: 'ss01', 'cv11';
+  font-family: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-feature-settings: inherit;
 }
 
 ::selection {
@@ -43,32 +56,32 @@ body {
 }
 
 .display {
-  font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-weight: 400;
 }
 
 .h1 {
-  font-size: clamp(2.75rem, 5vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   font-weight: 700;
   color: inherit;
 }
 
 .h2 {
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
   font-weight: 700;
   color: inherit;
 }
 
 .h3 {
   font-size: clamp(1.125rem, 1.8vw, 1.5rem);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  line-height: 1.35;
+  letter-spacing: normal;
   font-weight: 600;
   color: inherit;
 }

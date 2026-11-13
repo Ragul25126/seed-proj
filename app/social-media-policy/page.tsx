@@ -17,7 +17,7 @@ export default function SocialMediaPolicyPage() {
           <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
             Legal & Compliance
           </span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-sans font-bold text-white mb-6 leading-tight">
             Social Media Policy
           </h1>
           <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed">
@@ -33,7 +33,7 @@ export default function SocialMediaPolicyPage() {
 
             {/* REPURPOSED CONTENT & PERSONAL REPRESENTATIONS */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Repurposed content & personal representations
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -45,7 +45,7 @@ export default function SocialMediaPolicyPage() {
 
             {/* RESERVE ALL RIGHTS */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Reserve all rights
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -57,7 +57,7 @@ export default function SocialMediaPolicyPage() {
 
             {/* CONTACT US */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Contact Us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">

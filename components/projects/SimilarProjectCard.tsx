@@ -99,7 +99,7 @@ export function SimilarProjectCard({ project, sector, basePath = '/view' }: Simi
             ) : null;
           })()}
           <Link href={projectHref}>
-            <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
+            <h3 className="font-sans text-lg font-bold text-white group-hover:text-gold transition-colors mb-2">
               {project.title.trim()}
             </h3>
           </Link>

@@ -78,8 +78,8 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
               Careers
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Build the future with <span className="font-serif font-bold">SEED</span>
+            <h1 className="text-5xl md:text-7xl font-sans font-bold text-white mb-6 leading-tight">
+              Build the future with <span className="font-sans font-bold">SEED</span>
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto mb-10">
               Join a team of passionate engineers, designers and professionals committed to delivering innovative engineering solutions. At SEED, you’ll work on landmark developments, collaborate with industry experts and build a career that makes a lasting impact.
@@ -107,7 +107,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
                   <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">
                     We are hiring!
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+                  <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-4">
                     Current opportunities
                   </h2>
                   <p className="text-slate-400 font-light text-[15px] leading-relaxed">
@@ -192,7 +192,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
                               <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase block mb-2">
                                 {v.location || 'Office Location'}
                               </span>
-                              <h3 className="font-serif text-3xl font-bold text-white mb-4">
+                              <h3 className="font-sans text-3xl font-bold text-white mb-4">
                                 {v.title}
                               </h3>
                               {v.description && (
@@ -262,7 +262,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
                 <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
                   Talent network
                 </span>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
+                <h2 className="text-3xl md:text-4xl font-sans font-bold text-white mb-6">
                   Interested in joining SEED?
                 </h2>
                 <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
@@ -298,7 +298,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
               <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-3 block">
                 How we hire
               </span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-sans font-bold text-white mb-4">
                 Our recruitment process
               </h2>
             </div>

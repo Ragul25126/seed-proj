@@ -323,7 +323,7 @@ export default function VacanciesClient({ initialVacancies }: VacanciesClientPro
       {/* Top Banner & Action */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#0b0f19] border border-white/10 p-6 rounded-sm">
         <div>
-          <h2 className="text-xl font-serif font-bold text-white mb-1">
+          <h2 className="text-xl font-sans font-bold text-white mb-1">
             Careers & Vacancies Management
           </h2>
           <p className="text-xs text-slate-400">
@@ -507,7 +507,7 @@ export default function VacanciesClient({ initialVacancies }: VacanciesClientPro
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
           <div className="bg-[#0b0f19] border border-white/15 rounded-sm max-w-3xl w-full p-6 md:p-8 space-y-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center border-b border-white/10 pb-4 sticky top-0 bg-[#0b0f19] z-10">
-              <h3 className="text-lg font-serif font-bold text-white">
+              <h3 className="text-lg font-sans font-bold text-white">
                 {editingVacancy ? 'Edit Vacancy Section' : 'Add New Vacancy Section'}
               </h3>
               <button

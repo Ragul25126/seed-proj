@@ -230,7 +230,7 @@ export default function FAQClient({ categories }: { categories: FAQCategory[] })
           <svg className="w-12 h-12 text-slate-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <h3 className="text-lg font-serif font-bold text-white mb-2">No matching questions found</h3>
+          <h3 className="text-lg font-sans font-bold text-white mb-2">No matching questions found</h3>
           <p className="text-sm text-slate-400 mb-6">
             We couldn&apos;t find any questions matching &ldquo;{searchQuery}&rdquo;. Try using different keywords or explore our categories.
           </p>
@@ -256,7 +256,7 @@ export default function FAQClient({ categories }: { categories: FAQCategory[] })
                     {category.name}
                   </span>
                 </div>
-                <h2 id={`category-heading-${category.id}`} className="text-2xl md:text-3xl font-serif font-bold text-white">
+                <h2 id={`category-heading-${category.id}`} className="text-2xl md:text-3xl font-sans font-bold text-white">
                   {category.name}
                 </h2>
                 <p className="text-sm text-slate-400 mt-1 max-w-2xl font-light">
@@ -348,7 +348,7 @@ export default function FAQClient({ categories }: { categories: FAQCategory[] })
               Have More Questions?
             </span>
           </div>
-          <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">
+          <h2 className="text-2xl md:text-4xl font-sans font-bold text-white mb-4 leading-tight">
             Need specific engineering details for your development?
           </h2>
           <p className="text-slate-300 text-sm md:text-base font-light leading-relaxed mb-8 max-w-2xl">

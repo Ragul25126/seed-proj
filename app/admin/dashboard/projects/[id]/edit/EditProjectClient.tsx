@@ -233,7 +233,7 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
             </svg>
             Back to Projects
           </Link>
-          <h2 className="text-xl font-serif font-bold text-gold">Edit Project</h2>
+          <h2 className="text-xl font-sans font-bold text-gold">Edit Project</h2>
         </div>
       </div>
 
@@ -259,7 +259,7 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Details Form */}
         <form onSubmit={handleFormSubmit} className="lg:col-span-7 bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md space-y-6">
-          <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
+          <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
             Project Details
           </h3>
 
@@ -547,7 +547,7 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
         {/* Right Column: Image Manager */}
         <div className="lg:col-span-5 bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md space-y-6">
           <div className="border-b border-white/10 pb-2 flex items-center justify-between">
-            <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase">
               Project Media
             </h3>
             <span className="text-[10px] text-white/40 font-mono">{images.length} images</span>
@@ -686,7 +686,7 @@ export default function EditProjectClient({ project, initialImages }: EditProjec
         <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50 animate-fade-in">
           <div className="bg-[#0b0f19] border border-white/10 rounded-sm p-6 w-full max-w-sm shadow-2xl space-y-6">
             <div>
-              <h4 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold mb-2">
+              <h4 className="text-gold font-sans text-lg tracking-wide uppercase font-semibold mb-2">
                 Delete Image
               </h4>
               <p className="text-sm text-white/70">

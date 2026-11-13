@@ -43,7 +43,7 @@ export default async function AdminDashboardOverviewPage() {
             <span className="text-[10px] text-white/40 font-semibold tracking-widest uppercase block mb-1">
               {stat.label}
             </span>
-            <span className={`text-3xl font-serif font-bold ${stat.color}`}>
+            <span className={`text-3xl font-sans font-bold ${stat.color}`}>
               {stat.value}
             </span>
           </div>
@@ -52,7 +52,7 @@ export default async function AdminDashboardOverviewPage() {
 
       {/* 2. Quick Actions */}
       <div className="bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md">
-        <h3 className="text-gold font-serif text-sm font-semibold tracking-widest uppercase mb-4">
+        <h3 className="text-gold font-sans text-sm font-semibold tracking-widest uppercase mb-4">
           Quick Actions
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -81,7 +81,7 @@ export default async function AdminDashboardOverviewPage() {
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
         {/* Recent Projects Table */}
         <div className="xl:col-span-7 bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md overflow-hidden">
-          <h3 className="text-gold font-serif text-sm font-semibold tracking-widest uppercase mb-4">
+          <h3 className="text-gold font-sans text-sm font-semibold tracking-widest uppercase mb-4">
             Recent Projects
           </h3>
           <div className="overflow-x-auto">
@@ -151,7 +151,7 @@ export default async function AdminDashboardOverviewPage() {
 
         {/* Recent Contact Inquiries */}
         <div className="xl:col-span-5 bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md">
-          <h3 className="text-gold font-serif text-sm font-semibold tracking-widest uppercase mb-4">
+          <h3 className="text-gold font-sans text-sm font-semibold tracking-widest uppercase mb-4">
             Recent Inquiries
           </h3>
           <div className="space-y-4">

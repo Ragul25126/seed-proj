@@ -127,7 +127,7 @@ export default function SectorsPage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
               Our expertise
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
               Engineering across every sector
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
@@ -165,7 +165,7 @@ export default function SectorsPage() {
                       </div>
 
                       {/* Sector Title with Orange/Gold Hover Underline */}
-                      <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
+                      <h2 className="text-2xl md:text-3xl font-sans font-bold text-white mb-3 group-hover:text-gold transition-colors relative inline-block">
                         {sector.title}
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
                       </h2>
@@ -198,7 +198,7 @@ export default function SectorsPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Get in touch</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-sans text-4xl md:text-6xl font-bold text-white mb-6">
               Let’s build the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">

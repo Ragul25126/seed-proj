@@ -22,21 +22,21 @@ const config: Config = {
         border: '#1e293b',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Georgia', '"Times New Roman"', 'serif'],
+        sans: ['Arial', '"Helvetica Neue"', 'Helvetica', 'var(--font-arimo)', 'sans-serif'],
+        serif: ['Arial', '"Helvetica Neue"', 'Helvetica', 'var(--font-arimo)', 'sans-serif'],
         mono: ['var(--font-dm-mono)', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
-        display: '-0.03em',
+        display: '-0.015em',
         label: '0.12em',
       },
       maxWidth: {
         container: '1200px',
       },
       fontSize: {
-        display: ['clamp(3rem, 7vw, 6rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '300' }],
-        h1: ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '500' }],
-        h2: ['clamp(2rem, 3.5vw, 2.5rem)', { lineHeight: '1.1', letterSpacing: '-0.01em', fontWeight: '500' }],
+        display: ['clamp(3rem, 7vw, 5.5rem)', { lineHeight: '1.08', letterSpacing: '-0.015em', fontWeight: '400' }],
+        h1: ['clamp(2.25rem, 5vw, 3.75rem)', { lineHeight: '1.12', letterSpacing: '-0.01em', fontWeight: '600' }],
+        h2: ['clamp(1.75rem, 3.5vw, 2.5rem)', { lineHeight: '1.18', letterSpacing: '-0.005em', fontWeight: '600' }],
         h3: ['clamp(1.25rem, 2vw, 1.5rem)', { lineHeight: '1.3', fontWeight: '600' }],
         label: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.12em', fontWeight: '500' }],
       },

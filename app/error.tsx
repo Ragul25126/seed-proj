@@ -21,7 +21,7 @@ export default function Error({
         <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
           Notice
         </span>
-        <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
+        <h1 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
           Something went wrong
         </h1>
         <p className="text-slate-400 font-light text-[15px] mb-8 leading-relaxed">

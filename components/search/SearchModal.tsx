@@ -240,7 +240,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-serif text-white font-medium">Search SEED Engineering</h3>
+              <h3 className="text-xl font-sans text-white font-medium">Search SEED Engineering</h3>
               <p className="text-sm text-slate-400 max-w-md mx-auto font-light">
                 Find landmark projects, MEP engineering services, specialized sectors, media coverage, and firm background.
               </p>
@@ -265,7 +265,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           {/* No Matching Results State */}
           {query.trim().length > 0 && !isLoading && filteredResults.length === 0 && (
             <div className="py-12 text-center space-y-4">
-              <p className="text-lg text-slate-300 font-serif">
+              <p className="text-lg text-slate-300 font-sans">
                 No matching results found for &ldquo;<span className="text-white font-semibold">{query}</span>&rdquo;
                 {activeCategory !== 'All' && <span> in category &ldquo;{activeCategory}&rdquo;</span>}.
               </p>
@@ -307,7 +307,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       )}
                     </div>
 
-                    <h4 className="text-base sm:text-lg font-serif font-bold text-white group-hover:text-gold transition-colors">
+                    <h4 className="text-base sm:text-lg font-sans font-bold text-white group-hover:text-gold transition-colors">
                       {item.title}
                     </h4>
 

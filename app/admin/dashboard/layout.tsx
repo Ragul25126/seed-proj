@@ -23,7 +23,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
           {/* Sidebar Brand/Logo */}
           <div className="p-6 border-b border-white/10 flex items-center justify-between">
             <div>
-              <span className="text-gold text-xl font-serif tracking-[0.2em] font-bold block">
+              <span className="text-gold text-xl font-sans tracking-[0.2em] font-bold block">
                 SEED
               </span>
               <span className="text-[9px] text-white/40 tracking-[0.2em] uppercase block">
@@ -110,7 +110,7 @@ export default async function AdminDashboardLayout({ children }: AdminLayoutProp
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
         <header className="h-16 bg-[#0b0f19] border-b border-white/10 flex items-center px-8 flex-shrink-0">
-          <h1 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold">
+          <h1 className="text-gold font-sans text-lg tracking-wide uppercase font-semibold">
             SEED CMS Overview
           </h1>
         </header>

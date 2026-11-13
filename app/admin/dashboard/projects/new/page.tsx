@@ -184,7 +184,7 @@ export default function AdminNewProjectPage() {
             </svg>
             Back to Projects
           </Link>
-          <h2 className="text-xl font-serif font-bold text-gold">Add New Project</h2>
+          <h2 className="text-xl font-sans font-bold text-gold">Add New Project</h2>
         </div>
       </div>
 
@@ -203,7 +203,7 @@ export default function AdminNewProjectPage() {
         <div className="lg:col-span-7 bg-[#0b0f19] border border-white/10 p-8 rounded-sm shadow-md space-y-8">
           {/* Core details */}
           <div className="space-y-6">
-            <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
+            <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
               Project Details
             </h3>
 
@@ -391,7 +391,7 @@ export default function AdminNewProjectPage() {
 
           {/* Descriptions and Services */}
           <div className="space-y-6">
-            <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
+            <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
               Description &amp; Scope of Services
             </h3>
 
@@ -440,7 +440,7 @@ export default function AdminNewProjectPage() {
 
           {/* Settings */}
           <div className="space-y-6">
-            <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
+            <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase border-b border-white/10 pb-2">
               Publishing Settings
             </h3>
 
@@ -507,7 +507,7 @@ export default function AdminNewProjectPage() {
         {/* RIGHT: Project Media */}
         <div className="lg:col-span-5 bg-[#0b0f19] border border-white/10 p-6 rounded-sm shadow-md space-y-5 sticky top-[80px]">
           <div className="border-b border-white/10 pb-2 flex items-center justify-between">
-            <h3 className="text-gold font-serif text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-gold font-sans text-xs font-semibold tracking-widest uppercase">
               Project Media
             </h3>
             <span className="text-[10px] text-white/40 font-mono">{pendingImages.length} image{pendingImages.length !== 1 ? 's' : ''} queued</span>

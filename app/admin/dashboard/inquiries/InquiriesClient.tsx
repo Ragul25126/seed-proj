@@ -308,7 +308,7 @@ export default function InquiriesClient({ initialInquiries }: InquiriesClientPro
                 <span className="text-[10px] text-white/40 font-semibold uppercase tracking-widest block mb-1">
                   Inquiry Details
                 </span>
-                <h4 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold">
+                <h4 className="text-gold font-sans text-lg tracking-wide uppercase font-semibold">
                   {selectedInquiry.subject || 'No Subject'}
                 </h4>
               </div>
@@ -406,7 +406,7 @@ export default function InquiriesClient({ initialInquiries }: InquiriesClientPro
         <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-[70] animate-fade-in">
           <div className="bg-[#0b0f19] border border-white/10 rounded-sm p-6 w-full max-w-sm shadow-2xl space-y-6">
             <div>
-              <h4 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold mb-2">
+              <h4 className="text-gold font-sans text-lg tracking-wide uppercase font-semibold mb-2">
                 Delete Inquiry
               </h4>
               <p className="text-sm text-white/70">

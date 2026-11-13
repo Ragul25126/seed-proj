@@ -137,7 +137,7 @@ function ProjectModal({ proj, onClose, sector }: { proj: LiveProject; onClose: (
             </span>
           </div>
 
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-6 leading-tight">{proj.title}</h2>
+          <h2 className="font-sans text-2xl sm:text-3xl font-bold text-white mb-6 leading-tight">{proj.title}</h2>
 
           {/* Detail grid */}
           {details.length > 0 && (
@@ -621,7 +621,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
           <Reveal>
             <div className="mb-12 border-b border-white/10 pb-12">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio</span>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-8">Projects</h1>
+              <h1 className="text-4xl md:text-5xl font-sans font-bold text-white mb-8">Projects</h1>
 
               <div className="text-slate-400 font-light text-[15px] leading-relaxed max-w-4xl mb-10">
                 <p className="mb-6 text-slate-300 text-base md:text-lg font-light leading-relaxed">
@@ -631,15 +631,15 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                 <div className="my-10 p-6 md:p-8 bg-[#0a1124] border border-gold/30 rounded-sm shadow-xl max-w-4xl">
                   <div className="grid grid-cols-3 gap-4 md:gap-8 text-center divide-x divide-white/10">
                     <div className="px-2 md:px-4">
-                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">1,000+</div>
+                      <div className="text-3xl md:text-5xl font-sans font-bold text-gold mb-1">1,000+</div>
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Projects</div>
                     </div>
                     <div className="px-2 md:px-4">
-                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">46</div>
+                      <div className="text-3xl md:text-5xl font-sans font-bold text-gold mb-1">46</div>
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Cities</div>
                     </div>
                     <div className="px-2 md:px-4">
-                      <div className="text-3xl md:text-5xl font-serif font-bold text-gold mb-1">26</div>
+                      <div className="text-3xl md:text-5xl font-sans font-bold text-gold mb-1">26</div>
                       <div className="text-[10px] md:text-[12px] font-sans font-bold tracking-[0.2em] uppercase text-white/90">Countries</div>
                     </div>
                   </div>
@@ -647,7 +647,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
               </div>
 
               <div className="bg-white/5 p-6 md:p-8 rounded-sm border border-white/10">
-                <h2 className="text-lg font-serif font-bold text-white mb-6">Filter projects</h2>
+                <h2 className="text-lg font-sans font-bold text-white mb-6">Filter projects</h2>
 
                 <div className="flex flex-col md:flex-row gap-4 mb-6">
                   <div className="flex-1">
@@ -748,7 +748,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
                             </span>
                           ) : null;
                         })()}
-                        <h3 className="font-serif text-xl font-bold text-white mb-2 group-hover:text-gold transition-colors">{proj.title}</h3>
+                        <h3 className="font-sans text-xl font-bold text-white mb-2 group-hover:text-gold transition-colors">{proj.title}</h3>
                         <p className="text-slate-400 text-[13px]">{proj.location.split('**')[0].trim()}</p>
                       </div>
                       <div className="mt-4 pt-4 border-t border-white/5 flex items-end justify-between">
@@ -823,7 +823,7 @@ function ProjectsContent({ projects }: ProjectsContentProps) {
           <div className="mt-32 pt-20 border-t border-white/10 text-center max-w-4xl mx-auto">
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6">Let's discuss your next project</h2>
+              <h2 className="font-sans text-3xl md:text-5xl font-bold text-white mb-6">Let's discuss your next project</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed mb-10 max-w-2xl mx-auto">
                 Whether you're planning a luxury hospitality destination, residential community, commercial tower, healthcare facility, or critical infrastructure, our multidisciplinary engineering team is ready to support your project from concept to commissioning.
               </p>

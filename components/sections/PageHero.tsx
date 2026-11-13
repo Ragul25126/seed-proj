@@ -21,7 +21,7 @@ export function PageHero({
         <div className="mb-8">
           <span className="label text-champagne tracking-[0.35em]">{eyebrow}</span>
         </div>
-        <h1 className="text-white font-serif font-bold tracking-[-0.025em] leading-[1.02] text-[clamp(2.5rem,6vw,5.5rem)] max-w-5xl">
+        <h1 className="text-white font-sans font-bold tracking-[-0.015em] leading-[1.12] text-[clamp(2.25rem,5.5vw,5rem)] max-w-5xl">
           {title}
         </h1>
         {intro && (

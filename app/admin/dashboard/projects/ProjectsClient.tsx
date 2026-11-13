@@ -284,7 +284,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
         <div className="fixed inset-0 bg-black/85 flex items-center justify-center p-4 z-50 animate-fade-in">
           <div className="bg-[#0b0f19] border border-white/10 rounded-sm p-6 w-full max-w-md shadow-2xl space-y-6">
             <div>
-              <h4 className="text-gold font-serif text-lg tracking-wide uppercase font-semibold mb-2">
+              <h4 className="text-gold font-sans text-lg tracking-wide uppercase font-semibold mb-2">
                 Confirm Deletion
               </h4>
               <p className="text-sm text-white/70">

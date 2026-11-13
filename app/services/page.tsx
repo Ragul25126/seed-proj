@@ -172,7 +172,7 @@ export default function ServicesPage() {
         
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-6 block">Our capabilities</span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
             Engineering Services & Capabilities
           </h1>
           <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
@@ -185,7 +185,7 @@ export default function ServicesPage() {
       <section className="py-20 md:py-28 bg-[#0f172a] border-b border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
               Engineering services built <br />around performance
             </h2>
             <p className="text-base md:text-lg font-sans font-light text-slate-300 leading-relaxed max-w-3xl mx-auto">
@@ -201,7 +201,7 @@ export default function ServicesPage() {
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Delivery methodology</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+              <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-4">
                 How we deliver Engineering excellence
               </h2>
               <p className="text-slate-400 font-light text-[15px]">
@@ -225,9 +225,9 @@ export default function ServicesPage() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-gold text-[10px] font-bold tracking-widest uppercase">{st.step}</span>
-                      <span className="text-white/20 group-hover:text-gold/40 transition-colors font-serif font-bold text-sm">0{i + 1}</span>
+                      <span className="text-white/20 group-hover:text-gold/40 transition-colors font-sans font-bold text-sm">0{i + 1}</span>
                     </div>
-                    <h3 className="text-white font-serif text-lg font-bold mb-3 group-hover:text-gold transition-colors">{st.title}</h3>
+                    <h3 className="text-white font-sans text-lg font-bold mb-3 group-hover:text-gold transition-colors">{st.title}</h3>
                     <p className="text-slate-400 text-[12px] font-light leading-relaxed">{st.desc}</p>
                   </div>
                 </div>
@@ -243,7 +243,7 @@ export default function ServicesPage() {
           <Reveal>
             <div className="mb-20 max-w-3xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio of services</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4">Our services</h2>
+              <h2 className="text-4xl md:text-6xl font-sans font-bold text-white mb-4">Our services</h2>
               <div className="w-20 h-1 bg-gold mt-4" />
             </div>
           </Reveal>
@@ -276,8 +276,8 @@ export default function ServicesPage() {
                   <Reveal delay={0.2}>
                     <div className="mb-8">
                       <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{service.num}</span>
-                      <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-3">{service.title}</h3>
-                      <p className="text-gold font-serif italic text-base md:text-lg mb-4">{service.tagline}</p>
+                      <h3 className="text-3xl md:text-4xl font-sans font-bold text-white mb-3 leading-tight">{service.title}</h3>
+                      <p className="text-gold font-sans italic text-base md:text-lg mb-4 leading-snug">{service.tagline}</p>
                       <p className="text-[14px] text-slate-400 font-light leading-relaxed max-w-xl">
                         {service.desc}
                       </p>
@@ -337,7 +337,7 @@ export default function ServicesPage() {
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Our advantage</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Why clients choose SEED</h2>
+              <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-4">Why clients choose SEED</h2>
             </div>
           </Reveal>
 
@@ -346,8 +346,8 @@ export default function ServicesPage() {
               <StaggerItem key={i} className="h-full flex flex-col">
                 <div className="bg-[#0b0f19] border border-white/10 p-6 xl:p-8 rounded-sm h-full flex flex-col hover:border-gold/40 transition-colors group">
                   <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">0{i + 1}</span>
-                  <div className="mb-4 md:min-h-[5rem] flex flex-col">
-                    <h3 className="font-serif text-xl font-bold text-white leading-snug group-hover:text-gold transition-colors">
+                  <div className="mb-4 min-h-[3.5rem] md:min-h-[4.5rem] lg:min-h-[5.5rem] flex flex-col justify-start">
+                    <h3 className="font-sans text-lg lg:text-xl font-bold text-white leading-snug group-hover:text-gold transition-colors">
                       {card.title}
                     </h3>
                   </div>
@@ -364,22 +364,22 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Get started</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-sans text-4xl md:text-6xl font-bold text-white mb-6">
               Planning a complex building project?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
               Whether you’re developing a luxury hotel, residential tower, commercial development or mixed-use destination, our multidisciplinary engineering teams are ready to help deliver high-performance buildings.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
+                className="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm text-center"
               >
                 Request consultation →
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm"
+                className="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm text-center"
               >
                 Explore projects
               </Link>

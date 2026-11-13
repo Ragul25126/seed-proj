@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
           <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
             Legal & Compliance
           </span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-sans font-bold text-white mb-6 leading-tight">
             Privacy Policy
           </h1>
           <p className="text-slate-400 text-sm md:text-base font-light max-w-2xl mx-auto leading-relaxed">
@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
 
             {/* HEADER INTRO */}
             <div>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-6">
+              <h2 className="text-2xl md:text-3xl font-sans font-bold text-white mb-6">
                 Privacy Policy
               </h2>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
 
             {/* INFORMATION COLLECTION AND USE */}
             <div className="!mt-7">
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Information collection and use
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-6">
@@ -65,7 +65,7 @@ export default function PrivacyPolicyPage() {
 
               {/* PERSONAL DATA */}
               <div className="mb-8">
-                <h5 className="text-lg font-serif font-bold text-white mb-3">
+                <h5 className="text-lg font-sans font-bold text-white mb-3">
                   Personal Data
                 </h5>
                 <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-4">
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
 
               {/* TRACKING & COOKIES DATA */}
               <div>
-                <h5 className="text-lg font-serif font-bold text-white mb-3">
+                <h5 className="text-lg font-sans font-bold text-white mb-3">
                   Tracking & Cookies Data
                 </h5>
                 <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-4">
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
 
             {/* USE OF DATA */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Use of Data
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-4">
@@ -122,7 +122,7 @@ export default function PrivacyPolicyPage() {
 
             {/* TRANSFER OF DATA */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Transfer of Data
               </h3>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -145,10 +145,10 @@ export default function PrivacyPolicyPage() {
 
             {/* DISCLOSURE OF DATA */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Disclosure of Data
               </h3>
-              <h4 className="text-lg font-serif font-bold text-white mb-3">
+              <h4 className="text-lg font-sans font-bold text-white mb-3">
                 Legal Requirements
               </h4>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed mb-4">
@@ -167,7 +167,7 @@ export default function PrivacyPolicyPage() {
 
             {/* SECURITY OF DATA */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Security of Data
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -179,7 +179,7 @@ export default function PrivacyPolicyPage() {
 
             {/* SERVICE PROVIDERS */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Service Providers
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -191,7 +191,7 @@ export default function PrivacyPolicyPage() {
 
             {/* LINKS TO OTHER SITES */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Links to other Sites
               </h3>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -208,7 +208,7 @@ export default function PrivacyPolicyPage() {
 
             {/* CHILDREN'S PRIVACY */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Children's Privacy
               </h3>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -225,7 +225,7 @@ export default function PrivacyPolicyPage() {
 
             {/* CHANGE TO THIS PRIVACY POLICY */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Change to this Privacy Policy
               </h3>
               <div className="space-y-4 text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">
@@ -248,7 +248,7 @@ export default function PrivacyPolicyPage() {
 
             {/* CONTACT US */}
             <div>
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-white mb-4">
                 Contact Us
               </h3>
               <p className="text-slate-300 text-sm md:text-[15px] font-light leading-relaxed">

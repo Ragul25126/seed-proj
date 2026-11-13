@@ -169,7 +169,7 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
               )}
             </div>
 
-            <h1 className="font-serif text-2xl sm:text-4xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-sans text-2xl sm:text-4xl font-bold text-white mb-6 leading-tight">
               {proj.title}
             </h1>
 

@@ -53,7 +53,7 @@ function LoginForm({ initialErrorParam }: LoginFormProps) {
       <div className="w-full max-w-md bg-[#0b0f19] border border-white/10 rounded-sm p-8 shadow-2xl z-10 relative">
         {/* Logo / Header */}
         <div className="text-center mb-8 select-none">
-          <h1 className="text-gold text-2xl font-serif tracking-[0.2em] font-bold block mb-1 leading-tight whitespace-nowrap">
+          <h1 className="text-gold text-2xl font-sans tracking-[0.2em] font-bold block mb-1 leading-tight whitespace-nowrap">
             SEED
           </h1>
           <p className="text-[10px] text-white/50 tracking-[0.3em] uppercase block leading-normal whitespace-nowrap">

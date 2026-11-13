@@ -39,7 +39,7 @@ export default function HomePage() {
           <div>
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Who we are</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15]">
                 Engineering decisions,<br/>not just drawings
               </h2>
               <div className="space-y-6 text-slate-400 text-[15px] leading-relaxed font-light mb-10">
@@ -68,7 +68,7 @@ export default function HomePage() {
                 className="object-cover" 
               />
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">
-                <div className="text-4xl font-serif font-bold text-[#0b0f19] mb-2">22</div>
+                <div className="text-4xl font-sans font-bold text-[#0b0f19] mb-2">22</div>
                 <div className="text-[11px] font-sans font-medium uppercase tracking-wider text-[#0b0f19] leading-tight">
                   Years of<br/>Engineering<br/>excellence
                 </div>
@@ -84,7 +84,7 @@ export default function HomePage() {
           <Reveal>
             <div className="mb-16 max-w-2xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Engineering services</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15]">
                 Integrated engineering<br/>solutions
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
@@ -101,7 +101,7 @@ export default function HomePage() {
             {CORE_SERVICES.map((service, i) => (
               <StaggerItem key={i}>
                 <div className="group p-6 border border-white/8 bg-[#0f172a] hover:border-gold/40 hover:bg-[#0f172a]/80 transition-all duration-300 h-full">
-                  <h3 className="text-white font-serif text-[17px] font-semibold mb-3 group-hover:text-gold transition-colors">{service.title}</h3>
+                  <h3 className="text-white font-sans text-[17px] font-semibold mb-3 leading-snug group-hover:text-gold transition-colors">{service.title}</h3>
                   <p className="text-slate-400 text-[13px] font-light leading-relaxed">{service.desc}</p>
                 </div>
               </StaggerItem>
@@ -116,7 +116,7 @@ export default function HomePage() {
           <Reveal>
             <div className="mb-16 max-w-2xl text-center mx-auto">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15]">
                 Featured Projects
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
@@ -145,7 +145,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/20 to-transparent opacity-90 transition-opacity duration-300 pointer-events-none" />
                   <div className="absolute inset-0 p-8 flex flex-col justify-end pointer-events-none">
                     <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">{proj.loc}</span>
-                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white group-hover:text-gold transition-colors">{proj.title}</h3>
+                    <h3 className="font-sans text-xl md:text-2xl font-bold text-white group-hover:text-gold transition-colors leading-snug">{proj.title}</h3>
                   </div>
                 </div>
               </StaggerItem>
@@ -173,7 +173,7 @@ export default function HomePage() {
               { value: 22,   suffix: '',   label: 'Years of Experience',              fmt: false },
             ].map((stat, i) => (
               <StaggerItem key={i} className="px-2 sm:px-4">
-                <div className={`font-serif font-bold text-gold mb-4 flex justify-center items-baseline ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
+                <div className={`font-sans font-bold text-gold mb-3 flex justify-center items-baseline leading-none ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
                   <CountUp to={stat.value} format={stat.fmt} />
                   <span className={`ml-1 ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-xl sm:text-2xl md:text-2xl lg:text-3xl' : 'text-3xl'}`}>{stat.suffix}</span>
                 </div>
@@ -192,7 +192,7 @@ export default function HomePage() {
           <Reveal>
             <div className="mb-20 max-w-3xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Our process</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15]">
                 Our engineering<br/>delivery framework
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
@@ -238,8 +238,8 @@ export default function HomePage() {
                 <div className="p-6 lg:p-8 h-full flex flex-col justify-between border-b md:border-b-0 border-r-0 md:border-r border-white/8 last:border-b-0 md:last:border-r-0 hover:bg-white/3 transition-colors duration-300">
                   <div>
                     <span className="text-gold text-[11px] font-bold block mb-2">{phase.step}</span>
-                    <div className="min-h-[3.5rem] mb-4 flex items-start">
-                      <h3 className="text-xl font-serif font-bold text-white leading-snug">{phase.title}</h3>
+                    <div className="min-h-[4rem] mb-4 flex items-start">
+                      <h3 className="text-xl font-sans font-bold text-white leading-snug">{phase.title}</h3>
                     </div>
                     <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{phase.desc}</p>
                   </div>
@@ -266,7 +266,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Industries</span>
-            <h2 className="font-serif text-4xl font-bold text-white mb-6">Industries we serve</h2>
+            <h2 className="font-sans text-3xl sm:text-4xl font-bold text-white mb-6 leading-[1.15]">Industries we serve</h2>
             <p className="text-slate-400 font-light text-[14px] leading-relaxed max-w-2xl mx-auto mb-16">
               Our engineering expertise spans the full range of complex building typologies — each with distinct regulatory, performance and operational demands.
             </p>
@@ -295,17 +295,17 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6 block">Start a conversation</span>
-            <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-sans text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-[1.12]">
               Planning a complex<br/>building project?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
               Speak with our engineering team about MEP design, sustainability, BIM coordination and commissioning requirements.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/contact" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
+              <Link href="/contact" prefetch={false} className="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 text-center">
                 Request consultation
               </Link>
-              <Link href="/projects" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300">
+              <Link href="/projects" prefetch={false} className="inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 text-center">
                 Explore projects
               </Link>
             </div>

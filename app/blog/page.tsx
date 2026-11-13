@@ -147,7 +147,7 @@ export default function InsightsPage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
               News & Recognition
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
               SEED in Focus
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
@@ -162,7 +162,7 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">In the Media</h2>
+              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">In the Media</h2>
             </div>
           </Reveal>
 
@@ -187,7 +187,7 @@ export default function InsightsPage() {
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
                     </Link>
                     <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
                   </div>
@@ -219,7 +219,7 @@ export default function InsightsPage() {
           <Reveal>
             <div className="mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Accolades & honours</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Industry Recognition</h2>
+              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">Industry Recognition</h2>
             </div>
           </Reveal>
 
@@ -243,7 +243,7 @@ export default function InsightsPage() {
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
                     </Link>
                     <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
                   </div>
@@ -272,7 +272,7 @@ export default function InsightsPage() {
             <Reveal>
               <div className="text-center max-w-3xl mx-auto mb-16">
                 <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
+                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
               </div>
             </Reveal>
 
@@ -280,7 +280,7 @@ export default function InsightsPage() {
               {AWARDS.map((group, idx) => (
                 <StaggerItem key={idx}>
                   <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-start group">
-                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
+                    <h3 className="font-sans text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
                       <span className="w-2 h-2 rounded-full bg-gold shrink-0 group-hover:scale-125 transition-transform" />
                       <span>{group.organization}</span>
                     </h3>
@@ -322,7 +322,7 @@ export default function InsightsPage() {
               ✕
             </button>
             <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{activeModal.date}</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-6">{activeModal.headline}</h2>
+            <h2 className="text-2xl md:text-4xl font-sans font-bold text-white mb-6">{activeModal.headline}</h2>
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] mb-6 rounded-sm overflow-hidden bg-[#060e25] border border-white/10">
               <Image
                 src={activeModal.image}
@@ -358,7 +358,7 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Collaboration</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-sans text-4xl md:text-6xl font-bold text-white mb-6">
               Let’s shape the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">

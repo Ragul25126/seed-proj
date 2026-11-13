@@ -10,7 +10,7 @@ export default async function AdminProjectsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-serif font-bold text-gold">Projects Portfolio</h2>
+          <h2 className="text-xl font-sans font-bold text-gold">Projects Portfolio</h2>
           <p className="text-xs text-white/50">Manage your projects, upload images, and control featured states.</p>
         </div>
       </div>

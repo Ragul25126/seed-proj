@@ -144,7 +144,7 @@ export default function ContactPage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
               Get in touch
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
               Let’s start a conversation
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
@@ -160,7 +160,7 @@ export default function ContactPage() {
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Our offices</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our global presence</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-white mb-4 leading-[1.15]">Our global presence</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                 With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
               </p>
@@ -175,7 +175,7 @@ export default function ContactPage() {
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-gold text-[10px] font-bold tracking-widest uppercase">Office 0{idx + 1}</span>
                     </div>
-                    <h3 className="font-serif text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
+                    <h3 className="font-sans text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
 
                     <div className="space-y-3 border-t border-white/5 pt-4 text-[13px] text-slate-400 font-light">
                       <div>
@@ -208,7 +208,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.12]">
               Ready to build something exceptional?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
@@ -238,7 +238,7 @@ export default function ContactPage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Inquiries</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Send us a message</h2>
+                <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-6">Send us a message</h2>
                 <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                   Complete the form below and one of our senior engineering team members will get back to you as soon as possible.
                 </p>
@@ -254,7 +254,7 @@ export default function ContactPage() {
                       <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/40 text-gold text-3xl flex items-center justify-center mx-auto mb-6">
                         ✓
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-3">Thank you for getting in touch</h3>
+                      <h3 className="font-sans text-2xl font-bold text-white mb-3">Thank you for getting in touch</h3>
                       <p className="text-slate-400 text-sm font-light leading-relaxed max-w-md mx-auto mb-8">
                         Your message has been received by our engineering team. We will review your project requirements and respond within 24 business hours.
                       </p>

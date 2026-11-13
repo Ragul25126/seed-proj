@@ -22,8 +22,8 @@ const config: Config = {
         border: '#1e293b',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Georgia', '"Times New Roman"', 'serif'],
+        sans: ['Arial', '"Helvetica Neue"', 'Helvetica', 'var(--font-arimo)', 'sans-serif'],
+        serif: ['Arial', '"Helvetica Neue"', 'Helvetica', 'var(--font-arimo)', 'sans-serif'],
         mono: ['var(--font-dm-mono)', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {

@@ -71,7 +71,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <p className="text-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">
             {post.category} <span className="text-white/30 mx-2">·</span> {formatDate(post.publishedAt)}
           </p>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6 leading-tight">
             {post.title}
           </h1>
           <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
@@ -106,7 +106,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <div className="max-w-5xl mx-auto pt-16 border-t border-white/10 mt-16">
             <div className="mb-12">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">RELATED CONTENT</span>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">More Like This</h2>
+              <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">More Like This</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedPosts.map((news, idx) => (
@@ -127,7 +127,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                       <span className="text-slate-500 text-[11px]">{formatDate(news.publishedAt)}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-base font-bold text-white mb-2 group-hover:text-gold transition-colors line-clamp-2">{news.title}</h3>
+                      <h3 className="font-sans text-base font-bold text-white mb-2 group-hover:text-gold transition-colors line-clamp-2">{news.title}</h3>
                     </Link>
                     <p className="text-slate-400 text-[12px] font-light leading-relaxed mb-4 line-clamp-3">{news.excerpt}</p>
                   </div>

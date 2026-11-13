@@ -135,7 +135,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">
                 {displaySector || 'PROJECT CASE STUDY'}
               </span>
-              <h1 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight max-w-4xl">
+              <h1 className="text-4xl md:text-6xl font-sans font-bold text-white leading-tight max-w-4xl">
                 {proj.title}
               </h1>
             </div>
@@ -228,7 +228,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
                 <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">
                   PROJECT OVERVIEW
                 </span>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-6">
+                <h2 className="font-sans text-3xl md:text-4xl font-bold text-white mb-6">
                   Engineering delivery & performance
                 </h2>
                 <div className="space-y-4 text-slate-300 font-light text-[16px] leading-relaxed">
@@ -253,7 +253,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
             <div className="lg:col-span-5">
               <Reveal delay={0.1}>
                 <div className="bg-[#0b0f19] p-8 border border-white/10 rounded-sm">
-                  <h3 className="font-serif text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+                  <h3 className="font-sans text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
                     Key Project Details
                   </h3>
                   <div className="space-y-5">
@@ -279,7 +279,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-2 block">
                 VISUAL SHOWCASE
               </span>
-              <h2 className="font-serif text-3xl font-bold text-white mb-8">Project Renders & Architecture</h2>
+              <h2 className="font-sans text-3xl font-bold text-white mb-8">Project Renders & Architecture</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {images.map((img: string, idx: number) => (
                   <div key={idx} className="relative aspect-[16/10] bg-[#0a1020] rounded-sm overflow-hidden border border-white/10 group shadow-xl">
@@ -313,7 +313,7 @@ export default async function ViewFullProjectPage({ params, searchParams }: View
                 <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-2 block">
                   RELATED EXPERIENCE
                 </span>
-                <h2 className="font-serif text-3xl font-bold text-white">Similar Engineering Case Studies</h2>
+                <h2 className="font-sans text-3xl font-bold text-white">Similar Engineering Case Studies</h2>
               </div>
               <Link
                 href={backUrl}

@@ -4,10 +4,10 @@ import { cn } from '@/lib/utils';
 type Variant = 'gold' | 'outline-light' | 'outline-dark' | 'dark';
 
 const variants: Record<Variant, string> = {
-  gold: 'bg-champagne text-navy hover:bg-white tracking-[0.18em]',
-  'outline-light': 'border border-white/40 text-white hover:bg-white hover:text-navy tracking-[0.18em]',
-  'outline-dark': 'border border-white/40 text-white hover:bg-white hover:text-navy tracking-[0.18em]',
-  dark: 'bg-navy text-white hover:bg-[#142272] tracking-[0.18em]',
+  gold: 'bg-champagne text-navy hover:bg-white tracking-[0.15em]',
+  'outline-light': 'border border-white/40 text-white hover:bg-white hover:text-navy tracking-[0.15em]',
+  'outline-dark': 'border border-white/40 text-white hover:bg-white hover:text-navy tracking-[0.15em]',
+  dark: 'bg-navy text-white hover:bg-[#142272] tracking-[0.15em]',
 };
 
 export function Button({
@@ -26,7 +26,7 @@ export function Button({
   onClick?: () => void;
 }) {
   const base =
-    'inline-flex items-center gap-2 px-6 py-3 text-sm font-medium tracking-tight transition-colors duration-200';
+    'inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors duration-200';
   const classes = cn(base, variants[variant], className);
 
   if (href) {

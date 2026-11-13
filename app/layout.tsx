@@ -1,64 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter, DM_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import { DM_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-// Inter is self-hosted via next/font/google as the primary sans-serif typeface,
-// ensuring consistent rendering across all platforms (macOS, iOS, Windows, Android).
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-inter',
+// Arimo is self-hosted as the metric-identical open-source counterpart to Arial,
+// ensuring 100% pixel-perfect, consistent typography across all operating systems.
+const arimo = localFont({
+  src: '../public/fonts/arimo/Arimo-Variable.woff2',
+  variable: '--font-arimo',
   display: 'swap',
-});
-
-const playfair = localFont({
-  src: [
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-Regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-Italic.woff2',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-MediumItalic.woff2',
-      weight: '500',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-SemiBoldItalic.woff2',
-      weight: '600',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/playfair/PlayfairDisplay-BoldItalic.woff2',
-      weight: '700',
-      style: 'italic',
-    },
-  ],
-  variable: '--font-playfair',
-  display: 'swap',
+  weight: '400 700',
 });
 
 const dmMono = DM_Mono({
@@ -116,7 +69,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${dmMono.variable}`}>
+    <html lang="en" className={`${arimo.variable} ${dmMono.variable}`}>
       <body className="font-sans bg-bone text-body antialiased">
         <Navbar />
         <main>{children}</main>

@@ -45,7 +45,7 @@ export default function AboutPage() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#0b0f19]" />
         <div className="relative max-w-container mx-auto px-6 lg:px-12">
           <Reveal delay={0.08}>
-            <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
+            <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-[60px] xl:text-[68px] font-bold leading-[1.15] md:leading-[1.12] tracking-[-0.01em] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
             </h1>
           </Reveal>
@@ -63,7 +63,7 @@ export default function AboutPage() {
           <div className="lg:col-span-5">
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Our story</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold leading-[1.1] text-white">
+              <h2 className="font-sans text-4xl md:text-5xl font-bold leading-[1.1] text-white">
                 Built on Engineering excellence
               </h2>
             </Reveal>
@@ -88,7 +88,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Why SEED</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-white">
                 Engineering that delivers <br />more than design
               </h2>
             </div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
                 <div className="bg-[#0b0f19] border border-white/10 p-8 md:p-10 h-full flex flex-col justify-between hover:border-gold/40 transition-colors group rounded-sm">
                   <div>
                     <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">{card.num}</span>
-                    <h3 className="font-serif text-2xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{card.title}</h3>
+                    <h3 className="font-sans text-2xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{card.title}</h3>
                     <p className="text-slate-400 text-sm font-light leading-relaxed">{card.desc}</p>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default function AboutPage() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-5 block">Leadership</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-white">
                 Engineering leadership
               </h2>
               <p className="mt-6 text-slate-400 text-base md:text-lg leading-relaxed font-light">
@@ -158,7 +158,7 @@ export default function AboutPage() {
               className={sectionIdx > 0 ? 'mt-20 pt-16 border-t border-white/5' : ''}
             >
               <Reveal>
-                <h3 className="font-serif text-2xl md:text-3xl font-bold text-white text-center mb-12">
+                <h3 className="font-sans text-2xl md:text-3xl font-bold text-white text-center mb-12">
                   {section.title}
                 </h3>
               </Reveal>
@@ -181,14 +181,14 @@ export default function AboutPage() {
                           />
                         ) : (
                           <div className="flex items-center justify-center h-full">
-                            <span className="font-serif text-7xl text-gold/30 select-none">
+                            <span className="font-sans text-7xl text-gold/30 select-none">
                               {m.name.split(' ').map((p: string) => p[0]).join('').slice(0, 2)}
                             </span>
                           </div>
                         )}
                       </div>
                       <div className="flex items-center gap-3 mb-2">
-                        <h4 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
+                        <h4 className="font-sans text-2xl md:text-3xl font-bold text-white group-hover:text-gold transition-colors">
                           {m.name}
                         </h4>
                         {m.linkedin && (
@@ -215,7 +215,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Company statistics</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white">SEED at a glance</h2>
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.15]">SEED at a glance</h2>
             </div>
           </Reveal>
 
@@ -228,7 +228,7 @@ export default function AboutPage() {
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-serif text-5xl md:text-7xl font-bold text-gold mb-3">
+                  <p className="font-sans text-5xl md:text-7xl font-bold text-gold mb-3 leading-none">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
@@ -244,7 +244,7 @@ export default function AboutPage() {
             ].map((s, idx) => (
               <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap">
+                  <p className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap leading-none">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
@@ -261,7 +261,7 @@ export default function AboutPage() {
           <div className="mb-16 max-w-3xl">
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Our process</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.15]">
                 Our engineering process
               </h2>
               <p className="text-slate-400 text-base md:text-lg leading-relaxed font-light">
@@ -306,10 +306,10 @@ export default function AboutPage() {
               <Reveal key={i}>
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-0 border-b border-white/10 last:border-b-0">
                   <div className="md:col-span-1 bg-[#0f172a] p-8 flex items-start justify-center md:justify-start border-r border-white/10">
-                    <span className="text-gold font-serif text-2xl font-bold">{phase.step}</span>
+                    <span className="text-gold font-sans text-2xl font-bold">{phase.step}</span>
                   </div>
                   <div className="md:col-span-5 bg-[#0f172a] p-8 border-r border-white/10">
-                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-4">{phase.title}</h3>
+                    <h3 className="font-sans text-xl md:text-2xl font-bold text-white mb-4">{phase.title}</h3>
                     <p className="text-slate-400 leading-relaxed text-sm font-light">{phase.desc}</p>
                   </div>
                   <div className="md:col-span-6 bg-[#0b0f19] p-8">
@@ -336,7 +336,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Our presence</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Engineering across regions</h2>
+              <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.15]">Engineering across regions</h2>
               <p className="text-slate-300 text-base md:text-lg leading-relaxed font-light max-w-2xl mx-auto">
                 With strategically located offices and project experience across the Middle East, Africa and India, SEED delivers engineering solutions that combine regional expertise with international standards.
               </p>
@@ -358,7 +358,7 @@ export default function AboutPage() {
                     <span className="text-2xl">{off.flag}</span>
                     <span className="text-gold text-[10px] font-bold tracking-widest uppercase">{off.country}</span>
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-white mb-2">{off.city}</h3>
+                  <h3 className="font-sans text-2xl font-bold text-white mb-2">{off.city}</h3>
                   <p className="text-slate-400 text-xs font-light">{off.role}</p>
                 </div>
               </Reveal>
@@ -372,7 +372,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Start your project</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.15]">
               Let’s build better together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
