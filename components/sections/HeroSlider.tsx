@@ -178,7 +178,7 @@ export function HeroSlider() {
                 <div className="container mx-auto px-6 lg:px-12 pt-24">
                   <div className="max-w-4xl">
                     <div className={!hasRotated && idx === 0 ? '' : 'animate-fade-in-up'}>
-                      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-sans font-bold text-[#f8fafc] mb-6 leading-[1.12] md:leading-[1.1] tracking-[-0.015em]">
+                      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-sans font-bold text-[#f8fafc] mb-6 leading-[1.22] md:leading-[1.2] tracking-[-0.015em]">
                         {slide.title}
                       </h1>
                       <p className="text-base sm:text-lg md:text-xl font-sans font-light text-slate-300 max-w-xl leading-relaxed mb-10">
