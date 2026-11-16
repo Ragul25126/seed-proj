@@ -167,10 +167,10 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
             {[
-              { value: 1000, suffix: '',   label: 'Projects Delivered',              fmt: true  },
+              { value: 1000, suffix: '+',  label: 'Projects',                         fmt: true  },
               { value: 750,  suffix: ' M', label: 'Sq. Ft. of Projects Undertaken',  fmt: false },
               { value: 26,   suffix: '+',  label: 'Countries',                        fmt: false },
-              { value: 22,   suffix: '',   label: 'Years of Experience',              fmt: false },
+              { value: 22,   suffix: '+',  label: 'Years of Experience',              fmt: false },
             ].map((stat, i) => (
               <StaggerItem key={i} className="px-2 sm:px-4">
                 <div className={`font-sans font-bold text-gold mb-3 flex justify-center items-baseline leading-none ${stat.value >= 1000 || stat.suffix.includes('M') ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
