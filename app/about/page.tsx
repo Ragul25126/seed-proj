@@ -228,7 +228,7 @@ export default function AboutPage() {
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-sans text-5xl md:text-7xl font-bold text-gold mb-3 leading-none">
+                  <p className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-gold mb-3 leading-none">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
@@ -244,7 +244,7 @@ export default function AboutPage() {
             ].map((s, idx) => (
               <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap leading-none">
+                  <p className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap leading-none">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>
