@@ -221,7 +221,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
-              { v: 22, suf: '', l: 'Years of experience' },
+              { v: 22, suf: '+', l: 'Years of experience' },
               { v: 300, suf: '', l: 'Engineering professionals' },
               { v: 7, suf: '', l: 'Global offices' },
               { v: 26, suf: '', l: 'Countries served' },
