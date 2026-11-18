@@ -26,7 +26,7 @@ export function Button({
   onClick?: () => void;
 }) {
   const base =
-    'inline-flex items-center gap-2 px-6 py-3 text-sm font-medium tracking-tight transition-colors duration-200';
+    'inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-colors duration-200';
   const classes = cn(base, variants[variant], className);
 
   if (href) {

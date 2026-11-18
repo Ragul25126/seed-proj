@@ -10,6 +10,7 @@
   --color-champagne: #D4AF37;
   --color-ink: #0b0f19;
   --color-bone: #0b0f19;
+  --font-sans: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, var(--font-arimo), sans-serif;
 }
 
 html {
@@ -22,7 +23,18 @@ html {
 body {
   background: var(--color-bone);
   color: #f8fafc;
-  font-feature-settings: 'ss01', 'cv11';
+  font-family: var(--font-sans);
+}
+
+/* Global typography rule to ensure uniform, uncompressed letter spacing & kerning */
+body, p, li, a, span, label, input, textarea {
+  letter-spacing: 0.01em;
+  word-spacing: 0.02em;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
@@ -45,14 +57,14 @@ body {
 .display {
   font-size: clamp(3rem, 7vw, 6rem);
   line-height: 0.95;
-  letter-spacing: -0.03em;
+  letter-spacing: 0em;
   font-weight: 300;
 }
 
 .h1 {
   font-size: clamp(2.75rem, 5vw, 4.5rem);
   line-height: 1.02;
-  letter-spacing: -0.025em;
+  letter-spacing: 0em;
   font-weight: 700;
   color: inherit;
 }
@@ -60,7 +72,7 @@ body {
 .h2 {
   font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: 0em;
   font-weight: 700;
   color: inherit;
 }
@@ -68,7 +80,7 @@ body {
 .h3 {
   font-size: clamp(1.125rem, 1.8vw, 1.5rem);
   line-height: 1.3;
-  letter-spacing: -0.01em;
+  letter-spacing: 0em;
   font-weight: 600;
   color: inherit;
 }
@@ -99,6 +111,51 @@ body {
 }
 
 /* Image placeholder block */
+.hero-title {
+  line-height: 1.15 !important;
+  display: block;
+  letter-spacing: 0em !important;
+}
+
+.hero-title > span {
+  display: block;
+  line-height: inherit;
+}
+
+.hero-desc {
+  letter-spacing: 0.015em !important;
+  line-height: 1.6 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Custom kerning for 'performance' where 'rf' and 'rm' are naturally tight in Helvetica */
+.word-performance {
+  letter-spacing: 0.015em;
+  display: inline;
+}
+
+.word-performance .kern-rf,
+.word-performance .kern-rm {
+  letter-spacing: 0.055em;
+  display: inline;
+}
+
+.word-performance-body {
+  letter-spacing: 0.01em;
+  display: inline;
+}
+
+.word-performance-body .kern-rf-body,
+.word-performance-body .kern-rm-body {
+  letter-spacing: 0.04em;
+  display: inline;
+}
+
+.rf-fix {
+  letter-spacing: 0.04em;
+  display: inline;
+}
+
 .placeholder-block {
   background-color: #1a1a1a;
   color: #8a8680;

@@ -87,7 +87,7 @@ export default function AboutPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] tracking-[-0.015em] max-w-5xl text-white">
+            <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
             </h1>
           </Reveal>
@@ -240,10 +240,10 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
-              { v: 22, suf: '+', l: 'Years in Practice' },
-              { v: 300, suf: '', l: 'Engineering Professionals' },
+              { v: 22, suf: '+', l: 'Years of Experience' },
+              { v: 300, suf: '+', l: 'Engineering Professionals' },
               { v: 7, suf: '', l: 'Global Offices' },
-              { v: 26, suf: '', l: 'Countries Served' },
+              { v: 26, suf: '+', l: 'Countries Served' },
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
@@ -263,7 +263,7 @@ export default function AboutPage() {
             ].map((s, idx) => (
               <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className={`font-serif ${s.v === 50000 ? 'text-3xl sm:text-4xl md:text-[2.5rem] lg:text-[3.25rem] xl:text-[3.75rem] tracking-tight whitespace-nowrap' : 'text-5xl md:text-7xl'} font-bold text-gold mb-3`}>
+                  <p className={`font-serif ${s.v === 50000 ? 'text-3xl sm:text-4xl md:text-[2.5rem] lg:text-[3.25rem] xl:text-[3.75rem] whitespace-nowrap' : 'text-5xl md:text-7xl'} font-bold text-gold mb-3`}>
                     <CountUp to={s.v} suffix={s.suf} format={s.fmt} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>

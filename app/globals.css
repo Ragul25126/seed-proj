@@ -10,10 +10,10 @@
   --color-champagne: #D4AF37;
   --color-ink: #0b0f19;
   --color-bone: #0b0f19;
-  --font-sans: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
-  --font-serif: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
-  --font-inter: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
-  --font-playfair: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  --font-sans: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, var(--font-arimo), sans-serif;
+  --font-serif: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, var(--font-arimo), sans-serif;
+  --font-inter: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, var(--font-arimo), sans-serif;
+  --font-playfair: "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, var(--font-arimo), sans-serif;
 }
 
 html {
@@ -28,9 +28,20 @@ html {
 body {
   background: var(--color-bone);
   color: #f8fafc;
-  font-family: Arial, "Helvetica Neue", Helvetica, var(--font-arimo), sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
   max-width: 100vw;
+}
+
+/* Global typography rule to ensure uniform, uncompressed letter spacing & kerning */
+body, p, li, a, span, label, input, textarea {
+  letter-spacing: 0.01em;
+  word-spacing: 0.02em;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button, input, optgroup, select, textarea {
@@ -50,11 +61,46 @@ button, input, optgroup, select, textarea {
 .hero-title {
   line-height: 1.15 !important;
   display: block;
+  letter-spacing: 0em !important;
 }
 
-.hero-title span {
+.hero-title > span {
   display: block;
   line-height: inherit;
+}
+
+.hero-desc {
+  letter-spacing: 0.015em !important;
+  line-height: 1.6 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Custom kerning for 'performance' where 'rf' and 'rm' are naturally tight in Helvetica */
+.word-performance {
+  letter-spacing: 0.015em;
+  display: inline;
+}
+
+.word-performance .kern-rf,
+.word-performance .kern-rm {
+  letter-spacing: 0.055em;
+  display: inline;
+}
+
+.word-performance-body {
+  letter-spacing: 0.01em;
+  display: inline;
+}
+
+.word-performance-body .kern-rf-body,
+.word-performance-body .kern-rm-body {
+  letter-spacing: 0.04em;
+  display: inline;
+}
+
+.rf-fix {
+  letter-spacing: 0.04em;
+  display: inline;
 }
 
 .label {
@@ -68,14 +114,14 @@ button, input, optgroup, select, textarea {
 .display {
   font-size: clamp(3rem, 7vw, 5.5rem);
   line-height: 1.08;
-  letter-spacing: -0.015em;
+  letter-spacing: 0em;
   font-weight: 400;
 }
 
 .h1 {
   font-size: clamp(2.5rem, 5vw, 4.25rem);
   line-height: 1.12;
-  letter-spacing: -0.01em;
+  letter-spacing: 0em;
   font-weight: 700;
   color: inherit;
 }
@@ -83,7 +129,7 @@ button, input, optgroup, select, textarea {
 .h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.18;
-  letter-spacing: -0.005em;
+  letter-spacing: 0em;
   font-weight: 700;
   color: inherit;
 }

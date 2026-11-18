@@ -119,8 +119,9 @@ export const portfolio: {
         architect: "BSBG",
         services: "MEP/AV/ICT/Security/Home Automation Design",
         area: "Plot A: 87,395 sqm · Plot B: 84,818 sqm",
-        image: "/projects/Ellington Sands 1 & 2.webp",
+        image: "/projects/ellington-sands-1-2.png",
         images: [
+          "/projects/ellington-sands-1-2.png",
           "/projects/Ellington Sands 1 & 2.webp",
           "/projects/ellington-sands-waterfront.png",
           "/projects/ellington-sands-aerial.png"

@@ -45,7 +45,7 @@ export default function AboutPage() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#0b0f19]" />
         <div className="relative max-w-container mx-auto px-6 lg:px-12">
           <Reveal delay={0.08}>
-            <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-[60px] xl:text-[68px] font-bold leading-[1.15] md:leading-[1.12] tracking-[-0.01em] max-w-5xl text-white">
+            <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-[60px] xl:text-[68px] font-bold leading-[1.15] md:leading-[1.12] max-w-5xl text-white">
               We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
             </h1>
           </Reveal>
@@ -222,9 +222,9 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center mb-8 md:mb-12">
             {[
               { v: 22, suf: '+', l: 'Years of experience' },
-              { v: 300, suf: '', l: 'Engineering professionals' },
+              { v: 300, suf: '+', l: 'Engineering professionals' },
               { v: 7, suf: '', l: 'Global offices' },
-              { v: 26, suf: '', l: 'Countries served' },
+              { v: 26, suf: '+', l: 'Countries served' },
             ].map((s) => (
               <Reveal key={s.l}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
@@ -239,12 +239,12 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
             {[
-              { v: 750, suf: ' M', l: 'Sq.ft of projects undertaken' },
+              { v: 750, suf: 'M', l: 'Sq.ft of projects undertaken' },
               { v: 1000, suf: '+', l: 'Projects' },
             ].map((s, idx) => (
               <Reveal key={s.l} className={`col-span-1 ${idx === 0 ? 'md:col-start-2' : ''}`}>
                 <div className="p-8 bg-[#0b0f19] border border-white/10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-center">
-                  <p className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-gold mb-3 tracking-tight whitespace-nowrap leading-none">
+                  <p className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-gold mb-3 whitespace-nowrap leading-none">
                     <CountUp to={s.v} suffix={s.suf} />
                   </p>
                   <p className="text-xs md:text-sm font-sans font-bold tracking-[0.15em] uppercase text-slate-300">{s.l}</p>

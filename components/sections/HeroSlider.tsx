@@ -7,36 +7,36 @@ import Link from 'next/link';
 const slides = [
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
-    title: <><span>Engineering</span><span>high-performance</span><span>buildings</span></>,
-    desc: <>SEED delivered MEP Design and Supervision for Wasl Tower, one of Dubai’s most iconic mixed-use developments, providing integrated engineering solutions that enhance building performance, coordination and long-term operational excellence.</>,
+    title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
+    desc: <>SEED delivered MEP Design and Supervision for Wasl Tower, one of Dubai’s most iconic mixed-use developments, providing integrated engineering solutions that enhance building <span className="word-performance-body">pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span>, coordination and long-term operational excellence.</>,
     image: '/projects/mandarin-wasl-tower.webp',
     projectInfo: 'Wasl Tower — Dubai, UAE',
   },
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
-    title: <><span>Engineering</span><span>high-performance</span><span>buildings</span></>,
-    desc: <>Engineering integrated building systems for a vibrant mixed-use waterfront destination, delivering operational efficiency, sustainability and long-term building performance.</>,
+    title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
+    desc: <>Engineering integrated building systems for a vibrant mixed-use wate<span className="rf-fix">r</span>front destination, delivering operational efficiency, sustainability and long-term building <span className="word-performance-body">pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span>.</>,
     image: '/projects/portside-square.webp',
     projectInfo: 'Portside Square — Dubai, UAE',
   },
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
-    title: <><span>Engineering</span><span>high-performance</span><span>buildings</span></>,
-    desc: <>Creating coordinated MEP engineering solutions for a premium residential community, designed to provide comfort, resilience and sustainable performance for modern living (Soto Grande).</>,
+    title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
+    desc: <>Creating coordinated MEP engineering solutions for a premium residential community, designed to provide comfort, resilience and sustainable <span className="word-performance-body">pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span> for modern living (Soto Grande).</>,
     image: '/projects/Soto Grande.webp',
     projectInfo: 'Soto Grande — Ras Al Khaimah, UAE',
   },
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
-    title: <><span>Engineering</span><span>high-performance</span><span>buildings</span></>,
+    title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
     desc: <>Delivering intelligent engineering solutions for a luxury hospitality destination, where guest comfort, operational excellence and sustainability are seamlessly integrated (The Meriva Collection).</>,
     image: '/projects/meriva-collection.webp',
     projectInfo: 'The Meriva Collection — Dubai, UAE',
   },
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
-    title: <><span>Engineering</span><span>high-performance</span><span>buildings</span></>,
-    desc: <>Providing high-performance MEP engineering for one of Abu Dhabi’s most prestigious branded residences, combining engineering excellence with luxury living and long-term operational value (The St. Regis Branded Residences).</>,
+    title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
+    desc: <>Providing <span className="word-performance-body">high-pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span> MEP engineering for one of Abu Dhabi’s most prestigious branded residences, combining engineering excellence with luxury living and long-term operational value (The St. Regis Branded Residences).</>,
     image: '/projects/stregis sector image.avif',
     projectInfo: 'The St. Regis Branded Residences — Abu Dhabi, UAE',
   }
@@ -179,12 +179,12 @@ export function HeroSlider() {
                   <div className="max-w-4xl">
                     <div className={!hasRotated && idx === 0 ? '' : 'animate-fade-in-up'}>
                       <h1
-                        className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-sans font-bold text-[#f8fafc] mb-6 tracking-[-0.015em]"
+                        className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-sans font-bold text-[#f8fafc] mb-6"
                         style={{ lineHeight: 1.15 }}
                       >
                         {slide.title}
                       </h1>
-                      <p className="text-base sm:text-lg md:text-xl font-sans font-light text-slate-300 max-w-xl leading-relaxed mb-10">
+                      <p className="hero-desc text-base sm:text-lg md:text-xl font-sans font-light text-slate-200 max-w-xl mb-10">
                         {slide.desc}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-xs sm:max-w-none">

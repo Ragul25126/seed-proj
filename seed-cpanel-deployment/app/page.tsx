@@ -126,7 +126,7 @@ export default function HomePage() {
             {[
               { img: '/projects/mandarin-wasl-tower.webp', title: 'Mandarin Oriental Wasl Tower', loc: 'DUBAI, UAE' },
               { img: '/projects/saas---st-regis-pic-1.webp', title: 'St. Regis Branded Residence', loc: 'ABU DHABI, UAE' },
-              { img: '/projects/ellington-sands-1---2-aurelie-dubai-islands---plot-b---vision---rev02.webp', title: 'Ellington Sands 1 & 2', loc: 'DUBAI, UAE' }
+              { img: '/projects/ellington-sands-1-2.png', title: 'Ellington Sands 1 & 2', loc: 'DUBAI, UAE' }
             ].map((proj, idx) => (
               <StaggerItem key={idx}>
                 <div className="group relative overflow-hidden cursor-pointer rounded-sm bg-[#0a1020] border border-white/5 flex flex-col h-full">
@@ -171,7 +171,18 @@ export default function HomePage() {
               <StaggerItem key={i} className="px-2 sm:px-4">
                 <div className={`font-serif font-bold text-gold mb-4 flex justify-center items-baseline ${stat.value === 1000 ? 'text-4xl sm:text-5xl md:text-5xl lg:text-6xl' : 'text-5xl md:text-6xl'}`}>
                   <CountUp to={stat.value} format={stat.fmt} />
-                  <span className={`ml-1 ${stat.value === 1000 ? 'text-xl sm:text-2xl md:text-2xl lg:text-3xl' : 'text-3xl'}`}>{stat.suffix}</span>
+                  <span
+                    className="stat-plus"
+                    style={{
+                      fontSize: '1em',
+                      fontWeight: 'inherit',
+                      verticalAlign: 'baseline',
+                      marginLeft: '0.05em',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {stat.suffix}
+                  </span>
                 </div>
                 <div className="text-[11px] font-medium tracking-[0.15em] uppercase text-white">
                   {stat.label}

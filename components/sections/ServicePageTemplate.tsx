@@ -62,7 +62,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14">
           <div className="lg:col-span-4">
             <SectionLabel>What this really means</SectionLabel>
-            <h2 className="font-sans text-3xl md:text-4xl font-medium leading-[1.1] tracking-[-0.01em] text-navy">
+            <h2 className="font-sans text-3xl md:text-4xl font-medium leading-[1.1] text-navy">
               {props.realMeaningTitle}
             </h2>
           </div>
