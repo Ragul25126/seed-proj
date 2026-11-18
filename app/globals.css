@@ -75,10 +75,13 @@ button, input, optgroup, select, textarea {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Prevent 'performance' and 'waterfront' from breaking across lines while preserving subtle r-f spacing */
+/* Prevent words with inline kerning fixes from breaking across lines */
 .word-performance,
 .word-performance-body,
-.rf-word {
+.rf-word,
+.ry-word,
+.rv-word,
+.rt-word {
   display: inline-block;
   white-space: nowrap !important;
 }
@@ -109,6 +112,59 @@ button, input, optgroup, select, textarea {
 p .rv-fix,
 li .rv-fix {
   margin-right: 0.03em;
+}
+
+/* Kerning fix for 'r' before 'y' */
+.ry-fix {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.05em;
+}
+
+.ry-fix-body {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.03em;
+}
+
+p .ry-fix,
+li .ry-fix,
+span .ry-fix {
+  margin-right: 0.03em;
+}
+
+h1 .ry-fix,
+h2 .ry-fix,
+h3 .ry-fix,
+h4 .ry-fix {
+  margin-right: 0.05em;
+}
+
+/* Kerning fix for 'r' before 't' */
+.rt-fix {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.05em;
+}
+
+.rt-fix-body {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.03em;
+}
+
+p .rt-fix,
+li .rt-fix,
+span .rt-fix,
+label .rt-fix {
+  margin-right: 0.03em;
+}
+
+h1 .rt-fix,
+h2 .rt-fix,
+h3 .rt-fix,
+h4 .rt-fix {
+  margin-right: 0.05em;
 }
 
 .label {

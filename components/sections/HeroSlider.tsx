@@ -29,14 +29,14 @@ const slides = [
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
     title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
-    desc: <>Delivering intelligent engineering solutions for a luxury hospitality destination, where guest comfort, operational excellence and sustainability are seamlessly integrated (The Meriva Collection).</>,
+    desc: <>Delivering intelligent engineering solutions for a luxu<span className="ry-fix-body">r</span>y hospitality destination, where guest comfort, operational excellence and sustainability are seamlessly integrated (The Meriva Collection).</>,
     image: '/projects/meriva-collection.webp',
     projectInfo: 'The Meriva Collection — Dubai, UAE',
   },
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
     title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
-    desc: <>Providing <span className="word-performance-body">high-pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span> MEP engineering for one of Abu Dhabi’s most prestigious branded residences, combining engineering excellence with luxury living and long-term operational value (The St. Regis Branded Residences).</>,
+    desc: <>Providing <span className="word-performance-body">high-pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span> MEP engineering for one of Abu Dhabi’s most prestigious branded residences, combining engineering excellence with luxu<span className="ry-fix-body">r</span>y living and long-term operational value (The St. Regis Branded Residences).</>,
     image: '/projects/stregis sector image.avif',
     projectInfo: 'The St. Regis Branded Residences — Abu Dhabi, UAE',
   }

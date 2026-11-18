@@ -1558,7 +1558,7 @@ export const team = [
     region: 'India',
     name: 'Arathi Prakash Shengal',
     role: 'Associate Director – India',
-    image: '/image.png',
+    image: '/team/arathi-prakash-shengal.png',
     linkedin: 'https://www.linkedin.com/in/arathi-shengali-gandhi-a2956a1b/',
     bio: 'Seasoned MEP and Electrical Engineering leader with over 21 years of experience in the design, management, and delivery of large-scale residential, commercial, hospitality and mixed-use developments across India. At SEED Engineering Consultants India Pvt Ltd, she oversees technical excellence, project delivery, and business operations, bringing extensive expertise in electrical systems, sustainability, project management and multidisciplinary team leadership.',
   }

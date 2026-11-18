@@ -1,27 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { formatPerformanceText } from '@/lib/typography';
 
-const CONTACT_CARDS = [
+const OFFICES: Array<{
+  city: React.ReactNode;
+  country: string;
+  address: React.ReactNode;
+  phone?: string;
+  email: string;
+}> = [
   {
-    title: 'Dubai Headquarters',
-    subtitle: 'Dubai, United Arab Emirates',
-    icon: '📍',
-    details: [
-      { label: 'Address', value: '#303, Old Commercial Bank of Dubai Building, Opp. Hamarain Centre, Abu Baker Al Siddique Road, Deira P O Box 119146, Dubai, UAE' },
-      { label: 'Telephone', value: '+971 42 564 882' },
-      { label: 'Email', value: 'contact@seedengineering.com' },
-    ],
-  },
-];
-
-const OFFICES = [
-  {
-    city: 'Dubai Head Quarters',
+    city: <>Dubai Head <span className="rt-word">Qua<span className="rt-fix-body">r</span>ters</span></>,
     country: 'United Arab Emirates',
     address: '#303, Old Commercial Bank of Dubai Building, Opp. Hamarain Centre, Abu Baker Al Siddique Road, Deira P O Box 119146, Dubai, UAE',
     phone: '+971 42 564 882',
@@ -52,9 +45,9 @@ const OFFICES = [
     email: 'contact@seedengineering.com',
   },
   {
-    city: 'Gurugram',
+    city: 'Delhi',
     country: 'India',
-    address: 'AltF Empire Square – Unit 19, 3rd Floor, JMD Empire Square, Near Sikanderpur Metro, MG Road, Gurugram, Haryana – 122002, India.',
+    address: <>ThinkHaus Spaces, 3rd Floor, Suite No. 11, 315/274, Westend Marg, Saidulajab, <span className="rf-word">Butte<span className="rf-fix-body">r</span>fly</span> Park, Saiyad Ul Ajaib Extension, Saket, New Delhi, Delhi – 110030.</>,
     email: 'contact@seedengineering.com',
   },
   {
@@ -94,6 +87,8 @@ const SECTOR_OPTIONS = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     fullName: '',
     company: '',
@@ -103,11 +98,30 @@ export default function ContactPage() {
     service: 'Select Service Required',
     sector: 'Select Project Sector',
     message: '',
+    company_fax: '', // Honeypot spam trap
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const errData = await res.json();
+        setError(errData.error || 'Failed to submit enquiry.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const scrollToForm = () => {
@@ -117,7 +131,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
-      
+
       {/* SECTION 01 – HERO BANNER */}
       <section className="relative pt-40 pb-28 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
@@ -125,6 +139,8 @@ export default function ContactPage() {
             src="/dubai_skyline_night_1780503516791.webp"
             alt="SEED Headquarters"
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-25 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
@@ -133,13 +149,13 @@ export default function ContactPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              GET IN TOUCH
+              Get in touch
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-              Let’s Start a Conversation
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
+              Let’s sta<span className="rt-fix">r</span>t a conversation
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Whether you’re planning a new development, looking for an engineering partner, or exploring collaboration opportunities, our team is ready to help. Get in touch to discuss your project and discover how SEED can support your vision.
+              Whether you’re planning a new development, looking for an engineering <span className="rt-word">pa<span className="rt-fix-body">r</span>tner</span>, or exploring collaboration <span className="rt-word">oppo<span className="rt-fix-body">r</span>tunities</span>, our team is ready to help. Get in touch to discuss your project and discover how SEED can <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> your vision.
             </p>
           </Reveal>
         </div>
@@ -150,10 +166,10 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 text-center max-w-3xl mx-auto">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">OUR OFFICES</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Global Presence</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Our offices</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-white mb-4 leading-[1.15]">Our global presence</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
+                With offices across the Middle East and India, our <span className="ry-word">multidisciplina<span className="ry-fix-body">r</span>y</span> teams are well positioned to <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> projects across the region.
               </p>
             </div>
           </Reveal>
@@ -166,7 +182,7 @@ export default function ContactPage() {
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-gold text-[10px] font-bold tracking-widest uppercase">Office 0{idx + 1}</span>
                     </div>
-                    <h3 className="font-serif text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
+                    <h3 className="font-sans text-2xl font-bold text-white mb-6 group-hover:text-gold transition-colors">{off.city}</h3>
 
                     <div className="space-y-3 border-t border-white/5 pt-4 text-[13px] text-slate-400 font-light">
                       <div>
@@ -176,13 +192,13 @@ export default function ContactPage() {
                       {off.phone && (
                         <div>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Phone</span>
-                          <a href={`tel:${off.phone}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
+                          <a href={`tel:${off.phone.replace(/\s+/g, '')}`} className="text-slate-300 hover:text-gold transition-colors">{off.phone}</a>
                         </div>
                       )}
                       {off.email && (
                         <div>
                           <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">Email</span>
-                          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${off.email}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
+                          <a href={`mailto:${off.email}`} className="text-slate-300 hover:text-gold transition-colors">{off.email}</a>
                         </div>
                       )}
                     </div>
@@ -194,81 +210,42 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SECTION 03 – CONTACT INFORMATION */}
-      <section className="py-24 bg-[#0f172a] border-b border-white/5">
-        <div className="container mx-auto px-6 lg:px-12">
-
-          <Stagger className="max-w-2xl mx-auto">
-            {CONTACT_CARDS.map((card, idx) => (
-              <StaggerItem key={idx}>
-                <div className="bg-[#0b0f19] border border-white/8 p-8 rounded-sm h-full flex flex-col justify-between hover:border-gold/40 transition-colors group">
-                  <div>
-                    <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-xl mb-6 text-gold group-hover:bg-gold group-hover:text-[#0b0f19] transition-colors">
-                      {card.icon}
-                    </div>
-                    <h3 className="font-serif text-xl font-bold text-white mb-1 group-hover:text-gold transition-colors">{card.title}</h3>
-                    <p className="text-gold/70 text-[11px] font-semibold tracking-wider uppercase mb-6">{card.subtitle}</p>
-                    
-                    <div className="space-y-4 border-t border-white/5 pt-4">
-                      {card.details.map((d, j) => (
-                        <div key={j}>
-                          <span className="text-slate-500 text-[10px] font-bold tracking-widest uppercase block mb-1">{d.label}</span>
-                          {d.label === 'Email' ? (
-                            <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${d.value}`} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-gold transition-colors text-[13px] font-light leading-relaxed block">
-                              {d.value}
-                            </a>
-                          ) : (
-                            <span className="text-slate-300 text-[13px] font-light leading-relaxed block">{d.value}</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
-
-
-      {/* SECTION 04 – CALL TO ACTION */}
-      <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
+      {/* SECTION 03 – CALL TO ACTION */}
+      <section className="py-28 relative overflow-hidden bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Ready to Build Something Exceptional?
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.12]">
+              Ready to build something exceptional?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, {formatPerformanceText('performance-driven')} solutions.
+              From concept to commissioning, our <span className="ry-word">multidisciplina<span className="ry-fix-body">r</span>y</span> engineering teams are ready to <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> your next project with integrated, {formatPerformanceText('performance-driven')} solutions.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button
                 onClick={scrollToForm}
                 className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm"
               >
-                Contact Our Team
+                Contact our team
               </button>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
-                Explore Our Projects
+                Explore our projects
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* SECTION 05 – SEND US A MESSAGE */}
+      {/* SECTION 04 – SEND US A MESSAGE */}
       <section id="contact-form" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            
+
             {/* Left Content Column */}
             <div className="lg:col-span-5">
               <Reveal>
-                <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">INQUIRIES</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Send Us a Message</h2>
+                <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Inquiries</span>
+                <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-6">Send us a message</h2>
                 <p className="text-slate-400 font-light text-[15px] leading-relaxed">
                   Complete the form below and one of our senior engineering team members will get back to you as soon as possible.
                 </p>
@@ -284,7 +261,7 @@ export default function ContactPage() {
                       <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/40 text-gold text-3xl flex items-center justify-center mx-auto mb-6">
                         ✓
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-3">Thank You for Getting in Touch</h3>
+                      <h3 className="font-sans text-2xl font-bold text-white mb-3">Thank you for getting in touch</h3>
                       <p className="text-slate-400 text-sm font-light leading-relaxed max-w-md mx-auto mb-8">
                         Your message has been received by our engineering team. We will review your project requirements and respond within 24 business hours.
                       </p>
@@ -292,87 +269,129 @@ export default function ContactPage() {
                         onClick={() => setSubmitted(false)}
                         className="px-8 py-3 bg-white/10 text-slate-300 hover:text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
                       >
-                        Send Another Message
+                        Send another message
                       </button>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      {/* Honeypot field for anti-spam bots */}
+                      <div
+                        className="hidden"
+                        aria-hidden="true"
+                        style={{
+                          position: 'absolute',
+                          opacity: 0,
+                          top: '-9999px',
+                          left: '-9999px',
+                          pointerEvents: 'none',
+                          height: 0,
+                          width: 0,
+                          overflow: 'hidden',
+                          zIndex: -1,
+                        }}
+                      >
+                        <label htmlFor="contact-company-fax" className="sr-only" aria-hidden="true">
+                          Do not fill this field
+                        </label>
+                        <input
+                          id="contact-company-fax"
+                          type="text"
+                          name="company_fax"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          data-lpignore="true"
+                          data-1p-ignore="true"
+                          value={form.company_fax}
+                          onChange={e => setForm({ ...form, company_fax: e.target.value })}
+                        />
+                      </div>
+                      {error && (
+                        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs px-4 py-3 rounded-sm">
+                          {error}
+                        </div>
+                      )}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Full Name <span className="text-gold">*</span>
+                          <label htmlFor="contact-fullName" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                            Full name <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-fullName"
                             type="text"
                             required
                             placeholder="John Doe"
                             value={form.fullName}
                             onChange={e => setForm({ ...form, fullName: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-company" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Company <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-company"
                             type="text"
                             required
                             placeholder="Company / Consultancy Name"
                             value={form.company}
                             onChange={e => setForm({ ...form, company: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Email Address <span className="text-gold">*</span>
+                          <label htmlFor="contact-email" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                            Email address <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-email"
                             type="email"
                             required
                             placeholder="john@company.com"
                             value={form.email}
                             onChange={e => setForm({ ...form, email: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Phone Number
+                          <label htmlFor="contact-phone" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                            Phone number
                           </label>
                           <input
+                            id="contact-phone"
                             type="tel"
                             placeholder="+971 XX XXX XXXX"
                             value={form.phone}
                             onChange={e => setForm({ ...form, phone: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          <label htmlFor="contact-country" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
                             Country <span className="text-gold">*</span>
                           </label>
                           <input
+                            id="contact-country"
                             type="text"
                             required
                             placeholder="e.g. UAE, Singapore"
                             value={form.country}
                             onChange={e => setForm({ ...form, country: e.target.value })}
-                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600"
+                            className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400"
                           />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Service Required
+                          <label htmlFor="contact-service" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                            Service required
                           </label>
                           <select
+                            id="contact-service"
                             value={form.service}
                             onChange={e => setForm({ ...form, service: e.target.value })}
                             className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm [&>option]:bg-[#0b0f19] cursor-pointer"
@@ -381,10 +400,11 @@ export default function ContactPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                            Project Sector
+                          <label htmlFor="contact-sector" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                            Project sector
                           </label>
                           <select
+                            id="contact-sector"
                             value={form.sector}
                             onChange={e => setForm({ ...form, sector: e.target.value })}
                             className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm [&>option]:bg-[#0b0f19] cursor-pointer"
@@ -395,24 +415,26 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
-                          Project Description / Message <span className="text-gold">*</span>
+                        <label htmlFor="contact-message" className="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-400 mb-2">
+                          Project description / message <span className="text-gold">*</span>
                         </label>
                         <textarea
+                          id="contact-message"
                           required
                           rows={5}
                           placeholder="Tell us about your project scope, location, scale, and timeline..."
                           value={form.message}
                           onChange={e => setForm({ ...form, message: e.target.value })}
-                          className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-600 resize-y"
+                          className="w-full bg-[#0b0f19] border border-white/10 px-4 py-3.5 text-slate-200 text-sm outline-none focus:border-gold rounded-sm placeholder:text-slate-400 resize-y"
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg"
+                        disabled={submitting}
+                        className="w-full py-5 bg-gold hover:bg-yellow-500 disabled:bg-gold/50 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg flex items-center justify-center gap-2"
                       >
-                        Send Message
+                        {submitting ? 'Sending...' : 'Send message'}
                       </button>
                     </form>
                   )}

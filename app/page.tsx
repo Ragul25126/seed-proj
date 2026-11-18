@@ -13,15 +13,15 @@ export const metadata = {
   },
 };
 
-const CORE_SERVICES = [
+const CORE_SERVICES: Array<{ title: string; desc: React.ReactNode; icon: string }> = [
   { title: 'Mechanical Engineering', desc: 'HVAC systems designed for performance, efficiency and operational reliability across all building types.', icon: 'M4 4h16v16H4z' },
   { title: 'Electrical Engineering', desc: 'Power distribution, lighting, emergency systems and resilience planning for modern buildings.', icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
-  { title: 'Public Health Engineering', desc: 'Water supply, drainage, irrigation and specialist plumbing systems for every project scale.', icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
+  { title: 'Public Health Engineering', desc: <>Water supply, drainage, irrigation and specialist plumbing systems for eve<span className="ry-fix-body">r</span>y project scale.</>, icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
   { title: 'Fire Protection', desc: 'Life safety systems engineered to international standards for occupant protection.', icon: 'M12 2c0 0-5 6-5 11a5 5 0 1 0 10 0c0-5-5-11-5-11z' },
   { title: 'ELV Systems', desc: 'Security, ICT, BMS and integrated smart building infrastructure for intelligent operations.', icon: 'M5 12h14M12 5v14' },
   { title: 'Sustainability', desc: 'Energy modelling, green certifications and carbon reduction strategies for LEED, Estidama and WELL.', icon: 'M12 2v20M4.93 4.93l14.14 14.14M2 12h20M4.93 19.07L19.07 4.93' },
-  { title: 'BIM Coordination', desc: 'Multidisciplinary coordination and clash-free construction documentation from concept to IFC.', icon: 'M4 4h16v16H4z' },
-  { title: 'Commissioning', desc: 'Performance verification ensuring every system operates exactly as intended — on site.', icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
+  { title: 'BIM Coordination', desc: <>Multidisciplina<span className="ry-fix-body">r</span>y coordination and clash-free construction documentation from concept to IFC.</>, icon: 'M4 4h16v16H4z' },
+  { title: 'Commissioning', desc: <><span className="word-performance">Pe<span className="rf-fix">r</span>formance</span> verification ensuring eve<span className="ry-fix-body">r</span>y system operates exactly as intended — on site.</>, icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
 ];
 
 const SECTORS = [
@@ -48,7 +48,7 @@ export default function HomePage() {
                   SEED solves engineering problems. We reduce project risk through analytical rigour, proactive BIM coordination, and hands-on commissioning — ensuring the built outcome matches the design intent.
                 </p>
                 <p>
-                  We coordinate complex systems across disciplines and deliver measurable building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>. Every system we design is verified in the field.
+                  We coordinate complex systems across disciplines and deliver measurable building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>. Eve<span className="ry-fix-body">r</span>y system we design is verified in the field.
                 </p>
                 <p>
                   Operating across the Middle East, Africa, and Asia since 2005 — with 300+ engineers across 7 offices.
@@ -89,7 +89,7 @@ export default function HomePage() {
                 Integrated engineering<br/>solutions
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                From high-rise luxury towers to complex infrastructure, our eight core disciplines provide a seamless delivery framework that governs every phase of your project.
+                From high-rise luxu<span className="ry-fix-body">r</span>y towers to complex infrastructure, our eight core disciplines provide a seamless delive<span className="ry-fix-body">r</span>y framework that governs eve<span className="ry-fix-body">r</span>y phase of your project.
               </p>
               <div className="mt-8">
                 <Link href="/services" prefetch={false} className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300">
@@ -103,7 +103,7 @@ export default function HomePage() {
               <StaggerItem key={i}>
                 <div className="group p-6 border border-white/8 bg-[#0f172a] hover:border-gold/40 hover:bg-[#0f172a]/80 transition-all duration-300 h-full">
                   <h3 className="text-white font-sans text-[17px] font-semibold mb-3 leading-snug group-hover:text-gold transition-colors">{service.title}</h3>
-                  <p className="text-slate-400 text-[13px] font-light leading-relaxed">{formatPerformanceText(service.desc)}</p>
+                  <p className="text-slate-400 text-[13px] font-light leading-relaxed">{typeof service.desc === 'string' ? formatPerformanceText(service.desc) : service.desc}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -121,7 +121,7 @@ export default function HomePage() {
                 Featured Projects
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                Every project begins with a problem to solve. Below are a selection of landmark developments where SEED delivered integrated MEP engineering, sustainability and BIM coordination across complex, multi-disciplinary programmes.
+                Eve<span className="ry-fix-body">r</span>y project begins with a problem to solve. Below are a selection of landmark developments where SEED delivered integrated MEP engineering, sustainability and BIM coordination across complex, multi-disciplina<span className="ry-fix-body">r</span>y programmes.
               </p>
             </div>
           </Reveal>
@@ -207,10 +207,10 @@ export default function HomePage() {
             <div className="mb-20 max-w-3xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Our process</span>
               <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15]">
-                Our engineering<br/>delivery framework
+                Our engineering<br/>delive<span className="ry-fix">r</span>y framework
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                Engineering responsibility does not end with drawings. Five progressive stages — the framework that governs every project we deliver from brief to building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
+                Engineering responsibility does not end with drawings. Five progressive stages — the framework that governs eve<span className="ry-fix-body">r</span>y project we deliver from brief to building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
               </p>
             </div>
           </Reveal>
@@ -220,14 +220,14 @@ export default function HomePage() {
               {
                 step: '01',
                 title: 'Define design criteria',
-                desc: 'Every project begins with understanding the building, its operational requirements, applicable codes, energy targets, and owner expectations. We establish the design basis before a single system is selected.',
+                desc: <>Eve<span className="ry-fix-body">r</span>y project begins with understanding the building, its operational requirements, applicable codes, energy targets, and owner expectations. We establish the design basis before a single system is selected.</>,
                 items: ['Design Basis Report', 'Load Calculations', 'Performance Criteria', 'Code Compliance Strategy']
               },
               {
                 step: '02',
                 title: 'Engineer the systems',
                 desc: 'We develop HVAC, Electrical, Plumbing, Fire Protection, ELV and Sustainability strategies based on engineering calculations — not generic templates. System selection is driven by performance, constructability, maintainability and lifecycle cost.',
-                items: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', 'Preliminary Cost Alignment']
+                items: ['Engineering Calculations', 'Equipment Schedules', 'System Narratives', <>Prelimina<span className="ry-fix-body">r</span>y Cost Alignment</>]
               },
               {
                 step: '03',
@@ -238,7 +238,7 @@ export default function HomePage() {
               {
                 step: '04',
                 title: 'Validate before construction',
-                desc: 'Every major engineering decision is reviewed against performance requirements, installation constraints and operational intent. Designs are subjected to internal quality checks before issue.',
+                desc: <>Eve<span className="ry-fix-body">r</span>y major engineering decision is reviewed against <span className="word-performance">pe<span className="rf-fix">r</span>formance</span> requirements, installation constraints and operational intent. Designs are subjected to internal quality checks before issue.</>,
                 items: ['Design Reviews', 'Quality Assurance Checks', 'Risk Register Updates', 'Issue-for-Construction Docs']
               },
               {
@@ -255,7 +255,7 @@ export default function HomePage() {
                     <div className="min-h-[4rem] mb-4 flex items-start">
                       <h3 className="text-xl font-sans font-bold text-white leading-snug">{formatPerformanceText(phase.title)}</h3>
                     </div>
-                    <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{formatPerformanceText(phase.desc)}</p>
+                    <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{typeof phase.desc === 'string' ? formatPerformanceText(phase.desc) : phase.desc}</p>
                   </div>
                   <div className="mt-auto pt-6 border-t border-white/5">
                     <p className="text-gold text-[9px] font-bold tracking-[0.15em] uppercase mb-3">Outputs</p>
@@ -263,7 +263,7 @@ export default function HomePage() {
                       {phase.items.map((item, j) => (
                         <li key={j} className="text-slate-400 font-light text-[12px] leading-relaxed flex items-start gap-2">
                           <span className="text-gold/50 mt-1 shrink-0">—</span>
-                          <span>{formatPerformanceText(item)}</span>
+                          <span>{typeof item === 'string' ? formatPerformanceText(item) : item}</span>
                         </li>
                       ))}
                     </ul>
@@ -282,7 +282,7 @@ export default function HomePage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Industries</span>
             <h2 className="font-sans text-3xl sm:text-4xl font-bold text-white mb-6 leading-[1.15]">Industries we serve</h2>
             <p className="text-slate-400 font-light text-[14px] leading-relaxed max-w-2xl mx-auto mb-16">
-              Our engineering expertise spans the full range of complex building typologies — each with distinct regulatory, <span className="word-performance">pe<span className="rf-fix">r</span>formance</span> and operational demands.
+              Our engineering expertise spans the full range of complex building typologies — each with distinct regulato<span className="ry-fix-body">r</span>y, <span className="word-performance">pe<span className="rf-fix">r</span>formance</span> and operational demands.
             </p>
             <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
               {SECTORS.map((sector, i) => (

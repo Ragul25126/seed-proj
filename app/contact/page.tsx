@@ -1,14 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { formatPerformanceText } from '@/lib/typography';
 
-const OFFICES = [
+const OFFICES: Array<{
+  city: React.ReactNode;
+  country: string;
+  address: React.ReactNode;
+  phone?: string;
+  email: string;
+}> = [
   {
-    city: 'Dubai Head Quarters',
+    city: <>Dubai Head <span className="rt-word">Qua<span className="rt-fix-body">r</span>ters</span></>,
     country: 'United Arab Emirates',
     address: '#303, Old Commercial Bank of Dubai Building, Opp. Hamarain Centre, Abu Baker Al Siddique Road, Deira P O Box 119146, Dubai, UAE',
     phone: '+971 42 564 882',
@@ -41,7 +47,7 @@ const OFFICES = [
   {
     city: 'Delhi',
     country: 'India',
-    address: 'ThinkHaus Spaces, 3rd Floor, Suite No. 11, 315/274, Westend Marg, Saidulajab, Butterfly Park, Saiyad Ul Ajaib Extension, Saket, New Delhi, Delhi – 110030.',
+    address: <>ThinkHaus Spaces, 3rd Floor, Suite No. 11, 315/274, Westend Marg, Saidulajab, <span className="rf-word">Butte<span className="rf-fix-body">r</span>fly</span> Park, Saiyad Ul Ajaib Extension, Saket, New Delhi, Delhi – 110030.</>,
     email: 'contact@seedengineering.com',
   },
   {
@@ -146,10 +152,10 @@ export default function ContactPage() {
               Get in touch
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
-              Let’s start a conversation
+              Let’s sta<span className="rt-fix">r</span>t a conversation
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Whether you’re planning a new development, looking for an engineering partner, or exploring collaboration opportunities, our team is ready to help. Get in touch to discuss your project and discover how SEED can support your vision.
+              Whether you’re planning a new development, looking for an engineering <span className="rt-word">pa<span className="rt-fix-body">r</span>tner</span>, or exploring collaboration <span className="rt-word">oppo<span className="rt-fix-body">r</span>tunities</span>, our team is ready to help. Get in touch to discuss your project and discover how SEED can <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> your vision.
             </p>
           </Reveal>
         </div>
@@ -163,7 +169,7 @@ export default function ContactPage() {
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Our offices</span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-white mb-4 leading-[1.15]">Our global presence</h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                With offices across the Middle East and India, our multidisciplinary teams are well positioned to support projects across the region.
+                With offices across the Middle East and India, our <span className="ry-word">multidisciplina<span className="ry-fix-body">r</span>y</span> teams are well positioned to <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> projects across the region.
               </p>
             </div>
           </Reveal>
@@ -213,7 +219,7 @@ export default function ContactPage() {
               Ready to build something exceptional?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, {formatPerformanceText('performance-driven')} solutions.
+              From concept to commissioning, our <span className="ry-word">multidisciplina<span className="ry-fix-body">r</span>y</span> engineering teams are ready to <span className="rt-word">suppo<span className="rt-fix-body">r</span>t</span> your next project with integrated, {formatPerformanceText('performance-driven')} solutions.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button

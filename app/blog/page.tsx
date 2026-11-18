@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -11,7 +11,7 @@ interface ArticleItem {
   headline: string;
   category: string;
   date: string;
-  desc: string;
+  desc: React.ReactNode;
   image: string;
 }
 
@@ -21,7 +21,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'SEED Engineering Featured in the Top MEP Consultants Powerlist 2026',
     category: 'MEDIA COVERAGE',
     date: '6 Aug 2026',
-    desc: 'SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering industry.',
+    desc: <>SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering <span className="ry-word">indust<span className="ry-fix-body">r</span>y.</span></>,
     image: '/projects/news-seed-media-profile.webp',
   },
   {
@@ -29,7 +29,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'SEED Engineering Consultants Sustainable MEP Solutions for Wasl Tower',
     category: 'Media Coverage',
     date: '24 Jul 2022',
-    desc: 'Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering services firm in operation for almost two decades...',
+    desc: <>Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering <span className="rv-word">se<span className="rv-fix-body">r</span>vices</span> firm in operation for almost two decades...</>,
     image: '/blog/wasl-tower-article.png',
   },
   {
@@ -45,7 +45,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'Delivering Efficiency: In conversation with Sanu Mathew',
     category: 'MEDIA COVERAGE',
     date: '24 Jul 2022',
-    desc: 'Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building Services Industry.',
+    desc: <>Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building <span className="rv-word">Se<span className="rv-fix-body">r</span>vices</span> <span className="ry-word">Indust<span className="ry-fix-body">r</span>y.</span></>,
     image: '/blog/sanu-mathew-media-coverage.png',
   },
 ];
@@ -64,7 +64,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'St. Regis Branded Residences | Honourable Achievement',
     category: 'Media Coverage',
     date: '11 Feb 2026',
-    desc: 'At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential category.',
+    desc: <>At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential <span className="ry-word">catego<span className="ry-fix-body">r</span>y.</span></>,
     image: '/projects/news-st-regis-award.webp',
   },
   {
@@ -190,7 +190,7 @@ export default function InsightsPage() {
                     <Link href={`/blog/${news.slug}`}>
                       <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
@@ -220,7 +220,7 @@ export default function InsightsPage() {
           <Reveal>
             <div className="mb-16">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Accolades & honours</span>
-              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">Industry Recognition</h2>
+              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">Indust<span className="ry-fix">r</span>y Recognition</h2>
             </div>
           </Reveal>
 
@@ -246,7 +246,7 @@ export default function InsightsPage() {
                     <Link href={`/blog/${news.slug}`}>
                       <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
@@ -363,7 +363,7 @@ export default function InsightsPage() {
               Let’s shape the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              Whether you’re looking for engineering expertise, project collaboration or industry insights, our team is ready to help.
+              Whether you’re looking for engineering expertise, project collaboration or <span className="ry-word">indust<span className="ry-fix-body">r</span>y</span> insights, our team is ready to help.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm">
