@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fallbackPosts } from '@/lib/blog';
+import { formatPerformanceText } from '@/lib/typography';
 
 function formatDate(iso?: string) {
   if (!iso) return '';
@@ -72,10 +73,10 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             {post.category} <span className="text-white/30 mx-2">·</span> {formatDate(post.publishedAt)}
           </p>
           <h1 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6 leading-tight">
-            {post.title}
+            {formatPerformanceText(post.title)}
           </h1>
           <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-            {post.excerpt}
+            {formatPerformanceText(post.excerpt)}
           </p>
         </div>
 
@@ -94,7 +95,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <section className="pt-0">
           <div className="max-w-3xl mx-auto text-slate-300 font-light leading-relaxed text-base md:text-lg space-y-6">
             {post.content ? (
-              <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n\n/g, '<br/><br/>') }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.content
+                    .replace(/\n\n/g, '<br/><br/>')
+                    .replace(/(pe)(r)(formance)/gi, '<span class="word-performance">$1<span class="rf-fix">$2</span>$3</span>'),
+                }}
+              />
             ) : (
               <p className="text-slate-400 italic">Full article content is not available yet.</p>
             )}

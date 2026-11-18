@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { formatPerformanceText } from '@/lib/typography';
 
 const SECTORS_DATA = [
   {
@@ -161,7 +162,7 @@ export default function SectorsPage() {
 
                       {/* 2-3 Line Description */}
                       <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">
-                        {sector.desc}
+                        {formatPerformanceText(sector.desc)}
                       </p>
                     </Link>
 
@@ -191,7 +192,7 @@ export default function SectorsPage() {
               Let’s Build the Future Together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-              Whether you’re planning a luxury resort, commercial tower, healthcare facility or landmark destination, our multidisciplinary engineering team is ready to help deliver exceptional building performance.
+              Whether you’re planning a luxury resort, commercial tower, healthcare facility or landmark destination, our multidisciplinary engineering team is ready to help deliver exceptional building {formatPerformanceText('performance')}.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link

@@ -4,6 +4,7 @@ import { useState, useRef, useId } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
+import { formatPerformanceText } from '@/lib/typography';
 
 export interface FAQItem {
   id: string;
@@ -296,7 +297,7 @@ export default function FAQClient({ categories }: { categories: FAQCategory[] })
                               isOpen ? 'text-gold' : 'text-white group-hover:text-gold'
                             )}
                           >
-                            {item.question}
+                            {formatPerformanceText(item.question)}
                           </span>
                           <span
                             className={cn(
@@ -352,7 +353,7 @@ export default function FAQClient({ categories }: { categories: FAQCategory[] })
             Need specific engineering details for your development?
           </h2>
           <p className="text-slate-300 text-sm md:text-base font-light leading-relaxed mb-8 max-w-2xl">
-            Every building brief has unique authority, spatial, and performance requirements. Speak directly with our engineering team to discuss technical feasibility, fee proposals, and project delivery.
+            Every building brief has unique authority, spatial, and {formatPerformanceText('performance')} requirements. Speak directly with our engineering team to discuss technical feasibility, fee proposals, and project delivery.
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <Button href="/contact" variant="gold">

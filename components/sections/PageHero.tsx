@@ -11,7 +11,7 @@ export function PageHero({
 }: {
   eyebrow: React.ReactNode;
   title: React.ReactNode;
-  intro?: string;
+  intro?: React.ReactNode;
 }) {
   return (
     <section className="relative bg-[#050816] text-white pt-40 pb-24 md:pb-32 px-6 overflow-hidden">

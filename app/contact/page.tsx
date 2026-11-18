@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { formatPerformanceText } from '@/lib/typography';
 
 const OFFICES = [
   {
@@ -212,7 +213,7 @@ export default function ContactPage() {
               Ready to build something exceptional?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, performance-driven solutions.
+              From concept to commissioning, our multidisciplinary engineering teams are ready to support your next project with integrated, {formatPerformanceText('performance-driven')} solutions.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button

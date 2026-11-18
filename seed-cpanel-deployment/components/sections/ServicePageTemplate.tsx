@@ -4,6 +4,7 @@ import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import InquiryForm from '@/components/forms/InquiryForm';
 import { ProjectCard, type ProjectCardData } from '@/components/projects/ProjectCard';
 import { portfolio } from '@/lib/data';
+import { formatPerformanceText } from '@/lib/typography';
 
 export type ServicePageProps = {
   eyebrow: string;
@@ -41,7 +42,7 @@ export function ServicePageTemplate(props: ServicePageProps) {
       <PageHero
         eyebrow={props.eyebrow}
         title={italicLastWord(props.heroTitle)}
-        intro={props.heroIntro}
+        intro={props.heroIntro ? formatPerformanceText(props.heroIntro) : undefined}
       />
 
       {/* What this really means */}
@@ -50,13 +51,13 @@ export function ServicePageTemplate(props: ServicePageProps) {
           <div className="lg:col-span-4">
             <SectionLabel>What This Really Means</SectionLabel>
             <h2 className="font-sans text-3xl md:text-4xl font-medium leading-[1.1] text-navy">
-              {props.realMeaningTitle}
+              {formatPerformanceText(props.realMeaningTitle)}
             </h2>
           </div>
           <div className="lg:col-span-7 lg:col-start-6 text-navy/65 leading-relaxed space-y-5 text-[17px]">
             {props.realMeaningParagraphs.map((p, i) => (
               <Reveal key={i} delay={i * 0.05}>
-                <p>{p}</p>
+                <p>{formatPerformanceText(p)}</p>
               </Reveal>
             ))}
           </div>
@@ -80,8 +81,8 @@ export function ServicePageTemplate(props: ServicePageProps) {
             <StaggerItem key={i}>
               <div className="bg-white p-10 md:p-12 h-full">
                 <p className="font-sans text-5xl text-navy/25 mb-6 font-medium">0{i + 1}</p>
-                <h3 className="font-sans text-2xl font-medium text-navy mb-4">{a.title}</h3>
-                <p className="text-navy/60 leading-relaxed text-[15px]">{a.body}</p>
+                <h3 className="font-sans text-2xl font-medium text-navy mb-4">{formatPerformanceText(a.title)}</h3>
+                <p className="text-navy/60 leading-relaxed text-[15px]">{formatPerformanceText(a.body)}</p>
               </div>
             </StaggerItem>
           ))}

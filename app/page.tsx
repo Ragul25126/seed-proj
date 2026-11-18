@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { CountUp } from '@/components/ui/CountUp';
 import { HeroSlider } from '@/components/sections/HeroSlider';
+import { formatPerformanceText } from '@/lib/typography';
 
 export const metadata = {
   title: 'SEED Engineering — Engineering high-performance buildings',
@@ -47,7 +48,7 @@ export default function HomePage() {
                   SEED solves engineering problems. We reduce project risk through analytical rigour, proactive BIM coordination, and hands-on commissioning — ensuring the built outcome matches the design intent.
                 </p>
                 <p>
-                  We coordinate complex systems across disciplines and deliver measurable building performance. Every system we design is verified in the field.
+                  We coordinate complex systems across disciplines and deliver measurable building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>. Every system we design is verified in the field.
                 </p>
                 <p>
                   Operating across the Middle East, Africa, and Asia since 2005 — with 300+ engineers across 7 offices.
@@ -102,7 +103,7 @@ export default function HomePage() {
               <StaggerItem key={i}>
                 <div className="group p-6 border border-white/8 bg-[#0f172a] hover:border-gold/40 hover:bg-[#0f172a]/80 transition-all duration-300 h-full">
                   <h3 className="text-white font-sans text-[17px] font-semibold mb-3 leading-snug group-hover:text-gold transition-colors">{service.title}</h3>
-                  <p className="text-slate-400 text-[13px] font-light leading-relaxed">{service.desc}</p>
+                  <p className="text-slate-400 text-[13px] font-light leading-relaxed">{formatPerformanceText(service.desc)}</p>
                 </div>
               </StaggerItem>
             ))}
@@ -209,7 +210,7 @@ export default function HomePage() {
                 Our engineering<br/>delivery framework
               </h2>
               <p className="text-slate-400 font-light text-[15px] leading-relaxed">
-                Engineering responsibility does not end with drawings. Five progressive stages — the framework that governs every project we deliver from brief to building performance.
+                Engineering responsibility does not end with drawings. Five progressive stages — the framework that governs every project we deliver from brief to building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
               </p>
             </div>
           </Reveal>
@@ -252,9 +253,9 @@ export default function HomePage() {
                   <div>
                     <span className="text-gold text-[11px] font-bold block mb-2">{phase.step}</span>
                     <div className="min-h-[4rem] mb-4 flex items-start">
-                      <h3 className="text-xl font-sans font-bold text-white leading-snug">{phase.title}</h3>
+                      <h3 className="text-xl font-sans font-bold text-white leading-snug">{formatPerformanceText(phase.title)}</h3>
                     </div>
-                    <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{phase.desc}</p>
+                    <p className="text-slate-500 text-[12px] leading-relaxed mb-6">{formatPerformanceText(phase.desc)}</p>
                   </div>
                   <div className="mt-auto pt-6 border-t border-white/5">
                     <p className="text-gold text-[9px] font-bold tracking-[0.15em] uppercase mb-3">Outputs</p>
@@ -262,7 +263,7 @@ export default function HomePage() {
                       {phase.items.map((item, j) => (
                         <li key={j} className="text-slate-400 font-light text-[12px] leading-relaxed flex items-start gap-2">
                           <span className="text-gold/50 mt-1 shrink-0">—</span>
-                          <span>{item}</span>
+                          <span>{formatPerformanceText(item)}</span>
                         </li>
                       ))}
                     </ul>
@@ -281,7 +282,7 @@ export default function HomePage() {
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Industries</span>
             <h2 className="font-sans text-3xl sm:text-4xl font-bold text-white mb-6 leading-[1.15]">Industries we serve</h2>
             <p className="text-slate-400 font-light text-[14px] leading-relaxed max-w-2xl mx-auto mb-16">
-              Our engineering expertise spans the full range of complex building typologies — each with distinct regulatory, performance and operational demands.
+              Our engineering expertise spans the full range of complex building typologies — each with distinct regulatory, <span className="word-performance">pe<span className="rf-fix">r</span>formance</span> and operational demands.
             </p>
             <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
               {SECTORS.map((sector, i) => (

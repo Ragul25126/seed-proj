@@ -16,7 +16,7 @@ const slides = [
   {
     eyebrow: 'MEP · SUSTAINABILITY · BIM · COMMISSIONING',
     title: <><span>Engineering</span><span>high-<span className="word-performance">pe<span className="kern-rf">r</span>fo<span className="kern-rm">r</span>mance</span></span><span>buildings</span></>,
-    desc: <>Engineering integrated building systems for a vibrant mixed-use wate<span className="rf-fix">r</span>front destination, delivering operational efficiency, sustainability and long-term building <span className="word-performance-body">pe<span className="kern-rf-body">r</span>fo<span className="kern-rm-body">r</span>mance</span>.</>,
+    desc: <>Engineering integrated building systems for a vibrant mixed-use <span className="word-performance-body">wate<span className="rf-fix-slide2">r</span>front</span> destination, delivering operational efficiency, sustainability and long-term building <span className="word-performance-body">pe<span className="rf-fix-slide2">r</span>formance</span>.</>,
     image: '/projects/portside-square.webp',
     projectInfo: 'Portside Square — Dubai, UAE',
   },

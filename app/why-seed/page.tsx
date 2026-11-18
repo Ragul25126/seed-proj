@@ -3,6 +3,7 @@ import { Section, SectionLabel } from '@/components/ui/Section';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { Button } from '@/components/ui/Button';
 import InquiryForm from '@/components/forms/InquiryForm';
+import { formatPerformanceText } from '@/lib/typography';
 
 export const metadata = {
   title: 'Why SEED — Engineering High-Performance Buildings',
@@ -36,7 +37,7 @@ export default function WhySeed() {
           </div>
           <div className="lg:col-span-7 prose-editorial">
             <p>
-              Our strength lies in delivering high-performance engineering solutions with technical excellence, responsive communication, and end-to-end project ownership. Every project is led by experienced engineers who stay involved from concept through commissioning, ensuring quality, accountability, and lasting client relationships.
+              Our strength lies in delivering {formatPerformanceText('high-performance')} engineering solutions with technical excellence, responsive communication, and end-to-end project ownership. Every project is led by experienced engineers who stay involved from concept through commissioning, ensuring quality, accountability, and lasting client relationships.
             </p>
           </div>
         </div>
@@ -89,7 +90,7 @@ export default function WhySeed() {
         <Reveal>
           <div className="max-w-3xl">
             <SectionLabel>The honest answer</SectionLabel>
-            <h2 className="h2 mb-6">We are the firm to call when performance matters.</h2>
+            <h2 className="h2 mb-6">We are the firm to call when {formatPerformanceText('performance')} matters.</h2>
             <p className="prose-editorial">
               <span>
                 If the brief is templated and the building is generic, a larger firm may deliver it

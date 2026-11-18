@@ -128,32 +128,40 @@ body, p, li, a, span, label, input, textarea {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Custom kerning for 'performance' where 'rf' and 'rm' are naturally tight in Helvetica */
-.word-performance {
-  letter-spacing: 0.015em;
-  display: inline;
+/* Prevent 'performance' and 'waterfront' from breaking across lines while preserving subtle r-f spacing */
+.word-performance,
+.word-performance-body,
+.rf-word {
+  display: inline-block;
+  white-space: nowrap !important;
 }
 
-.word-performance .kern-rf,
-.word-performance .kern-rm {
-  letter-spacing: 0.055em;
-  display: inline;
+/* Unified kerning fix for 'r' before 'f' across the website */
+.rf-fix,
+.rf-fix-slide2,
+.kern-rf,
+.kern-rf-body {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.08em;
 }
 
-.word-performance-body {
-  letter-spacing: 0.01em;
-  display: inline;
+/* Kerning fix for 'r' before 'v' in 'services' and 'supervision' */
+.rv-fix {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.05em;
 }
 
-.word-performance-body .kern-rf-body,
-.word-performance-body .kern-rm-body {
-  letter-spacing: 0.04em;
-  display: inline;
+.rv-fix-body {
+  display: inline-block;
+  letter-spacing: 0;
+  margin-right: 0.03em;
 }
 
-.rf-fix {
-  letter-spacing: 0.04em;
-  display: inline;
+p .rv-fix,
+li .rv-fix {
+  margin-right: 0.03em;
 }
 
 .placeholder-block {

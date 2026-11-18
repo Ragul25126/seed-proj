@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { formatPerformanceText } from '@/lib/typography';
 
 interface ArticleItem {
   slug: string;
@@ -151,7 +152,7 @@ export default function InsightsPage() {
               SEED in Focus
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-              Practical insights from engineers who design, coordinate and commission complex buildings — covering MEP systems, sustainability, BIM coordination and building performance across the Middle East and beyond.
+              Practical insights from engineers who design, coordinate and commission complex buildings — covering MEP systems, sustainability, BIM coordination and building {formatPerformanceText('performance')} across the Middle East and beyond.
             </p>
           </Reveal>
         </div>
@@ -187,9 +188,9 @@ export default function InsightsPage() {
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
@@ -243,9 +244,9 @@ export default function InsightsPage() {
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{news.headline}</h3>
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{news.desc}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
@@ -292,7 +293,7 @@ export default function InsightsPage() {
                             {item.category}
                           </p>
                           <p className="text-slate-200 text-sm md:text-base font-light leading-relaxed">
-                            {item.details}
+                            {formatPerformanceText(item.details)}
                           </p>
                         </div>
                       ))}

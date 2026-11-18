@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { getAllProjects, getProjectBySlug, Project } from '@/lib/projects';
 import { formatProjectSector } from '@/lib/sectorUtils';
+import { formatPerformanceText } from '@/lib/typography';
 
 export const revalidate = 300;
 
@@ -189,7 +190,7 @@ export default async function ProjectDetailPage({ params, searchParams }: Projec
             {shortDescription && (
               <div className="prose prose-invert max-w-none text-slate-300 font-light text-[15px] leading-relaxed">
                 {shortDescription.split('\n').map((paragraph: string, i: number) => (
-                  paragraph.trim() && <p key={i} className="mb-4">{paragraph}</p>
+                  paragraph.trim() && <p key={i} className="mb-4">{formatPerformanceText(paragraph)}</p>
                 ))}
               </div>
             )}

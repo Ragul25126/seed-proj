@@ -29,7 +29,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-slate-400 text-[14px] leading-relaxed max-w-sm mb-8">
-              Engineering high-performance buildings from concept to commissioning. SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and performance-focused engineering services across the Middle East, Africa, and Asia.
+              Engineering high-<span className="word-performance">pe<span className="rf-fix">r</span>formance</span> buildings from concept to commissioning. SEED delivers integrated MEP design, supervision, sustainability, BIM coordination, and <span className="word-performance">pe<span className="rf-fix">r</span>formance-focused</span> engineering services across the Middle East, Africa, and Asia.
             </p>
             <h3 className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-6">Policies</h3>
             <ul className="space-y-4 text-[13px] text-white/70">

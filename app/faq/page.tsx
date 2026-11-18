@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/sections/PageHero';
 import FAQClient, { FAQCategory } from './FAQClient';
+import { formatPerformanceText } from '@/lib/typography';
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions (FAQ)',
@@ -54,7 +55,7 @@ const FAQ_DATA: FAQCategory[] = [
         question: 'What is SEED Engineering’s approach to building performance?',
         answer: (
           <p>
-            We operate on the principle that engineering responsibility does not end with design drawings. Our principal engineers remain personally involved throughout the project lifecycle—from concept design and thermal calculations to site supervision, clash-free BIM coordination, and hands-on commissioning verification. We focus on measurable building performance, energy efficiency, and long-term client relationships.
+            We operate on the principle that engineering responsibility does not end with design drawings. Our principal engineers remain personally involved throughout the project lifecycle—from concept design and thermal calculations to site supervision, clash-free BIM coordination, and hands-on commissioning verification. We focus on measurable building {formatPerformanceText('performance')}, energy efficiency, and long-term client relationships.
           </p>
         ),
       },

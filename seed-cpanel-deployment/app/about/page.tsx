@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { CountUp } from '@/components/ui/CountUp';
 import { team } from '@/lib/data';
+import { formatPerformanceText } from '@/lib/typography';
 
 const TONE_BASE = 'bg-[#0b0f19]';
 const TONE_LIFT = 'bg-[#0f172a]';
@@ -88,12 +89,12 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <h1 className="font-serif text-[47px] md:text-[59px] lg:text-[71px] font-bold leading-[1.05] max-w-5xl text-white">
-              We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building performance.
+              We solve engineering problems. We reduce project risk. We coordinate complex systems. We deliver measurable building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
             </h1>
           </Reveal>
           <Reveal delay={0.18}>
             <p className="mt-10 max-w-3xl text-lg md:text-xl text-slate-300 leading-relaxed font-light">
-              Since 2005, SEED has delivered integrated MEP engineering design, supervision, sustainability consulting, BIM coordination and commissioning services for complex developments across the Middle East, Africa and India. Our engineering solutions prioritise performance, efficiency and long-term value throughout the building lifecycle.
+              Since 2005, SEED has delivered integrated MEP engineering design, supervision, sustainability consulting, BIM coordination and commissioning services for complex developments across the Middle East, Africa and India. Our engineering solutions prioritise <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>, efficiency and long-term value throughout the building lifecycle.
             </p>
           </Reveal>
         </div>
@@ -168,8 +169,8 @@ export default function AboutPage() {
                 <div className="bg-[#0b0f19] border border-white/10 p-8 md:p-10 h-full flex flex-col justify-between hover:border-gold/40 transition-colors group rounded-sm">
                   <div>
                     <span className="text-gold text-xs font-bold tracking-widest uppercase block mb-6">{card.num}</span>
-                    <h3 className="font-serif text-2xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{card.title}</h3>
-                    <p className="text-slate-400 text-sm font-light leading-relaxed">{card.desc}</p>
+                    <h3 className="font-serif text-2xl font-bold text-white mb-4 group-hover:text-gold transition-colors">{formatPerformanceText(card.title)}</h3>
+                    <p className="text-slate-400 text-sm font-light leading-relaxed">{formatPerformanceText(card.desc)}</p>
                   </div>
                 </div>
               </StaggerItem>
@@ -284,7 +285,7 @@ export default function AboutPage() {
                 Our Engineering Process
               </h2>
               <p className="text-slate-400 text-base md:text-lg leading-relaxed font-light">
-                Every project follows a structured engineering methodology that transforms design intent into measurable building performance.
+                Every project follows a structured engineering methodology that transforms design intent into measurable building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
               </p>
             </Reveal>
           </div>
@@ -328,8 +329,8 @@ export default function AboutPage() {
                     <span className="text-gold font-serif text-2xl font-bold">{phase.step}</span>
                   </div>
                   <div className="md:col-span-5 bg-[#0f172a] p-8 border-r border-white/10">
-                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-4">{phase.title}</h3>
-                    <p className="text-slate-400 leading-relaxed text-sm font-light">{phase.desc}</p>
+                    <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-4">{formatPerformanceText(phase.title)}</h3>
+                    <p className="text-slate-400 leading-relaxed text-sm font-light">{formatPerformanceText(phase.desc)}</p>
                   </div>
                   <div className="md:col-span-6 bg-[#0b0f19] p-8">
                     <p className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-4">Outputs</p>
@@ -337,7 +338,7 @@ export default function AboutPage() {
                       {phase.outputs.map((o, j) => (
                         <li key={j} className="flex items-start gap-3 text-slate-300 text-sm leading-relaxed font-light">
                           <span className="text-gold mt-1 shrink-0">—</span>
-                          {o}
+                          {formatPerformanceText(o)}
                         </li>
                       ))}
                     </ul>

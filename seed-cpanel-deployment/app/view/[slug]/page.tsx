@@ -5,6 +5,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { ProjectGallery } from '@/components/projects/ProjectGallery';
 import { SimilarProjectCard } from '@/components/projects/SimilarProjectCard';
 import { getAllProjects, getProjectBySlug, Project } from '../../../lib/projects';
+import { formatPerformanceText } from '@/lib/typography';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -167,20 +168,20 @@ export default async function ViewFullProjectPage({ params }: { params: { slug: 
                   PROJECT OVERVIEW
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-6">
-                  Engineering delivery & performance
+                  Engineering delivery & {formatPerformanceText('performance')}
                 </h2>
                 <div className="space-y-4 text-slate-300 font-light text-[16px] leading-relaxed">
                   {proj.full_description ? (
                     proj.full_description.split('\n').map((paragraph: string, i: number) => (
-                      paragraph.trim() && <p key={i}>{paragraph}</p>
+                      paragraph.trim() && <p key={i}>{formatPerformanceText(paragraph)}</p>
                     ))
                   ) : (proj.short_description || proj.description) ? (
                     (proj.short_description || proj.description)!.split('\n').map((paragraph: string, i: number) => (
-                      paragraph.trim() && <p key={i}>{paragraph}</p>
+                      paragraph.trim() && <p key={i}>{formatPerformanceText(paragraph)}</p>
                     ))
                   ) : (
                     <p>
-                      SEED delivered comprehensive MEP engineering services for {proj.title}, ensuring optimal system performance, energy efficiency, constructability, and compliance with regional authority requirements.
+                      SEED delivered comprehensive MEP engineering services for {proj.title}, ensuring optimal system {formatPerformanceText('performance')}, energy efficiency, constructability, and compliance with regional authority requirements.
                     </p>
                   )}
                 </div>

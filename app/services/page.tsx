@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
+import { formatPerformanceText } from '@/lib/typography';
 
 const SERVICES_DATA = [
   {
@@ -173,10 +174,10 @@ export default function ServicesPage() {
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-6 block">Our capabilities</span>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
-            Engineering Services & Capabilities
+            Engineering Se<span className="rv-fix">r</span>vices & Capabilities
           </h1>
           <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
-            Integrated engineering disciplines delivering high-performance buildings through advanced BIM workflows & automation and coordinated design.
+            Integrated engineering disciplines delivering high-<span className="word-performance">pe<span className="rf-fix">r</span>formance</span> buildings through advanced BIM workflows & automation and coordinated design.
           </p>
         </div>
       </section>
@@ -186,10 +187,10 @@ export default function ServicesPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
-              Engineering services built <br />around performance
+              Engineering se<span className="rv-fix">r</span>vices built <br />around <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>
             </h2>
             <p className="text-base md:text-lg font-sans font-light text-slate-300 leading-relaxed max-w-3xl mx-auto">
-              Every building presents unique engineering challenges. Our multidisciplinary teams work together from concept to commissioning, delivering integrated solutions that improve building performance, reduce project risks and support long-term operational value.
+              Every building presents unique engineering challenges. Our multidisciplinary teams work together from concept to commissioning, delivering integrated solutions that improve building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>, reduce project risks and support long-term operational value.
             </p>
           </Reveal>
         </div>
@@ -205,7 +206,7 @@ export default function ServicesPage() {
                 How we deliver Engineering excellence
               </h2>
               <p className="text-slate-400 font-light text-[15px]">
-                A structured 6-step engineering process that converts design intent into verified operational performance.
+                A structured 6-step engineering process that converts design intent into verified operational <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.
               </p>
             </div>
           </Reveal>
@@ -228,7 +229,7 @@ export default function ServicesPage() {
                       <span className="text-white/20 group-hover:text-gold/40 transition-colors font-sans font-bold text-sm">0{i + 1}</span>
                     </div>
                     <h3 className="text-white font-sans text-lg font-bold mb-3 group-hover:text-gold transition-colors">{st.title}</h3>
-                    <p className="text-slate-400 text-[12px] font-light leading-relaxed">{st.desc}</p>
+                    <p className="text-slate-400 text-[12px] font-light leading-relaxed">{formatPerformanceText(st.desc)}</p>
                   </div>
                 </div>
               </Reveal>
@@ -243,7 +244,7 @@ export default function ServicesPage() {
           <Reveal>
             <div className="mb-20 max-w-3xl">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Portfolio of services</span>
-              <h2 className="text-4xl md:text-6xl font-sans font-bold text-white mb-4">Our services</h2>
+              <h2 className="text-4xl md:text-6xl font-sans font-bold text-white mb-4">Our se<span className="rv-fix">r</span>vices</h2>
               <div className="w-20 h-1 bg-gold mt-4" />
             </div>
           </Reveal>
@@ -276,10 +277,20 @@ export default function ServicesPage() {
                   <Reveal delay={0.2}>
                     <div className="mb-8">
                       <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{service.num}</span>
-                      <h3 className="text-3xl md:text-4xl font-sans font-bold text-white mb-3 leading-tight">{service.title}</h3>
+                      <h3 className="text-3xl md:text-4xl font-sans font-bold text-white mb-3 leading-tight">
+                        {service.title === 'MEP Supervision' ? (
+                          <>MEP Supe<span className="rv-fix">r</span>vision</>
+                        ) : (
+                          service.title
+                        )}
+                      </h3>
                       <p className="text-gold font-sans italic text-base md:text-lg mb-4 leading-snug">{service.tagline}</p>
                       <p className="text-[14px] text-slate-400 font-light leading-relaxed max-w-xl">
-                        {service.desc}
+                        {service.id === 'mep-supervision' ? (
+                          <>Our supe<span className="rv-fix-body">r</span>vision teams ensure engineering designs are executed accurately on site, maintaining quality, compliance and smooth project delivery from installation through commissioning.</>
+                        ) : (
+                          formatPerformanceText(service.desc)
+                        )}
                       </p>
                     </div>
 
@@ -289,7 +300,13 @@ export default function ServicesPage() {
                         {service.services.map((item, i) => (
                           <div key={i} className="flex items-start gap-3">
                             <span className="text-gold mt-1 text-[10px]">◆</span>
-                            <span className="text-[13px] text-slate-300 font-medium tracking-wide">{item}</span>
+                            <span className="text-[13px] text-slate-300 font-medium tracking-wide">
+                              {item === 'Site Supervision' ? (
+                                <>Site Supe<span className="rv-fix-body">r</span>vision</>
+                              ) : (
+                                formatPerformanceText(item)
+                              )}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -351,7 +368,13 @@ export default function ServicesPage() {
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-slate-400 text-xs font-light leading-relaxed flex-1">{card.desc}</p>
+                  <p className="text-slate-400 text-xs font-light leading-relaxed flex-1">
+                    {card.desc.includes('supervision') ? (
+                      <>Complete technical responsibility extending beyond drawings to include on-site supe<span className="rv-fix-body">r</span>vision, testing, and verified building <span className="word-performance">pe<span className="rf-fix">r</span>formance</span>.</>
+                    ) : (
+                      card.desc
+                    )}
+                  </p>
                 </div>
               </StaggerItem>
             ))}
@@ -368,7 +391,7 @@ export default function ServicesPage() {
               Planning a complex building project?
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-              Whether you’re developing a luxury hotel, residential tower, commercial development or mixed-use destination, our multidisciplinary engineering teams are ready to help deliver high-performance buildings.
+              Whether you’re developing a luxury hotel, residential tower, commercial development or mixed-use destination, our multidisciplinary engineering teams are ready to help deliver high-pe<span className="rf-fix">r</span>formance buildings.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
               <Link
