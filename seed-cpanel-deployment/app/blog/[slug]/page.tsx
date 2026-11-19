@@ -1,7 +1,10 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BlogBackButton } from '@/components/blog/BlogBackButton';
 import { fallbackPosts } from '@/lib/blog';
+import { formatPerformanceText } from '@/lib/typography';
 
 function formatDate(iso?: string) {
   if (!iso) return '';
@@ -16,6 +19,28 @@ export function generateStaticParams() {
   return fallbackPosts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = fallbackPosts.find((p) => p.slug === params.slug);
+  if (!post) {
+    return {
+      title: 'Article Not Found | SEED Engineering',
+      description: 'The requested article could not be found.',
+    };
+  }
+  return {
+    title: post.title,
+    description: post.excerpt || `Read ${post.title} by SEED Engineering.`,
+    alternates: {
+      canonical: `/blog/${encodeURIComponent(post.slug.trim())}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} by SEED Engineering.`,
+      images: post.image ? [{ url: post.image }] : ['/seedlogo.png'],
+    },
+  };
 }
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
@@ -35,12 +60,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         
         {/* Back Link */}
         <div className="mb-8 max-w-4xl mx-auto">
-          <Link 
-            href="/blog" 
+          <BlogBackButton 
             className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
           >
             {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
-          </Link>
+          </BlogBackButton>
         </div>
 
         {/* Article Title & Header */}
@@ -48,11 +72,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <p className="text-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">
             {post.category} <span className="text-white/30 mx-2">·</span> {formatDate(post.publishedAt)}
           </p>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
-            {post.title}
+          <h1 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6 leading-tight">
+            {formatPerformanceText(post.title)}
           </h1>
           <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
-            {post.excerpt}
+            {formatPerformanceText(post.excerpt)}
           </p>
         </div>
 
@@ -71,7 +95,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <section className="pt-0">
           <div className="max-w-3xl mx-auto text-slate-300 font-light leading-relaxed text-base md:text-lg space-y-6">
             {post.content ? (
-              <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n\n/g, '<br/><br/>') }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.content
+                    .replace(/\n\n/g, '<br/><br/>')
+                    .replace(/(pe)(r)(formance)/gi, '<span class="word-performance">$1<span class="rf-fix">$2</span>$3</span>'),
+                }}
+              />
             ) : (
               <p className="text-slate-400 italic">Full article content is not available yet.</p>
             )}
@@ -83,7 +113,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <div className="max-w-5xl mx-auto pt-16 border-t border-white/10 mt-16">
             <div className="mb-12">
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">RELATED CONTENT</span>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white">More Like This</h2>
+              <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">More Like This</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedPosts.map((news, idx) => (
@@ -104,7 +134,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                       <span className="text-slate-500 text-[11px]">{formatDate(news.publishedAt)}</span>
                     </div>
                     <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-base font-bold text-white mb-2 group-hover:text-gold transition-colors line-clamp-2">{news.title}</h3>
+                      <h3 className="font-sans text-base font-bold text-white mb-2 group-hover:text-gold transition-colors line-clamp-2">{news.title}</h3>
                     </Link>
                     <p className="text-slate-400 text-[12px] font-light leading-relaxed mb-4 line-clamp-3">{news.excerpt}</p>
                   </div>
@@ -124,12 +154,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
         {/* Footer Navigation */}
         <div className="max-w-3xl mx-auto pt-12 border-t border-white/10 mt-16 text-center">
-          <Link 
-            href="/blog" 
+          <BlogBackButton 
             className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg"
           >
             ← Return to All Insights
-          </Link>
+          </BlogBackButton>
         </div>
 
       </div>

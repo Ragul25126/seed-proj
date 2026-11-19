@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -127,6 +127,71 @@ const AWARDS = [
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
 
+  const handleCardClick = useCallback((slug: string) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('blogScrollY', String(window.scrollY));
+      sessionStorage.setItem('blogLastCard', `blog-card-${slug}`);
+      sessionStorage.setItem('fromBlog', 'true');
+      sessionStorage.setItem('blogSourcePath', window.location.pathname);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    const savedY = sessionStorage.getItem('blogScrollY');
+    const savedCard = sessionStorage.getItem('blogLastCard');
+
+    if (savedY !== null || savedCard !== null) {
+      const targetY = savedY !== null ? parseFloat(savedY) : null;
+
+      const restore = () => {
+        let restored = false;
+
+        if (savedCard) {
+          const el = document.getElementById(savedCard);
+          if (el) {
+            if (targetY !== null && !isNaN(targetY)) {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior });
+            } else {
+              el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' as ScrollBehavior });
+            }
+            restored = true;
+          }
+        }
+
+        if (!restored && targetY !== null && !isNaN(targetY)) {
+          window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior });
+          restored = true;
+        }
+
+        if (restored) {
+          sessionStorage.removeItem('blogScrollY');
+          sessionStorage.removeItem('blogLastCard');
+          sessionStorage.removeItem('fromBlog');
+          sessionStorage.removeItem('blogSourcePath');
+        }
+
+        return restored;
+      };
+
+      if (!restore()) {
+        const id1 = setTimeout(restore, 50);
+        const id2 = setTimeout(restore, 150);
+        const id3 = setTimeout(restore, 350);
+        return () => {
+          clearTimeout(id1);
+          clearTimeout(id2);
+          clearTimeout(id3);
+        };
+      }
+    }
+  }, []);
+
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
 
@@ -172,10 +237,16 @@ export default function InsightsPage() {
             {MEDIA_COVERAGES.map((news, idx) => (
               <StaggerItem key={idx}>
                 <div
+                  id={`blog-card-${news.slug}`}
+                  onClick={() => handleCardClick(news.slug)}
                   className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                    <Link 
+                      href={`/blog/${news.slug}`} 
+                      onClick={() => handleCardClick(news.slug)}
+                      className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
+                    >
                       <Image
                         src={news.image}
                         alt={news.headline}
@@ -187,7 +258,10 @@ export default function InsightsPage() {
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
+                    <Link 
+                      href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
+                    >
                       <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
                     <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
@@ -196,12 +270,16 @@ export default function InsightsPage() {
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <Link
                       href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
                       Read full article →
                     </Link>
                     <button
-                      onClick={() => setActiveModal(news)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModal(news);
+                      }}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
                       🔍 Preview image
@@ -228,10 +306,16 @@ export default function InsightsPage() {
             {AWARDS_RECOGNITION.map((news, idx) => (
               <StaggerItem key={idx}>
                 <div
+                  id={`blog-card-${news.slug}`}
+                  onClick={() => handleCardClick(news.slug)}
                   className="bg-[#0f172a] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                    <Link 
+                      href={`/blog/${news.slug}`} 
+                      onClick={() => handleCardClick(news.slug)}
+                      className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
+                    >
                       <Image
                         src={news.image}
                         alt={news.headline}
@@ -243,7 +327,10 @@ export default function InsightsPage() {
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
+                    <Link 
+                      href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
+                    >
                       <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
                     <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
@@ -252,12 +339,16 @@ export default function InsightsPage() {
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <Link
                       href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
                       View award →
                     </Link>
                     <button
-                      onClick={() => setActiveModal(news)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModal(news);
+                      }}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
                       🔍 Preview image
@@ -339,6 +430,7 @@ export default function InsightsPage() {
             <div className="pt-6 border-t border-white/10 flex items-center justify-between">
               <Link
                 href={`/blog/${activeModal.slug}`}
+                onClick={() => handleCardClick(activeModal.slug)}
                 className="px-8 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
               >
                 {activeModal.category.includes('Award') ? 'View award details →' : 'Go to dedicated article page →'}

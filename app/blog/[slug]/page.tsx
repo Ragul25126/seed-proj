@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BlogBackButton } from '@/components/blog/BlogBackButton';
 import { fallbackPosts } from '@/lib/blog';
 import { formatPerformanceText } from '@/lib/typography';
 
@@ -59,12 +60,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         
         {/* Back Link */}
         <div className="mb-8 max-w-4xl mx-auto">
-          <Link 
-            href="/blog" 
+          <BlogBackButton 
             className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
           >
             {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
-          </Link>
+          </BlogBackButton>
         </div>
 
         {/* Article Title & Header */}
@@ -154,12 +154,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
         {/* Footer Navigation */}
         <div className="max-w-3xl mx-auto pt-12 border-t border-white/10 mt-16 text-center">
-          <Link 
-            href="/blog" 
+          <BlogBackButton 
             className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm shadow-lg"
           >
             ← Return to All Insights
-          </Link>
+          </BlogBackButton>
         </div>
 
       </div>

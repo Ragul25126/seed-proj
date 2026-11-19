@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
@@ -11,7 +11,7 @@ interface ArticleItem {
   headline: string;
   category: string;
   date: string;
-  desc: string;
+  desc: React.ReactNode;
   image: string;
 }
 
@@ -21,7 +21,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'SEED Engineering Featured in the Top MEP Consultants Powerlist 2026',
     category: 'MEDIA COVERAGE',
     date: '6 Aug 2026',
-    desc: 'SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering industry.',
+    desc: <>SEED Engineering has been featured in MEP Middle East’s Top MEP Consultants Powerlist 2026, recognising the firm’s presence and contribution to the region’s MEP engineering <span className="ry-word">indust<span className="ry-fix-body">r</span>y.</span></>,
     image: '/projects/news-seed-media-profile.webp',
   },
   {
@@ -29,7 +29,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'SEED Engineering Consultants Sustainable MEP Solutions for Wasl Tower',
     category: 'Media Coverage',
     date: '24 Jul 2022',
-    desc: 'Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering services firm in operation for almost two decades...',
+    desc: <>Shaping landmark skylines, the company stands for building energy-efficient projects. SEED is a global engineering <span className="rv-word">se<span className="rv-fix-body">r</span>vices</span> firm in operation for almost two decades...</>,
     image: '/blog/wasl-tower-article.png',
   },
   {
@@ -45,7 +45,7 @@ const MEDIA_COVERAGES: ArticleItem[] = [
     headline: 'Delivering Efficiency: In conversation with Sanu Mathew',
     category: 'MEDIA COVERAGE',
     date: '24 Jul 2022',
-    desc: 'Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building Services Industry.',
+    desc: <>Headquartered in Dubai, with design offices in Singapore, Bangalore, and Kochi is SEED Engineering Consultants, delivering efficient engineering solutions in the Building <span className="rv-word">Se<span className="rv-fix-body">r</span>vices</span> <span className="ry-word">Indust<span className="ry-fix-body">r</span>y.</span></>,
     image: '/blog/sanu-mathew-media-coverage.png',
   },
 ];
@@ -64,7 +64,7 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     headline: 'St. Regis Branded Residences | Honourable Achievement',
     category: 'Media Coverage',
     date: '11 Feb 2026',
-    desc: 'At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential category.',
+    desc: <>At the 16th Big Project Middle East Awards 2026, The St. Regis Branded Residences received an Honourable Achievement in the Project of the Year – Residential <span className="ry-word">catego<span className="ry-fix-body">r</span>y.</span></>,
     image: '/projects/news-st-regis-award.webp',
   },
   {
@@ -77,8 +77,120 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
   },
 ];
 
+const AWARDS = [
+  {
+    organization: 'Big Project Middle East Awards 2026',
+    items: [
+      {
+        category: 'MEP Project of the Year',
+        details: 'Winner – Wasl Tower',
+      },
+      {
+        category: 'Project of the Year (Residential)',
+        details: 'Honourable Achievement – The St. Regis Branded Residences',
+      },
+    ],
+  },
+  {
+    organization: 'ISHRAE UAE MEERA Awards',
+    items: [
+      {
+        category: '2026 – MEP Project of the Year',
+        details: 'Highly Commended – Hilton & Holiday Inn',
+      },
+      {
+        category: '2025 – Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'MEP Middle East Awards 2026',
+    items: [
+      {
+        category: 'Mechanical Project of the Year',
+        details: 'Highly Commended – Wasl Tower',
+      },
+    ],
+  },
+  {
+    organization: 'Middle East Consultant Awards 2025',
+    items: [
+      {
+        category: 'Executive of the Year – Male',
+        details: 'Honourable Achievement – Sanu Mathew',
+      },
+    ],
+  },
+];
+
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
+
+  const handleCardClick = useCallback((slug: string) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('blogScrollY', String(window.scrollY));
+      sessionStorage.setItem('blogLastCard', `blog-card-${slug}`);
+      sessionStorage.setItem('fromBlog', 'true');
+      sessionStorage.setItem('blogSourcePath', window.location.pathname);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    const savedY = sessionStorage.getItem('blogScrollY');
+    const savedCard = sessionStorage.getItem('blogLastCard');
+
+    if (savedY !== null || savedCard !== null) {
+      const targetY = savedY !== null ? parseFloat(savedY) : null;
+
+      const restore = () => {
+        let restored = false;
+
+        if (savedCard) {
+          const el = document.getElementById(savedCard);
+          if (el) {
+            if (targetY !== null && !isNaN(targetY)) {
+              window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior });
+            } else {
+              el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' as ScrollBehavior });
+            }
+            restored = true;
+          }
+        }
+
+        if (!restored && targetY !== null && !isNaN(targetY)) {
+          window.scrollTo({ top: targetY, behavior: 'instant' as ScrollBehavior });
+          restored = true;
+        }
+
+        if (restored) {
+          sessionStorage.removeItem('blogScrollY');
+          sessionStorage.removeItem('blogLastCard');
+          sessionStorage.removeItem('fromBlog');
+          sessionStorage.removeItem('blogSourcePath');
+        }
+
+        return restored;
+      };
+
+      if (!restore()) {
+        const id1 = setTimeout(restore, 50);
+        const id2 = setTimeout(restore, 150);
+        const id3 = setTimeout(restore, 350);
+        return () => {
+          clearTimeout(id1);
+          clearTimeout(id2);
+          clearTimeout(id3);
+        };
+      }
+    }
+  }, []);
 
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
@@ -90,18 +202,19 @@ export default function InsightsPage() {
             src="/dubai_skyline_night_1780503516791.webp"
             alt="Insights Hero"
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-20 mix-blend-overlay"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19] via-[#0b0f19]/90 to-[#0b0f19]" />
         </div>
-
         <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.25em] uppercase mb-4 block">
-              KNOWLEDGE & UPDATES
+              News & Recognition
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
-              Insights
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-6 leading-[1.15]">
+              SEED in Focus
             </h1>
             <p className="text-lg md:text-xl font-sans font-light text-slate-400 leading-relaxed max-w-3xl mx-auto">
               Practical insights from engineers who design, coordinate and commission complex buildings — covering MEP systems, sustainability, BIM coordination and building {formatPerformanceText('performance')} across the Middle East and beyond.
@@ -115,7 +228,7 @@ export default function InsightsPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Media</h2>
+              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">In the Media</h2>
             </div>
           </Reveal>
 
@@ -124,38 +237,52 @@ export default function InsightsPage() {
             {MEDIA_COVERAGES.map((news, idx) => (
               <StaggerItem key={idx}>
                 <div
+                  id={`blog-card-${news.slug}`}
+                  onClick={() => handleCardClick(news.slug)}
                   className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                    <Link 
+                      href={`/blog/${news.slug}`} 
+                      onClick={() => handleCardClick(news.slug)}
+                      className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
+                    >
                       <Image
                         src={news.image}
                         alt={news.headline}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
+                    <Link 
+                      href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
+                    >
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <Link
                       href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
-                      Read Full Article →
+                      Read full article →
                     </Link>
                     <button
-                      onClick={() => setActiveModal(news)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModal(news);
+                      }}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
-                      🔍 Preview Image
+                      🔍 Preview image
                     </button>
                   </div>
                 </div>
@@ -166,12 +293,12 @@ export default function InsightsPage() {
       </section>
 
       {/* SECTION 03 – AWARDS & RECOGNITION */}
-      <section className="py-24 bg-[#0b0f19] border-t border-white/5">
+      <section id="awards" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-24">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
-              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">ACCOLADES & HONOURS</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">Awards & Recognition</h2>
+              <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-3 block">Accolades & honours</span>
+              <h2 className="text-3xl md:text-5xl font-sans font-bold text-white">Indust<span className="ry-fix">r</span>y Recognition</h2>
             </div>
           </Reveal>
 
@@ -179,44 +306,94 @@ export default function InsightsPage() {
             {AWARDS_RECOGNITION.map((news, idx) => (
               <StaggerItem key={idx}>
                 <div
+                  id={`blog-card-${news.slug}`}
+                  onClick={() => handleCardClick(news.slug)}
                   className="bg-[#0f172a] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link href={`/blog/${news.slug}`} className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]">
+                    <Link 
+                      href={`/blog/${news.slug}`} 
+                      onClick={() => handleCardClick(news.slug)}
+                      className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
+                    >
                       <Image
                         src={news.image}
                         alt={news.headline}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link href={`/blog/${news.slug}`}>
-                      <h3 className="font-serif text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
+                    <Link 
+                      href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
+                    >
+                      <h3 className="font-sans text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors">{formatPerformanceText(news.headline)}</h3>
                     </Link>
-                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{formatPerformanceText(news.desc)}</p>
+                    <p className="text-slate-400 text-[13px] font-light leading-relaxed mb-6">{typeof news.desc === 'string' ? formatPerformanceText(news.desc) : news.desc}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <Link
                       href={`/blog/${news.slug}`}
+                      onClick={() => handleCardClick(news.slug)}
                       className="text-gold text-[11px] font-bold tracking-wider uppercase inline-flex items-center gap-1 hover:underline"
                     >
-                      View Award →
+                      View award →
                     </Link>
                     <button
-                      onClick={() => setActiveModal(news)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModal(news);
+                      }}
                       className="text-slate-400 hover:text-white text-[10px] uppercase tracking-widest bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-sm transition-colors"
                     >
-                      🔍 Preview Image
+                      🔍 Preview image
                     </button>
                   </div>
                 </div>
               </StaggerItem>
             ))}
           </Stagger>
+
+          {/* AWARD-WINNING ENGINEERING EXCELLENCE (MOVED FROM ABOUT) */}
+          <div className="pt-24 mt-24 border-t border-white/5">
+            <Reveal>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <span className="text-gold text-[10px] font-semibold tracking-[0.3em] uppercase mb-4 block">Recognition</span>
+                <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-white">Award-winning engineering excellence</h2>
+              </div>
+            </Reveal>
+
+            <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {AWARDS.map((group, idx) => (
+                <StaggerItem key={idx}>
+                  <div className="bg-[#0f172a] border border-white/10 p-8 md:p-10 rounded-sm hover:border-gold/40 transition-colors h-full flex flex-col justify-start group">
+                    <h3 className="font-sans text-xl md:text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-gold shrink-0 group-hover:scale-125 transition-transform" />
+                      <span>{group.organization}</span>
+                    </h3>
+
+                    <div className="space-y-6 flex-grow">
+                      {group.items.map((item, itemIdx) => (
+                        <div key={itemIdx} className={itemIdx > 0 ? 'pt-5 border-t border-white/5' : ''}>
+                          <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">
+                            {item.category}
+                          </p>
+                          <p className="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                            {formatPerformanceText(item.details)}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
         </div>
       </section>
 
@@ -237,12 +414,13 @@ export default function InsightsPage() {
               ✕
             </button>
             <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{activeModal.date}</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-6">{activeModal.headline}</h2>
+            <h2 className="text-2xl md:text-4xl font-sans font-bold text-white mb-6">{activeModal.headline}</h2>
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] mb-6 rounded-sm overflow-hidden bg-[#060e25] border border-white/10">
               <Image
                 src={activeModal.image}
                 alt={activeModal.headline}
                 fill
+                sizes="(max-width: 1024px) 90vw, 800px"
                 className="object-contain"
               />
             </div>
@@ -252,15 +430,16 @@ export default function InsightsPage() {
             <div className="pt-6 border-t border-white/10 flex items-center justify-between">
               <Link
                 href={`/blog/${activeModal.slug}`}
+                onClick={() => handleCardClick(activeModal.slug)}
                 className="px-8 py-3 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
               >
-                {activeModal.category.includes('Award') ? 'View Award Details →' : 'Go to Dedicated Article Page →'}
+                {activeModal.category.includes('Award') ? 'View award details →' : 'Go to dedicated article page →'}
               </Link>
               <button
                 onClick={() => setActiveModal(null)}
                 className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-sans text-xs font-bold tracking-[0.15em] uppercase transition-colors rounded-sm"
               >
-                Close Preview
+                Close preview
               </button>
             </div>
           </div>
@@ -271,19 +450,19 @@ export default function InsightsPage() {
       <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
-            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">COLLABORATION</span>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6">
-              Let’s Shape the Future Together
+            <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Collaboration</span>
+            <h2 className="font-sans text-4xl md:text-6xl font-bold text-white mb-6">
+              Let’s shape the future together
             </h2>
             <p className="text-slate-300 font-light text-lg max-w-xl mx-auto mb-10">
-              Whether you’re looking for engineering expertise, project collaboration or industry insights, our team is ready to help.
+              Whether you’re looking for engineering expertise, project collaboration or <span className="ry-word">indust<span className="ry-fix-body">r</span>y</span> insights, our team is ready to help.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-yellow-500 text-[#0b0f19] font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 rounded-sm">
-                Contact Us
+                Contact us
               </Link>
               <Link href="/projects" className="inline-flex items-center justify-center px-10 py-5 border border-white/20 text-white font-sans text-[11px] font-bold tracking-[0.15em] uppercase hover:border-white hover:bg-white/5 transition-colors duration-300 rounded-sm">
-                Explore Our Projects
+                Explore our projects
               </Link>
             </div>
           </Reveal>
