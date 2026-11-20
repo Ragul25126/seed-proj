@@ -35,7 +35,7 @@ export default function HomePage() {
       <HeroSlider />
 
       {/* ABOUT SECTION */}
-      <section id="about" className="py-24 md:py-32 bg-[#0f172a]">
+      <section id="about" className="pt-24 md:pt-32 pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0f172a]">
         <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <Reveal>
@@ -80,7 +80,7 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES SECTION */}
-      <section id="services" className="py-24 md:py-32 bg-[#1a1d24]">
+      <section id="services" className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 md:pb-32 bg-[#1a1d24]">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 max-w-2xl">
@@ -112,7 +112,7 @@ export default function HomePage() {
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section id="projects" className="py-24 md:py-32 bg-[#0b0f19]">
+      <section id="projects" className="pt-24 md:pt-32 pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16 max-w-2xl text-center mx-auto">
@@ -164,7 +164,7 @@ export default function HomePage() {
       </section>
 
       {/* STATS SECTION */}
-      <section className="py-24 bg-[#0b0f19] border-y border-white/5">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 bg-[#0b0f19] border-y border-white/5">
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
             {[
@@ -276,7 +276,7 @@ export default function HomePage() {
       </section>
 
       {/* SECTORS SECTION */}
-      <section className="py-24 md:py-32 bg-[#0b0f19]">
+      <section className="pt-24 md:pt-32 pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Industries</span>
@@ -296,7 +296,7 @@ export default function HomePage() {
       </section>
 
       {/* CONTACT CTA */}
-      <section id="contact" className="py-32 relative overflow-hidden">
+      <section id="contact" className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-32 relative overflow-hidden">
         <Image
           src="/city_aerial_night_1780504844349.webp"
           alt="Contact Background"

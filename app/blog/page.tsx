@@ -196,7 +196,7 @@ export default function InsightsPage() {
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
 
       {/* SECTION 01 – HERO BANNER */}
-      <section className="relative pt-40 pb-24 overflow-hidden border-b border-white/5">
+      <section className="relative pt-40 pb-[calc(var(--section-gap)/2)] section-gap-bottom overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <Image
             src="/dubai_skyline_night_1780503516791.webp"
@@ -224,7 +224,7 @@ export default function InsightsPage() {
       </section>
 
       {/* SECTION 02 – MEDIA & COVERAGES */}
-      <section className="py-24 bg-[#0f172a] border-t border-white/5">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 bg-[#0f172a] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
@@ -293,7 +293,7 @@ export default function InsightsPage() {
       </section>
 
       {/* SECTION 03 – AWARDS & RECOGNITION */}
-      <section id="awards" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-24">
+      <section id="awards" className="pt-24 pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0b0f19] border-t border-white/5 scroll-mt-24">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-16">
@@ -447,7 +447,7 @@ export default function InsightsPage() {
       )}
 
       {/* SECTION 04 – CALL TO ACTION */}
-      <section className="py-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-28 relative overflow-hidden bg-[#0b0f19] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Collaboration</span>

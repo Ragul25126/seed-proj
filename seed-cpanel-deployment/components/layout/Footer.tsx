@@ -12,11 +12,13 @@ export default function Footer() {
     return null;
   }
 
+  const isAdjustedFooter = pathname === '/projects' || pathname === '/sectors';
+
   return (
     <footer className="bg-[#0b0f19] text-white border-t border-white/5 relative overflow-hidden">
 
 
-      <div className="container mx-auto px-6 lg:px-12 py-20">
+      <div className={`container mx-auto px-6 lg:px-12 ${isAdjustedFooter ? 'pt-[calc(var(--section-gap)/2)] section-gap-top pb-20' : 'py-20'}`}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24 mb-16">
           <div className="md:col-span-5 lg:col-span-6">
             <Image

@@ -197,7 +197,7 @@ export default function ServicesPage() {
       </section>
 
       {/* SECTION 3 – ENGINEERING PROCESS (HORIZONTAL TIMELINE) */}
-      <section className="py-24 md:py-32 bg-[#0b0f19] border-b border-white/5">
+      <section className="pt-24 md:pt-32 pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0b0f19] border-b border-white/5">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -239,7 +239,7 @@ export default function ServicesPage() {
       </section>
 
       {/* SECTION 4 – OUR SERVICES */}
-      <section className="py-24 md:py-32 border-t border-white/5 bg-[#0b0f19]">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 md:pb-32 border-t border-white/5 bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12">
           <Reveal>
             <div className="mb-20 max-w-3xl">

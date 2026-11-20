@@ -62,7 +62,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
 
       {/* SECTION 01 – HERO BANNER */}
-      <section className="relative pt-40 pb-28 overflow-hidden border-b border-white/5">
+      <section className="relative pt-40 pb-[calc(var(--section-gap)/2)] section-gap-bottom overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <Image
             src="/modern_mep_interior_1780503503410.webp"
@@ -97,7 +97,7 @@ export default function CareersClient({ vacancies }: CareersClientProps) {
       </section>
 
       {/* SECTION 02 – VACANCIES SECTION */}
-      <section id="openings" className="py-24 bg-[#0f172a] border-t border-white/5 scroll-mt-20">
+      <section id="openings" className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 bg-[#0f172a] border-t border-white/5 scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
 
           {activeVacancies.length > 0 && (

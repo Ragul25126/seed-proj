@@ -246,8 +246,8 @@ function ProjectsContent() {
   });
 
   return (
-    <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19] pb-32">
-      <div className="pt-32 lg:pt-40 pb-16">
+    <div className="projects-page bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
+      <div className="pt-32 lg:pt-40 pb-[calc(var(--section-gap)/2)] section-gap-bottom">
         <div className="container mx-auto px-6 lg:px-12">
           
           <Reveal>
@@ -373,7 +373,7 @@ function ProjectsContent() {
           )}
 
           {/* SECTION 05 – CALL TO ACTION */}
-          <div className="mt-32 pt-20 border-t border-white/10 text-center max-w-4xl mx-auto">
+          <div className="mt-[calc(var(--section-gap)/2)] section-gap-margin-top pt-[calc(var(--section-gap)/2)] section-gap-top border-t border-white/10 text-center max-w-4xl mx-auto">
             <Reveal>
               <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">NEXT STEPS</span>
               <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6">Let’s Discuss Your Next Project</h2>

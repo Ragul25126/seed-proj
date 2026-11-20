@@ -107,10 +107,10 @@ const SECTORS_DATA = [
 
 export default function SectorsPage() {
   return (
-    <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
+    <div className="sectors-page bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
       
       {/* 1. HERO SECTION */}
-      <section className="relative pt-40 pb-24 overflow-hidden border-b border-white/5">
+      <section className="relative pt-40 pb-[calc(var(--section-gap)/2)] section-gap-bottom overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <Image
             src="/city_aerial_night_1780504844349.webp"
@@ -139,7 +139,7 @@ export default function SectorsPage() {
       </section>
 
       {/* 2. SECTOR CARDS GRID */}
-      <section className="py-24 md:py-32">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-[calc(var(--section-gap)/2)] section-gap-bottom">
         <div className="container mx-auto px-6 lg:px-12">
           <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SECTORS_DATA.map((sector) => {
@@ -195,7 +195,7 @@ export default function SectorsPage() {
       </section>
 
       {/* 3. FINAL CTA SECTION */}
-      <section className="py-28 bg-[#0f172a] border-t border-white/5 relative overflow-hidden">
+      <section className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-[calc(var(--section-gap)/2)] section-gap-bottom bg-[#0f172a] border-t border-white/5 relative overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12 text-center max-w-4xl">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Get in touch</span>

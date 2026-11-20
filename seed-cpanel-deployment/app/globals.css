@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --section-gap: clamp(40px, 6vw, 80px);
   /* Lovable theme colors */
   --color-navy: #0b0f19;
   --color-slate: #0f172a;
@@ -44,6 +45,28 @@ body, p, li, a, span, label, input, textarea {
 
 .bg-ink {
   background-color: var(--color-ink);
+}
+
+.section-gap-top {
+  padding-top: calc(var(--section-gap) / 2) !important;
+}
+
+.section-gap-bottom {
+  padding-bottom: calc(var(--section-gap) / 2) !important;
+}
+
+.section-gap-margin-top {
+  margin-top: calc(var(--section-gap) / 2) !important;
+}
+
+.section-gap-margin-bottom {
+  margin-bottom: calc(var(--section-gap) / 2) !important;
+}
+
+/* Scoped page-level footer top padding for projects and sectors pages */
+body:has(.projects-page) footer .container,
+body:has(.sectors-page) footer .container {
+  padding-top: calc(var(--section-gap) / 2) !important;
 }
 
 .label {

@@ -211,7 +211,7 @@ export default function ContactPage() {
       </section>
 
       {/* SECTION 03 – CALL TO ACTION */}
-      <section className="py-28 relative overflow-hidden bg-[#0b0f19]">
+      <section className="pt-28 pb-[calc(var(--section-gap)/2)] section-gap-bottom relative overflow-hidden bg-[#0b0f19]">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <Reveal>
             <span className="text-gold text-[10px] font-semibold tracking-[0.2em] uppercase mb-4 block">Next steps</span>
@@ -237,7 +237,7 @@ export default function ContactPage() {
       </section>
 
       {/* SECTION 04 – SEND US A MESSAGE */}
-      <section id="contact-form" className="py-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-20">
+      <section id="contact-form" className="pt-[calc(var(--section-gap)/2)] section-gap-top pb-24 bg-[#0b0f19] border-t border-white/5 scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
