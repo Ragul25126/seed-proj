@@ -14,6 +14,22 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
 
+  const isActive = (href: string) => pathname === href || pathname?.startsWith(`${href}/`);
+
+  const getNavLinkClass = (href: string) =>
+    cn(
+      'text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase transition-colors duration-300',
+      isActive(href)
+        ? 'text-amber-400'
+        : 'text-white/70 hover:text-amber-400'
+    );
+
+  const getMobileNavLinkClass = (href: string) =>
+    cn(
+      'font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 transition-all',
+      isActive(href) ? 'text-amber-400' : 'hover:text-gold hover:pl-3'
+    );
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -70,13 +86,13 @@ export default function Navbar() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
-          <Link href="/about" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">About</Link>
-          <Link href="/services" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Services</Link>
-          <Link href="/sectors" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Sectors</Link>
-          <Link href="/projects" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Projects</Link>
-          <Link href="/blog" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Media</Link>
-          <Link href="/careers" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Careers</Link>
-          <Link href="/contact" prefetch={false} className="text-xs xl:text-sm font-sans font-medium tracking-[0.1em] xl:tracking-[0.12em] uppercase text-white/80 hover:text-white transition-colors duration-300">Contact</Link>
+          <Link href="/about" prefetch={false} className={getNavLinkClass('/about')}>About</Link>
+          <Link href="/services" prefetch={false} className={getNavLinkClass('/services')}>Services</Link>
+          <Link href="/sectors" prefetch={false} className={getNavLinkClass('/sectors')}>Sectors</Link>
+          <Link href="/projects" prefetch={false} className={getNavLinkClass('/projects')}>Projects</Link>
+          <Link href="/blog" prefetch={false} className={getNavLinkClass('/blog')}>Media</Link>
+          <Link href="/careers" prefetch={false} className={getNavLinkClass('/careers')}>Careers</Link>
+          <Link href="/contact" prefetch={false} className={getNavLinkClass('/contact')}>Contact</Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -158,37 +174,37 @@ export default function Navbar() {
               </svg>
             </button>
             <Link href="/about" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/about')}
             >
               About
             </Link>
             <Link href="/services" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/services')}
             >
               Services
             </Link>
             <Link href="/sectors" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/sectors')}
             >
               Sectors
             </Link>
             <Link href="/projects" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/projects')}
             >
               Projects
             </Link>
             <Link href="/blog" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/blog')}
             >
               Media
             </Link>
             <Link href="/careers" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/careers')}
             >
               Careers
             </Link>
             <Link href="/contact" prefetch={false} onClick={() => setOpen(false)}
-              className="font-sans text-3xl md:text-4xl font-bold leading-tight py-3 border-b border-white/10 hover:text-gold hover:pl-3 transition-all"
+              className={getMobileNavLinkClass('/contact')}
             >
               Contact
             </Link>

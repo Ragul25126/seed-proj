@@ -21,7 +21,7 @@ const CORE_SERVICES: Array<{ title: string; desc: React.ReactNode; icon: string 
   { title: 'ELV Systems', desc: 'Security, ICT, BMS and integrated smart building infrastructure for intelligent operations.', icon: 'M5 12h14M12 5v14' },
   { title: 'Sustainability', desc: 'Energy modelling, green certifications and carbon reduction strategies for LEED, Estidama and WELL.', icon: 'M12 2v20M4.93 4.93l14.14 14.14M2 12h20M4.93 19.07L19.07 4.93' },
   { title: 'BIM Coordination', desc: <>Multidisciplina<span className="ry-fix-body">r</span>y coordination and clash-free construction documentation from concept to IFC.</>, icon: 'M4 4h16v16H4z' },
-  { title: 'Commissioning', desc: <><span className="word-performance">Pe<span className="rf-fix">r</span>formance</span> verification ensuring eve<span className="ry-fix-body">r</span>y system operates exactly as intended — on site.</>, icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
+  { title: 'Commissioning', desc: <span className="break-normal whitespace-normal"><span className="word-performance">Pe<span className="rf-fix">r</span>formance</span> verification ensuring <span className="ry-word inline-block whitespace-nowrap">eve<span className="ry-fix-body">r</span>y</span> system operates exactly as intended — on site.</span>, icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z' },
 ];
 
 const SECTORS = [
@@ -65,7 +65,9 @@ export default function HomePage() {
                 src="/projects/mandarin-wasl-tower.webp" 
                 alt="MEP Engineering" 
                 fill 
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 448px"
+                quality={100}
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
                 className="object-cover" 
               />
               <div className="absolute -bottom-6 -left-6 bg-gold p-8 w-48 shadow-2xl">

@@ -259,6 +259,7 @@ export const portfolio: {
         client: "Ellington",
         architect: "XYZ Designers",
         services: "MEP/AV/ICT/Home Automation & Security Design",
+        area: "254,383.00 sqm",
         image: "/projects/Portside Square.webp",
         images: [
           "/projects/Portside Square.webp",
@@ -266,7 +267,7 @@ export const portfolio: {
           "/projects/portside-square-03.jpg",
           "/projects/portside-square-04.jpg"
         ],
-        description: ""
+        description: "Portside Square is a contemporary mixed-use waterfront development within Mina Rashid, Dubai, comprising two residential towers and an office building, offering highquality residences, extensive lifestyle amenities, and integrated smart building technologies to create a connected, communityfocused living environment."
     },
     {
         title: "Residential at Peninsula Plot B",
@@ -570,6 +571,24 @@ export const portfolio: {
         description: "Mid-rise (B+G+5+R) Mixed Use Building — Residential and Retail. Sits within a gated residential park community masterplan."
     },
     {
+        title: "The Galleria Al Maryah Island",
+        slug: "the-galleria-al-maryah-island",
+        division: "mep",
+        clientSector: "Retail",
+        sector: "Retail",
+        location: "Abu Dhabi, UAE",
+        projectScale: "MEP Design & Supervision",
+        client: "Mubadala Real Estate & Hospitality",
+        architect: "CallisonRTKL",
+        services: "MEP Design & Supervision",
+        area: "300,000.00 sqm",
+        image: "/sectors/galleria-mall.jpg",
+        images: [
+          "/sectors/galleria-mall.jpg"
+        ],
+        description: "The Galleria Al Maryah Island is Abu Dhabi's premier luxury retail and dining destination, developed by Mubadala Real Estate & Hospitality, delivering world-class shopping and lifestyle amenities across approximately 300,000 sqm of gross floor area."
+    },
+    {
         title: "Commerz 3 Tower",
         slug: "commerz-3",
         division: "mep",
@@ -662,6 +681,7 @@ export const portfolio: {
         client: "Ellington",
         architect: "XYZ Designers",
         services: "MEP Design",
+        area: "61,000.00 sqm",
         image: "/projects/Soto Grande.webp",
         images: [
           "/projects/Soto Grande.webp",
@@ -1297,7 +1317,7 @@ export const portfolio: {
         client: "Vishal Arora and Vanita Mehra",
         architect: "WWF",
         services: "MEP Design",
-        area: "",
+        area: "1,120.00 sqm",
         image: "/projects/g-1-residential-villa-dubai,-uae.png",
         images: [
           "/projects/g-1-residential-villa-dubai,-uae.png"
@@ -1504,7 +1524,7 @@ export const team = [
     region: 'UAE',
     name: 'Aneesh Kumar',
     role: 'Head of Electrical Engineering',
-    image: '/image copy 2.png',
+    image: '/team/aneesh-kumar.png',
     linkedin: 'https://www.linkedin.com/in/aneesh-kumar-66424a36/',
     bio: 'With over 24 years’ experience in building services engineering, he specialises in electrical design, technical leadership and project management. He leads engineering teams and coordinates with clients and stakeholders to ensure technical excellence, regulatory compliance and quality delivery. His focus includes mentoring engineers, strengthening technical capabilities and delivering sustainable, cost-effective engineering solutions.',
   },
