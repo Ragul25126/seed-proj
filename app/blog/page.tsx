@@ -13,6 +13,7 @@ interface ArticleItem {
   date: string;
   desc: React.ReactNode;
   image: string;
+  secondaryImage?: string;
 }
 
 const MEDIA_COVERAGES: ArticleItem[] = [
@@ -75,6 +76,15 @@ const AWARDS_RECOGNITION: ArticleItem[] = [
     desc: 'At the 16th Big Project Middle East Awards 2026, SEED Engineering Consultants was honoured with the MEP Project of the Year award for Wasl Tower.',
     image: '/projects/news-wasl-tower-award.webp',
   },
+  {
+    slug: 'wasl-tower-mixed-use-project-of-the-year',
+    headline: 'Wasl Tower | Mixed-Use Project of the Year',
+    category: 'Media Coverage',
+    date: '19 Nov 2026',
+    desc: 'At the Construction Week Middle East Awards 2026, SEED Engineering Consultants was honoured with the Mixed-Use Project of the Year award for Wasl Tower.',
+    image: '/images/industry-recognition/wasl-tower-award.png',
+    secondaryImage: '/images/construction-week-awards-2026-wasl-tower.png',
+  },
 ];
 
 const AWARDS = [
@@ -122,10 +132,20 @@ const AWARDS = [
       },
     ],
   },
+  {
+    organization: 'Construction Week Awards 2026',
+    items: [
+      {
+        category: 'Mixed use project of the year',
+        details: 'Winner - wasl Tower',
+      },
+    ],
+  },
 ];
 
 export default function InsightsPage() {
   const [activeModal, setActiveModal] = useState<ArticleItem | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const handleCardClick = useCallback((slug: string) => {
     if (typeof window !== 'undefined') {
@@ -192,6 +212,23 @@ export default function InsightsPage() {
     }
   }, []);
 
+  useEffect(() => {
+    setActiveSlide(0);
+    if (!activeModal) return;
+    const totalSlides = activeModal.secondaryImage ? 2 : 1;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModal(null);
+      } else if (totalSlides > 1 && e.key === 'ArrowLeft') {
+        setActiveSlide(prev => (prev - 1 + totalSlides) % totalSlides);
+      } else if (totalSlides > 1 && e.key === 'ArrowRight') {
+        setActiveSlide(prev => (prev + 1) % totalSlides);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModal]);
+
   return (
     <div className="bg-[#0b0f19] min-h-screen text-slate-300 font-sans selection:bg-gold selection:text-[#0b0f19]">
 
@@ -242,8 +279,8 @@ export default function InsightsPage() {
                   className="bg-[#0b0f19] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link 
-                      href={`/blog/${news.slug}`} 
+                    <Link
+                      href={`/blog/${news.slug}`}
                       onClick={() => handleCardClick(news.slug)}
                       className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
                     >
@@ -258,7 +295,7 @@ export default function InsightsPage() {
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link 
+                    <Link
                       href={`/blog/${news.slug}`}
                       onClick={() => handleCardClick(news.slug)}
                     >
@@ -311,8 +348,8 @@ export default function InsightsPage() {
                   className="bg-[#0f172a] border border-white/8 p-6 rounded-sm h-full flex flex-col justify-between group hover:border-gold/40 transition-colors cursor-pointer"
                 >
                   <div>
-                    <Link 
-                      href={`/blog/${news.slug}`} 
+                    <Link
+                      href={`/blog/${news.slug}`}
                       onClick={() => handleCardClick(news.slug)}
                       className="block relative aspect-[16/9] w-full mb-6 overflow-hidden rounded-sm bg-[#060e25]"
                     >
@@ -327,7 +364,7 @@ export default function InsightsPage() {
                     <div className="flex items-center justify-end mb-3">
                       <span className="text-slate-500 text-[11px]">{news.date}</span>
                     </div>
-                    <Link 
+                    <Link
                       href={`/blog/${news.slug}`}
                       onClick={() => handleCardClick(news.slug)}
                     >
@@ -415,15 +452,75 @@ export default function InsightsPage() {
             </button>
             <span className="text-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">{activeModal.date}</span>
             <h2 className="text-2xl md:text-4xl font-sans font-bold text-white mb-6">{activeModal.headline}</h2>
-            <div className="relative w-full aspect-[4/3] md:aspect-[16/10] mb-6 rounded-sm overflow-hidden bg-[#060e25] border border-white/10">
-              <Image
-                src={activeModal.image}
-                alt={activeModal.headline}
-                fill
-                sizes="(max-width: 1024px) 90vw, 800px"
-                className="object-contain"
-              />
-            </div>
+            {activeModal.secondaryImage ? (
+              <div className="relative w-full mb-6 rounded-md overflow-hidden bg-neutral-950/60 border border-white/10">
+                <div
+                  className="flex items-center w-full transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+                >
+                  {[activeModal.image, activeModal.secondaryImage].map((imgSrc, idx) => (
+                    <div key={idx} className="relative w-full shrink-0 flex items-center justify-center">
+                      <Image
+                        src={imgSrc}
+                        alt={idx === 0 ? activeModal.headline : `${activeModal.headline} - photo 2`}
+                        width={1600}
+                        height={1200}
+                        sizes="(max-width: 1024px) 90vw, 800px"
+                        className="w-full h-auto max-h-[65vh] object-contain mx-auto block"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveSlide(prev => (prev === 0 ? 1 : 0))}
+                  aria-label="Previous image"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/60 hover:bg-black/85 text-white border border-white/15 transition-colors"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveSlide(prev => (prev === 1 ? 0 : 1))}
+                  aria-label="Next image"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/60 hover:bg-black/85 text-white border border-white/15 transition-colors"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm border border-white/10">
+                  {[0, 1].map((idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveSlide(idx)}
+                      aria-label={`Go to slide ${idx + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        activeSlide === idx
+                          ? 'w-6 bg-gold'
+                          : 'w-2 bg-white/40 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="relative w-full aspect-[4/3] md:aspect-[16/10] mb-6 rounded-sm overflow-hidden bg-[#060e25] border border-white/10">
+                <Image
+                  src={activeModal.image}
+                  alt={activeModal.headline}
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 800px"
+                  className="object-contain"
+                />
+              </div>
+            )}
             <p className="text-slate-300 font-light leading-relaxed text-base md:text-lg mb-6">
               {activeModal.desc}
             </p>
