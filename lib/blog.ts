@@ -1,4 +1,16 @@
-export const fallbackPosts = [
+export interface BlogPostItem {
+  _id: string;
+  slug: string;
+  title: string;
+  category: string;
+  excerpt: string;
+  publishedAt: string;
+  image: string;
+  images?: string[];
+  content: string;
+}
+
+export const fallbackPosts: BlogPostItem[] = [
   {
     _id: 'b0',
     slug: 'sustainable-mep-solutions-wasl-tower',
@@ -52,6 +64,26 @@ Advanced facade shading and glazing strategies were implemented to control heat 
 SEED Engineering Consultants delivered complete MEP design, fire engineering and site supervision for the project.
 
 This award reinforces our commitment to delivering innovative, high-performance engineering solutions for landmark developments.`
+  },
+  {
+    _id: 'b7',
+    slug: 'wasl-tower-mixed-use-project-of-the-year',
+    title: 'Wasl Tower | Mixed-Use Project of the Year',
+    category: 'Awards & Recognition',
+    excerpt: 'At the Construction Week Middle East Awards 2026, SEED Engineering Consultants was honoured with the Mixed-Use Project of the Year award for Wasl Tower.',
+    publishedAt: '2026-11-19T09:00:00Z',
+    image: '/images/industry-recognition/wasl-tower-award.png',
+    images: [
+      '/images/industry-recognition/wasl-tower-award.png',
+      '/images/construction-week-awards-2026-wasl-tower.png',
+    ],
+    content: `At the Construction Week Middle East Awards 2026, held on 19 November at JW Marriott Marquis Dubai, Wasl Tower won the Mixed-Use Project of the Year award.
+
+This recognition reflects the successful integration of architectural innovation and advanced engineering within the 302-metre mixed-use development.
+
+SEED Engineering Consultants is proud to have delivered MEP design and site supervision services, working alongside Wasl Group, UNStudio and Werner Sobek.
+
+This achievement reinforces our commitment to engineering excellence and sustainable building solutions.`
   },
   {
     _id: 'b3',

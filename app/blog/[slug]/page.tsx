@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BlogBackButton } from '@/components/blog/BlogBackButton';
+import { BlogImageSlider } from '@/components/blog/BlogImageSlider';
 import { fallbackPosts } from '@/lib/blog';
 import { formatPerformanceText } from '@/lib/typography';
 
@@ -63,7 +64,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <BlogBackButton 
             className="text-gold text-xs font-bold tracking-[0.15em] uppercase hover:underline inline-flex items-center gap-2"
           >
-            {post.category?.toLowerCase() === 'media coverage' ? '← BACK TO MEDIA & COVERAGES' : '← Back to Insights'}
+            {post.category?.toLowerCase() === 'media coverage'
+              ? '← BACK TO MEDIA & COVERAGES'
+              : post.slug === 'wasl-tower-mixed-use-project-of-the-year'
+                ? '← Back to Industry Recognition'
+                : '← Back to Insights'}
           </BlogBackButton>
         </div>
 
@@ -81,7 +86,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         </div>
 
         {/* High Resolution Full Picture Display */}
-        {post.image && (
+        {'images' in post && Array.isArray(post.images) && post.images.length > 1 ? (
+          <BlogImageSlider images={post.images} alt={post.title} />
+        ) : post.image ? (
           <div className="max-w-4xl mx-auto mb-12 overflow-hidden rounded-sm border border-white/10 shadow-2xl bg-[#060e25]">
             <img 
               src={post.image} 
@@ -89,7 +96,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               className="w-full h-auto object-cover block"
             />
           </div>
-        )}
+        ) : null}
 
         {/* Article Body Content */}
         <section className="pt-0">
